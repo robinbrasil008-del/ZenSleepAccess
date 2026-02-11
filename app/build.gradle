@@ -3,6 +3,7 @@ plugins {
 }
 
 android {
+    namespace 'com.zensleep'
     compileSdk 33
 
     defaultConfig {
