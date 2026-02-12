@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- TÍTULO CENTRAL -->
+        <!-- TÍTULO -->
         <TextView
             android:text="🌙 ZenSleep"
             android:textSize="30sp"
@@ -58,76 +58,108 @@
             android:layout_height="wrap_content">
 
             <!-- CARD CHUVA -->
-            <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="20dp"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_card"
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="200dp"
-                android:layout_columnWeight="1">
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/bg_card"
+                android:padding="16dp">
 
-                <TextView
-                    android:text="🌧"
-                    android:textSize="42sp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:text="Chuva"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
+                <!-- ESTRELA -->
                 <ImageView
-                    android:id="@+id/btnPlayChuva"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:background="@drawable/bg_play_circle"
-                    android:padding="20dp"
-                    android:src="@android:drawable/ic_media_play"
-                    android:tint="#FFFFFF"/>
-            </LinearLayout>
+                    android:id="@+id/starChuva"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end|top"
+                    android:src="@android:drawable/btn_star_big_off"
+                    android:tint="#FFD700"/>
+
+                <!-- CONTEÚDO -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="🌧"
+                        android:textSize="42sp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Chuva"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/btnPlayChuva"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/bg_play_circle"
+                        android:padding="20dp"
+                        android:src="@android:drawable/ic_media_play"
+                        android:tint="#FFFFFF"/>
+                </LinearLayout>
+
+            </FrameLayout>
 
             <!-- CARD MAR -->
-            <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="20dp"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_card"
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="200dp"
-                android:layout_columnWeight="1">
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/bg_card"
+                android:padding="16dp">
 
-                <TextView
-                    android:text="🌊"
-                    android:textSize="42sp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:text="Ondas do Mar"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
+                <!-- ESTRELA -->
                 <ImageView
-                    android:id="@+id/btnPlayMar"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:background="@drawable/bg_play_circle"
-                    android:padding="20dp"
-                    android:src="@android:drawable/ic_media_play"
-                    android:tint="#FFFFFF"/>
-            </LinearLayout>
+                    android:id="@+id/starMar"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end|top"
+                    android:src="@android:drawable/btn_star_big_off"
+                    android:tint="#FFD700"/>
+
+                <!-- CONTEÚDO -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="🌊"
+                        android:textSize="42sp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Ondas do Mar"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/btnPlayMar"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/bg_play_circle"
+                        android:padding="20dp"
+                        android:src="@android:drawable/ic_media_play"
+                        android:tint="#FFFFFF"/>
+                </LinearLayout>
+
+            </FrameLayout>
 
         </GridLayout>
 
