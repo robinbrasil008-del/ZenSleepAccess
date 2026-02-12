@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="24dp"
+    android:orientation="vertical"
     android:background="#1E293B"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -20,17 +19,19 @@
         android:hint="Ex: 30"
         android:textColor="#FFFFFF"
         android:textColorHint="#94A3B8"
+        android:background="@drawable/bg_input"
+        android:padding="14dp"
         android:inputType="number"
-        android:background="@android:drawable/edit_text"
-        android:padding="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/btnStartTimer"
-        android:text="Iniciar Timer"
-        android:layout_marginTop="20dp"
+        android:text="INICIAR TIMER"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/bg_button"
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="48dp"/>
 
 </LinearLayout>
