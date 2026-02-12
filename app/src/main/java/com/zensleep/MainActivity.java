@@ -19,29 +19,56 @@ public class MainActivity extends AppCompatActivity {
     TextView txtTimer;
     CountDownTimer countDownTimer;
 
+    ImageView btnPlayChuva;
+    ImageView btnPlayMar;
+
+    boolean isPlayingChuva = false;
+    boolean isPlayingMar = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageView btnPlayChuva = findViewById(R.id.btnPlayChuva);
-        ImageView btnPlayMar = findViewById(R.id.btnPlayMar);
+        btnPlayChuva = findViewById(R.id.btnPlayChuva);
+        btnPlayMar = findViewById(R.id.btnPlayMar);
         Button btnTimer = findViewById(R.id.btnTimer);
         txtTimer = findViewById(R.id.txtTimer);
 
-        btnPlayChuva.setOnClickListener(v -> playSound(R.raw.chuva));
-        btnPlayMar.setOnClickListener(v -> playSound(R.raw.mar));
+        btnPlayChuva.setOnClickListener(v -> toggleSound(R.raw.chuva, btnPlayChuva, true));
+        btnPlayMar.setOnClickListener(v -> toggleSound(R.raw.mar, btnPlayMar, false));
 
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
 
-    private void playSound(int soundRes) {
-        if (mediaPlayer != null) {
+    private void toggleSound(int soundRes, ImageView button, boolean isChuva) {
+
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
             mediaPlayer.release();
+            mediaPlayer = null;
+
+            btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
+            btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
+
+            isPlayingChuva = false;
+            isPlayingMar = false;
+            return;
         }
+
         mediaPlayer = MediaPlayer.create(this, soundRes);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
+
+        button.setImageResource(android.R.drawable.ic_media_pause);
+
+        if (isChuva) {
+            isPlayingChuva = true;
+            isPlayingMar = false;
+        } else {
+            isPlayingMar = true;
+            isPlayingChuva = false;
+        }
     }
 
     private void openTimerDialog() {
@@ -79,7 +106,12 @@ public class MainActivity extends AppCompatActivity {
                         txtTimer.setText("00:00");
                         if (mediaPlayer != null) {
                             mediaPlayer.pause();
+                            mediaPlayer.release();
+                            mediaPlayer = null;
                         }
+
+                        btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
+                        btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
                     }
                 }.start();
 
