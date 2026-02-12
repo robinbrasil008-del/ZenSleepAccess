@@ -15,15 +15,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    MediaPlayer mediaPlayer;
-    TextView txtTimer;
-    CountDownTimer countDownTimer;
+    private MediaPlayer mediaPlayer;
+    private TextView txtTimer;
 
-    ImageView btnPlayChuva;
-    ImageView btnPlayMar;
+    private ImageView btnPlayChuva;
+    private ImageView btnPlayMar;
 
-    boolean isPlayingChuva = false;
-    boolean isPlayingMar = false;
+    private boolean isChuvaPlaying = false;
+    private boolean isMarPlaying = false;
+
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,43 +36,89 @@ public class MainActivity extends AppCompatActivity {
         Button btnTimer = findViewById(R.id.btnTimer);
         txtTimer = findViewById(R.id.txtTimer);
 
-        btnPlayChuva.setOnClickListener(v -> toggleSound(R.raw.chuva, btnPlayChuva, true));
-        btnPlayMar.setOnClickListener(v -> toggleSound(R.raw.mar, btnPlayMar, false));
+        TextView navHome = findViewById(R.id.navHome);
+        TextView navFav = findViewById(R.id.navFav);
+        TextView navSettings = findViewById(R.id.navSettings);
+
+        btnPlayChuva.setOnClickListener(v -> toggleChuva());
+        btnPlayMar.setOnClickListener(v -> toggleMar());
 
         btnTimer.setOnClickListener(v -> openTimerDialog());
+
+        // MENU INFERIOR
+        navHome.setOnClickListener(v -> {
+            navHome.setTextColor(getColor(android.R.color.white));
+            navFav.setTextColor(0xFF94A3B8);
+            navSettings.setTextColor(0xFF94A3B8);
+        });
+
+        navFav.setOnClickListener(v -> {
+            navFav.setTextColor(getColor(android.R.color.white));
+            navHome.setTextColor(0xFF94A3B8);
+            navSettings.setTextColor(0xFF94A3B8);
+        });
+
+        navSettings.setOnClickListener(v -> {
+            navSettings.setTextColor(getColor(android.R.color.white));
+            navHome.setTextColor(0xFF94A3B8);
+            navFav.setTextColor(0xFF94A3B8);
+        });
     }
 
-    private void toggleSound(int soundRes, ImageView button, boolean isChuva) {
-
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
-            mediaPlayer.release();
-            mediaPlayer = null;
-
-            btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
-            btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
-
-            isPlayingChuva = false;
-            isPlayingMar = false;
+    private void toggleChuva() {
+        if (isChuvaPlaying) {
+            stopSound();
             return;
         }
 
-        mediaPlayer = MediaPlayer.create(this, soundRes);
+        stopSound();
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.chuva);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
 
-        button.setImageResource(android.R.drawable.ic_media_pause);
+        btnPlayChuva.setImageResource(android.R.drawable.ic_media_pause);
+        btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
 
-        if (isChuva) {
-            isPlayingChuva = true;
-            isPlayingMar = false;
-        } else {
-            isPlayingMar = true;
-            isPlayingChuva = false;
+        isChuvaPlaying = true;
+        isMarPlaying = false;
+    }
+
+    private void toggleMar() {
+        if (isMarPlaying) {
+            stopSound();
+            return;
         }
+
+        stopSound();
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.mar);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
+
+        btnPlayMar.setImageResource(android.R.drawable.ic_media_pause);
+        btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
+
+        isMarPlaying = true;
+        isChuvaPlaying = false;
+    }
+
+    private void stopSound() {
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+
+        btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
+        btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
+
+        isChuvaPlaying = false;
+        isMarPlaying = false;
     }
 
     private void openTimerDialog() {
+
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_timer, null);
 
         EditText inputMinutes = view.findViewById(R.id.inputMinutes);
@@ -82,11 +129,13 @@ public class MainActivity extends AppCompatActivity {
                 .create();
 
         btnStartTimer.setOnClickListener(v -> {
+
             String minutesStr = inputMinutes.getText().toString();
+
             if (!minutesStr.isEmpty()) {
 
                 int minutes = Integer.parseInt(minutesStr);
-                long millis = minutes * 60 * 1000;
+                long millis = minutes * 60L * 1000L;
 
                 if (countDownTimer != null) {
                     countDownTimer.cancel();
@@ -95,23 +144,18 @@ public class MainActivity extends AppCompatActivity {
                 countDownTimer = new CountDownTimer(millis, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
+
                         long seconds = millisUntilFinished / 1000;
                         long min = seconds / 60;
                         long sec = seconds % 60;
+
                         txtTimer.setText(String.format("%02d:%02d", min, sec));
                     }
 
                     @Override
                     public void onFinish() {
                         txtTimer.setText("00:00");
-                        if (mediaPlayer != null) {
-                            mediaPlayer.pause();
-                            mediaPlayer.release();
-                            mediaPlayer = null;
-                        }
-
-                        btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
-                        btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
+                        stopSound();
                     }
                 }.start();
 
@@ -120,5 +164,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopSound();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     }
 }
