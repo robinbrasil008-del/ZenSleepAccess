@@ -2,59 +2,110 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F6FA">
+    android:background="@color/background_color">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="ZenSleep"
-            android:textSize="26sp"
+            android:textSize="28sp"
             android:textStyle="bold"
-            android:textColor="#222222"
-            android:layout_marginBottom="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textColor="@color/title_color"
+            android:layout_marginBottom="8dp"/>
 
         <TextView
-            android:text="Escolha um som para relaxar"
-            android:textSize="16sp"
-            android:textColor="#555555"
-            android:layout_marginBottom="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Relaxe com sons naturais"
+            android:textSize="16sp"
+            android:textColor="@color/subtitle_color"
+            android:layout_marginBottom="24dp"/>
 
-        <Button
-            android:id="@+id/btnChuva"
-            android:text="🌧 Chuva"
-            android:layout_marginBottom="10dp"
+        <!-- CARD CHUVA -->
+        <LinearLayout
+            android:id="@+id/cardChuva"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="70dp"
+            android:background="@drawable/card_background"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true">
 
-        <Button
-            android:id="@+id/btnMar"
-            android:text="🌊 Ondas do Mar"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🌧 Chuva"
+                android:textSize="18sp"
+                android:textColor="@color/text_primary"/>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/btnFloresta"
-            android:text="🌲 Floresta"
-            android:layout_marginBottom="10dp"
+        <!-- CARD MAR -->
+        <LinearLayout
+            android:id="@+id/cardMar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="70dp"
+            android:background="@drawable/card_background"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true">
 
-        <Button
-            android:id="@+id/btnParar"
-            android:text="⏹ Parar Som"
-            android:layout_marginTop="20dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🌊 Ondas do Mar"
+                android:textSize="18sp"
+                android:textColor="@color/text_primary"/>
+        </LinearLayout>
+
+        <!-- CARD FLORESTA -->
+        <LinearLayout
+            android:id="@+id/cardFloresta"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="70dp"
+            android:background="@drawable/card_background"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_marginBottom="24dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🌲 Floresta"
+                android:textSize="18sp"
+                android:textColor="@color/text_primary"/>
+        </LinearLayout>
+
+        <!-- BOTÃO PARAR -->
+        <LinearLayout
+            android:id="@+id/cardParar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/stop_background"
+            android:gravity="center"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⏹ Parar Som"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
 
     </LinearLayout>
-
 </ScrollView>
