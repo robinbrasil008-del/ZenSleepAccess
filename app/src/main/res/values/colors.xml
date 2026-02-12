@@ -1,9 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_color">#F4F7FB</color>
-    <color name="title_color">#1E2A38</color>
-    <color name="subtitle_color">#6C7A89</color>
-    <color name="text_primary">#2C3E50</color>
-    <color name="card_color">#FFFFFF</color>
-    <color name="card_shadow">#E0E6ED</color>
-    <color name="stop_color">#E74C3C</color>
+
+    <!-- 🌙 Dark Mode -->
+    <color name="primaryColor">#081224</color>
+    <color name="primaryVariant">#081224</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="statusBarColor">#081224</color>
+    <color name="backgroundColor">#0B1C2D</color>
+
 </resources>
