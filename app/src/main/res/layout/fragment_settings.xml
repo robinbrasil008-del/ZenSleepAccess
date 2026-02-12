@@ -89,13 +89,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:text="🔊 Volume geral"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:layout_marginBottom="12dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:text="🔊 Volume geral"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/txtVolumeValue"
+                    android:text="80%"
+                    android:textColor="#94A3B8"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
 
             <SeekBar
                 android:id="@+id/seekVolume"
@@ -107,9 +122,13 @@
 
         <!-- POLÍTICA -->
         <LinearLayout
+            android:id="@+id/btnPrivacy"
             android:background="@drawable/bg_card"
             android:padding="18dp"
             android:layout_marginBottom="16dp"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
