@@ -1,1 +1,23 @@
-implementation 'androidx.cardview:cardview:1.0.0'
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.zensleep'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.zensleep"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+}
