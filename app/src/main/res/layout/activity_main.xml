@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- TÍTULO CENTRALIZADO -->
+            <!-- TÍTULO CENTRAL -->
             <TextView
                 android:text="🌙 ZenSleep"
                 android:textSize="30sp"
@@ -142,39 +142,45 @@
 
     </ScrollView>
 
-    <!-- MENU INFERIOR FUNCIONAL -->
+    <!-- MENU INFERIOR CORRIGIDO -->
     <LinearLayout
         android:id="@+id/bottomNav"
         android:background="#0F172A"
         android:orientation="horizontal"
-        android:gravity="space_evenly|center_vertical"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="60dp"
+        android:weightSum="3">
 
         <TextView
             android:id="@+id/navHome"
             android:text="Início"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
 
         <TextView
             android:id="@+id/navFav"
             android:text="Favoritos"
             android:textColor="#94A3B8"
             android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
 
         <TextView
             android:id="@+id/navSettings"
             android:text="Ajustes"
             android:textColor="#94A3B8"
             android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
