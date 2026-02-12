@@ -3,9 +3,11 @@ package com.zensleep;
 import android.app.AlertDialog;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,115 +15,110 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
-    private ImageButton currentButton;
-    private boolean isPlaying = false;
-    private Handler timerHandler = new Handler();
-    private Runnable timerRunnable;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageButton playChuva = findViewById(R.id.playChuva);
-        ImageButton playMar = findViewById(R.id.playMar);
+        LinearLayout cardChuva = findViewById(R.id.cardChuva);
+        LinearLayout cardMar = findViewById(R.id.cardMar);
         Button btnTimer = findViewById(R.id.btnTimer);
 
-        playChuva.setOnClickListener(v -> toggleSound(R.raw.chuva, playChuva));
-        playMar.setOnClickListener(v -> toggleSound(R.raw.mar, playMar));
+        cardChuva.setOnClickListener(v -> playSound(R.raw.chuva));
+        cardMar.setOnClickListener(v -> playSound(R.raw.mar));
 
         btnTimer.setOnClickListener(v -> showTimerDialog());
     }
 
-    private void toggleSound(int soundRes, ImageButton button) {
-
-        if (isPlaying && currentButton == button) {
-            mediaPlayer.pause();
-            button.setImageResource(android.R.drawable.ic_media_play);
-            isPlaying = false;
-            return;
-        }
+    private void playSound(int soundResId) {
 
         if (mediaPlayer != null) {
             mediaPlayer.release();
         }
 
-        mediaPlayer = MediaPlayer.create(this, soundRes);
+        mediaPlayer = MediaPlayer.create(this, soundResId);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
-
-        if (currentButton != null) {
-            currentButton.setImageResource(android.R.drawable.ic_media_play);
-        }
-
-        button.setImageResource(android.R.drawable.ic_media_pause);
-        currentButton = button;
-        isPlaying = true;
     }
 
     private void showTimerDialog() {
 
-        String[] options = {"5 minutos", "10 minutos", "30 minutos", "60 minutos"};
+        View view = getLayoutInflater().inflate(R.layout.dialog_timer, null);
 
-        new AlertDialog.Builder(this)
-                .setTitle("Definir Timer")
-                .setItems(options, (dialog, which) -> {
+        EditText inputMinutes = view.findViewById(R.id.inputMinutes);
+        Button btnStart = view.findViewById(R.id.btnStartTimer);
 
-                    int minutes = 5;
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(view)
+                .create();
 
-                    switch (which) {
-                        case 0: minutes = 5; break;
-                        case 1: minutes = 10; break;
-                        case 2: minutes = 30; break;
-                        case 3: minutes = 60; break;
-                    }
+        btnStart.setOnClickListener(v -> {
 
-                    startTimer(minutes);
-                })
-                .show();
+            String value = inputMinutes.getText().toString().trim();
+
+            if (value.isEmpty()) {
+                Toast.makeText(this, "Digite um tempo válido", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            int minutes = Integer.parseInt(value);
+
+            if (minutes <= 0) {
+                Toast.makeText(this, "Tempo inválido", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            startTimer(minutes);
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 
     private void startTimer(int minutes) {
 
-        if (!isPlaying) {
-            Toast.makeText(this, "Nenhum som está tocando", Toast.LENGTH_SHORT).show();
-            return;
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
         }
 
-        if (timerRunnable != null) {
-            timerHandler.removeCallbacks(timerRunnable);
-        }
+        long millis = minutes * 60L * 1000L;
 
-        timerRunnable = () -> {
-            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-                mediaPlayer.stop();
-                mediaPlayer.release();
-                mediaPlayer = null;
-                isPlaying = false;
+        countDownTimer = new CountDownTimer(millis, 1000) {
 
-                if (currentButton != null) {
-                    currentButton.setImageResource(android.R.drawable.ic_media_play);
-                }
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // opcional: atualizar contador na tela
+            }
 
-                Toast.makeText(this, "Timer finalizado", Toast.LENGTH_LONG).show();
+            @Override
+            public void onFinish() {
+                stopSound();
+                Toast.makeText(MainActivity.this,
+                        "Timer finalizado",
+                        Toast.LENGTH_SHORT).show();
             }
         };
 
-        timerHandler.postDelayed(timerRunnable, minutes * 60 * 1000);
+        countDownTimer.start();
 
-        Toast.makeText(this, "Timer de " + minutes + " minutos iniciado", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,
+                "Timer iniciado por " + minutes + " minutos",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    private void stopSound() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-        }
-
-        if (timerRunnable != null) {
-            timerHandler.removeCallbacks(timerRunnable);
-        }
+        stopSound();
     }
 }
