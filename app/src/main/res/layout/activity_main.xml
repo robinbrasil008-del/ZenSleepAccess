@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#0F172A"
+    android:background="#0B1C2D"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- Título -->
         <TextView
             android:text="🌙 ZenSleep"
-            android:textSize="26sp"
+            android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
-            android:layout_marginBottom="6dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -27,74 +27,106 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <!-- Botão Timer -->
         <Button
             android:id="@+id/btnTimer"
             android:text="⏱ DEFINIR TIMER"
-            android:layout_marginBottom="30dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/bg_button"
+            android:layout_marginBottom="12dp"
             android:layout_width="match_parent"
+            android:layout_height="48dp"/>
+
+        <!-- Relógio -->
+        <TextView
+            android:id="@+id/txtTimer"
+            android:text="00:00"
+            android:textSize="26sp"
+            android:textColor="#38BDF8"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <!-- GRID -->
+        <GridLayout
+            android:columnCount="2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- CARD CHUVA -->
             <LinearLayout
-                android:id="@+id/cardChuva"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:padding="24dp"
-                android:background="#1E293B"
+                android:padding="20dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_card"
                 android:layout_width="0dp"
-                android:layout_height="180dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="12dp">
+                android:layout_height="200dp"
+                android:layout_columnWeight="1">
 
                 <TextView
                     android:text="🌧"
                     android:textSize="40sp"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
                     android:text="Chuva"
-                    android:textSize="18sp"
                     android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
+                <ImageView
+                    android:id="@+id/btnPlayChuva"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_play_circle"
+                    android:padding="18dp"
+                    android:src="@android:drawable/ic_media_play"
+                    android:tint="#FFFFFF"/>
             </LinearLayout>
 
+            <!-- CARD MAR -->
             <LinearLayout
-                android:id="@+id/cardMar"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:padding="24dp"
-                android:background="#1E293B"
+                android:padding="20dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_card"
                 android:layout_width="0dp"
-                android:layout_height="180dp"
-                android:layout_weight="1">
+                android:layout_height="200dp"
+                android:layout_columnWeight="1">
 
                 <TextView
                     android:text="🌊"
                     android:textSize="40sp"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
                     android:text="Ondas do Mar"
-                    android:textSize="18sp"
                     android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
+                <ImageView
+                    android:id="@+id/btnPlayMar"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_play_circle"
+                    android:padding="18dp"
+                    android:src="@android:drawable/ic_media_play"
+                    android:tint="#FFFFFF"/>
             </LinearLayout>
 
-        </LinearLayout>
+        </GridLayout>
 
     </LinearLayout>
 </ScrollView>
