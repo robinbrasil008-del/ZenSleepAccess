@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 public class MainActivity extends Activity {
 
@@ -15,15 +14,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnChuva = findViewById(R.id.btnChuva);
-        Button btnMar = findViewById(R.id.btnMar);
-        Button btnFloresta = findViewById(R.id.btnFloresta);
-        Button btnParar = findViewById(R.id.btnParar);
-
-        btnChuva.setOnClickListener(v -> tocarSom(R.raw.chuva));
-        btnMar.setOnClickListener(v -> tocarSom(R.raw.mar));
-        btnFloresta.setOnClickListener(v -> tocarSom(R.raw.floresta));
-        btnParar.setOnClickListener(v -> pararSom());
+        findViewById(R.id.cardChuva).setOnClickListener(v -> tocarSom(R.raw.chuva));
+        findViewById(R.id.cardMar).setOnClickListener(v -> tocarSom(R.raw.mar));
+        findViewById(R.id.cardFloresta).setOnClickListener(v -> tocarSom(R.raw.floresta));
+        findViewById(R.id.cardParar).setOnClickListener(v -> pararSom());
     }
 
     private void tocarSom(int somId) {
