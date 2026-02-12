@@ -73,7 +73,7 @@
                     android:layout_height="24dp"
                     android:layout_gravity="end|top"
                     android:src="@android:drawable/btn_star_big_off"
-                    android:tint="#FFD700"/>
+                    android:tint="#FFFFFF"/>
 
                 <!-- CONTEÚDO -->
                 <LinearLayout
@@ -125,7 +125,7 @@
                     android:layout_height="24dp"
                     android:layout_gravity="end|top"
                     android:src="@android:drawable/btn_star_big_off"
-                    android:tint="#FFD700"/>
+                    android:tint="#FFFFFF"/>
 
                 <!-- CONTEÚDO -->
                 <LinearLayout
