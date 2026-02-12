@@ -40,7 +40,6 @@ public class HomeFragment extends Fragment {
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
 
-        // Atualiza estrelas logo ao abrir
         updateStars();
 
         btnPlayChuva.setOnClickListener(v -> toggleChuva());
@@ -62,7 +61,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // 🔥 garante que a estrela sempre reflita o estado real
         updateStars();
     }
 
@@ -116,7 +114,6 @@ public class HomeFragment extends Fragment {
             mediaPlayer = null;
         }
 
-        // 🔥 garante que os botões sempre voltam pra "play"
         btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
         btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
 
@@ -180,7 +177,7 @@ public class HomeFragment extends Fragment {
                         if (txtTimer != null) {
                             txtTimer.setText("00:00");
                         }
-                        stopSound(); // 🔥 para o som quando acabar
+                        stopSound();
                     }
 
                 }.start();
@@ -198,17 +195,24 @@ public class HomeFragment extends Fragment {
 
         if (getContext() == null) return;
 
-        starChuva.setImageResource(
-                FavoritesManager.isFavorite(requireContext(), "chuva")
-                        ? android.R.drawable.btn_star_big_on
-                        : android.R.drawable.btn_star_big_off
-        );
+        boolean chuvaFav = FavoritesManager.isFavorite(requireContext(), "chuva");
+        boolean marFav = FavoritesManager.isFavorite(requireContext(), "mar");
 
-        starMar.setImageResource(
-                FavoritesManager.isFavorite(requireContext(), "mar")
-                        ? android.R.drawable.btn_star_big_on
-                        : android.R.drawable.btn_star_big_off
-        );
+        if (chuvaFav) {
+            starChuva.setImageResource(android.R.drawable.btn_star_big_on);
+            starChuva.setColorFilter(0xFFFFC107); // amarelo
+        } else {
+            starChuva.setImageResource(android.R.drawable.btn_star_big_off);
+            starChuva.setColorFilter(0xFFFFFFFF); // branco
+        }
+
+        if (marFav) {
+            starMar.setImageResource(android.R.drawable.btn_star_big_on);
+            starMar.setColorFilter(0xFFFFC107);
+        } else {
+            starMar.setImageResource(android.R.drawable.btn_star_big_off);
+            starMar.setColorFilter(0xFFFFFFFF);
+        }
     }
 
     @Override
