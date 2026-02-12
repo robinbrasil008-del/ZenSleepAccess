@@ -129,4 +129,51 @@
         </GridLayout>
 
     </LinearLayout>
-</ScrollView>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#0B1C2D"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_above="@id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- TODO SEU CONTEÚDO AQUI -->
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:background="#0F172A"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:text="Início"
+            android:textColor="#FFFFFF"
+            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Favoritos"
+            android:textColor="#94A3B8"
+            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Ajustes"
+            android:textColor="#94A3B8"
+            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
