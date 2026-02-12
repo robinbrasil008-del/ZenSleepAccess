@@ -1,11 +1,11 @@
 package com.zensleep;
 
-import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
 
