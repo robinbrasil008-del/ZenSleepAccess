@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.ZenSleep" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">#0B1220</item>
-        <item name="colorPrimaryDark">#0B1220</item>
-        <item name="colorAccent">#4FD1C5</item>
+    <style name="Theme.ZenSleep" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#0D1B2A</item>
+        <item name="colorPrimaryVariant">#1B263B</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="android:statusBarColor">#0D1B2A</item>
     </style>
 
 </resources>
