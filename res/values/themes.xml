@@ -1,6 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.ZenSleep" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@android:color/black</item>
-        <item name="android:navigationBarColor">@android:color/black</item>
+
+    <style name="Theme.ZenSleep" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#0B1220</item>
+        <item name="colorPrimaryDark">#0B1220</item>
+        <item name="colorAccent">#4FD1C5</item>
     </style>
+
 </resources>
