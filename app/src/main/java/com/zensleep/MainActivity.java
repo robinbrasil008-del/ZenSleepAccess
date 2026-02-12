@@ -19,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
         navFav = findViewById(R.id.navFav);
         navSettings = findViewById(R.id.navSettings);
 
+        // Carrega Home por padrão
         loadFragment(new HomeFragment());
+        selectMenu(navHome);
 
         navHome.setOnClickListener(v -> {
             loadFragment(new HomeFragment());
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         navFav.setOnClickListener(v -> {
-            loadFragment(new FavFragment());
+            loadFragment(new FavoritesFragment()); // 🔥 CORRIGIDO AQUI
             selectMenu(navFav);
         });
 
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectMenu(TextView selected) {
+
         navHome.setTextColor(0xFF94A3B8);
         navFav.setTextColor(0xFF94A3B8);
         navSettings.setTextColor(0xFF94A3B8);
