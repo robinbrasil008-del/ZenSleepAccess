@@ -1,5 +1,6 @@
 package com.zensleep;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -140,6 +141,7 @@ public class HomeFragment extends Fragment {
             if (!minutesStr.isEmpty()) {
 
                 int minutes;
+
                 try {
                     minutes = Integer.parseInt(minutesStr);
                 } catch (Exception e) {
@@ -174,9 +176,11 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onFinish() {
+
                         if (txtTimer != null) {
                             txtTimer.setText("00:00");
                         }
+
                         stopSound();
                     }
 
