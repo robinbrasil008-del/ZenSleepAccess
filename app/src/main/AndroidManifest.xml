@@ -20,7 +20,7 @@
 
         <!-- 🔐 Tela de Política de Privacidade -->
         <activity
-            android:name=".PrivacyActivity"
+            android:name=".PrivacyPolicyActivity"
             android:exported="false"
             android:label="Política de Privacidade" />
 
