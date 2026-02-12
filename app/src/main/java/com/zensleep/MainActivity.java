@@ -1,9 +1,11 @@
 package com.zensleep;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -12,6 +14,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // 🔥 APLICA TEMA ANTES DE QUALQUER COISA
+        SharedPreferences prefs = getSharedPreferences("zen_settings", MODE_PRIVATE);
+        boolean darkEnabled = prefs.getBoolean("dark_mode", true);
+
+        if (darkEnabled) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -29,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         navFav.setOnClickListener(v -> {
-            loadFragment(new FavoritesFragment()); // 🔥 CORRIGIDO AQUI
+            loadFragment(new FavoritesFragment());
             selectMenu(navFav);
         });
 
