@@ -1,120 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/dark_background"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#0B1220"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:padding="20dp"
-        android:orientation="vertical"
+    <!-- CONTEÚDO -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <TextView
-            android:text="🌙 ZenSleep"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary_dark"
-            android:layout_marginBottom="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:text="Relaxe sua mente e durma melhor"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary_dark"
-            android:layout_marginBottom="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <GridLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:useDefaultMargins="true">
+            android:orientation="vertical"
+            android:padding="22dp">
 
-            <!-- CHUVA -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🌙 ZenSleep"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="18dp"
+                android:text="Relaxe sua mente e durma melhor"
+                android:textColor="#9AA4B2"
+                android:textSize="14sp" />
+
+            <!-- BOTÃO TIMER (VISUAL IGUAL AO MODELO) -->
             <LinearLayout
-                android:id="@+id/cardChuva"
-                android:orientation="vertical"
+                android:id="@+id/btnTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="18dp"
+                android:background="@drawable/pill_button"
                 android:gravity="center"
-                android:padding="16dp"
-                android:background="@drawable/dark_card"
-                android:layout_width="0dp"
-                android:layout_height="180dp"
-                android:layout_columnWeight="1">
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <TextView
-                    android:text="🌧"
-                    android:textSize="40sp"
-                    android:textColor="@color/text_primary_dark"
-                    android:layout_marginBottom="10dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:text="Chuva"
-                    android:textSize="16sp"
-                    android:textColor="@color/text_primary_dark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="⏱  Definir Timer"
+                    android:textColor="#E8ECF2"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- MAR -->
-            <LinearLayout
-                android:id="@+id/cardMar"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="16dp"
-                android:background="@drawable/dark_card"
-                android:layout_width="0dp"
-                android:layout_height="180dp"
-                android:layout_columnWeight="1">
+            <!-- GRID 2 COLUNAS -->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:useDefaultMargins="false">
 
-                <TextView
-                    android:text="🌊"
-                    android:textSize="40sp"
-                    android:textColor="@color/text_primary_dark"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <!-- CARD 1 -->
+                <include
+                    layout="@layout/item_sound_card"
+                    android:id="@+id/includeChuva"
+                    android:layout_width="0dp"
+                    android:layout_height="190dp"
+                    android:layout_margin="10dp"
+                    android:layout_columnWeight="1" />
 
-                <TextView
-                    android:text="Ondas do Mar"
-                    android:textSize="16sp"
-                    android:textColor="@color/text_primary_dark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
+                <!-- CARD 2 -->
+                <include
+                    layout="@layout/item_sound_card"
+                    android:id="@+id/includeMar"
+                    android:layout_width="0dp"
+                    android:layout_height="190dp"
+                    android:layout_margin="10dp"
+                    android:layout_columnWeight="1" />
 
-            <!-- FLORESTA -->
-            <LinearLayout
-                android:id="@+id/cardFloresta"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="16dp"
-                android:background="@drawable/dark_card"
-                android:layout_width="0dp"
-                android:layout_height="180dp"
-                android:layout_columnWeight="1">
+                <!-- CARD 3 -->
+                <include
+                    layout="@layout/item_sound_card"
+                    android:id="@+id/includeFloresta"
+                    android:layout_width="0dp"
+                    android:layout_height="190dp"
+                    android:layout_margin="10dp"
+                    android:layout_columnWeight="1" />
 
-                <TextView
-                    android:text="🌲"
-                    android:textSize="40sp"
-                    android:textColor="@color/text_primary_dark"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+            </GridLayout>
 
-                <TextView
-                    android:text="Floresta"
-                    android:textSize="16sp"
-                    android:textColor="@color/text_primary_dark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
-        </GridLayout>
+    <!-- BARRA INFERIOR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="#0B1220"
+        android:orientation="horizontal"
+        android:gravity="center">
 
+        <TextView
+            android:id="@+id/navInicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="🏠\nInício"
+            android:textColor="#00D1B2"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/navFav"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="❤\nFavoritos"
+            android:textColor="#9AA4B2"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/navAjustes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="⚙\nAjustes"
+            android:textColor="#9AA4B2"
+            android:textSize="12sp" />
     </LinearLayout>
-</ScrollView>
+
+</LinearLayout>
