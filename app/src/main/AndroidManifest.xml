@@ -4,7 +4,7 @@
 
     <application
         android:label="ZenSleep"
-        android:theme="@android:style/Theme.Black.NoTitleBar"
+        android:theme="@style/Theme.ZenSleep"
         android:allowBackup="true">
 
         <activity
