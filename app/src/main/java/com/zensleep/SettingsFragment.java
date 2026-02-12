@@ -9,6 +9,7 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 public class SettingsFragment extends Fragment {
@@ -33,7 +34,9 @@ public class SettingsFragment extends Fragment {
         TextView txtVolumeValue = view.findViewById(R.id.txtVolumeValue);
         LinearLayout btnPrivacy = view.findViewById(R.id.btnPrivacy);
 
-        // Carrega valores salvos
+        // =========================
+        // 🔥 CARREGA VALORES SALVOS
+        // =========================
         boolean animEnabled = prefs.getBoolean(KEY_ANIM, true);
         boolean darkEnabled = prefs.getBoolean(KEY_DARK, true);
         int volume = prefs.getInt(KEY_VOL, 80);
@@ -43,27 +46,46 @@ public class SettingsFragment extends Fragment {
         seekVolume.setProgress(volume);
         txtVolumeValue.setText(volume + "%");
 
-        // Salva animações
+        // =========================
+        // 🎬 ANIMAÇÕES
+        // =========================
         switchAnimations.setOnCheckedChangeListener((buttonView, isChecked) ->
                 prefs.edit().putBoolean(KEY_ANIM, isChecked).apply()
         );
 
-        // Salva tema escuro (neste app seu fundo já é escuro, mas a config fica salva)
-        switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) ->
-                prefs.edit().putBoolean(KEY_DARK, isChecked).apply()
-        );
+        // =========================
+        // 🌙 TEMA ESCURO FUNCIONAL
+        // =========================
+        switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-        // Volume REAL (o HomeFragment vai ler isso e aplicar no MediaPlayer)
+            prefs.edit().putBoolean(KEY_DARK, isChecked).apply();
+
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+
+            requireActivity().recreate(); // 🔥 recria a activity para aplicar o tema
+        });
+
+        // =========================
+        // 🔊 VOLUME
+        // =========================
         seekVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 txtVolumeValue.setText(progress + "%");
                 prefs.edit().putInt(KEY_VOL, progress).apply();
             }
+
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        // Política de privacidade
+        // =========================
+        // 🔐 POLÍTICA
+        // =========================
         btnPrivacy.setOnClickListener(v -> {
             Intent i = new Intent(requireContext(), PrivacyPolicyActivity.class);
             startActivity(i);
