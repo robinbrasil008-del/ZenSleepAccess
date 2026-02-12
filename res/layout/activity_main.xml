@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/dark_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="🌙 ZenSleep"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary_dark"
+            android:layout_marginBottom="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Relaxe sua mente e durma melhor"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary_dark"
+            android:layout_marginBottom="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:useDefaultMargins="true">
+
+            <!-- CHUVA -->
+            <LinearLayout
+                android:id="@+id/cardChuva"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="16dp"
+                android:background="@drawable/dark_card"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_columnWeight="1">
+
+                <TextView
+                    android:text="🌧"
+                    android:textSize="40sp"
+                    android:textColor="@color/text_primary_dark"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="Chuva"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary_dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <!-- MAR -->
+            <LinearLayout
+                android:id="@+id/cardMar"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="16dp"
+                android:background="@drawable/dark_card"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_columnWeight="1">
+
+                <TextView
+                    android:text="🌊"
+                    android:textSize="40sp"
+                    android:textColor="@color/text_primary_dark"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="Ondas do Mar"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary_dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <!-- FLORESTA -->
+            <LinearLayout
+                android:id="@+id/cardFloresta"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="16dp"
+                android:background="@drawable/dark_card"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_columnWeight="1">
+
+                <TextView
+                    android:text="🌲"
+                    android:textSize="40sp"
+                    android:textColor="@color/text_primary_dark"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="Floresta"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary_dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </GridLayout>
+
+    </LinearLayout>
+</ScrollView>
