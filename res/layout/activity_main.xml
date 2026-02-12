@@ -1,90 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#0B1220"
-    android:columnCount="2"
     android:padding="20dp">
 
-    <!-- CARD CHUVA -->
+    <!-- HEADER -->
     <LinearLayout
-        android:id="@+id/cardChuva"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_columnWeight="1"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/dark_card_glow">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🌧"
-            android:textSize="40sp"
-            android:layout_marginBottom="10dp"/>
+            android:text="🌙"
+            android:textSize="28sp"
+            android:layout_marginEnd="10dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chuva"
+            android:text="ZenSleep"
             android:textColor="#FFFFFF"
-            android:textSize="16sp"
+            android:textSize="24sp"
             android:textStyle="bold"/>
     </LinearLayout>
 
-    <!-- CARD MAR -->
-    <LinearLayout
-        android:id="@+id/cardMar"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_columnWeight="1"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/dark_card_glow">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Relaxe sua mente e durma melhor"
+        android:textColor="#9AA4B2"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="20dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🌊"
-            android:textSize="40sp"
-            android:layout_marginBottom="10dp"/>
+    <!-- GRID -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ondas do Mar"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
-    </LinearLayout>
+        <!-- CARD CHUVA -->
+        <LinearLayout
+            android:id="@+id/cardChuva"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/dark_card_glow">
 
-    <!-- CARD FLORESTA -->
-    <LinearLayout
-        android:id="@+id/cardFloresta"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_columnWeight="1"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/dark_card_glow">
+            <TextView
+                android:text="🌧"
+                android:textSize="36sp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🌲"
-            android:textSize="40sp"
-            android:layout_marginBottom="10dp"/>
+            <TextView
+                android:text="Chuva"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Floresta"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
-    </LinearLayout>
+        <!-- CARD MAR -->
+        <LinearLayout
+            android:id="@+id/cardMar"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/dark_card_glow">
 
-</GridLayout>
+            <TextView
+                android:text="🌊"
+                android:textSize="36sp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Ondas do Mar"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- CARD FLORESTA -->
+        <LinearLayout
+            android:id="@+id/cardFloresta"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/dark_card_glow">
+
+            <TextView
+                android:text="🌲"
+                android:textSize="36sp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Floresta"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </GridLayout>
+
+</LinearLayout>
