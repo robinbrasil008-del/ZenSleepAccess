@@ -3,7 +3,6 @@ package com.zensleep;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.View;
 
 public class MainActivity extends Activity {
 
@@ -17,7 +16,6 @@ public class MainActivity extends Activity {
         findViewById(R.id.cardChuva).setOnClickListener(v -> tocarSom(R.raw.chuva));
         findViewById(R.id.cardMar).setOnClickListener(v -> tocarSom(R.raw.mar));
         findViewById(R.id.cardFloresta).setOnClickListener(v -> tocarSom(R.raw.floresta));
-        findViewById(R.id.cardParar).setOnClickListener(v -> pararSom());
     }
 
     private void tocarSom(int somId) {
