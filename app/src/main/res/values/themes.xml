@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- 🌙 Tema Principal (DayNight automático) -->
     <style name="Theme.ZenSleep" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#081224</item>
-        <item name="colorPrimaryVariant">#081224</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="android:statusBarColor">#081224</item>
+
+        <!-- Cores principais -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryVariant</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@color/statusBarColor</item>
+
+        <!-- Fundo padrão -->
+        <item name="android:windowBackground">@color/backgroundColor</item>
+
     </style>
 
 </resources>
