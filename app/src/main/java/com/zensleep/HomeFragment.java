@@ -40,6 +40,7 @@ public class HomeFragment extends Fragment {
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
 
+        // Atualiza estrelas logo ao abrir
         updateStars();
 
         btnPlayChuva.setOnClickListener(v -> toggleChuva());
@@ -56,6 +57,13 @@ public class HomeFragment extends Fragment {
         });
 
         btnTimer.setOnClickListener(v -> openTimerDialog());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // 🔥 garante que a estrela sempre reflita o estado real
+        updateStars();
     }
 
     private void toggleChuva() {
@@ -101,10 +109,14 @@ public class HomeFragment extends Fragment {
     private void stopSound() {
 
         if (mediaPlayer != null) {
+            try {
+                mediaPlayer.stop();
+            } catch (Exception ignored) {}
             mediaPlayer.release();
             mediaPlayer = null;
         }
 
+        // 🔥 garante que os botões sempre voltam pra "play"
         btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
         btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
 
@@ -114,23 +126,35 @@ public class HomeFragment extends Fragment {
 
     private void openTimerDialog() {
 
-        View view = LayoutInflater.from(requireContext())
+        View dialogView = LayoutInflater.from(requireContext())
                 .inflate(R.layout.dialog_timer, null);
 
-        EditText inputMinutes = view.findViewById(R.id.inputMinutes);
-        Button btnStartTimer = view.findViewById(R.id.btnStartTimer);
+        EditText inputMinutes = dialogView.findViewById(R.id.inputMinutes);
+        Button btnStartTimer = dialogView.findViewById(R.id.btnStartTimer);
 
         AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                .setView(view)
+                .setView(dialogView)
                 .create();
 
         btnStartTimer.setOnClickListener(v -> {
 
-            String minutesStr = inputMinutes.getText().toString();
+            String minutesStr = inputMinutes.getText().toString().trim();
 
             if (!minutesStr.isEmpty()) {
 
-                int minutes = Integer.parseInt(minutesStr);
+                int minutes;
+                try {
+                    minutes = Integer.parseInt(minutesStr);
+                } catch (Exception e) {
+                    inputMinutes.setError("Digite um número válido");
+                    return;
+                }
+
+                if (minutes <= 0) {
+                    inputMinutes.setError("Digite um tempo maior que 0");
+                    return;
+                }
+
                 long millis = minutes * 60L * 1000L;
 
                 if (countDownTimer != null) {
@@ -146,18 +170,24 @@ public class HomeFragment extends Fragment {
                         long min = seconds / 60;
                         long sec = seconds % 60;
 
-                        txtTimer.setText(String.format("%02d:%02d", min, sec));
+                        if (txtTimer != null) {
+                            txtTimer.setText(String.format("%02d:%02d", min, sec));
+                        }
                     }
 
                     @Override
                     public void onFinish() {
-                        txtTimer.setText("00:00");
-                        stopSound();
+                        if (txtTimer != null) {
+                            txtTimer.setText("00:00");
+                        }
+                        stopSound(); // 🔥 para o som quando acabar
                     }
 
                 }.start();
 
                 dialog.dismiss();
+            } else {
+                inputMinutes.setError("Informe os minutos");
             }
         });
 
@@ -166,26 +196,30 @@ public class HomeFragment extends Fragment {
 
     private void updateStars() {
 
-        if (FavoritesManager.isFavorite(requireContext(), "chuva")) {
-            starChuva.setImageResource(android.R.drawable.btn_star_big_on);
-        } else {
-            starChuva.setImageResource(android.R.drawable.btn_star_big_off);
-        }
+        if (getContext() == null) return;
 
-        if (FavoritesManager.isFavorite(requireContext(), "mar")) {
-            starMar.setImageResource(android.R.drawable.btn_star_big_on);
-        } else {
-            starMar.setImageResource(android.R.drawable.btn_star_big_off);
-        }
+        starChuva.setImageResource(
+                FavoritesManager.isFavorite(requireContext(), "chuva")
+                        ? android.R.drawable.btn_star_big_on
+                        : android.R.drawable.btn_star_big_off
+        );
+
+        starMar.setImageResource(
+                FavoritesManager.isFavorite(requireContext(), "mar")
+                        ? android.R.drawable.btn_star_big_on
+                        : android.R.drawable.btn_star_big_off
+        );
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
         stopSound();
 
         if (countDownTimer != null) {
             countDownTimer.cancel();
+            countDownTimer = null;
         }
     }
 }
