@@ -5,7 +5,9 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -50,9 +52,26 @@ public class AlarmActivity extends AppCompatActivity {
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
         if (calendar.before(Calendar.getInstance())) {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        // 🔥 ANDROID 12+ VERIFICAÇÃO DE PERMISSÃO
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (!alarmManager.canScheduleExactAlarms()) {
+
+                Toast.makeText(
+                        this,
+                        "Permita alarmes exatos nas configurações",
+                        Toast.LENGTH_LONG
+                ).show();
+
+                Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                startActivity(intent);
+                return;
+            }
         }
 
         Intent intent = new Intent(this, AlarmReceiver.class);
@@ -64,12 +83,20 @@ public class AlarmActivity extends AppCompatActivity {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
-        alarmManager.setExactAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(),
-                pendingIntent
-        );
+        try {
 
-        Toast.makeText(this, "Alarme agendado!", Toast.LENGTH_SHORT).show();
+            alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    pendingIntent
+            );
+
+            Toast.makeText(this, "Alarme agendado com sucesso!", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+
+            Toast.makeText(this, "Erro ao agendar alarme", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 }
