@@ -5,7 +5,6 @@
         android:allowBackup="true"
         android:label="ZenSleep"
         android:theme="@style/Theme.ZenSleep"
-
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
@@ -22,7 +21,13 @@
 
         </activity>
 
-        <!-- Tela de Política de Privacidade -->
+        <!-- 🔔 Tela do Despertador -->
+        <activity
+            android:name=".AlarmActivity"
+            android:exported="false"
+            android:label="Despertador" />
+
+        <!-- 🔐 Tela de Política de Privacidade -->
         <activity
             android:name=".PrivacyPolicyActivity"
             android:exported="false"
