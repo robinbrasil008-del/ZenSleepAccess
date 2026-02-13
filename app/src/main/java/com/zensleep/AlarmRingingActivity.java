@@ -1,13 +1,13 @@
 package com.zensleep;
 
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +20,6 @@ public class AlarmRingingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 🔥 Mostrar mesmo com tela bloqueada
         getWindow().addFlags(
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
@@ -41,27 +40,25 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
         try {
 
-            // 🔥 Primeiro tenta usar seu som personalizado
             mediaPlayer = MediaPlayer.create(this, R.raw.alarm_sound);
 
-            // Se não existir usa som padrão do sistema
             if (mediaPlayer == null) {
-
-                Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-
-                if (alarmUri == null) {
-                    alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                }
-
-                mediaPlayer = MediaPlayer.create(this, alarmUri);
+                Toast.makeText(this, "Erro no áudio do alarme", Toast.LENGTH_LONG).show();
+                return;
             }
 
-            if (mediaPlayer != null) {
-                mediaPlayer.setLooping(true);
-                mediaPlayer.start();
-            }
+            mediaPlayer.setAudioAttributes(
+                    new AudioAttributes.Builder()
+                            .setUsage(AudioAttributes.USAGE_ALARM)
+                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                            .build()
+            );
+
+            mediaPlayer.setLooping(true);
+            mediaPlayer.start();
 
         } catch (Exception e) {
+            Toast.makeText(this, "Falha ao tocar alarme", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
@@ -102,7 +99,9 @@ public class AlarmRingingActivity extends AppCompatActivity {
                 vibrator.cancel();
             }
 
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         finish();
     }
