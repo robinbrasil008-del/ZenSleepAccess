@@ -4,16 +4,11 @@
     <style name="Theme.ZenSleep"
         parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <!-- Cores principais -->
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryVariant">@color/primaryVariant</item>
-        <item name="colorOnPrimary">@color/onPrimary</item>
-
-        <!-- CORRETO para fundo -->
-        <item name="android:colorBackground">@color/backgroundColor</item>
+        <!-- 🔥 Apenas o fundo muda -->
         <item name="android:windowBackground">@color/backgroundColor</item>
 
-        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <!-- Status bar acompanha -->
+        <item name="android:statusBarColor">@color/backgroundColor</item>
 
     </style>
 
