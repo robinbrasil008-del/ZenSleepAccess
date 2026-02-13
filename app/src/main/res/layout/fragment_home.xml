@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#0B1C2D"
+    android:background="@android:color/transparent"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -66,7 +66,6 @@
                 android:background="@drawable/bg_card"
                 android:padding="16dp">
 
-                <!-- ESTRELA -->
                 <ImageView
                     android:id="@+id/starChuva"
                     android:layout_width="24dp"
@@ -75,7 +74,6 @@
                     android:src="@android:drawable/btn_star_big_off"
                     android:tint="#FFFFFF"/>
 
-                <!-- CONTEÚDO -->
                 <LinearLayout
                     android:orientation="vertical"
                     android:gravity="center"
@@ -118,7 +116,6 @@
                 android:background="@drawable/bg_card"
                 android:padding="16dp">
 
-                <!-- ESTRELA -->
                 <ImageView
                     android:id="@+id/starMar"
                     android:layout_width="24dp"
@@ -127,7 +124,6 @@
                     android:src="@android:drawable/btn_star_big_off"
                     android:tint="#FFFFFF"/>
 
-                <!-- CONTEÚDO -->
                 <LinearLayout
                     android:orientation="vertical"
                     android:gravity="center"
