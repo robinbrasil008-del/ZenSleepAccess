@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- ✅ Necessário para alarmes exatos no Android 12+ -->
+    <!-- ✅ Permissão necessária para alarmes exatos (Android 12+) -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+
+    <!-- ✅ Permite iniciar Activity quando alarme tocar -->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
 
     <application
         android:allowBackup="true"
@@ -12,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
 
-        <!-- Tela Principal -->
+        <!-- 🏠 Tela Principal -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -24,19 +27,20 @@
 
         </activity>
 
-        <!-- 🔔 Tela de Configuração do Despertador -->
+        <!-- ⏰ Tela de Configuração do Despertador -->
         <activity
             android:name=".AlarmActivity"
             android:exported="false"
             android:label="Despertador" />
 
-        <!-- 🔊 Tela que toca quando o alarme dispara -->
+        <!-- 🔔 Tela que toca quando o alarme dispara -->
         <activity
             android:name=".AlarmRingingActivity"
             android:exported="false"
             android:showWhenLocked="true"
             android:turnScreenOn="true"
             android:excludeFromRecents="true"
+            android:launchMode="singleTop"
             android:label="Alarme" />
 
         <!-- 📡 Receiver que dispara o alarme -->
