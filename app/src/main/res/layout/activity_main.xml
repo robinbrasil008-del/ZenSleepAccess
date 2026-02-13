@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#0B1C2D"
+    android:background="?attr/colorBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,7 +15,7 @@
     <!-- MENU INFERIOR FUNCIONAL -->
     <LinearLayout
         android:id="@+id/bottomNav"
-        android:background="#0F172A"
+        android:background="?attr/colorSurface"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         <TextView
             android:id="@+id/navHome"
             android:text="Início"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="14sp"
             android:layout_weight="1"
             android:gravity="center"
@@ -35,7 +35,7 @@
         <TextView
             android:id="@+id/navFav"
             android:text="Favoritos"
-            android:textColor="#94A3B8"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="14sp"
             android:layout_weight="1"
             android:gravity="center"
@@ -45,7 +45,7 @@
         <TextView
             android:id="@+id/navSettings"
             android:text="Ajustes"
-            android:textColor="#94A3B8"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="14sp"
             android:layout_weight="1"
             android:gravity="center"
