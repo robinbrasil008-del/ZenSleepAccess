@@ -3,19 +3,15 @@
 
     <style name="Theme.ZenSleep" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <!-- Cores principais -->
-        <item name="colorPrimary">@color/background_dark</item>
-        <item name="colorPrimaryVariant">@color/background_dark</item>
-        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryVariant</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
 
-        <!-- 🔥 ESSA LINHA RESOLVE O ERRO -->
-        <item name="colorBackground">@color/background_dark</item>
+        <!-- ESSENCIAL -->
+        <item name="colorBackground">@color/backgroundColor</item>
 
-        <!-- Status bar -->
-        <item name="android:statusBarColor">@color/background_dark</item>
-
-        <!-- Fundo da janela -->
-        <item name="android:windowBackground">@color/background_dark</item>
+        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:windowBackground">@color/backgroundColor</item>
 
     </style>
 
