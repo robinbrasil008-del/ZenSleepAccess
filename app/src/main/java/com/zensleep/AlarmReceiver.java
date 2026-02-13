@@ -1,38 +1,22 @@
-private void scheduleAlarm(int hour, int minute) {
+package com.zensleep;
 
-    Calendar calendar = Calendar.getInstance();
-    calendar.set(Calendar.HOUR_OF_DAY, hour);
-    calendar.set(Calendar.MINUTE, minute);
-    calendar.set(Calendar.SECOND, 0);
-    calendar.set(Calendar.MILLISECOND, 0);
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 
-    if (calendar.before(Calendar.getInstance())) {
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
+public class AlarmReceiver extends BroadcastReceiver {
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+        Intent i = new Intent(context, AlarmRingingActivity.class);
+
+        i.putExtra("alarm_id", intent.getIntExtra("alarm_id", -1));
+        i.putExtra("alarm_label", intent.getStringExtra("alarm_label"));
+
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                   Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        context.startActivity(i);
     }
-
-    // 🔥 ID único baseado no tempo
-    int alarmId = (int) System.currentTimeMillis();
-
-    Intent intent = new Intent(this, AlarmReceiver.class);
-    intent.putExtra("alarm_id", alarmId);
-    intent.putExtra("alarm_label", "Alarme");
-
-    PendingIntent pendingIntent = PendingIntent.getBroadcast(
-            this,
-            alarmId, // 🔥 AGORA É ÚNICO
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-    );
-
-    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-    if (alarmManager != null) {
-        alarmManager.setExactAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(),
-                pendingIntent
-        );
-    }
-
-    Toast.makeText(this, "Alarme agendado!", Toast.LENGTH_SHORT).show();
 }
