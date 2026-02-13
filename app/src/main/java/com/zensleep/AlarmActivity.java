@@ -93,7 +93,6 @@ public class AlarmActivity extends AppCompatActivity {
         }
     }
 
-    // 🔐 Permissão Android 12+
     private void checkExactAlarmPermission() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -159,7 +158,6 @@ public class AlarmActivity extends AppCompatActivity {
                 .show();
     }
 
-    // ⏰ Agendar alarme
     private void scheduleAlarm(AlarmItem item) {
 
         Calendar calendar = Calendar.getInstance();
@@ -173,7 +171,6 @@ public class AlarmActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, AlarmReceiver.class);
-        intent.setAction("com.zensleep.ALARM_TRIGGER");
         intent.putExtra("alarm_id", item.id);
         intent.putExtra("alarm_label", item.label);
 
@@ -181,40 +178,27 @@ public class AlarmActivity extends AppCompatActivity {
                 this,
                 item.id,
                 intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-            alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(),
-                    pendingIntent
-            );
-
-        } else {
-
-            alarmManager.setExact(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(),
-                    pendingIntent
-            );
-        }
+        alarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(),
+                pendingIntent
+        );
 
         Toast.makeText(this, "Alarme agendado ✅", Toast.LENGTH_SHORT).show();
     }
 
-    // ❌ Cancelar
     private void cancelAlarm(AlarmItem item) {
 
         Intent intent = new Intent(this, AlarmReceiver.class);
-        intent.setAction("com.zensleep.ALARM_TRIGGER");
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this,
                 item.id,
                 intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
         alarmManager.cancel(pendingIntent);
