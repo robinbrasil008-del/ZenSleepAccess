@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
-    <!-- 🌙 Tema Principal (DayNight automático) -->
     <style name="Theme.ZenSleep" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
         <!-- Cores principais -->
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryVariant">@color/primaryVariant</item>
-        <item name="colorOnPrimary">@color/onPrimary</item>
+        <item name="colorPrimary">@color/background_dark</item>
+        <item name="colorPrimaryVariant">@color/background_dark</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+
+        <!-- 🔥 ESSA LINHA RESOLVE O ERRO -->
+        <item name="colorBackground">@color/background_dark</item>
 
         <!-- Status bar -->
-        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:statusBarColor">@color/background_dark</item>
 
-        <!-- Fundo padrão -->
-        <item name="android:windowBackground">@color/backgroundColor</item>
+        <!-- Fundo da janela -->
+        <item name="android:windowBackground">@color/background_dark</item>
 
     </style>
 
