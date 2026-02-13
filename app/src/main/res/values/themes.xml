@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.ZenSleep" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.ZenSleep"
+        parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
+        <!-- Cores principais -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryVariant</item>
         <item name="colorOnPrimary">@color/onPrimary</item>
 
-        <!-- ESSENCIAL -->
-        <item name="colorBackground">@color/backgroundColor</item>
+        <!-- CORRETO para fundo -->
+        <item name="android:colorBackground">@color/backgroundColor</item>
+        <item name="android:windowBackground">@color/backgroundColor</item>
 
         <item name="android:statusBarColor">@color/statusBarColor</item>
-        <item name="android:windowBackground">@color/backgroundColor</item>
 
     </style>
 
