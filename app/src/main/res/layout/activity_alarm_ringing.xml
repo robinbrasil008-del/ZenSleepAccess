@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="#000000"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
 
     <TextView
-        android:text="⏰ Despertador"
-        android:textSize="28sp"
+        android:id="@+id/txtAlarmTitle"
+        android:text="⏰ Alarme"
+        android:textSize="34sp"
+        android:textStyle="bold"
         android:textColor="#FFFFFF"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp"
@@ -18,9 +19,10 @@
     <Button
         android:id="@+id/btnStopAlarm"
         android:text="PARAR"
-        android:textSize="20sp"
-        android:backgroundTint="#FF3B30"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:textColor="#FFFFFF"
+        android:backgroundTint="#E53935"
         android:layout_centerInParent="true"
         android:layout_width="200dp"
         android:layout_height="60dp"/>
