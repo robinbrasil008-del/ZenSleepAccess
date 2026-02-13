@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Fundo principal -->
-    <color name="background_dark">#081224</color>
-    <color name="background_light">#F4F6F9</color>
+    <!-- ========================= -->
+    <!-- 🌙 DARK MODE -->
+    <!-- ========================= -->
+    <color name="primaryColor">#0B1C2D</color>
+    <color name="primaryVariant">#081224</color>
+    <color name="onPrimary">#FFFFFF</color>
+
+    <color name="statusBarColor">#081224</color>
+    <color name="backgroundColor">#0B1C2D</color>
 
     <!-- Cards -->
-    <color name="card_color">#1F2A3A</color>
-    <color name="card_shadow">#101826</color>
+    <color name="cardColor">#1F2A3A</color>
 
-    <!-- Botões -->
-    <color name="stop_color">#1ABC9C</color>
+    <!-- Accent -->
+    <color name="accentColor">#22D3EE</color>
 
 </resources>
