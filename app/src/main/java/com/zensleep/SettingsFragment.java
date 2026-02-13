@@ -34,9 +34,7 @@ public class SettingsFragment extends Fragment {
         TextView txtVolumeValue = view.findViewById(R.id.txtVolumeValue);
         LinearLayout btnPrivacy = view.findViewById(R.id.btnPrivacy);
 
-        // =========================
-        // 🔥 CARREGA VALORES SALVOS
-        // =========================
+        // 🔥 Carrega valores salvos
         boolean animEnabled = prefs.getBoolean(KEY_ANIM, true);
         boolean darkEnabled = prefs.getBoolean(KEY_DARK, true);
         int volume = prefs.getInt(KEY_VOL, 80);
@@ -46,32 +44,26 @@ public class SettingsFragment extends Fragment {
         seekVolume.setProgress(volume);
         txtVolumeValue.setText(volume + "%");
 
-        // =========================
-        // 🎬 ANIMAÇÕES
-        // =========================
+        // 🎬 Animações
         switchAnimations.setOnCheckedChangeListener((buttonView, isChecked) ->
                 prefs.edit().putBoolean(KEY_ANIM, isChecked).apply()
         );
 
-        // =========================
-        // 🌙 TEMA ESCURO FUNCIONAL
-        // =========================
+        // 🌙 Tema Escuro (CORRIGIDO)
         switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
             prefs.edit().putBoolean(KEY_DARK, isChecked).apply();
 
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            }
+            AppCompatDelegate.setDefaultNightMode(
+                    isChecked
+                            ? AppCompatDelegate.MODE_NIGHT_YES
+                            : AppCompatDelegate.MODE_NIGHT_NO
+            );
 
-            requireActivity().recreate(); // 🔥 recria a activity para aplicar o tema
+            // ❌ NÃO usar recreate()
         });
 
-        // =========================
-        // 🔊 VOLUME
-        // =========================
+        // 🔊 Volume
         seekVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -83,9 +75,7 @@ public class SettingsFragment extends Fragment {
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        // =========================
-        // 🔐 POLÍTICA
-        // =========================
+        // 🔐 Política
         btnPrivacy.setOnClickListener(v -> {
             Intent i = new Intent(requireContext(), PrivacyPolicyActivity.class);
             startActivity(i);
