@@ -3,30 +3,68 @@ package com.zensleep;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AlarmStorage {
 
-    private static final String PREF = "alarm_storage";
+    private static final String PREFS = "alarm_storage";
     private static final String KEY = "alarms";
 
-    public static void save(Context context, List<AlarmModel> alarms) {
-        SharedPreferences prefs = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
-        prefs.edit().putString(KEY, new Gson().toJson(alarms)).apply();
+    public static void saveAlarms(Context context, List<Alarm> alarms) {
+        try {
+            JSONArray array = new JSONArray();
+
+            for (Alarm alarm : alarms) {
+                JSONObject obj = new JSONObject();
+                obj.put("id", alarm.getId());
+                obj.put("hour", alarm.getHour());
+                obj.put("minute", alarm.getMinute());
+                obj.put("label", alarm.getLabel());
+                obj.put("enabled", alarm.isEnabled());
+                obj.put("soundUri", alarm.getSoundUri());
+                array.put(obj);
+            }
+
+            SharedPreferences prefs = context.getSharedPreferences(PREFS, 0);
+            prefs.edit().putString(KEY, array.toString()).apply();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static List<AlarmModel> load(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
-        String json = prefs.getString(KEY, null);
+    public static List<Alarm> loadAlarms(Context context) {
+        List<Alarm> alarms = new ArrayList<>();
 
-        if (json == null) return new ArrayList<>();
+        try {
+            SharedPreferences prefs = context.getSharedPreferences(PREFS, 0);
+            String data = prefs.getString(KEY, null);
 
-        Type type = new TypeToken<List<AlarmModel>>(){}.getType();
-        return new Gson().fromJson(json, type);
+            if (data == null) return alarms;
+
+            JSONArray array = new JSONArray(data);
+
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject obj = array.getJSONObject(i);
+
+                alarms.add(new Alarm(
+                        obj.getInt("id"),
+                        obj.getInt("hour"),
+                        obj.getInt("minute"),
+                        obj.getString("label"),
+                        obj.getBoolean("enabled"),
+                        obj.getString("soundUri")
+                ));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return alarms;
     }
 }
