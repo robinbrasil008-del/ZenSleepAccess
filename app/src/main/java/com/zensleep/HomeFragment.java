@@ -1,6 +1,6 @@
 package com.zensleep;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -59,10 +59,21 @@ public class HomeFragment extends Fragment {
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateStars();
+    private float getSavedVolume() {
+        SharedPreferences prefs =
+                requireContext().getSharedPreferences("zen_settings", 0);
+
+        int volumePercent = prefs.getInt("volume", 80);
+
+        // converte 0–100 para 0.0f–1.0f
+        return volumePercent / 100f;
+    }
+
+    private void applyVolume() {
+        if (mediaPlayer != null) {
+            float volume = getSavedVolume();
+            mediaPlayer.setVolume(volume, volume);
+        }
     }
 
     private void toggleChuva() {
@@ -76,6 +87,9 @@ public class HomeFragment extends Fragment {
 
         mediaPlayer = MediaPlayer.create(requireContext(), R.raw.chuva);
         mediaPlayer.setLooping(true);
+
+        applyVolume(); // 🔥 AQUI A MÁGICA
+
         mediaPlayer.start();
 
         btnPlayChuva.setImageResource(android.R.drawable.ic_media_pause);
@@ -96,6 +110,9 @@ public class HomeFragment extends Fragment {
 
         mediaPlayer = MediaPlayer.create(requireContext(), R.raw.mar);
         mediaPlayer.setLooping(true);
+
+        applyVolume(); // 🔥 AQUI TAMBÉM
+
         mediaPlayer.start();
 
         btnPlayMar.setImageResource(android.R.drawable.ic_media_pause);
@@ -141,7 +158,6 @@ public class HomeFragment extends Fragment {
             if (!minutesStr.isEmpty()) {
 
                 int minutes;
-
                 try {
                     minutes = Integer.parseInt(minutesStr);
                 } catch (Exception e) {
@@ -176,11 +192,9 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onFinish() {
-
                         if (txtTimer != null) {
                             txtTimer.setText("00:00");
                         }
-
                         stopSound();
                     }
 
@@ -199,15 +213,17 @@ public class HomeFragment extends Fragment {
 
         if (getContext() == null) return;
 
-        boolean chuvaFav = FavoritesManager.isFavorite(requireContext(), "chuva");
-        boolean marFav = FavoritesManager.isFavorite(requireContext(), "mar");
+        boolean chuvaFav =
+                FavoritesManager.isFavorite(requireContext(), "chuva");
+        boolean marFav =
+                FavoritesManager.isFavorite(requireContext(), "mar");
 
         if (chuvaFav) {
             starChuva.setImageResource(android.R.drawable.btn_star_big_on);
-            starChuva.setColorFilter(0xFFFFC107); // amarelo
+            starChuva.setColorFilter(0xFFFFC107);
         } else {
             starChuva.setImageResource(android.R.drawable.btn_star_big_off);
-            starChuva.setColorFilter(0xFFFFFFFF); // branco
+            starChuva.setColorFilter(0xFFFFFFFF);
         }
 
         if (marFav) {
@@ -222,9 +238,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
         stopSound();
-
         if (countDownTimer != null) {
             countDownTimer.cancel();
             countDownTimer = null;
