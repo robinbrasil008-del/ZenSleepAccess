@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#0B1C2D"
+    android:background="?attr/colorBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -20,7 +20,7 @@
             <TextView
                 android:text="⚙"
                 android:textSize="28sp"
-                android:textColor="#22D3EE"
+                android:textColor="?attr/colorPrimary"
                 android:layout_marginEnd="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -29,14 +29,14 @@
                 android:text="Configurações"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/colorOnBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <!-- ANIMAÇÕES -->
         <LinearLayout
-            android:background="@drawable/bg_card"
+            android:background="?attr/colorSurface"
             android:padding="18dp"
             android:layout_marginBottom="16dp"
             android:gravity="center_vertical"
@@ -45,7 +45,7 @@
 
             <TextView
                 android:text="✨ Animações"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -59,7 +59,7 @@
 
         <!-- TEMA ESCURO -->
         <LinearLayout
-            android:background="@drawable/bg_card"
+            android:background="?attr/colorSurface"
             android:padding="18dp"
             android:layout_marginBottom="16dp"
             android:gravity="center_vertical"
@@ -68,7 +68,7 @@
 
             <TextView
                 android:text="🌙 Tema escuro"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -82,7 +82,7 @@
 
         <!-- VOLUME -->
         <LinearLayout
-            android:background="@drawable/bg_card"
+            android:background="?attr/colorSurface"
             android:padding="18dp"
             android:orientation="vertical"
             android:layout_marginBottom="16dp"
@@ -97,7 +97,7 @@
 
                 <TextView
                     android:text="🔊 Volume geral"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="16sp"
                     android:layout_weight="1"
                     android:layout_width="0dp"
@@ -106,7 +106,8 @@
                 <TextView
                     android:id="@+id/txtVolumeValue"
                     android:text="80%"
-                    android:textColor="#94A3B8"
+                    android:textColor="?attr/colorOnSurface"
+                    android:alpha="0.7"
                     android:textSize="14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -123,7 +124,7 @@
         <!-- POLÍTICA -->
         <LinearLayout
             android:id="@+id/btnPrivacy"
-            android:background="@drawable/bg_card"
+            android:background="?attr/colorSurface"
             android:padding="18dp"
             android:layout_marginBottom="16dp"
             android:gravity="center_vertical"
@@ -134,7 +135,7 @@
 
             <TextView
                 android:text="🛡 Política de privacidade"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -142,7 +143,7 @@
 
         <!-- VERSÃO -->
         <LinearLayout
-            android:background="@drawable/bg_card"
+            android:background="?attr/colorSurface"
             android:padding="18dp"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
@@ -150,7 +151,7 @@
 
             <TextView
                 android:text="ℹ Versão"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -158,7 +159,8 @@
 
             <TextView
                 android:text="1.0.0"
-                android:textColor="#94A3B8"
+                android:textColor="?attr/colorOnSurface"
+                android:alpha="0.7"
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
