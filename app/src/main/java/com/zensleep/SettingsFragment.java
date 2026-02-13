@@ -15,7 +15,8 @@ import androidx.fragment.app.Fragment;
 public class SettingsFragment extends Fragment {
 
     public static final String PREFS = "zen_settings";
-    public static final String KEY_ANIM = "animations";
+
+    public static final String KEY_ALARM = "alarm_enabled";   // 🔥 NOVO
     public static final String KEY_DARK = "dark_mode";
     public static final String KEY_VOL = "volume";
 
@@ -28,28 +29,36 @@ public class SettingsFragment extends Fragment {
 
         SharedPreferences prefs = requireContext().getSharedPreferences(PREFS, 0);
 
-        Switch switchAnimations = view.findViewById(R.id.switchAnimations);
+        // 🔥 NOVO SWITCH
+        Switch switchAlarm = view.findViewById(R.id.switchAlarm);
+
         Switch switchDarkMode = view.findViewById(R.id.switchDarkMode);
         SeekBar seekVolume = view.findViewById(R.id.seekVolume);
         TextView txtVolumeValue = view.findViewById(R.id.txtVolumeValue);
         LinearLayout btnPrivacy = view.findViewById(R.id.btnPrivacy);
 
-        // 🔥 Carrega valores salvos
-        boolean animEnabled = prefs.getBoolean(KEY_ANIM, true);
+        // =========================
+        // 🔥 CARREGA VALORES
+        // =========================
+        boolean alarmEnabled = prefs.getBoolean(KEY_ALARM, false);
         boolean darkEnabled = prefs.getBoolean(KEY_DARK, true);
         int volume = prefs.getInt(KEY_VOL, 80);
 
-        switchAnimations.setChecked(animEnabled);
+        switchAlarm.setChecked(alarmEnabled);
         switchDarkMode.setChecked(darkEnabled);
         seekVolume.setProgress(volume);
         txtVolumeValue.setText(volume + "%");
 
-        // 🎬 Animações
-        switchAnimations.setOnCheckedChangeListener((buttonView, isChecked) ->
-                prefs.edit().putBoolean(KEY_ANIM, isChecked).apply()
+        // =========================
+        // ⏰ DESPERTADOR
+        // =========================
+        switchAlarm.setOnCheckedChangeListener((buttonView, isChecked) ->
+                prefs.edit().putBoolean(KEY_ALARM, isChecked).apply()
         );
 
-        // 🌙 Tema Escuro (CORRIGIDO)
+        // =========================
+        // 🌙 TEMA ESCURO
+        // =========================
         switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
             prefs.edit().putBoolean(KEY_DARK, isChecked).apply();
@@ -59,12 +68,13 @@ public class SettingsFragment extends Fragment {
                             ? AppCompatDelegate.MODE_NIGHT_YES
                             : AppCompatDelegate.MODE_NIGHT_NO
             );
-
-            // ❌ NÃO usar recreate()
         });
 
-        // 🔊 Volume
+        // =========================
+        // 🔊 VOLUME
+        // =========================
         seekVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 txtVolumeValue.setText(progress + "%");
@@ -75,7 +85,9 @@ public class SettingsFragment extends Fragment {
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        // 🔐 Política
+        // =========================
+        // 🔐 POLÍTICA
+        // =========================
         btnPrivacy.setOnClickListener(v -> {
             Intent i = new Intent(requireContext(), PrivacyPolicyActivity.class);
             startActivity(i);
