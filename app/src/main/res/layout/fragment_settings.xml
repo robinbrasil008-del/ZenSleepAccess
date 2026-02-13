@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
-        <!-- ANIMAÇÕES -->
+        <!-- ⏰ DESPERTADOR -->
         <LinearLayout
             android:background="@color/card_color"
             android:padding="18dp"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="✨ Animações"
+                android:text="⏰ Despertador"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:layout_weight="1"
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"/>
 
             <Switch
-                android:id="@+id/switchAnimations"
+                android:id="@+id/switchAlarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
