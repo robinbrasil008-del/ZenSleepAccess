@@ -1,13 +1,12 @@
 package com.zensleep;
 
-import android.media.AudioAttributes;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AlarmRingingActivity extends AppCompatActivity {
 
-    private MediaPlayer mediaPlayer;
+    private Ringtone ringtone;
     private Vibrator vibrator;
 
     @Override
@@ -47,31 +46,16 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
     private void startAlarmSound() {
 
-        try {
+        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
-            mediaPlayer = new MediaPlayer();
+        if (alarmUri == null) {
+            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mediaPlayer.setAudioAttributes(
-                        new AudioAttributes.Builder()
-                                .setUsage(AudioAttributes.USAGE_ALARM)
-                                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                                .build()
-                );
-            } else {
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
-            }
+        ringtone = RingtoneManager.getRingtone(this, alarmUri);
 
-            mediaPlayer.setDataSource(
-                    getResources().openRawResourceFd(R.raw.alarm_sound)
-            );
-
-            mediaPlayer.setLooping(true);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-
-        } catch (Exception e) {
-            Log.e("Alarm", "Erro ao tocar áudio", e);
+        if (ringtone != null) {
+            ringtone.play();
         }
     }
 
@@ -96,20 +80,12 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
     private void stopAlarm() {
 
-        try {
+        if (ringtone != null && ringtone.isPlaying()) {
+            ringtone.stop();
+        }
 
-            if (mediaPlayer != null) {
-                mediaPlayer.stop();
-                mediaPlayer.release();
-                mediaPlayer = null;
-            }
-
-            if (vibrator != null) {
-                vibrator.cancel();
-            }
-
-        } catch (Exception e) {
-            Log.e("Alarm", "Erro ao parar alarme", e);
+        if (vibrator != null) {
+            vibrator.cancel();
         }
 
         finish();
