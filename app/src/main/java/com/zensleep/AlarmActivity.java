@@ -5,7 +5,9 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -52,11 +54,10 @@ public class AlarmActivity extends AppCompatActivity {
 
                 if (enabled) {
                     scheduleAlarm(item);
-                    Toast.makeText(AlarmActivity.this, "Alarme ativado ✅", Toast.LENGTH_SHORT).show();
                 } else {
                     cancelAlarm(item);
-                    Toast.makeText(AlarmActivity.this, "Alarme desativado ❌", Toast.LENGTH_SHORT).show();
                 }
+
                 updateEmpty();
             }
 
@@ -67,18 +68,18 @@ public class AlarmActivity extends AppCompatActivity {
                 AlarmStorage.save(AlarmActivity.this, alarms);
                 adapter.notifyDataSetChanged();
                 updateEmpty();
-                Toast.makeText(AlarmActivity.this, "Alarme excluído 🗑", Toast.LENGTH_SHORT).show();
             }
         });
+
         recycler.setAdapter(adapter);
 
-        btnAddAlarm.setOnClickListener(v -> openTimePicker());
+        btnAddAlarm.setOnClickListener(v -> checkExactAlarmPermission());
 
         updateEmpty();
     }
 
     private void updateEmpty() {
-        if (alarms == null || alarms.isEmpty()) {
+        if (alarms.isEmpty()) {
             emptyText.setVisibility(TextView.VISIBLE);
             recycler.setVisibility(RecyclerView.GONE);
         } else {
@@ -87,7 +88,28 @@ public class AlarmActivity extends AppCompatActivity {
         }
     }
 
+    // 🔥 CHECA PERMISSÃO CORRETA
+    private void checkExactAlarmPermission() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+
+            if (!alarmManager.canScheduleExactAlarms()) {
+
+                Toast.makeText(this,
+                        "Permita alarmes exatos nas configurações",
+                        Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                startActivity(intent);
+                return;
+            }
+        }
+
+        openTimePicker();
+    }
+
     private void openTimePicker() {
+
         Calendar now = Calendar.getInstance();
 
         TimePickerDialog dialog = new TimePickerDialog(
@@ -102,36 +124,34 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     private void openLabelDialog(int hour, int minute) {
+
         EditText input = new EditText(this);
-        input.setHint("Nome do alarme (ex: Acordar)");
+        input.setHint("Nome do alarme");
 
         new AlertDialog.Builder(this)
                 .setTitle("Nome do alarme")
                 .setView(input)
                 .setPositiveButton("Salvar", (d, which) -> {
+
                     String label = input.getText().toString().trim();
-                    addAlarm(hour, minute, label);
+
+                    int id = AlarmStorage.nextId(alarms);
+                    AlarmItem item = new AlarmItem(id, hour, minute, label, true);
+
+                    alarms.add(item);
+                    AlarmStorage.save(this, alarms);
+
+                    adapter.notifyDataSetChanged();
+                    updateEmpty();
+
+                    scheduleAlarm(item);
                 })
                 .setNegativeButton("Cancelar", null)
                 .show();
     }
 
-    private void addAlarm(int hour, int minute, String label) {
-        int id = AlarmStorage.nextId(alarms);
-
-        AlarmItem item = new AlarmItem(id, hour, minute, label, true);
-        alarms.add(item);
-
-        AlarmStorage.save(this, alarms);
-        adapter.notifyDataSetChanged();
-        updateEmpty();
-
-        scheduleAlarm(item);
-
-        Toast.makeText(this, "Alarme adicionado ✅", Toast.LENGTH_SHORT).show();
-    }
-
     private void scheduleAlarm(AlarmItem item) {
+
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, item.hour);
         calendar.set(Calendar.MINUTE, item.minute);
@@ -144,32 +164,34 @@ public class AlarmActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, AlarmReceiver.class);
         intent.putExtra("alarm_id", item.id);
-        intent.putExtra("alarm_label", item.label == null ? "" : item.label);
+        intent.putExtra("alarm_label", item.label);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this,
-                item.id, // ✅ requestCode único
+                item.id,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
-        try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),
                     pendingIntent
             );
-        } catch (Exception e) {
-            // fallback
+        } else {
             alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),
                     pendingIntent
             );
         }
+
+        Toast.makeText(this, "Alarme agendado ✅", Toast.LENGTH_SHORT).show();
     }
 
     private void cancelAlarm(AlarmItem item) {
+
         Intent intent = new Intent(this, AlarmReceiver.class);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
