@@ -15,15 +15,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // 🔥 APLICA TEMA ANTES DE QUALQUER COISA
+        // 🔥 APLICA TEMA ANTES DO super.onCreate
         SharedPreferences prefs = getSharedPreferences("zen_settings", MODE_PRIVATE);
         boolean darkEnabled = prefs.getBoolean("dark_mode", true);
 
-        if (darkEnabled) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        AppCompatDelegate.setDefaultNightMode(
+                darkEnabled
+                        ? AppCompatDelegate.MODE_NIGHT_YES
+                        : AppCompatDelegate.MODE_NIGHT_NO
+        );
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -32,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
         navFav = findViewById(R.id.navFav);
         navSettings = findViewById(R.id.navSettings);
 
-        // Carrega Home por padrão
-        loadFragment(new HomeFragment());
-        selectMenu(navHome);
+        // 🔥 EVITA RECARREGAR FRAGMENTO AO RECRIAR ACTIVITY
+        if (savedInstanceState == null) {
+            loadFragment(new HomeFragment());
+            selectMenu(navHome);
+        }
 
         navHome.setOnClickListener(v -> {
             loadFragment(new HomeFragment());
