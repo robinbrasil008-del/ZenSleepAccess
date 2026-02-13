@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- ☀️ Light Mode -->
-    <color name="primaryColor">#FFFFFF</color>
-    <color name="primaryVariant">#F2F2F2</color>
+    <!-- ========================= -->
+    <!-- ☀ LIGHT MODE -->
+    <!-- ========================= -->
+    <color name="primaryColor">#F4F6F9</color>
+    <color name="primaryVariant">#E2E8F0</color>
     <color name="onPrimary">#000000</color>
-    <color name="statusBarColor">#FFFFFF</color>
-    <color name="backgroundColor">#F5F5F5</color>
+
+    <color name="statusBarColor">#E2E8F0</color>
+    <color name="backgroundColor">#FFFFFF</color>
+
+    <!-- Cards -->
+    <color name="cardColor">#FFFFFF</color>
+
+    <!-- Accent -->
+    <color name="accentColor">#0EA5E9</color>
 
 </resources>
