@@ -1,13 +1,16 @@
 package com.zensleep;
 
 import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,7 +31,13 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_alarm_ringing);
 
+        TextView txtTitle = findViewById(R.id.txtAlarmTitle);
         Button btnStop = findViewById(R.id.btnStopAlarm);
+
+        String label = getIntent().getStringExtra("alarm_label");
+        if (label != null && !label.isEmpty()) {
+            txtTitle.setText("⏰ " + label);
+        }
 
         startAlarmSound();
         startVibration();
@@ -40,26 +49,29 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
         try {
 
-            mediaPlayer = MediaPlayer.create(this, R.raw.alarm_sound);
+            mediaPlayer = new MediaPlayer();
 
-            if (mediaPlayer == null) {
-                Toast.makeText(this, "Erro no áudio do alarme", Toast.LENGTH_LONG).show();
-                return;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mediaPlayer.setAudioAttributes(
+                        new AudioAttributes.Builder()
+                                .setUsage(AudioAttributes.USAGE_ALARM)
+                                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                                .build()
+                );
+            } else {
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
             }
 
-            mediaPlayer.setAudioAttributes(
-                    new AudioAttributes.Builder()
-                            .setUsage(AudioAttributes.USAGE_ALARM)
-                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                            .build()
+            mediaPlayer.setDataSource(
+                    getResources().openRawResourceFd(R.raw.alarm_sound)
             );
 
             mediaPlayer.setLooping(true);
+            mediaPlayer.prepare();
             mediaPlayer.start();
 
         } catch (Exception e) {
-            Toast.makeText(this, "Falha ao tocar alarme", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
+            Log.e("Alarm", "Erro ao tocar áudio", e);
         }
     }
 
@@ -69,17 +81,14 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
         if (vibrator != null) {
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 vibrator.vibrate(
                         VibrationEffect.createWaveform(
                                 new long[]{0, 500, 500},
                                 0
                         )
                 );
-
             } else {
-
                 vibrator.vibrate(new long[]{0, 500, 500}, 0);
             }
         }
@@ -100,7 +109,7 @@ public class AlarmRingingActivity extends AppCompatActivity {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("Alarm", "Erro ao parar alarme", e);
         }
 
         finish();
