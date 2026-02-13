@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,7 +47,9 @@ public class AlarmActivity extends AppCompatActivity {
         alarms = AlarmStorage.load(this);
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
+
         adapter = new AlarmAdapter(alarms, new AlarmAdapter.Listener() {
+
             @Override
             public void onToggle(AlarmItem item, boolean enabled) {
                 item.enabled = enabled;
@@ -57,8 +60,6 @@ public class AlarmActivity extends AppCompatActivity {
                 } else {
                     cancelAlarm(item);
                 }
-
-                updateEmpty();
             }
 
             @Override
@@ -79,27 +80,29 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     private void updateEmpty() {
-        if (alarms.isEmpty()) {
-            emptyText.setVisibility(TextView.VISIBLE);
-            recycler.setVisibility(RecyclerView.GONE);
+        if (alarms == null || alarms.isEmpty()) {
+            emptyText.setVisibility(View.VISIBLE);
+            recycler.setVisibility(View.GONE);
         } else {
-            emptyText.setVisibility(TextView.GONE);
-            recycler.setVisibility(RecyclerView.VISIBLE);
+            emptyText.setVisibility(View.GONE);
+            recycler.setVisibility(View.VISIBLE);
         }
     }
 
-    // 🔥 CHECA PERMISSÃO CORRETA
+    // ============================
+    // 🔐 PERMISSÃO ANDROID 12+
+    // ============================
     private void checkExactAlarmPermission() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-
             if (!alarmManager.canScheduleExactAlarms()) {
 
                 Toast.makeText(this,
                         "Permita alarmes exatos nas configurações",
                         Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                Intent intent =
+                        new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
                 startActivity(intent);
                 return;
             }
@@ -114,7 +117,8 @@ public class AlarmActivity extends AppCompatActivity {
 
         TimePickerDialog dialog = new TimePickerDialog(
                 this,
-                (view, hourOfDay, minute) -> openLabelDialog(hourOfDay, minute),
+                (view, hourOfDay, minute) ->
+                        openLabelDialog(hourOfDay, minute),
                 now.get(Calendar.HOUR_OF_DAY),
                 now.get(Calendar.MINUTE),
                 true
@@ -136,7 +140,8 @@ public class AlarmActivity extends AppCompatActivity {
                     String label = input.getText().toString().trim();
 
                     int id = AlarmStorage.nextId(alarms);
-                    AlarmItem item = new AlarmItem(id, hour, minute, label, true);
+                    AlarmItem item =
+                            new AlarmItem(id, hour, minute, label, true);
 
                     alarms.add(item);
                     AlarmStorage.save(this, alarms);
@@ -150,6 +155,9 @@ public class AlarmActivity extends AppCompatActivity {
                 .show();
     }
 
+    // ============================
+    // ⏰ AGENDAR ALARME
+    // ============================
     private void scheduleAlarm(AlarmItem item) {
 
         Calendar calendar = Calendar.getInstance();
@@ -163,6 +171,7 @@ public class AlarmActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, AlarmReceiver.class);
+        intent.setAction("com.zensleep.ALARM_TRIGGER");
         intent.putExtra("alarm_id", item.id);
         intent.putExtra("alarm_label", item.label);
 
@@ -170,7 +179,7 @@ public class AlarmActivity extends AppCompatActivity {
                 this,
                 item.id,
                 intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -190,15 +199,19 @@ public class AlarmActivity extends AppCompatActivity {
         Toast.makeText(this, "Alarme agendado ✅", Toast.LENGTH_SHORT).show();
     }
 
+    // ============================
+    // ❌ CANCELAR ALARME
+    // ============================
     private void cancelAlarm(AlarmItem item) {
 
         Intent intent = new Intent(this, AlarmReceiver.class);
+        intent.setAction("com.zensleep.ALARM_TRIGGER");
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this,
                 item.id,
                 intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
         alarmManager.cancel(pendingIntent);
