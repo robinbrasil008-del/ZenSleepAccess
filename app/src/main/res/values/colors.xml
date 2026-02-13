@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- FUNDOS -->
-    <color name="background_dark">#081224</color>
-    <color name="background_light">#F4F6F9</color>
-    <color name="backgroundColor">#081224</color>
+    <!-- FUNDO CLARO -->
+    <color name="backgroundColor">#F4F6F9</color>
 
-    <!-- CARDS -->
+    <!-- CARDS (NÃO MUDAM) -->
     <color name="card_color">#1F2A3A</color>
     <color name="card_shadow">#101826</color>
 
     <!-- BOTÕES -->
     <color name="stop_color">#1ABC9C</color>
 
-    <!-- PRIMARY (necessários para o tema) -->
+    <!-- PRIMARY -->
     <color name="primaryColor">#081224</color>
     <color name="primaryVariant">#081224</color>
     <color name="onPrimary">#FFFFFF</color>
