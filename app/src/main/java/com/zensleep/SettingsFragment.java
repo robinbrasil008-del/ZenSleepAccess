@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
@@ -29,9 +30,11 @@ public class SettingsFragment extends Fragment {
 
         SharedPreferences prefs = requireContext().getSharedPreferences(PREFS, 0);
 
-        // 🔥 NOVO SWITCH
+        // 🔥 CARD + SWITCH DO DESPERTADOR
+        LinearLayout cardAlarm = view.findViewById(R.id.cardAlarm);
         Switch switchAlarm = view.findViewById(R.id.switchAlarm);
 
+        // OUTROS CONTROLES
         Switch switchDarkMode = view.findViewById(R.id.switchDarkMode);
         SeekBar seekVolume = view.findViewById(R.id.seekVolume);
         TextView txtVolumeValue = view.findViewById(R.id.txtVolumeValue);
@@ -50,11 +53,29 @@ public class SettingsFragment extends Fragment {
         txtVolumeValue.setText(volume + "%");
 
         // =========================
-        // ⏰ DESPERTADOR
+        // ⏰ DESPERTADOR (SWITCH)
         // =========================
         switchAlarm.setOnCheckedChangeListener((buttonView, isChecked) ->
                 prefs.edit().putBoolean(KEY_ALARM, isChecked).apply()
         );
+
+        // =========================
+        // ⏰ DESPERTADOR (ABRIR TELA)
+        // =========================
+        cardAlarm.setOnClickListener(v -> {
+
+            boolean enabledNow = prefs.getBoolean(KEY_ALARM, false);
+
+            if (!enabledNow) {
+                Toast.makeText(requireContext(),
+                        "Ative o despertador para configurar.",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Intent i = new Intent(requireContext(), AlarmActivity.class);
+            startActivity(i);
+        });
 
         // =========================
         // 🌙 TEMA ESCURO
