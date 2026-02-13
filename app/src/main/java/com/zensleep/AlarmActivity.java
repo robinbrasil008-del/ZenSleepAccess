@@ -52,6 +52,7 @@ public class AlarmActivity extends AppCompatActivity {
 
             @Override
             public void onToggle(AlarmItem item, boolean enabled) {
+
                 item.enabled = enabled;
                 AlarmStorage.save(AlarmActivity.this, alarms);
 
@@ -64,9 +65,11 @@ public class AlarmActivity extends AppCompatActivity {
 
             @Override
             public void onDelete(AlarmItem item) {
+
                 cancelAlarm(item);
                 alarms.remove(item);
                 AlarmStorage.save(AlarmActivity.this, alarms);
+
                 adapter.notifyDataSetChanged();
                 updateEmpty();
             }
@@ -80,6 +83,7 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     private void updateEmpty() {
+
         if (alarms == null || alarms.isEmpty()) {
             emptyText.setVisibility(View.VISIBLE);
             recycler.setVisibility(View.GONE);
@@ -89,12 +93,11 @@ public class AlarmActivity extends AppCompatActivity {
         }
     }
 
-    // ============================
-    // 🔐 PERMISSÃO ANDROID 12+
-    // ============================
+    // 🔐 Permissão Android 12+
     private void checkExactAlarmPermission() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+
             if (!alarmManager.canScheduleExactAlarms()) {
 
                 Toast.makeText(this,
@@ -140,6 +143,7 @@ public class AlarmActivity extends AppCompatActivity {
                     String label = input.getText().toString().trim();
 
                     int id = AlarmStorage.nextId(alarms);
+
                     AlarmItem item =
                             new AlarmItem(id, hour, minute, label, true);
 
@@ -155,9 +159,7 @@ public class AlarmActivity extends AppCompatActivity {
                 .show();
     }
 
-    // ============================
-    // ⏰ AGENDAR ALARME
-    // ============================
+    // ⏰ Agendar alarme
     private void scheduleAlarm(AlarmItem item) {
 
         Calendar calendar = Calendar.getInstance();
@@ -179,16 +181,19 @@ public class AlarmActivity extends AppCompatActivity {
                 this,
                 item.id,
                 intent,
-                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
             alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),
                     pendingIntent
             );
+
         } else {
+
             alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),
@@ -199,9 +204,7 @@ public class AlarmActivity extends AppCompatActivity {
         Toast.makeText(this, "Alarme agendado ✅", Toast.LENGTH_SHORT).show();
     }
 
-    // ============================
-    // ❌ CANCELAR ALARME
-    // ============================
+    // ❌ Cancelar
     private void cancelAlarm(AlarmItem item) {
 
         Intent intent = new Intent(this, AlarmReceiver.class);
@@ -211,7 +214,7 @@ public class AlarmActivity extends AppCompatActivity {
                 this,
                 item.id,
                 intent,
-                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
         alarmManager.cancel(pendingIntent);
