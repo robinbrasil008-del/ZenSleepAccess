@@ -1,6 +1,8 @@
 package com.zensleep;
 
+import android.app.Activity;
 import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -18,22 +20,21 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
     private Ringtone ringtone;
     private Vibrator vibrator;
+    private AudioManager audioManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 🔥 ESSENCIAL para Android moderno
+        // 🔥 Mostrar sobre tela bloqueada (Android moderno)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true);
             setTurnScreenOn(true);
-        } else {
-            getWindow().addFlags(
-                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
-                    WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-            );
         }
+
+        getWindow().addFlags(
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+        );
 
         setContentView(R.layout.activity_alarm_ringing);
 
@@ -41,25 +42,45 @@ public class AlarmRingingActivity extends AppCompatActivity {
         Button btnStop = findViewById(R.id.btnStopAlarm);
 
         String label = getIntent().getStringExtra("alarm_label");
-
         if (label != null && !label.isEmpty()) {
             txtTitle.setText("⏰ " + label);
         }
 
+        forceAlarmVolume();
         startAlarmSound();
         startVibration();
 
         btnStop.setOnClickListener(v -> stopAlarm());
     }
 
+    // 🔥 GARANTE VOLUME DE ALARME
+    private void forceAlarmVolume() {
+
+        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+
+        if (audioManager != null) {
+
+            int maxVolume =
+                    audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+
+            audioManager.setStreamVolume(
+                    AudioManager.STREAM_ALARM,
+                    maxVolume,
+                    0
+            );
+        }
+    }
+
     private void startAlarmSound() {
 
         try {
 
-            Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            Uri alarmUri =
+                    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
             if (alarmUri == null) {
-                alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                alarmUri =
+                        RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             }
 
             ringtone = RingtoneManager.getRingtone(this, alarmUri);
@@ -94,14 +115,14 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
                 vibrator.vibrate(
                         VibrationEffect.createWaveform(
-                                new long[]{0, 700, 700},
+                                new long[]{0, 800, 800},
                                 0
                         )
                 );
 
             } else {
 
-                vibrator.vibrate(new long[]{0, 700, 700}, 0);
+                vibrator.vibrate(new long[]{0, 800, 800}, 0);
             }
         }
     }
