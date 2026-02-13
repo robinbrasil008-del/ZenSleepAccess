@@ -34,14 +34,18 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
-        <!-- ⏰ DESPERTADOR -->
+        <!-- ⏰ DESPERTADOR (CARD CLICÁVEL) -->
         <LinearLayout
+            android:id="@+id/cardAlarm"
             android:background="@color/card_color"
             android:padding="18dp"
             android:layout_marginBottom="16dp"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground">
 
             <TextView
                 android:text="⏰ Despertador"
