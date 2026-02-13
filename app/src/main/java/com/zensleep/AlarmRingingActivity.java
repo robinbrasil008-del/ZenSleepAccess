@@ -1,5 +1,6 @@
 package com.zensleep;
 
+import android.media.AudioAttributes;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -22,11 +23,17 @@ public class AlarmRingingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().addFlags(
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
-                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-        );
+        // 🔥 ESSENCIAL para Android moderno
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setShowWhenLocked(true);
+            setTurnScreenOn(true);
+        } else {
+            getWindow().addFlags(
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
+                    WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+            );
+        }
 
         setContentView(R.layout.activity_alarm_ringing);
 
@@ -34,6 +41,7 @@ public class AlarmRingingActivity extends AppCompatActivity {
         Button btnStop = findViewById(R.id.btnStopAlarm);
 
         String label = getIntent().getStringExtra("alarm_label");
+
         if (label != null && !label.isEmpty()) {
             txtTitle.setText("⏰ " + label);
         }
@@ -46,16 +54,33 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
     private void startAlarmSound() {
 
-        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        try {
 
-        if (alarmUri == null) {
-            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        }
+            Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
-        ringtone = RingtoneManager.getRingtone(this, alarmUri);
+            if (alarmUri == null) {
+                alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+            }
 
-        if (ringtone != null) {
-            ringtone.play();
+            ringtone = RingtoneManager.getRingtone(this, alarmUri);
+
+            if (ringtone != null) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+                    ringtone.setAudioAttributes(
+                            new AudioAttributes.Builder()
+                                    .setUsage(AudioAttributes.USAGE_ALARM)
+                                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                    .build()
+                    );
+                }
+
+                ringtone.play();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -66,27 +91,34 @@ public class AlarmRingingActivity extends AppCompatActivity {
         if (vibrator != null) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
                 vibrator.vibrate(
                         VibrationEffect.createWaveform(
-                                new long[]{0, 500, 500},
+                                new long[]{0, 700, 700},
                                 0
                         )
                 );
+
             } else {
-                vibrator.vibrate(new long[]{0, 500, 500}, 0);
+
+                vibrator.vibrate(new long[]{0, 700, 700}, 0);
             }
         }
     }
 
     private void stopAlarm() {
 
-        if (ringtone != null && ringtone.isPlaying()) {
-            ringtone.stop();
-        }
+        try {
 
-        if (vibrator != null) {
-            vibrator.cancel();
-        }
+            if (ringtone != null && ringtone.isPlaying()) {
+                ringtone.stop();
+            }
+
+            if (vibrator != null) {
+                vibrator.cancel();
+            }
+
+        } catch (Exception ignored) {}
 
         finish();
     }
