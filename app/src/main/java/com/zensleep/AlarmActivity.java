@@ -5,13 +5,14 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -24,14 +25,16 @@ import java.util.List;
 
 public class AlarmActivity extends AppCompatActivity {
 
-    private AlarmManager alarmManager;
+    private static final int REQUEST_SOUND = 500;
 
+    private AlarmManager alarmManager;
     private RecyclerView recycler;
-    private TextView emptyText;
     private Button btnAddAlarm;
 
     private List<AlarmItem> alarms;
     private AlarmAdapter adapter;
+
+    private Uri selectedSoundUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,6 @@ public class AlarmActivity extends AppCompatActivity {
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         recycler = findViewById(R.id.recyclerAlarms);
-        emptyText = findViewById(R.id.emptyAlarms);
         btnAddAlarm = findViewById(R.id.btnAddAlarm);
 
         alarms = AlarmStorage.load(this);
@@ -49,60 +51,33 @@ public class AlarmActivity extends AppCompatActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new AlarmAdapter(alarms, new AlarmAdapter.Listener() {
-
             @Override
             public void onToggle(AlarmItem item, boolean enabled) {
-
                 item.enabled = enabled;
                 AlarmStorage.save(AlarmActivity.this, alarms);
 
-                if (enabled) {
-                    scheduleAlarm(item);
-                } else {
-                    cancelAlarm(item);
-                }
+                if (enabled) scheduleAlarm(item);
+                else cancelAlarm(item);
             }
 
             @Override
             public void onDelete(AlarmItem item) {
-
                 cancelAlarm(item);
                 alarms.remove(item);
                 AlarmStorage.save(AlarmActivity.this, alarms);
-
                 adapter.notifyDataSetChanged();
-                updateEmpty();
             }
         });
 
         recycler.setAdapter(adapter);
 
         btnAddAlarm.setOnClickListener(v -> checkExactAlarmPermission());
-
-        updateEmpty();
-    }
-
-    private void updateEmpty() {
-
-        if (alarms == null || alarms.isEmpty()) {
-            emptyText.setVisibility(View.VISIBLE);
-            recycler.setVisibility(View.GONE);
-        } else {
-            emptyText.setVisibility(View.GONE);
-            recycler.setVisibility(View.VISIBLE);
-        }
     }
 
     private void checkExactAlarmPermission() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-
             if (!alarmManager.canScheduleExactAlarms()) {
-
-                Toast.makeText(this,
-                        "Permita alarmes exatos nas configurações",
-                        Toast.LENGTH_LONG).show();
-
                 Intent intent =
                         new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
                 startActivity(intent);
@@ -120,7 +95,7 @@ public class AlarmActivity extends AppCompatActivity {
         TimePickerDialog dialog = new TimePickerDialog(
                 this,
                 (view, hourOfDay, minute) ->
-                        openLabelDialog(hourOfDay, minute),
+                        openCreateDialog(hourOfDay, minute),
                 now.get(Calendar.HOUR_OF_DAY),
                 now.get(Calendar.MINUTE),
                 true
@@ -129,33 +104,81 @@ public class AlarmActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void openLabelDialog(int hour, int minute) {
+    private void openCreateDialog(int hour, int minute) {
 
-        EditText input = new EditText(this);
-        input.setHint("Nome do alarme");
+        View customView =
+                getLayoutInflater().inflate(R.layout.dialog_alarm_create, null);
+
+        EditText inputLabel =
+                customView.findViewById(R.id.inputLabel);
+
+        Button btnSelectSound =
+                customView.findViewById(R.id.btnSelectSound);
+
+        boolean[] selectedDays = new boolean[7];
+
+        btnSelectSound.setOnClickListener(v -> {
+
+            Intent intent =
+                    new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+
+            intent.putExtra(
+                    RingtoneManager.EXTRA_RINGTONE_TYPE,
+                    RingtoneManager.TYPE_ALARM
+            );
+
+            startActivityForResult(intent, REQUEST_SOUND);
+        });
 
         new AlertDialog.Builder(this)
-                .setTitle("Nome do alarme")
-                .setView(input)
+                .setTitle("Novo Alarme")
+                .setView(customView)
                 .setPositiveButton("Salvar", (d, which) -> {
 
-                    String label = input.getText().toString().trim();
+                    String label =
+                            inputLabel.getText().toString().trim();
 
                     int id = AlarmStorage.nextId(alarms);
 
                     AlarmItem item =
-                            new AlarmItem(id, hour, minute, label, true);
+                            new AlarmItem(
+                                    id,
+                                    hour,
+                                    minute,
+                                    label,
+                                    true,
+                                    selectedDays,
+                                    selectedSoundUri == null ?
+                                            null :
+                                            selectedSoundUri.toString()
+                            );
 
                     alarms.add(item);
                     AlarmStorage.save(this, alarms);
-
                     adapter.notifyDataSetChanged();
-                    updateEmpty();
 
                     scheduleAlarm(item);
                 })
                 .setNegativeButton("Cancelar", null)
                 .show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_SOUND &&
+                resultCode == RESULT_OK &&
+                data != null) {
+
+            selectedSoundUri =
+                    data.getParcelableExtra(
+                            RingtoneManager.EXTRA_RINGTONE_PICKED_URI
+                    );
+        }
     }
 
     private void scheduleAlarm(AlarmItem item) {
@@ -164,26 +187,25 @@ public class AlarmActivity extends AppCompatActivity {
         calendar.set(Calendar.HOUR_OF_DAY, item.hour);
         calendar.set(Calendar.MINUTE, item.minute);
         calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
 
         if (calendar.before(Calendar.getInstance())) {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
         Intent intent = new Intent(this, AlarmReceiver.class);
-
-        // 🔥 ESSENCIAL: deixa cada alarme único
         intent.setAction("ZEN_ALARM_" + item.id);
-
         intent.putExtra("alarm_id", item.id);
         intent.putExtra("alarm_label", item.label);
+        intent.putExtra("alarm_sound", item.soundUri);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                this,
-                item.id,
-                intent,
-                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
+        PendingIntent pendingIntent =
+                PendingIntent.getBroadcast(
+                        this,
+                        item.id,
+                        intent,
+                        PendingIntent.FLAG_CANCEL_CURRENT |
+                                PendingIntent.FLAG_IMMUTABLE
+                );
 
         alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,
@@ -191,22 +213,24 @@ public class AlarmActivity extends AppCompatActivity {
                 pendingIntent
         );
 
-        Toast.makeText(this, "Alarme agendado ✅", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,
+                "Alarme agendado ✅",
+                Toast.LENGTH_SHORT).show();
     }
 
     private void cancelAlarm(AlarmItem item) {
 
         Intent intent = new Intent(this, AlarmReceiver.class);
-
-        // 🔥 mesma action usada ao criar
         intent.setAction("ZEN_ALARM_" + item.id);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                this,
-                item.id,
-                intent,
-                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
+        PendingIntent pendingIntent =
+                PendingIntent.getBroadcast(
+                        this,
+                        item.id,
+                        intent,
+                        PendingIntent.FLAG_CANCEL_CURRENT |
+                                PendingIntent.FLAG_IMMUTABLE
+                );
 
         alarmManager.cancel(pendingIntent);
     }
