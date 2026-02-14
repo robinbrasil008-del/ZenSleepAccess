@@ -11,9 +11,12 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        int alarmId = intent.getIntExtra("alarm_id", -1);
+        String label = intent.getStringExtra("alarm_label");
+
         Intent serviceIntent = new Intent(context, AlarmService.class);
-        serviceIntent.putExtra("alarm_label",
-                intent.getStringExtra("alarm_label"));
+        serviceIntent.putExtra("alarm_id", alarmId);
+        serviceIntent.putExtra("alarm_label", label);
 
         ContextCompat.startForegroundService(context, serviceIntent);
     }
