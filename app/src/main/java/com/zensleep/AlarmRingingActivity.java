@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.provider.Settings;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,11 +22,17 @@ public class AlarmRingingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().addFlags(
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
-                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-        );
+        // 🔥 Mostra mesmo com tela bloqueada (Android 12+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setShowWhenLocked(true);
+            setTurnScreenOn(true);
+        } else {
+            getWindow().addFlags(
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
+                    WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+            );
+        }
 
         setContentView(R.layout.activity_alarm_ringing);
 
@@ -35,7 +40,6 @@ public class AlarmRingingActivity extends AppCompatActivity {
         Button btnStop = findViewById(R.id.btnStopAlarm);
 
         String label = getIntent().getStringExtra("alarm_label");
-
         if (label != null && !label.isEmpty()) {
             txtTitle.setText("⏰ " + label);
         }
@@ -50,26 +54,28 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
         try {
 
-            Uri alarmUri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+            // 🔥 Pega som padrão de alarme do sistema
+            Uri alarmUri = android.media.RingtoneManager
+                    .getDefaultUri(android.media.RingtoneManager.TYPE_ALARM);
 
             if (alarmUri == null) {
-                alarmUri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                alarmUri = android.media.RingtoneManager
+                        .getDefaultUri(android.media.RingtoneManager.TYPE_NOTIFICATION);
             }
 
-            mediaPlayer = MediaPlayer.create(this, alarmUri);
+            mediaPlayer = new MediaPlayer();
 
-            if (mediaPlayer == null) return;
+            mediaPlayer.setDataSource(this, alarmUri);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mediaPlayer.setAudioAttributes(
-                        new AudioAttributes.Builder()
-                                .setUsage(AudioAttributes.USAGE_ALARM)
-                                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                                .build()
-                );
-            }
+            mediaPlayer.setAudioAttributes(
+                    new AudioAttributes.Builder()
+                            .setUsage(AudioAttributes.USAGE_ALARM)
+                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                            .build()
+            );
 
             mediaPlayer.setLooping(true);
+            mediaPlayer.prepare();
             mediaPlayer.start();
 
         } catch (Exception e) {
@@ -87,14 +93,14 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
                 vibrator.vibrate(
                         VibrationEffect.createWaveform(
-                                new long[]{0, 500, 500},
+                                new long[]{0, 600, 600},
                                 0
                         )
                 );
 
             } else {
 
-                vibrator.vibrate(new long[]{0, 500, 500}, 0);
+                vibrator.vibrate(new long[]{0, 600, 600}, 0);
             }
         }
     }
@@ -103,7 +109,9 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
         try {
             if (mediaPlayer != null) {
-                mediaPlayer.stop();
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
                 mediaPlayer.release();
                 mediaPlayer = null;
             }
@@ -118,7 +126,7 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         stopAlarm();
+        super.onDestroy();
     }
 }
