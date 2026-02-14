@@ -171,6 +171,10 @@ public class AlarmActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, AlarmReceiver.class);
+
+        // 🔥 ESSENCIAL: deixa cada alarme único
+        intent.setAction("ZEN_ALARM_" + item.id);
+
         intent.putExtra("alarm_id", item.id);
         intent.putExtra("alarm_label", item.label);
 
@@ -193,6 +197,9 @@ public class AlarmActivity extends AppCompatActivity {
     private void cancelAlarm(AlarmItem item) {
 
         Intent intent = new Intent(this, AlarmReceiver.class);
+
+        // 🔥 mesma action usada ao criar
+        intent.setAction("ZEN_ALARM_" + item.id);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this,
