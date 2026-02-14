@@ -9,6 +9,7 @@ import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
@@ -20,6 +21,7 @@ public class AlarmService extends Service {
 
     private MediaPlayer mediaPlayer;
     private Vibrator vibrator;
+    private PowerManager.WakeLock wakeLock;
 
     @Override
     public void onCreate() {
@@ -32,17 +34,33 @@ public class AlarmService extends Service {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setOngoing(true)
                 .build();
 
         startForeground(1, notification);
 
+        acquireWakeLock();
         startAlarm();
+    }
+
+    private void acquireWakeLock() {
+        PowerManager powerManager =
+                (PowerManager) getSystemService(POWER_SERVICE);
+
+        wakeLock = powerManager.newWakeLock(
+                PowerManager.PARTIAL_WAKE_LOCK,
+                "ZenSleep::AlarmWakeLock"
+        );
+
+        wakeLock.acquire(10 * 60 * 1000L); // 10 minutos
     }
 
     private void startAlarm() {
 
-        mediaPlayer = MediaPlayer.create(this,
-                android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI);
+        mediaPlayer = MediaPlayer.create(
+                this,
+                android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
+        );
 
         if (mediaPlayer != null) {
 
@@ -76,26 +94,6 @@ public class AlarmService extends Service {
         }
     }
 
-    private void createNotificationChannel() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            NotificationChannel channel = new NotificationChannel(
-                    CHANNEL_ID,
-                    "Alarme ZenSleep",
-                    NotificationManager.IMPORTANCE_HIGH
-            );
-
-            channel.setDescription("Canal do alarme");
-            channel.enableVibration(true);
-
-            NotificationManager manager =
-                    getSystemService(NotificationManager.class);
-
-            manager.createNotificationChannel(channel);
-        }
-    }
-
     @Override
     public void onDestroy() {
 
@@ -106,6 +104,10 @@ public class AlarmService extends Service {
 
         if (vibrator != null) {
             vibrator.cancel();
+        }
+
+        if (wakeLock != null && wakeLock.isHeld()) {
+            wakeLock.release();
         }
 
         stopForeground(true);
