@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Nome -->
+        <EditText
+            android:id="@+id/inputLabel"
+            android:hint="Nome do alarme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- DIAS DA SEMANA -->
+        <TextView
+            android:text="Repetir"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/daySun"
+                android:text="Dom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <CheckBox
+                android:id="@+id/dayMon"
+                android:text="Seg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <CheckBox
+                android:id="@+id/dayTue"
+                android:text="Ter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/dayWed"
+                android:text="Qua"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <CheckBox
+                android:id="@+id/dayThu"
+                android:text="Qui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <CheckBox
+                android:id="@+id/dayFri"
+                android:text="Sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <CheckBox
+                android:id="@+id/daySat"
+                android:text="Sab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <!-- SOM -->
+        <Button
+            android:id="@+id/btnSelectSound"
+            android:text="Escolher Som"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"/>
+
+    </LinearLayout>
+
+</ScrollView>
