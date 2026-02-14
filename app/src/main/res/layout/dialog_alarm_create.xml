@@ -9,24 +9,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Nome -->
+        <!-- 🔹 NOME -->
         <EditText
             android:id="@+id/inputLabel"
             android:hint="Nome do alarme"
+            android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <!-- DIAS DA SEMANA -->
+        <!-- 🔹 DIAS -->
         <TextView
             android:text="Repetir"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -47,7 +49,6 @@
                 android:text="Ter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
         </LinearLayout>
 
         <LinearLayout
@@ -78,13 +79,52 @@
                 android:text="Sab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
         </LinearLayout>
 
-        <!-- SOM -->
+        <!-- 🔹 SONS PADRÃO DO APP -->
+        <TextView
+            android:text="Som do alarme"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RadioGroup
+            android:id="@+id/radioSoundGroup"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/radioSom1"
+                android:text="Som 1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:id="@+id/radioSom2"
+                android:text="Som 2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:id="@+id/radioSom3"
+                android:text="Som 3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:id="@+id/radioPadrao"
+                android:text="Som padrão do sistema"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+        <!-- 🔹 UPLOAD PERSONALIZADO -->
         <Button
-            android:id="@+id/btnSelectSound"
-            android:text="Escolher Som"
+            android:id="@+id/btnUploadSound"
+            android:text="Selecionar áudio personalizado"
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="48dp"/>
