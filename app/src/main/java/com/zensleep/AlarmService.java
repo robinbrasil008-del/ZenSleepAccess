@@ -28,27 +28,23 @@ public class AlarmService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-
         createNotificationChannel();
-
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("⏰ Alarme tocando")
-                .setContentText("ZenSleep")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setCategory(NotificationCompat.CATEGORY_ALARM)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setOngoing(true)
-                .build();
-
-        startForeground(1, notification);
-
         acquireWakeLock();
-        forceAlarmVolume();     // 🔥 IMPORTANTE
+    }
+
+    // 🔥 AGORA EXECUTA TODA VEZ QUE UM ALARME DISPARA
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+        forceAlarmVolume();
         startAlarm();
-        openFullScreen();
+        openFullScreen(intent);
+
+        return START_REDELIVER_INTENT;
     }
 
     private void createNotificationChannel() {
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             NotificationChannel channel = new NotificationChannel(
@@ -70,7 +66,6 @@ public class AlarmService extends Service {
         }
     }
 
-    // 🔥 FORÇA VOLUME DO ALARME (ignora silencioso)
     private void forceAlarmVolume() {
 
         AudioManager audioManager =
@@ -146,8 +141,15 @@ public class AlarmService extends Service {
         }
     }
 
-    private void openFullScreen() {
+    private void openFullScreen(Intent intent) {
+
         Intent i = new Intent(this, AlarmRingingActivity.class);
+
+        if (intent != null) {
+            i.putExtra("alarm_label",
+                    intent.getStringExtra("alarm_label"));
+        }
+
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
     }
