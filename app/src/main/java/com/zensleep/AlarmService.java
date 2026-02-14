@@ -15,20 +15,23 @@ public class AlarmService extends Service {
     private static final String CHANNEL_ID = "ZEN_ALARM_SERVICE";
 
     @Override
-    public void onCreate() {
-        super.onCreate();
+    public int onStartCommand(Intent intent, int flags, int startId) {
 
         createChannel();
 
         Notification notification =
                 new NotificationCompat.Builder(this, CHANNEL_ID)
-                        .setContentTitle("⏰ Alarme disparado")
-                        .setContentText("Teste básico")
+                        .setContentTitle("⏰ Alarme tocando")
+                        .setContentText("ZenSleep ativo")
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setCategory(NotificationCompat.CATEGORY_ALARM)
+                        .setOngoing(true)
                         .build();
 
         startForeground(1, notification);
+
+        return START_STICKY;
     }
 
     private void createChannel() {
@@ -38,7 +41,7 @@ public class AlarmService extends Service {
             NotificationChannel channel =
                     new NotificationChannel(
                             CHANNEL_ID,
-                            "ZenSleep Test",
+                            "Alarme ZenSleep",
                             NotificationManager.IMPORTANCE_HIGH
                     );
 
