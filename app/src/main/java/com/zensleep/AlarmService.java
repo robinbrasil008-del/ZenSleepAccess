@@ -36,12 +36,21 @@ public class AlarmService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        String label = "";
-        if (intent != null) {
-            label = intent.getStringExtra("alarm_label");
+        if (intent != null && "STOP_ALARM".equals(intent.getAction())) {
+            stopSelf();
+            return START_NOT_STICKY;
         }
 
-        // 🔥 PendingIntent para abrir tela
+        int alarmId = 0;
+        String label = "ZenSleep";
+
+        if (intent != null) {
+            alarmId = intent.getIntExtra("alarm_id", 0);
+            String extraLabel = intent.getStringExtra("alarm_label");
+            if (extraLabel != null) label = extraLabel;
+        }
+
+        // 🔥 FULL SCREEN INTENT ÚNICO POR ALARME
         Intent fullScreenIntent =
                 new Intent(this, AlarmRingingActivity.class);
         fullScreenIntent.putExtra("alarm_label", label);
@@ -50,13 +59,13 @@ public class AlarmService extends Service {
         PendingIntent fullScreenPendingIntent =
                 PendingIntent.getActivity(
                         this,
-                        0,
+                        alarmId, // 🔥 AGORA É ÚNICO
                         fullScreenIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT |
                                 PendingIntent.FLAG_IMMUTABLE
                 );
 
-        // 🔥 Intent para parar alarme
+        // 🔥 BOTÃO PARAR
         Intent stopIntent =
                 new Intent(this, AlarmService.class);
         stopIntent.setAction("STOP_ALARM");
@@ -64,21 +73,16 @@ public class AlarmService extends Service {
         PendingIntent stopPendingIntent =
                 PendingIntent.getService(
                         this,
-                        1,
+                        alarmId + 1000, // 🔥 ÚNICO TAMBÉM
                         stopIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT |
                                 PendingIntent.FLAG_IMMUTABLE
                 );
 
-        if (intent != null && "STOP_ALARM".equals(intent.getAction())) {
-            stopSelf();
-            return START_NOT_STICKY;
-        }
-
         Notification notification =
                 new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setContentTitle("⏰ Alarme")
-                        .setContentText(label == null ? "ZenSleep" : label)
+                        .setContentText(label)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setCategory(NotificationCompat.CATEGORY_ALARM)
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -91,8 +95,7 @@ public class AlarmService extends Service {
                         .setOngoing(true)
                         .build();
 
-        // 🔥 AGORA SIM é obrigatório
-        startForeground(1, notification);
+        startForeground(alarmId, notification); // 🔥 ID único também
 
         forceAlarmVolume();
         startAlarm();
