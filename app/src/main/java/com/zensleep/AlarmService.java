@@ -6,7 +6,9 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -33,24 +35,20 @@ public class AlarmService extends Service {
                 .setContentTitle("⏰ Alarme tocando")
                 .setContentText("ZenSleep")
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setOngoing(true)
                 .build();
 
         startForeground(1, notification);
 
         acquireWakeLock();
+        forceAlarmVolume();     // 🔥 IMPORTANTE
         startAlarm();
-
-        // 🔥 Abre tela full screen
-        Intent i = new Intent(this, AlarmRingingActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(i);
+        openFullScreen();
     }
 
     private void createNotificationChannel() {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             NotificationChannel channel = new NotificationChannel(
@@ -61,6 +59,7 @@ public class AlarmService extends Service {
 
             channel.setDescription("Canal do alarme");
             channel.enableVibration(true);
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
 
             NotificationManager manager =
                     getSystemService(NotificationManager.class);
@@ -68,6 +67,25 @@ public class AlarmService extends Service {
             if (manager != null) {
                 manager.createNotificationChannel(channel);
             }
+        }
+    }
+
+    // 🔥 FORÇA VOLUME DO ALARME (ignora silencioso)
+    private void forceAlarmVolume() {
+
+        AudioManager audioManager =
+                (AudioManager) getSystemService(AUDIO_SERVICE);
+
+        if (audioManager != null) {
+
+            int maxVolume =
+                    audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+
+            audioManager.setStreamVolume(
+                    AudioManager.STREAM_ALARM,
+                    maxVolume,
+                    0
+            );
         }
     }
 
@@ -90,25 +108,22 @@ public class AlarmService extends Service {
 
         try {
 
-            mediaPlayer = MediaPlayer.create(
-                    this,
-                    android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
+            Uri alarmUri =
+                    android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI;
+
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setDataSource(this, alarmUri);
+
+            mediaPlayer.setAudioAttributes(
+                    new AudioAttributes.Builder()
+                            .setUsage(AudioAttributes.USAGE_ALARM)
+                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                            .build()
             );
 
-            if (mediaPlayer != null) {
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    mediaPlayer.setAudioAttributes(
-                            new AudioAttributes.Builder()
-                                    .setUsage(AudioAttributes.USAGE_ALARM)
-                                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                                    .build()
-                    );
-                }
-
-                mediaPlayer.setLooping(true);
-                mediaPlayer.start();
-            }
+            mediaPlayer.setLooping(true);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,6 +144,12 @@ public class AlarmService extends Service {
                 vibrator.vibrate(new long[]{0, 700, 700}, 0);
             }
         }
+    }
+
+    private void openFullScreen() {
+        Intent i = new Intent(this, AlarmRingingActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
     }
 
     @Override
