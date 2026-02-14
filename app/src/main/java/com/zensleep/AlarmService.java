@@ -50,30 +50,31 @@ public class AlarmService extends Service {
             if (extraLabel != null) label = extraLabel;
         }
 
-        // 🔥 FULL SCREEN INTENT ÚNICO POR ALARME
-        Intent fullScreenIntent =
-                new Intent(this, AlarmRingingActivity.class);
+        // 🔥 INTENT DA TELA
+        Intent fullScreenIntent = new Intent(this, AlarmRingingActivity.class);
         fullScreenIntent.putExtra("alarm_label", label);
-        fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        fullScreenIntent.addFlags(
+                Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TOP
+        );
 
         PendingIntent fullScreenPendingIntent =
                 PendingIntent.getActivity(
                         this,
-                        alarmId, // 🔥 AGORA É ÚNICO
+                        alarmId,
                         fullScreenIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT |
                                 PendingIntent.FLAG_IMMUTABLE
                 );
 
         // 🔥 BOTÃO PARAR
-        Intent stopIntent =
-                new Intent(this, AlarmService.class);
+        Intent stopIntent = new Intent(this, AlarmService.class);
         stopIntent.setAction("STOP_ALARM");
 
         PendingIntent stopPendingIntent =
                 PendingIntent.getService(
                         this,
-                        alarmId + 1000, // 🔥 ÚNICO TAMBÉM
+                        alarmId + 1000,
                         stopIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT |
                                 PendingIntent.FLAG_IMMUTABLE
@@ -95,7 +96,11 @@ public class AlarmService extends Service {
                         .setOngoing(true)
                         .build();
 
-        startForeground(alarmId, notification); // 🔥 ID único também
+        startForeground(alarmId, notification);
+
+        // 🔥 AQUI ESTÁ O SEGREDO
+        // Abre manualmente também
+        startActivity(fullScreenIntent);
 
         forceAlarmVolume();
         startAlarm();
@@ -116,9 +121,7 @@ public class AlarmService extends Service {
 
             channel.setDescription("Canal do alarme");
             channel.enableVibration(true);
-            channel.setLockscreenVisibility(
-                    Notification.VISIBILITY_PUBLIC
-            );
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
 
             NotificationManager manager =
                     getSystemService(NotificationManager.class);
@@ -137,9 +140,7 @@ public class AlarmService extends Service {
         if (audioManager != null) {
 
             int maxVolume =
-                    audioManager.getStreamMaxVolume(
-                            AudioManager.STREAM_ALARM
-                    );
+                    audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
 
             audioManager.setStreamVolume(
                     AudioManager.STREAM_ALARM,
@@ -189,8 +190,7 @@ public class AlarmService extends Service {
             e.printStackTrace();
         }
 
-        vibrator =
-                (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         if (vibrator != null) {
 
@@ -202,10 +202,7 @@ public class AlarmService extends Service {
                         )
                 );
             } else {
-                vibrator.vibrate(
-                        new long[]{0, 700, 700},
-                        0
-                );
+                vibrator.vibrate(new long[]{0, 700, 700}, 0);
             }
         }
     }
