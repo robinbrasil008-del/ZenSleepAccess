@@ -3,6 +3,7 @@ package com.zensleep;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.media.AudioAttributes;
@@ -32,30 +33,89 @@ public class AlarmService extends Service {
         acquireWakeLock();
     }
 
-    // 🔥 AGORA EXECUTA TODA VEZ QUE UM ALARME DISPARA
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        String label = "";
+        if (intent != null) {
+            label = intent.getStringExtra("alarm_label");
+        }
+
+        // 🔥 PendingIntent para abrir tela
+        Intent fullScreenIntent =
+                new Intent(this, AlarmRingingActivity.class);
+        fullScreenIntent.putExtra("alarm_label", label);
+        fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        PendingIntent fullScreenPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        fullScreenIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT |
+                                PendingIntent.FLAG_IMMUTABLE
+                );
+
+        // 🔥 Intent para parar alarme
+        Intent stopIntent =
+                new Intent(this, AlarmService.class);
+        stopIntent.setAction("STOP_ALARM");
+
+        PendingIntent stopPendingIntent =
+                PendingIntent.getService(
+                        this,
+                        1,
+                        stopIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT |
+                                PendingIntent.FLAG_IMMUTABLE
+                );
+
+        if (intent != null && "STOP_ALARM".equals(intent.getAction())) {
+            stopSelf();
+            return START_NOT_STICKY;
+        }
+
+        Notification notification =
+                new NotificationCompat.Builder(this, CHANNEL_ID)
+                        .setContentTitle("⏰ Alarme")
+                        .setContentText(label == null ? "ZenSleep" : label)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setCategory(NotificationCompat.CATEGORY_ALARM)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setFullScreenIntent(fullScreenPendingIntent, true)
+                        .addAction(
+                                R.mipmap.ic_launcher,
+                                "PARAR",
+                                stopPendingIntent
+                        )
+                        .setOngoing(true)
+                        .build();
+
+        // 🔥 AGORA SIM é obrigatório
+        startForeground(1, notification);
+
         forceAlarmVolume();
         startAlarm();
-        openFullScreen(intent);
 
-        return START_REDELIVER_INTENT;
+        return START_STICKY;
     }
 
     private void createNotificationChannel() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            NotificationChannel channel = new NotificationChannel(
-                    CHANNEL_ID,
-                    "Alarme ZenSleep",
-                    NotificationManager.IMPORTANCE_HIGH
-            );
+            NotificationChannel channel =
+                    new NotificationChannel(
+                            CHANNEL_ID,
+                            "Alarme ZenSleep",
+                            NotificationManager.IMPORTANCE_HIGH
+                    );
 
             channel.setDescription("Canal do alarme");
             channel.enableVibration(true);
-            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            channel.setLockscreenVisibility(
+                    Notification.VISIBILITY_PUBLIC
+            );
 
             NotificationManager manager =
                     getSystemService(NotificationManager.class);
@@ -74,7 +134,9 @@ public class AlarmService extends Service {
         if (audioManager != null) {
 
             int maxVolume =
-                    audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                    audioManager.getStreamMaxVolume(
+                            AudioManager.STREAM_ALARM
+                    );
 
             audioManager.setStreamVolume(
                     AudioManager.STREAM_ALARM,
@@ -124,7 +186,8 @@ public class AlarmService extends Service {
             e.printStackTrace();
         }
 
-        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vibrator =
+                (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         if (vibrator != null) {
 
@@ -136,22 +199,12 @@ public class AlarmService extends Service {
                         )
                 );
             } else {
-                vibrator.vibrate(new long[]{0, 700, 700}, 0);
+                vibrator.vibrate(
+                        new long[]{0, 700, 700},
+                        0
+                );
             }
         }
-    }
-
-    private void openFullScreen(Intent intent) {
-
-        Intent i = new Intent(this, AlarmRingingActivity.class);
-
-        if (intent != null) {
-            i.putExtra("alarm_label",
-                    intent.getStringExtra("alarm_label"));
-        }
-
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(i);
     }
 
     @Override
