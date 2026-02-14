@@ -10,11 +10,14 @@
     <!-- 🔥 Android 13+ Notificações -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
-    <!-- 🔥 Permite vibrar -->
+    <!-- 🔥 Vibrar -->
     <uses-permission android:name="android.permission.VIBRATE"/>
 
-    <!-- 🔥 Mantém CPU ativa enquanto toca -->
+    <!-- 🔥 Manter CPU ativa -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <!-- 🔥 OBRIGATÓRIA PARA FOREGROUND SERVICE -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
         android:allowBackup="true"
@@ -24,7 +27,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
 
-        <!-- 🏠 Tela Principal -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -36,13 +38,11 @@
 
         </activity>
 
-        <!-- ⏰ Tela do Despertador -->
         <activity
             android:name=".AlarmActivity"
             android:exported="false"
             android:label="Despertador" />
 
-        <!-- 🔔 Tela que abre quando toca -->
         <activity
             android:name=".AlarmRingingActivity"
             android:exported="false"
@@ -53,18 +53,16 @@
             android:label="Alarme"
             android:screenOrientation="portrait" />
 
-        <!-- 📡 Receiver -->
         <receiver
             android:name=".AlarmReceiver"
             android:exported="false" />
 
-        <!-- 🔊 Service que toca o alarme (ESSENCIAL) -->
+        <!-- 🔥 SERVICE CORRETO -->
         <service
             android:name=".AlarmService"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback" />
 
-        <!-- 🔐 Política -->
         <activity
             android:name=".PrivacyPolicyActivity"
             android:exported="false"
