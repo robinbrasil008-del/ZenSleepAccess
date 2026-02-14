@@ -43,14 +43,17 @@ public class AlarmService extends Service {
 
         int alarmId = 0;
         String label = "ZenSleep";
+        String soundUriString = null;
 
         if (intent != null) {
             alarmId = intent.getIntExtra("alarm_id", 0);
             String extraLabel = intent.getStringExtra("alarm_label");
             if (extraLabel != null) label = extraLabel;
+
+            soundUriString = intent.getStringExtra("alarm_sound");
         }
 
-        // 🔥 INTENT DA TELA
+        // 🔥 TELA FULL SCREEN
         Intent fullScreenIntent = new Intent(this, AlarmRingingActivity.class);
         fullScreenIntent.putExtra("alarm_label", label);
         fullScreenIntent.addFlags(
@@ -98,36 +101,77 @@ public class AlarmService extends Service {
 
         startForeground(alarmId, notification);
 
-        // 🔥 AQUI ESTÁ O SEGREDO
-        // Abre manualmente também
         startActivity(fullScreenIntent);
 
         forceAlarmVolume();
-        startAlarm();
+        startAlarm(soundUriString);
 
         return START_STICKY;
     }
 
-    private void createNotificationChannel() {
+    private void startAlarm(String soundUriString) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        try {
 
-            NotificationChannel channel =
-                    new NotificationChannel(
-                            CHANNEL_ID,
-                            "Alarme ZenSleep",
-                            NotificationManager.IMPORTANCE_HIGH
-                    );
+            mediaPlayer = new MediaPlayer();
 
-            channel.setDescription("Canal do alarme");
-            channel.enableVibration(true);
-            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            Uri soundUri;
 
-            NotificationManager manager =
-                    getSystemService(NotificationManager.class);
+            // 🔥 1️⃣ Se for Som 1
+            if ("SOM_1".equals(soundUriString)) {
+                soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.som1);
+            }
 
-            if (manager != null) {
-                manager.createNotificationChannel(channel);
+            // 🔥 2️⃣ Se for Som 2
+            else if ("SOM_2".equals(soundUriString)) {
+                soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.som2);
+            }
+
+            // 🔥 3️⃣ Se for Som 3
+            else if ("SOM_3".equals(soundUriString)) {
+                soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.som3);
+            }
+
+            // 🔥 4️⃣ Se for upload personalizado
+            else if (soundUriString != null) {
+                soundUri = Uri.parse(soundUriString);
+            }
+
+            // 🔥 5️⃣ Se não escolheu nada
+            else {
+                soundUri = android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI;
+            }
+
+            mediaPlayer.setDataSource(this, soundUri);
+
+            mediaPlayer.setAudioAttributes(
+                    new AudioAttributes.Builder()
+                            .setUsage(AudioAttributes.USAGE_ALARM)
+                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                            .build()
+            );
+
+            mediaPlayer.setLooping(true);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+
+        if (vibrator != null) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(
+                        VibrationEffect.createWaveform(
+                                new long[]{0, 700, 700},
+                                0
+                        )
+                );
+            } else {
+                vibrator.vibrate(new long[]{0, 700, 700}, 0);
             }
         }
     }
@@ -165,44 +209,24 @@ public class AlarmService extends Service {
         wakeLock.acquire(10 * 60 * 1000L);
     }
 
-    private void startAlarm() {
+    private void createNotificationChannel() {
 
-        try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            Uri alarmUri =
-                    android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI;
+            NotificationChannel channel =
+                    new NotificationChannel(
+                            CHANNEL_ID,
+                            "Alarme ZenSleep",
+                            NotificationManager.IMPORTANCE_HIGH
+                    );
 
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.setDataSource(this, alarmUri);
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
 
-            mediaPlayer.setAudioAttributes(
-                    new AudioAttributes.Builder()
-                            .setUsage(AudioAttributes.USAGE_ALARM)
-                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                            .build()
-            );
+            NotificationManager manager =
+                    getSystemService(NotificationManager.class);
 
-            mediaPlayer.setLooping(true);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-
-        if (vibrator != null) {
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(
-                        VibrationEffect.createWaveform(
-                                new long[]{0, 700, 700},
-                                0
-                        )
-                );
-            } else {
-                vibrator.vibrate(new long[]{0, 700, 700}, 0);
+            if (manager != null) {
+                manager.createNotificationChannel(channel);
             }
         }
     }
