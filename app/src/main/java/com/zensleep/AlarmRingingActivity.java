@@ -1,7 +1,8 @@
 package com.zensleep;
 
-import android.media.AudioAttributes;
-import android.media.MediaPlayer;
+import android.media.AudioManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,14 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AlarmRingingActivity extends AppCompatActivity {
 
-    private MediaPlayer mediaPlayer;
+    private Ringtone ringtone;
     private Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 🔥 Mostra mesmo com tela bloqueada (Android 12+)
+        // 🔥 Mostrar mesmo bloqueado
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true);
             setTurnScreenOn(true);
@@ -44,42 +45,47 @@ public class AlarmRingingActivity extends AppCompatActivity {
             txtTitle.setText("⏰ " + label);
         }
 
+        forceAlarmVolume();
         startAlarmSound();
         startVibration();
 
         btnStop.setOnClickListener(v -> stopAlarm());
     }
 
+    // 🔥 FORÇA VOLUME DO STREAM DE ALARME
+    private void forceAlarmVolume() {
+        AudioManager audioManager =
+                (AudioManager) getSystemService(AUDIO_SERVICE);
+
+        if (audioManager != null) {
+
+            int maxVolume =
+                    audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+
+            audioManager.setStreamVolume(
+                    AudioManager.STREAM_ALARM,
+                    maxVolume,
+                    0
+            );
+        }
+    }
+
     private void startAlarmSound() {
 
-        try {
+        Uri alarmUri = RingtoneManager
+                .getDefaultUri(RingtoneManager.TYPE_ALARM);
 
-            // 🔥 Pega som padrão de alarme do sistema
-            Uri alarmUri = android.media.RingtoneManager
-                    .getDefaultUri(android.media.RingtoneManager.TYPE_ALARM);
+        if (alarmUri == null) {
+            alarmUri = RingtoneManager
+                    .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        }
 
-            if (alarmUri == null) {
-                alarmUri = android.media.RingtoneManager
-                        .getDefaultUri(android.media.RingtoneManager.TYPE_NOTIFICATION);
-            }
+        ringtone = RingtoneManager.getRingtone(this, alarmUri);
 
-            mediaPlayer = new MediaPlayer();
+        if (ringtone != null) {
 
-            mediaPlayer.setDataSource(this, alarmUri);
-
-            mediaPlayer.setAudioAttributes(
-                    new AudioAttributes.Builder()
-                            .setUsage(AudioAttributes.USAGE_ALARM)
-                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                            .build()
-            );
-
-            mediaPlayer.setLooping(true);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            ringtone.setStreamType(AudioManager.STREAM_ALARM);
+            ringtone.play();
         }
     }
 
@@ -90,16 +96,13 @@ public class AlarmRingingActivity extends AppCompatActivity {
         if (vibrator != null) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
                 vibrator.vibrate(
                         VibrationEffect.createWaveform(
                                 new long[]{0, 600, 600},
                                 0
                         )
                 );
-
             } else {
-
                 vibrator.vibrate(new long[]{0, 600, 600}, 0);
             }
         }
@@ -107,15 +110,9 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
     private void stopAlarm() {
 
-        try {
-            if (mediaPlayer != null) {
-                if (mediaPlayer.isPlaying()) {
-                    mediaPlayer.stop();
-                }
-                mediaPlayer.release();
-                mediaPlayer = null;
-            }
-        } catch (Exception ignored) {}
+        if (ringtone != null && ringtone.isPlaying()) {
+            ringtone.stop();
+        }
 
         if (vibrator != null) {
             vibrator.cancel();
