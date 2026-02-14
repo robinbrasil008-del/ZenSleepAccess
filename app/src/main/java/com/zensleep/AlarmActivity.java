@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class AlarmActivity extends AppCompatActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new AlarmAdapter(alarms, new AlarmAdapter.Listener() {
+
             @Override
             public void onToggle(AlarmItem item, boolean enabled) {
                 item.enabled = enabled;
@@ -106,6 +108,8 @@ public class AlarmActivity extends AppCompatActivity {
 
     private void openCreateDialog(int hour, int minute) {
 
+        selectedSoundUri = null;
+
         View customView =
                 getLayoutInflater().inflate(R.layout.dialog_alarm_create, null);
 
@@ -115,7 +119,13 @@ public class AlarmActivity extends AppCompatActivity {
         Button btnSelectSound =
                 customView.findViewById(R.id.btnSelectSound);
 
-        boolean[] selectedDays = new boolean[7];
+        CheckBox daySun = customView.findViewById(R.id.daySun);
+        CheckBox dayMon = customView.findViewById(R.id.dayMon);
+        CheckBox dayTue = customView.findViewById(R.id.dayTue);
+        CheckBox dayWed = customView.findViewById(R.id.dayWed);
+        CheckBox dayThu = customView.findViewById(R.id.dayThu);
+        CheckBox dayFri = customView.findViewById(R.id.dayFri);
+        CheckBox daySat = customView.findViewById(R.id.daySat);
 
         btnSelectSound.setOnClickListener(v -> {
 
@@ -137,6 +147,16 @@ public class AlarmActivity extends AppCompatActivity {
 
                     String label =
                             inputLabel.getText().toString().trim();
+
+                    boolean[] selectedDays = new boolean[]{
+                            daySun.isChecked(),
+                            dayMon.isChecked(),
+                            dayTue.isChecked(),
+                            dayWed.isChecked(),
+                            dayThu.isChecked(),
+                            dayFri.isChecked(),
+                            daySat.isChecked()
+                    };
 
                     int id = AlarmStorage.nextId(alarms);
 
@@ -187,9 +207,32 @@ public class AlarmActivity extends AppCompatActivity {
         calendar.set(Calendar.HOUR_OF_DAY, item.hour);
         calendar.set(Calendar.MINUTE, item.minute);
         calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
-        if (calendar.before(Calendar.getInstance())) {
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        if (item.isRepeating()) {
+
+            int today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+            int nextDayOffset = -1;
+
+            for (int i = 0; i < 7; i++) {
+
+                int checkDay = (today - 1 + i) % 7;
+
+                if (item.days[checkDay]) {
+                    nextDayOffset = i;
+                    break;
+                }
+            }
+
+            if (nextDayOffset >= 0) {
+                calendar.add(Calendar.DAY_OF_YEAR, nextDayOffset);
+            }
+
+        } else {
+
+            if (calendar.before(Calendar.getInstance())) {
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+            }
         }
 
         Intent intent = new Intent(this, AlarmReceiver.class);
