@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- 🔥 Alarmes exatos Android 12+ -->
+    <!-- Alarmes exatos Android 12+ -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 
-    <!-- 🔥 Full screen alarm -->
+    <!-- Full screen alarm -->
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
 
-    <!-- 🔥 Android 13+ Notificações -->
+    <!-- Android 13+ notificações -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
-    <!-- 🔥 Vibrar -->
+    <!-- Vibrar -->
     <uses-permission android:name="android.permission.VIBRATE"/>
 
-    <!-- 🔥 Manter CPU ativa -->
+    <!-- WakeLock -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
-    <!-- 🔥 OBRIGATÓRIA PARA FOREGROUND SERVICE -->
+    <!-- Foreground Service base -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
+    <!-- 🔥 OBRIGATÓRIA ANDROID 14+ PARA MEDIA -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
 
     <application
         android:allowBackup="true"
@@ -32,8 +35,8 @@
             android:exported="true">
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
 
         </activity>
@@ -41,7 +44,7 @@
         <activity
             android:name=".AlarmActivity"
             android:exported="false"
-            android:label="Despertador" />
+            android:label="Despertador"/>
 
         <activity
             android:name=".AlarmRingingActivity"
@@ -51,22 +54,21 @@
             android:excludeFromRecents="true"
             android:launchMode="singleTop"
             android:label="Alarme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <receiver
             android:name=".AlarmReceiver"
-            android:exported="false" />
+            android:exported="false"/>
 
-        <!-- 🔥 SERVICE CORRETO -->
         <service
             android:name=".AlarmService"
             android:exported="false"
-            android:foregroundServiceType="mediaPlayback" />
+            android:foregroundServiceType="mediaPlayback"/>
 
         <activity
             android:name=".PrivacyPolicyActivity"
             android:exported="false"
-            android:label="Política de Privacidade" />
+            android:label="Política de Privacidade"/>
 
     </application>
 
