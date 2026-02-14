@@ -53,8 +53,8 @@ public class AlarmService extends Service {
             soundUriString = intent.getStringExtra("alarm_sound");
         }
 
-        // 🔥 TELA FULL SCREEN
-        Intent fullScreenIntent = new Intent(this, AlarmRingingActivity.class);
+        Intent fullScreenIntent =
+                new Intent(this, AlarmRingingActivity.class);
         fullScreenIntent.putExtra("alarm_label", label);
         fullScreenIntent.addFlags(
                 Intent.FLAG_ACTIVITY_NEW_TASK |
@@ -70,7 +70,6 @@ public class AlarmService extends Service {
                                 PendingIntent.FLAG_IMMUTABLE
                 );
 
-        // 🔥 BOTÃO PARAR
         Intent stopIntent = new Intent(this, AlarmService.class);
         stopIntent.setAction("STOP_ALARM");
 
@@ -113,36 +112,25 @@ public class AlarmService extends Service {
 
         try {
 
-            mediaPlayer = new MediaPlayer();
-
             Uri soundUri;
 
-            // 🔥 1️⃣ Se for Som 1
             if ("SOM_1".equals(soundUriString)) {
                 soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.som1);
             }
-
-            // 🔥 2️⃣ Se for Som 2
             else if ("SOM_2".equals(soundUriString)) {
                 soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.som2);
             }
-
-            // 🔥 3️⃣ Se for Som 3
             else if ("SOM_3".equals(soundUriString)) {
                 soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.som3);
             }
-
-            // 🔥 4️⃣ Se for upload personalizado
-            else if (soundUriString != null) {
+            else if (soundUriString != null && soundUriString.startsWith("content://")) {
                 soundUri = Uri.parse(soundUriString);
             }
-
-            // 🔥 5️⃣ Se não escolheu nada
             else {
                 soundUri = android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI;
             }
 
-            mediaPlayer.setDataSource(this, soundUri);
+            mediaPlayer = new MediaPlayer();
 
             mediaPlayer.setAudioAttributes(
                     new AudioAttributes.Builder()
@@ -151,12 +139,22 @@ public class AlarmService extends Service {
                             .build()
             );
 
+            mediaPlayer.setDataSource(this, soundUri);
             mediaPlayer.setLooping(true);
             mediaPlayer.prepare();
             mediaPlayer.start();
 
         } catch (Exception e) {
-            e.printStackTrace();
+
+            // 🔥 Fallback automático
+            try {
+                mediaPlayer = MediaPlayer.create(
+                        this,
+                        android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
+                );
+                mediaPlayer.setLooping(true);
+                mediaPlayer.start();
+            } catch (Exception ignored) {}
         }
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
