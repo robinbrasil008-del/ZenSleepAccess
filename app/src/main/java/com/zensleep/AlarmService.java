@@ -27,14 +27,14 @@ public class AlarmService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        createNotificationChannel(); // 🔥 agora existe
+        createNotificationChannel();
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("⏰ Alarme tocando")
                 .setContentText("ZenSleep")
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setOngoing(true)
                 .build();
 
@@ -44,7 +44,6 @@ public class AlarmService extends Service {
         startAlarm();
     }
 
-    // 🔥 MÉTODO QUE ESTAVA FALTANDO
     private void createNotificationChannel() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -86,25 +85,22 @@ public class AlarmService extends Service {
 
         try {
 
-            mediaPlayer = MediaPlayer.create(
-                    this,
-                    android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
-            );
+            // 🔥 USA ARQUIVO LOCAL RAW
+            mediaPlayer = MediaPlayer.create(this, R.raw.alarm_sound);
 
-            if (mediaPlayer != null) {
+            if (mediaPlayer == null) return;
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    mediaPlayer.setAudioAttributes(
-                            new AudioAttributes.Builder()
-                                    .setUsage(AudioAttributes.USAGE_ALARM)
-                                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                                    .build()
-                    );
-                }
-
-                mediaPlayer.setLooping(true);
-                mediaPlayer.start();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mediaPlayer.setAudioAttributes(
+                        new AudioAttributes.Builder()
+                                .setUsage(AudioAttributes.USAGE_ALARM)
+                                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                .build()
+                );
             }
+
+            mediaPlayer.setLooping(true);
+            mediaPlayer.start();
 
         } catch (Exception e) {
             e.printStackTrace();
