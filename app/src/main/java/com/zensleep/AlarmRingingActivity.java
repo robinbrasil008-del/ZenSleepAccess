@@ -56,8 +56,9 @@ public class AlarmRingingActivity extends AppCompatActivity {
                 alarmUri = Settings.System.DEFAULT_NOTIFICATION_URI;
             }
 
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.setDataSource(this, alarmUri);
+            mediaPlayer = MediaPlayer.create(this, alarmUri);
+
+            if (mediaPlayer == null) return;
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mediaPlayer.setAudioAttributes(
@@ -69,7 +70,6 @@ public class AlarmRingingActivity extends AppCompatActivity {
             }
 
             mediaPlayer.setLooping(true);
-            mediaPlayer.prepare();
             mediaPlayer.start();
 
         } catch (Exception e) {
