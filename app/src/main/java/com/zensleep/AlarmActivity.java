@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class AlarmActivity extends AppCompatActivity {
 
-    private static final int REQUEST_SOUND = 500;
+    private static final int REQUEST_CUSTOM_AUDIO = 900;
 
     private AlarmManager alarmManager;
     private RecyclerView recycler;
@@ -35,7 +36,8 @@ public class AlarmActivity extends AppCompatActivity {
     private List<AlarmItem> alarms;
     private AlarmAdapter adapter;
 
-    private Uri selectedSoundUri = null;
+    private String selectedSoundValue = "DEFAULT"; // padrão
+    private Uri selectedCustomUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,6 @@ public class AlarmActivity extends AppCompatActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new AlarmAdapter(alarms, new AlarmAdapter.Listener() {
-
             @Override
             public void onToggle(AlarmItem item, boolean enabled) {
                 item.enabled = enabled;
@@ -108,16 +109,13 @@ public class AlarmActivity extends AppCompatActivity {
 
     private void openCreateDialog(int hour, int minute) {
 
-        selectedSoundUri = null;
+        selectedSoundValue = "DEFAULT";
+        selectedCustomUri = null;
 
         View customView =
                 getLayoutInflater().inflate(R.layout.dialog_alarm_create, null);
 
-        EditText inputLabel =
-                customView.findViewById(R.id.inputLabel);
-
-        Button btnSelectSound =
-                customView.findViewById(R.id.btnSelectSound);
+        EditText inputLabel = customView.findViewById(R.id.inputLabel);
 
         CheckBox daySun = customView.findViewById(R.id.daySun);
         CheckBox dayMon = customView.findViewById(R.id.dayMon);
@@ -127,17 +125,44 @@ public class AlarmActivity extends AppCompatActivity {
         CheckBox dayFri = customView.findViewById(R.id.dayFri);
         CheckBox daySat = customView.findViewById(R.id.daySat);
 
-        btnSelectSound.setOnClickListener(v -> {
+        RadioGroup radioGroup =
+                customView.findViewById(R.id.radioSoundGroup);
 
-            Intent intent =
-                    new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+        RadioButton radioSom1 =
+                customView.findViewById(R.id.radioSom1);
+        RadioButton radioSom2 =
+                customView.findViewById(R.id.radioSom2);
+        RadioButton radioSom3 =
+                customView.findViewById(R.id.radioSom3);
+        RadioButton radioPadrao =
+                customView.findViewById(R.id.radioPadrao);
 
-            intent.putExtra(
-                    RingtoneManager.EXTRA_RINGTONE_TYPE,
-                    RingtoneManager.TYPE_ALARM
-            );
+        Button btnUpload =
+                customView.findViewById(R.id.btnUploadSound);
 
-            startActivityForResult(intent, REQUEST_SOUND);
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+
+            if (checkedId == R.id.radioSom1)
+                selectedSoundValue = "SOM_1";
+
+            else if (checkedId == R.id.radioSom2)
+                selectedSoundValue = "SOM_2";
+
+            else if (checkedId == R.id.radioSom3)
+                selectedSoundValue = "SOM_3";
+
+            else
+                selectedSoundValue = "DEFAULT";
+
+            selectedCustomUri = null;
+        });
+
+        btnUpload.setOnClickListener(v -> {
+
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.setType("audio/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            startActivityForResult(intent, REQUEST_CUSTOM_AUDIO);
         });
 
         new AlertDialog.Builder(this)
@@ -160,6 +185,14 @@ public class AlarmActivity extends AppCompatActivity {
 
                     int id = AlarmStorage.nextId(alarms);
 
+                    String finalSound;
+
+                    if (selectedCustomUri != null) {
+                        finalSound = selectedCustomUri.toString();
+                    } else {
+                        finalSound = selectedSoundValue;
+                    }
+
                     AlarmItem item =
                             new AlarmItem(
                                     id,
@@ -168,9 +201,7 @@ public class AlarmActivity extends AppCompatActivity {
                                     label,
                                     true,
                                     selectedDays,
-                                    selectedSoundUri == null ?
-                                            null :
-                                            selectedSoundUri.toString()
+                                    finalSound
                             );
 
                     alarms.add(item);
@@ -190,14 +221,12 @@ public class AlarmActivity extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_SOUND &&
+        if (requestCode == REQUEST_CUSTOM_AUDIO &&
                 resultCode == RESULT_OK &&
                 data != null) {
 
-            selectedSoundUri =
-                    data.getParcelableExtra(
-                            RingtoneManager.EXTRA_RINGTONE_PICKED_URI
-                    );
+            selectedCustomUri = data.getData();
+            selectedSoundValue = null;
         }
     }
 
@@ -209,30 +238,8 @@ public class AlarmActivity extends AppCompatActivity {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-        if (item.isRepeating()) {
-
-            int today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-            int nextDayOffset = -1;
-
-            for (int i = 0; i < 7; i++) {
-
-                int checkDay = (today - 1 + i) % 7;
-
-                if (item.days[checkDay]) {
-                    nextDayOffset = i;
-                    break;
-                }
-            }
-
-            if (nextDayOffset >= 0) {
-                calendar.add(Calendar.DAY_OF_YEAR, nextDayOffset);
-            }
-
-        } else {
-
-            if (calendar.before(Calendar.getInstance())) {
-                calendar.add(Calendar.DAY_OF_MONTH, 1);
-            }
+        if (calendar.before(Calendar.getInstance())) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
         Intent intent = new Intent(this, AlarmReceiver.class);
