@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="18dp"
     android:background="@color/card_color"
-    android:layout_marginBottom="12dp"
+    android:layout_marginBottom="14dp"
+    android:elevation="4dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!-- LINHA SUPERIOR -->
     <LinearLayout
         android:gravity="center_vertical"
         android:layout_width="match_parent"
@@ -16,7 +18,7 @@
             android:id="@+id/txtTime"
             android:text="07:30"
             android:textStyle="bold"
-            android:textSize="26sp"
+            android:textSize="32sp"
             android:textColor="#FFFFFF"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -28,29 +30,46 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <LinearLayout
-        android:gravity="center_vertical"
+    <!-- LABEL -->
+    <TextView
+        android:id="@+id/txtLabel"
+        android:text="Alarme"
+        android:textSize="14sp"
+        android:textColor="#94A3B8"
+        android:layout_marginTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- DIAS -->
+    <TextView
+        android:id="@+id/txtDays"
+        android:text="Seg Ter Qua"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="#A78BFA"
         android:layout_marginTop="6dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/txtLabel"
-            android:text="Alarme"
-            android:textSize="14sp"
-            android:textColor="#94A3B8"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
+    <!-- SOM -->
+    <TextView
+        android:id="@+id/txtSound"
+        android:text="Som padrão"
+        android:textSize="13sp"
+        android:textColor="#94A3B8"
+        android:layout_marginTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/btnDelete"
-            android:text="Excluir"
-            android:textSize="14sp"
-            android:textColor="#FF6B6B"
-            android:padding="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    <!-- EXCLUIR -->
+    <TextView
+        android:id="@+id/btnDelete"
+        android:text="Excluir"
+        android:textSize="14sp"
+        android:textColor="#FF6B6B"
+        android:paddingTop="10dp"
+        android:layout_gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
