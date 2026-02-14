@@ -27,10 +27,11 @@ public class AlarmService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        createNotificationChannel();
+        createNotificationChannel(); // 🔥 agora existe
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("⏰ Alarme tocando")
+                .setContentText("ZenSleep")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
@@ -43,38 +44,70 @@ public class AlarmService extends Service {
         startAlarm();
     }
 
+    // 🔥 MÉTODO QUE ESTAVA FALTANDO
+    private void createNotificationChannel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "Alarme ZenSleep",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+
+            channel.setDescription("Canal do alarme");
+            channel.enableVibration(true);
+
+            NotificationManager manager =
+                    getSystemService(NotificationManager.class);
+
+            if (manager != null) {
+                manager.createNotificationChannel(channel);
+            }
+        }
+    }
+
     private void acquireWakeLock() {
+
         PowerManager powerManager =
                 (PowerManager) getSystemService(POWER_SERVICE);
+
+        if (powerManager == null) return;
 
         wakeLock = powerManager.newWakeLock(
                 PowerManager.PARTIAL_WAKE_LOCK,
                 "ZenSleep::AlarmWakeLock"
         );
 
-        wakeLock.acquire(10 * 60 * 1000L); // 10 minutos
+        wakeLock.acquire(10 * 60 * 1000L);
     }
 
     private void startAlarm() {
 
-        mediaPlayer = MediaPlayer.create(
-                this,
-                android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
-        );
+        try {
 
-        if (mediaPlayer != null) {
+            mediaPlayer = MediaPlayer.create(
+                    this,
+                    android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
+            );
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mediaPlayer.setAudioAttributes(
-                        new AudioAttributes.Builder()
-                                .setUsage(AudioAttributes.USAGE_ALARM)
-                                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                                .build()
-                );
+            if (mediaPlayer != null) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    mediaPlayer.setAudioAttributes(
+                            new AudioAttributes.Builder()
+                                    .setUsage(AudioAttributes.USAGE_ALARM)
+                                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                    .build()
+                    );
+                }
+
+                mediaPlayer.setLooping(true);
+                mediaPlayer.start();
             }
 
-            mediaPlayer.setLooping(true);
-            mediaPlayer.start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
@@ -98,8 +131,10 @@ public class AlarmService extends Service {
     public void onDestroy() {
 
         if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.release();
+            try {
+                mediaPlayer.stop();
+                mediaPlayer.release();
+            } catch (Exception ignored) {}
         }
 
         if (vibrator != null) {
