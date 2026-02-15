@@ -116,9 +116,6 @@ public class AlarmService extends Service {
                 // 🔥 AQUI ESTÁ A CORREÇÃO
                 soundUri = Uri.parse(savedSound);
             }
-            else {
-                soundUri = android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI;
-            }
 
             mediaPlayer = new MediaPlayer();
 
