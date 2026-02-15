@@ -9,7 +9,10 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
 
-    <!-- 🔥 IMPORTANTE para reiniciar alarmes após reboot -->
+    <!-- 🔥 NECESSÁRIA para setExactAndAllowWhileIdle (Android 12+) -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+
+    <!-- 🔥 Para reiniciar alarmes após reboot -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
@@ -55,12 +58,12 @@
             android:exported="false"
             android:foregroundServiceType="mediaPlayback"/>
 
-        <!-- 🔥 RECEIVER QUE DISPARA O ALARME -->
+        <!-- RECEIVER QUE DISPARA O ALARME -->
         <receiver
             android:name=".AlarmReceiver"
             android:exported="false"/>
 
-        <!-- 🔥 RECEIVER PARA REBOOT DO CELULAR -->
+        <!-- RECEIVER PARA REBOOT -->
         <receiver
             android:name=".BootReceiver"
             android:enabled="true"
