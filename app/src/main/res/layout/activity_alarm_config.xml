@@ -140,13 +140,15 @@
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"/>
 
+            <!-- CORREÇÃO AQUI -->
             <TextView
                 android:id="@+id/txtSnoozeValue"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="5 minutos"
                 android:textColor="#94A3B8"
-                android:layout_marginStart="auto"
+                android:gravity="end"
                 android:textSize="14sp"/>
         </LinearLayout>
 
