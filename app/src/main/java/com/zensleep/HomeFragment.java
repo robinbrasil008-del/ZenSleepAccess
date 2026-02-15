@@ -49,19 +49,25 @@ public class HomeFragment extends Fragment {
         btnPlayMar.setOnClickListener(v -> toggleMar());
 
         starChuva.setOnClickListener(v -> {
-            FavoritesManager.toggleFavorite(requireContext(), "chuva");
-            updateStars();
+            if (isAdded()) {
+                FavoritesManager.toggleFavorite(requireContext(), "chuva");
+                updateStars();
+            }
         });
 
         starMar.setOnClickListener(v -> {
-            FavoritesManager.toggleFavorite(requireContext(), "mar");
-            updateStars();
+            if (isAdded()) {
+                FavoritesManager.toggleFavorite(requireContext(), "mar");
+                updateStars();
+            }
         });
 
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
 
     private float getSavedVolume() {
+        if (!isAdded()) return 0.8f;
+
         SharedPreferences prefs =
                 requireContext().getSharedPreferences("zen_settings", 0);
 
@@ -85,6 +91,8 @@ public class HomeFragment extends Fragment {
 
         stopSound();
 
+        if (!isAdded()) return;
+
         mediaPlayer = MediaPlayer.create(requireContext(), R.raw.chuva);
         mediaPlayer.setLooping(true);
         applyVolume();
@@ -105,6 +113,8 @@ public class HomeFragment extends Fragment {
         }
 
         stopSound();
+
+        if (!isAdded()) return;
 
         mediaPlayer = MediaPlayer.create(requireContext(), R.raw.mar);
         mediaPlayer.setLooping(true);
@@ -128,14 +138,19 @@ public class HomeFragment extends Fragment {
             mediaPlayer = null;
         }
 
-        btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
-        btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
+        if (btnPlayChuva != null)
+            btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
+
+        if (btnPlayMar != null)
+            btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
 
         isChuvaPlaying = false;
         isMarPlaying = false;
     }
 
     private void openTimerDialog() {
+
+        if (!isAdded()) return;
 
         View dialogView = LayoutInflater.from(requireContext())
                 .inflate(R.layout.dialog_timer, null);
@@ -198,13 +213,15 @@ public class HomeFragment extends Fragment {
 
                         stopSound();
 
-                        if (shouldTriggerAlarm) {
+                        if (shouldTriggerAlarm && isAdded() && getActivity() != null) {
 
-                            Intent i = new Intent(requireContext(), AlarmService.class);
-                            i.putExtra("alarm_id", 9999);
-                            i.putExtra("alarm_label", "Tempo finalizado");
+                            try {
+                                Intent i = new Intent(getActivity(), AlarmService.class);
+                                i.putExtra("alarm_id", 9999);
+                                i.putExtra("alarm_label", "Tempo finalizado");
 
-                            requireContext().startForegroundService(i);
+                                getActivity().startForegroundService(i);
+                            } catch (Exception ignored) {}
                         }
                     }
 
@@ -221,7 +238,7 @@ public class HomeFragment extends Fragment {
 
     private void updateStars() {
 
-        if (getContext() == null) return;
+        if (!isAdded()) return;
 
         boolean chuvaFav =
                 FavoritesManager.isFavorite(requireContext(), "chuva");
