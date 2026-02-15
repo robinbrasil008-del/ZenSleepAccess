@@ -55,8 +55,8 @@ public class AlarmService extends Service {
             if (extraLabel != null) label = extraLabel;
         }
 
-        Intent fullScreenIntent =
-                new Intent(this, AlarmRingingActivity.class);
+        // 🔥 INTENT DA TELA
+        Intent fullScreenIntent = new Intent(this, AlarmRingingActivity.class);
         fullScreenIntent.putExtra("alarm_label", label);
         fullScreenIntent.addFlags(
                 Intent.FLAG_ACTIVITY_NEW_TASK |
@@ -72,6 +72,7 @@ public class AlarmService extends Service {
                                 PendingIntent.FLAG_IMMUTABLE
                 );
 
+        // 🔥 NOTIFICAÇÃO FORTE (IMPORTANTE NO ANDROID 14/15)
         Notification notification =
                 new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setContentTitle("⏰ Alarme")
@@ -85,7 +86,7 @@ public class AlarmService extends Service {
 
         startForeground(alarmId, notification);
 
-        // 🔥 ABERTURA GARANTIDA DA TELA
+        // 🔥 ABRE TELA GARANTIDO
         startActivity(fullScreenIntent);
 
         startAlarm();
@@ -138,17 +139,20 @@ public class AlarmService extends Service {
 
         } catch (Exception e) {
 
-            mediaPlayer = MediaPlayer.create(
-                    this,
-                    android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
-            );
+            try {
+                mediaPlayer = MediaPlayer.create(
+                        this,
+                        android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
+                );
 
-            if (mediaPlayer != null) {
-                mediaPlayer.setLooping(true);
-                mediaPlayer.start();
-            }
+                if (mediaPlayer != null) {
+                    mediaPlayer.setLooping(true);
+                    mediaPlayer.start();
+                }
+            } catch (Exception ignored) {}
         }
 
+        // 🔥 VIBRAÇÃO SEGURA
         if (vibrateEnabled) {
 
             vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
