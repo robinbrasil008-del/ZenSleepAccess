@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Full screen alarm -->
+    <!-- Permissões essenciais -->
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
-
-    <!-- Android 13+ notificações -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-
-    <!-- Vibrar -->
     <uses-permission android:name="android.permission.VIBRATE"/>
-
-    <!-- WakeLock -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-
-    <!-- Foreground Service -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-
-    <!-- Android 14+ obrigatório para áudio -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+
+    <!-- 🔥 IMPORTANTE para reiniciar alarmes após reboot -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:allowBackup="true"
@@ -39,14 +32,13 @@
 
         </activity>
 
-        <!-- 🔥 NOVA TELA: CONFIGURAR DESPERTADOR -->
+        <!-- CONFIGURAR DESPERTADOR -->
         <activity
             android:name=".AlarmConfigActivity"
             android:exported="false"
-            android:label="Configurar Despertador"
             android:screenOrientation="portrait"/>
 
-        <!-- Tela que aparece quando o timer dispara -->
+        <!-- TELA DO ALARME -->
         <activity
             android:name=".AlarmRingingActivity"
             android:exported="false"
@@ -54,20 +46,36 @@
             android:turnScreenOn="true"
             android:excludeFromRecents="true"
             android:launchMode="singleTop"
-            android:label="Alarme"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ZenSleep"/>
 
-        <!-- Serviço que toca o alarme -->
+        <!-- SERVIÇO DO ALARME -->
         <service
             android:name=".AlarmService"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback"/>
 
+        <!-- 🔥 RECEIVER QUE DISPARA O ALARME -->
+        <receiver
+            android:name=".AlarmReceiver"
+            android:exported="false"/>
+
+        <!-- 🔥 RECEIVER PARA REBOOT DO CELULAR -->
+        <receiver
+            android:name=".BootReceiver"
+            android:enabled="true"
+            android:exported="false">
+
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+
+        </receiver>
+
         <!-- Política -->
         <activity
             android:name=".PrivacyPolicyActivity"
-            android:exported="false"
-            android:label="Política de Privacidade"/>
+            android:exported="false"/>
 
     </application>
 
