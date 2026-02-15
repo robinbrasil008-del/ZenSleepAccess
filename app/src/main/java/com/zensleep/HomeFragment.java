@@ -6,8 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -52,17 +56,13 @@ public class HomeFragment extends Fragment {
         btnPlayMar.setOnClickListener(v -> toggleMar());
 
         starChuva.setOnClickListener(v -> {
-            if (isAdded()) {
-                FavoritesManager.toggleFavorite(requireContext(), "chuva");
-                updateStars();
-            }
+            FavoritesManager.toggleFavorite(requireContext(), "chuva");
+            updateStars();
         });
 
         starMar.setOnClickListener(v -> {
-            if (isAdded()) {
-                FavoritesManager.toggleFavorite(requireContext(), "mar");
-                updateStars();
-            }
+            FavoritesManager.toggleFavorite(requireContext(), "mar");
+            updateStars();
         });
 
         btnTimer.setOnClickListener(v -> openTimerDialog());
@@ -83,7 +83,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void toggleChuva() {
-
         if (isChuvaPlaying) {
             stopSound();
             return;
@@ -104,7 +103,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void toggleMar() {
-
         if (isMarPlaying) {
             stopSound();
             return;
@@ -125,11 +123,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void stopSound() {
-
         if (mediaPlayer != null) {
-            try {
-                mediaPlayer.stop();
-            } catch (Exception ignored) {}
+            try { mediaPlayer.stop(); } catch (Exception ignored) {}
             mediaPlayer.release();
             mediaPlayer = null;
         }
@@ -182,26 +177,48 @@ public class HomeFragment extends Fragment {
 
             if (shouldTriggerAlarm) {
 
-                Intent receiverIntent =
-                        new Intent(requireContext(), AlarmReceiver.class);
-
-                receiverIntent.putExtra("alarm_id", 9999);
-                receiverIntent.putExtra("alarm_label", "Tempo finalizado");
-
-                PendingIntent pendingIntent =
-                        PendingIntent.getBroadcast(
-                                requireContext(),
-                                9999,
-                                receiverIntent,
-                                PendingIntent.FLAG_UPDATE_CURRENT |
-                                        PendingIntent.FLAG_IMMUTABLE
-                        );
-
                 AlarmManager alarmManager =
                         (AlarmManager) requireContext()
                                 .getSystemService(Context.ALARM_SERVICE);
 
                 if (alarmManager != null) {
+
+                    // 🔥 PERMISSÃO ANDROID 12+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+
+                        if (!alarmManager.canScheduleExactAlarms()) {
+
+                            Toast.makeText(
+                                    requireContext(),
+                                    "Ative a permissão de alarmes exatos",
+                                    Toast.LENGTH_LONG
+                            ).show();
+
+                            Intent intent =
+                                    new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+
+                            intent.setData(Uri.parse("package:" +
+                                    requireContext().getPackageName()));
+
+                            startActivity(intent);
+                            return;
+                        }
+                    }
+
+                    Intent receiverIntent =
+                            new Intent(requireContext(), AlarmReceiver.class);
+
+                    receiverIntent.putExtra("alarm_id", 9999);
+                    receiverIntent.putExtra("alarm_label", "Tempo finalizado");
+
+                    PendingIntent pendingIntent =
+                            PendingIntent.getBroadcast(
+                                    requireContext(),
+                                    9999,
+                                    receiverIntent,
+                                    PendingIntent.FLAG_UPDATE_CURRENT |
+                                            PendingIntent.FLAG_IMMUTABLE
+                            );
 
                     long triggerTime =
                             System.currentTimeMillis() + millis;
@@ -222,7 +239,6 @@ public class HomeFragment extends Fragment {
 
                 @Override
                 public void onTick(long millisUntilFinished) {
-
                     long seconds = millisUntilFinished / 1000;
                     long min = seconds / 60;
                     long sec = seconds % 60;
