@@ -21,13 +21,6 @@
     <!-- 🔥 ADIÇÕES PARA DRAWABLE -->
     <!-- ========================= -->
 
-    <!-- Fundo gradiente (modo escuro) -->
-    <color name="gradientStart">#0B1220</color>
-    <color name="gradientEnd">#111827</color>
-
-    <!-- Card modo escuro -->
-    <color name="cardBackground">#1F2A3A</color>
-
     <!-- Botão gradiente escuro -->
     <color name="buttonStart">#38BDF8</color>
     <color name="buttonEnd">#22D3EE</color>
