@@ -6,6 +6,45 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!-- 🔥 DESPERTADOR DENTRO DO TIMER -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#0F172A"
+        android:padding="14dp"
+        android:layout_marginBottom="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="⏰ Despertador"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Tocar alarme quando o tempo terminar"
+                android:textColor="#94A3B8"
+                android:textSize="13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/switchTimerAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <!-- TÍTULO TIMER -->
     <TextView
         android:text="Definir tempo (minutos)"
         android:textColor="#FFFFFF"
@@ -14,6 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <!-- INPUT -->
     <EditText
         android:id="@+id/inputMinutes"
         android:hint="Ex: 30"
@@ -25,6 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <!-- BOTÃO -->
     <Button
         android:id="@+id/btnStartTimer"
         android:text="INICIAR TIMER"
