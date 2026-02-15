@@ -1,5 +1,6 @@
 package com.zensleep;
 
+import android.content.Intent; // 🔥 NOVO
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch; // 🔥 NOVO
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -23,6 +25,8 @@ public class HomeFragment extends Fragment {
     private ImageView btnPlayChuva, btnPlayMar;
     private ImageView starChuva, starMar;
     private Button btnTimer;
+
+    private Switch switchAlarm; // 🔥 NOVO
 
     private boolean isChuvaPlaying = false;
     private boolean isMarPlaying = false;
@@ -40,6 +44,8 @@ public class HomeFragment extends Fragment {
         starMar = view.findViewById(R.id.starMar);
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
+
+        switchAlarm = view.findViewById(R.id.switchAlarm); // 🔥 NOVO
 
         updateStars();
 
@@ -196,6 +202,14 @@ public class HomeFragment extends Fragment {
                             txtTimer.setText("00:00");
                         }
                         stopSound();
+
+                        // 🔥 NOVO: se o "despertador" estiver ligado, dispara o alarme
+                        if (switchAlarm != null && switchAlarm.isChecked()) {
+                            Intent i = new Intent(requireContext(), AlarmService.class);
+                            i.putExtra("alarm_id", 9999);
+                            i.putExtra("alarm_label", "Tempo finalizado");
+                            requireContext().startForegroundService(i);
+                        }
                     }
 
                 }.start();
