@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Alarmes exatos Android 12+ -->
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-
     <!-- Full screen alarm -->
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
 
@@ -16,10 +13,10 @@
     <!-- WakeLock -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
-    <!-- Foreground Service base -->
+    <!-- Foreground Service -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
-    <!-- 🔥 OBRIGATÓRIA ANDROID 14+ PARA MEDIA -->
+    <!-- Android 14+ obrigatório para áudio -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
 
     <application
@@ -30,6 +27,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
 
+        <!-- MAIN -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -41,11 +39,7 @@
 
         </activity>
 
-        <activity
-            android:name=".AlarmActivity"
-            android:exported="false"
-            android:label="Despertador"/>
-
+        <!-- Tela que aparece quando o timer dispara -->
         <activity
             android:name=".AlarmRingingActivity"
             android:exported="false"
@@ -56,15 +50,13 @@
             android:label="Alarme"
             android:screenOrientation="portrait"/>
 
-        <receiver
-            android:name=".AlarmReceiver"
-            android:exported="false"/>
-
+        <!-- Serviço que toca o alarme -->
         <service
             android:name=".AlarmService"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback"/>
 
+        <!-- Política -->
         <activity
             android:name=".PrivacyPolicyActivity"
             android:exported="false"
