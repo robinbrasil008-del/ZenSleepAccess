@@ -3,15 +3,17 @@ package com.zensleep;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class SettingsFragment extends Fragment {
 
@@ -49,17 +51,17 @@ public class SettingsFragment extends Fragment {
         txtVolumeValue.setText(volume + "%");
 
         // =========================
-        // ⏰ ABRIR CONFIGURAR DESPERTADOR
+        // ⏰ CONFIGURAR DESPERTADOR (AGORA MODAL BONITO)
         // =========================
         cardAlarm.setOnClickListener(v -> {
 
-            // 🔥 NÃO REMOVE NADA — só evita erro
-            Toast.makeText(
-                    requireContext(),
-                    "Agora o despertador é configurado pelo Timer.",
-                    Toast.LENGTH_SHORT
-            ).show();
+            BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
 
+            View sheetView = LayoutInflater.from(requireContext())
+                    .inflate(R.layout.bottomsheet_alarm_info, null);
+
+            dialog.setContentView(sheetView);
+            dialog.show();
         });
 
         // =========================
