@@ -1,158 +1,156 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8"?>  
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"  
     android:layout_width="match_parent"  
     android:layout_height="match_parent"  
-    android:background="@drawable/bg_screen_gradient">
-
-<LinearLayout  
-    android:layout_width="match_parent"  
-    android:layout_height="wrap_content"  
-    android:orientation="vertical"  
-    android:padding="28dp">  
-
-    <!-- TOPO -->  
+    android:background="@drawable/bg_screen_gradient">  
+  
     <LinearLayout  
         android:layout_width="match_parent"  
         android:layout_height="wrap_content"  
-        android:gravity="center_vertical"  
-        android:layout_marginBottom="28dp">  
-
-        <ImageView  
-            android:id="@+id/btnBack"  
-            android:layout_width="28dp"  
-            android:layout_height="28dp"  
-            android:src="@android:drawable/ic_media_previous"  
-            android:tint="#7DD3FC"/>  
-
-        <TextView  
-            android:layout_width="wrap_content"  
-            android:layout_height="wrap_content"  
-            android:text="⏰ Configurar Despertador"  
-            android:textSize="22sp"  
-            android:textColor="#FFFFFF"  
-            android:textStyle="bold"  
-            android:layout_marginStart="16dp"/>  
-    </LinearLayout>  
-
-    <!-- SOM -->  
-    <LinearLayout  
-        android:id="@+id/cardAlarmSound"  
-        android:layout_width="match_parent"  
-        android:layout_height="wrap_content"  
-        android:background="@drawable/bg_card_glass"  
-        android:padding="22dp"  
-        android:layout_marginBottom="20dp"  
         android:orientation="vertical"  
-        android:clickable="true"  
-        android:focusable="true"  
-        android:foreground="?attr/selectableItemBackground">  
-
-        <TextView  
-            android:text="Som do Alarme"  
-            android:textColor="#94A3B8"  
-            android:textSize="14sp"/>  
-
-        <TextView  
-            android:id="@+id/txtAlarmSound"  
-            android:text="🎵 Padrão"  
-            android:textColor="#FFFFFF"  
-            android:textSize="18sp"  
-            android:textStyle="bold"  
-            android:layout_marginTop="10dp"/>  
-    </LinearLayout>  
-
-    <!-- VOLUME -->  
-    <LinearLayout  
-        android:layout_width="match_parent"  
-        android:layout_height="wrap_content"  
-        android:background="@drawable/bg_card_glass"  
-        android:padding="22dp"  
-        android:layout_marginBottom="20dp"  
-        android:orientation="vertical">  
-
+        android:padding="28dp">  
+  
+        <!-- TOPO -->  
         <LinearLayout  
             android:layout_width="match_parent"  
             android:layout_height="wrap_content"  
+            android:gravity="center_vertical"  
+            android:layout_marginBottom="28dp">  
+  
+            <ImageView  
+                android:id="@+id/btnBack"  
+                android:layout_width="28dp"  
+                android:layout_height="28dp"  
+                android:src="@android:drawable/ic_media_previous"  
+                android:tint="#7DD3FC"/>  
+  
+            <TextView  
+                android:layout_width="wrap_content"  
+                android:layout_height="wrap_content"  
+                android:text="⏰ Configurar Despertador"  
+                android:textSize="22sp"  
+                android:textColor="#FFFFFF"  
+                android:textStyle="bold"  
+                android:layout_marginStart="16dp"/>  
+        </LinearLayout>  
+  
+        <!-- SOM -->  
+        <LinearLayout  
+            android:id="@+id/cardAlarmSound"  
+            android:layout_width="match_parent"  
+            android:layout_height="wrap_content"  
+            android:background="@drawable/bg_card_glass"  
+            android:padding="22dp"  
+            android:layout_marginBottom="20dp"  
+            android:orientation="vertical"  
+            android:clickable="true"  
+            android:focusable="true"  
+            android:foreground="?attr/selectableItemBackground">  
+  
+            <TextView  
+                android:text="Som do Alarme"  
+                android:textColor="#94A3B8"  
+                android:textSize="14sp"/>  
+  
+            <TextView  
+                android:id="@+id/txtAlarmSound"  
+                android:text="🎵 Padrão"  
+                android:textColor="#FFFFFF"  
+                android:textSize="18sp"  
+                android:textStyle="bold"  
+                android:layout_marginTop="10dp"/>  
+        </LinearLayout>  
+  
+        <!-- VOLUME -->  
+        <LinearLayout  
+            android:layout_width="match_parent"  
+            android:layout_height="wrap_content"  
+            android:background="@drawable/bg_card_glass"  
+            android:padding="22dp"  
+            android:layout_marginBottom="20dp"  
+            android:orientation="vertical">  
+  
+            <LinearLayout  
+                android:layout_width="match_parent"  
+                android:layout_height="wrap_content"  
+                android:gravity="center_vertical">  
+  
+                <TextView  
+                    android:layout_width="0dp"  
+                    android:layout_height="wrap_content"  
+                    android:layout_weight="1"  
+                    android:text="Volume do Alarme"  
+                    android:textColor="#FFFFFF"  
+                    android:textSize="16sp"/>  
+  
+                <TextView  
+                    android:id="@+id/txtAlarmVolumeValue"  
+                    android:text="80%"  
+                    android:textColor="#94A3B8"  
+                    android:textSize="14sp"/>  
+            </LinearLayout>  
+  
+            <SeekBar  
+                android:id="@+id/seekAlarmVolume"  
+                android:layout_width="match_parent"  
+                android:layout_height="wrap_content"  
+                android:layout_marginTop="14dp"  
+                android:max="100"  
+                android:progress="80"/>  
+        </LinearLayout>  
+  
+        <!-- VIBRAÇÃO -->  
+        <LinearLayout  
+            android:layout_width="match_parent"  
+            android:layout_height="wrap_content"  
+            android:background="@drawable/bg_card_glass"  
+            android:padding="22dp"  
+            android:layout_marginBottom="20dp"  
             android:gravity="center_vertical">  
-
+  
             <TextView  
                 android:layout_width="0dp"  
                 android:layout_height="wrap_content"  
                 android:layout_weight="1"  
-                android:text="Volume do Alarme"  
+                android:text="📳 Ativar vibração"  
                 android:textColor="#FFFFFF"  
                 android:textSize="16sp"/>  
-
-            <TextView  
-                android:id="@+id/txtAlarmVolumeValue"  
-                android:text="80%"  
-                android:textColor="#94A3B8"  
-                android:textSize="14sp"/>  
+  
+            <Switch  
+                android:id="@+id/switchVibrate"/>  
         </LinearLayout>  
-
-        <SeekBar  
-            android:id="@+id/seekAlarmVolume"  
+  
+        <!-- SONECA -->  
+        <LinearLayout  
             android:layout_width="match_parent"  
             android:layout_height="wrap_content"  
-            android:layout_marginTop="14dp"  
-            android:max="100"  
-            android:progress="80"/>  
-    </LinearLayout>  
-
-    <!-- VIBRAÇÃO -->  
-    <LinearLayout  
-        android:layout_width="match_parent"  
-        android:layout_height="wrap_content"  
-        android:background="@drawable/bg_card_glass"  
-        android:padding="22dp"  
-        android:layout_marginBottom="20dp"  
-        android:gravity="center_vertical">  
-
-        <TextView  
-            android:layout_width="0dp"  
-            android:layout_height="wrap_content"  
-            android:layout_weight="1"  
-            android:text="📳 Ativar vibração"  
+            android:background="@drawable/bg_card_glass"  
+            android:padding="22dp"  
+            android:layout_marginBottom="40dp"  
+            android:gravity="center_vertical">  
+  
+            <TextView  
+                android:text="🌙 Modo Soneca"  
+                android:textColor="#FFFFFF"  
+                android:textSize="16sp"/>  
+  
+            <TextView  
+                android:id="@+id/txtSnoozeValue"  
+                android:text="5 minutos"  
+                android:textColor="#94A3B8"  
+                android:textSize="14sp"  
+                android:layout_marginStart="16dp"/>  
+        </LinearLayout>  
+  
+        <!-- BOTÃO -->  
+        <Button  
+            android:id="@+id/btnSave"  
+            android:layout_width="match_parent"  
+            android:layout_height="60dp"  
+            android:text="SALVAR"  
+            android:textSize="18sp"  
+            android:textStyle="bold"  
             android:textColor="#FFFFFF"  
-            android:textSize="16sp"/>  
-
-        <Switch  
-            android:id="@+id/switchVibrate"/>  
+            android:background="@drawable/bg_button_gradient"/>  
     </LinearLayout>  
-
-    <!-- SONECA -->  
-    <LinearLayout  
-        android:layout_width="match_parent"  
-        android:layout_height="wrap_content"  
-        android:background="@drawable/bg_card_glass"  
-        android:padding="22dp"  
-        android:layout_marginBottom="40dp"  
-        android:gravity="center_vertical">  
-
-        <TextView  
-            android:text="🌙 Modo Soneca"  
-            android:textColor="#FFFFFF"  
-            android:textSize="16sp"/>  
-
-        <TextView  
-            android:id="@+id/txtSnoozeValue"  
-            android:text="5 minutos"  
-            android:textColor="#94A3B8"  
-            android:textSize="14sp"  
-            android:layout_marginStart="16dp"/>  
-    </LinearLayout>  
-
-    <!-- BOTÃO -->  
-    <Button  
-        android:id="@+id/btnSave"  
-        android:layout_width="match_parent"  
-        android:layout_height="60dp"  
-        android:text="SALVAR"  
-        android:textSize="18sp"  
-        android:textStyle="bold"  
-        android:textColor="#FFFFFF"  
-        android:background="@drawable/bg_button_gradient"/>  
-</LinearLayout>
-
 </ScrollView>
