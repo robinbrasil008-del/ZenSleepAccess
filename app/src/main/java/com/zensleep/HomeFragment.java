@@ -69,11 +69,8 @@ public class HomeFragment extends Fragment {
     }
 
     private float getSavedVolume() {
-        if (!isAdded()) return 0.8f;
-
         SharedPreferences prefs =
                 requireContext().getSharedPreferences("zen_settings", 0);
-
         int volumePercent = prefs.getInt("volume", 80);
         return volumePercent / 100f;
     }
@@ -93,8 +90,6 @@ public class HomeFragment extends Fragment {
         }
 
         stopSound();
-
-        if (!isAdded()) return;
 
         mediaPlayer = MediaPlayer.create(requireContext(), R.raw.chuva);
         mediaPlayer.setLooping(true);
@@ -116,8 +111,6 @@ public class HomeFragment extends Fragment {
         }
 
         stopSound();
-
-        if (!isAdded()) return;
 
         mediaPlayer = MediaPlayer.create(requireContext(), R.raw.mar);
         mediaPlayer.setLooping(true);
@@ -141,19 +134,14 @@ public class HomeFragment extends Fragment {
             mediaPlayer = null;
         }
 
-        if (btnPlayChuva != null)
-            btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
-
-        if (btnPlayMar != null)
-            btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
+        btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
+        btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
 
         isChuvaPlaying = false;
         isMarPlaying = false;
     }
 
     private void openTimerDialog() {
-
-        if (!isAdded()) return;
 
         View dialogView = LayoutInflater.from(requireContext())
                 .inflate(R.layout.dialog_timer, null);
@@ -170,101 +158,95 @@ public class HomeFragment extends Fragment {
 
             String minutesStr = inputMinutes.getText().toString().trim();
 
-            if (!minutesStr.isEmpty()) {
-
-                int minutes;
-                try {
-                    minutes = Integer.parseInt(minutesStr);
-                } catch (Exception e) {
-                    inputMinutes.setError("Digite um número válido");
-                    return;
-                }
-
-                if (minutes <= 0) {
-                    inputMinutes.setError("Digite um tempo maior que 0");
-                    return;
-                }
-
-                long millis = minutes * 60L * 1000L;
-                boolean shouldTriggerAlarm = switchTimerAlarm.isChecked();
-
-                // 🔥 AGENDAMENTO REAL DO ALARME
-                if (shouldTriggerAlarm) {
-
-                    Intent intent = new Intent(requireContext(), AlarmService.class);
-                    intent.putExtra("alarm_id", 9999);
-                    intent.putExtra("alarm_label", "Tempo finalizado");
-
-                    PendingIntent pendingIntent =
-                            PendingIntent.getService(
-                                    requireContext(),
-                                    9999,
-                                    intent,
-                                    PendingIntent.FLAG_UPDATE_CURRENT |
-                                            PendingIntent.FLAG_IMMUTABLE
-                            );
-
-                    AlarmManager alarmManager =
-                            (AlarmManager) requireContext()
-                                    .getSystemService(Context.ALARM_SERVICE);
-
-                    if (alarmManager != null) {
-                        long triggerTime =
-                                System.currentTimeMillis() + millis;
-
-                        alarmManager.setExactAndAllowWhileIdle(
-                                AlarmManager.RTC_WAKEUP,
-                                triggerTime,
-                                pendingIntent
-                        );
-                    }
-                }
-
-                // 🔥 TIMER VISUAL (SÓ PARA CONTADOR NA TELA)
-                if (countDownTimer != null) {
-                    countDownTimer.cancel();
-                }
-
-                countDownTimer = new CountDownTimer(millis, 1000) {
-
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-
-                        long seconds = millisUntilFinished / 1000;
-                        long min = seconds / 60;
-                        long sec = seconds % 60;
-
-                        if (txtTimer != null) {
-                            txtTimer.setText(
-                                    String.format("%02d:%02d", min, sec)
-                            );
-                        }
-                    }
-
-                    @Override
-                    public void onFinish() {
-
-                        if (txtTimer != null) {
-                            txtTimer.setText("00:00");
-                        }
-
-                        stopSound();
-                    }
-
-                }.start();
-
-                dialog.dismiss();
-            } else {
+            if (minutesStr.isEmpty()) {
                 inputMinutes.setError("Informe os minutos");
+                return;
             }
+
+            int minutes;
+            try {
+                minutes = Integer.parseInt(minutesStr);
+            } catch (Exception e) {
+                inputMinutes.setError("Número inválido");
+                return;
+            }
+
+            if (minutes <= 0) {
+                inputMinutes.setError("Tempo maior que 0");
+                return;
+            }
+
+            long millis = minutes * 60L * 1000L;
+
+            boolean shouldTriggerAlarm = switchTimerAlarm.isChecked();
+
+            if (shouldTriggerAlarm) {
+
+                Intent receiverIntent =
+                        new Intent(requireContext(), AlarmReceiver.class);
+
+                receiverIntent.putExtra("alarm_id", 9999);
+                receiverIntent.putExtra("alarm_label", "Tempo finalizado");
+
+                PendingIntent pendingIntent =
+                        PendingIntent.getBroadcast(
+                                requireContext(),
+                                9999,
+                                receiverIntent,
+                                PendingIntent.FLAG_UPDATE_CURRENT |
+                                        PendingIntent.FLAG_IMMUTABLE
+                        );
+
+                AlarmManager alarmManager =
+                        (AlarmManager) requireContext()
+                                .getSystemService(Context.ALARM_SERVICE);
+
+                if (alarmManager != null) {
+
+                    long triggerTime =
+                            System.currentTimeMillis() + millis;
+
+                    alarmManager.setExactAndAllowWhileIdle(
+                            AlarmManager.RTC_WAKEUP,
+                            triggerTime,
+                            pendingIntent
+                    );
+                }
+            }
+
+            if (countDownTimer != null) {
+                countDownTimer.cancel();
+            }
+
+            countDownTimer = new CountDownTimer(millis, 1000) {
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                    long seconds = millisUntilFinished / 1000;
+                    long min = seconds / 60;
+                    long sec = seconds % 60;
+
+                    txtTimer.setText(
+                            String.format("%02d:%02d", min, sec)
+                    );
+                }
+
+                @Override
+                public void onFinish() {
+                    txtTimer.setText("00:00");
+                    stopSound();
+                }
+
+            }.start();
+
+            dialog.dismiss();
         });
 
         dialog.show();
     }
 
     private void updateStars() {
-
-        if (!isAdded()) return;
 
         boolean chuvaFav =
                 FavoritesManager.isFavorite(requireContext(), "chuva");
