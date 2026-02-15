@@ -1,5 +1,8 @@
 package com.zensleep;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -183,12 +186,44 @@ public class HomeFragment extends Fragment {
                 }
 
                 long millis = minutes * 60L * 1000L;
+                boolean shouldTriggerAlarm = switchTimerAlarm.isChecked();
 
+                // 🔥 AGENDAMENTO REAL DO ALARME
+                if (shouldTriggerAlarm) {
+
+                    Intent intent = new Intent(requireContext(), AlarmService.class);
+                    intent.putExtra("alarm_id", 9999);
+                    intent.putExtra("alarm_label", "Tempo finalizado");
+
+                    PendingIntent pendingIntent =
+                            PendingIntent.getService(
+                                    requireContext(),
+                                    9999,
+                                    intent,
+                                    PendingIntent.FLAG_UPDATE_CURRENT |
+                                            PendingIntent.FLAG_IMMUTABLE
+                            );
+
+                    AlarmManager alarmManager =
+                            (AlarmManager) requireContext()
+                                    .getSystemService(Context.ALARM_SERVICE);
+
+                    if (alarmManager != null) {
+                        long triggerTime =
+                                System.currentTimeMillis() + millis;
+
+                        alarmManager.setExactAndAllowWhileIdle(
+                                AlarmManager.RTC_WAKEUP,
+                                triggerTime,
+                                pendingIntent
+                        );
+                    }
+                }
+
+                // 🔥 TIMER VISUAL (SÓ PARA CONTADOR NA TELA)
                 if (countDownTimer != null) {
                     countDownTimer.cancel();
                 }
-
-                boolean shouldTriggerAlarm = switchTimerAlarm.isChecked();
 
                 countDownTimer = new CountDownTimer(millis, 1000) {
 
@@ -200,7 +235,9 @@ public class HomeFragment extends Fragment {
                         long sec = seconds % 60;
 
                         if (txtTimer != null) {
-                            txtTimer.setText(String.format("%02d:%02d", min, sec));
+                            txtTimer.setText(
+                                    String.format("%02d:%02d", min, sec)
+                            );
                         }
                     }
 
@@ -212,17 +249,6 @@ public class HomeFragment extends Fragment {
                         }
 
                         stopSound();
-
-                        if (shouldTriggerAlarm && isAdded() && getActivity() != null) {
-
-                            try {
-                                Intent i = new Intent(getActivity(), AlarmService.class);
-                                i.putExtra("alarm_id", 9999);
-                                i.putExtra("alarm_label", "Tempo finalizado");
-
-                                getActivity().startForegroundService(i);
-                            } catch (Exception ignored) {}
-                        }
                     }
 
                 }.start();
