@@ -8,7 +8,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioAttributes;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -103,7 +102,8 @@ public class AlarmService extends Service {
 
         startForeground(alarmId, notification);
 
-        startActivity(fullScreenIntent);
+        // ❌ REMOVIDO startActivity(fullScreenIntent);
+        // A notificação fullScreen já abre a tela automaticamente
 
         startAlarm();
 
