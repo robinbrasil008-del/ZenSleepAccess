@@ -17,23 +17,14 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="28dp">
 
+            <!-- ✅ Seta elegante e única -->
             <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:src="@android:drawable/ic_media_previous"
-                android:tint="#7DD3FC"
-                android:contentDescription="Voltar"/>
-
-            <!-- ✅ ÍCONE MAIS BONITO (CHEVRON) - fica por cima do anterior -->
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@android:drawable/arrow_up_float"
                 android:tint="#E0F2FE"
-                android:rotation="-90"
-                android:layout_marginStart="-30dp"
-                android:contentDescription="Voltar"/>
+                android:contentDescription="Voltar" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,8 +46,7 @@
             android:layout_marginBottom="20dp"
             android:orientation="vertical"
             android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground">
+            android:focusable="true">
 
             <TextView
                 android:text="Som do Alarme"
@@ -132,7 +122,6 @@
         </LinearLayout>
 
         <!-- SONECA -->
-        <!-- ✅ NÃO CLICÁVEL + "Disponível em breve" -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -143,7 +132,6 @@
             android:clickable="false"
             android:focusable="false">
 
-            <!-- Bloco de texto (título + subtítulo) -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
