@@ -19,10 +19,21 @@
 
             <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@android:drawable/ic_media_previous"
-                android:tint="#7DD3FC"/>
+                android:tint="#7DD3FC"
+                android:contentDescription="Voltar"/>
+
+            <!-- ✅ ÍCONE MAIS BONITO (CHEVRON) - fica por cima do anterior -->
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@android:drawable/arrow_up_float"
+                android:tint="#E0F2FE"
+                android:rotation="-90"
+                android:layout_marginStart="-30dp"
+                android:contentDescription="Voltar"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,16 +59,12 @@
             android:foreground="?attr/selectableItemBackground">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="Som do Alarme"
                 android:textColor="#94A3B8"
                 android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/txtAlarmSound"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="🎵 Padrão"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
@@ -89,8 +96,6 @@
 
                 <TextView
                     android:id="@+id/txtAlarmVolumeValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="80%"
                     android:textColor="#94A3B8"
                     android:textSize="14sp"/>
@@ -122,33 +127,43 @@
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"/>
 
-            <!-- 🔥 CORREÇÃO AQUI -->
             <Switch
-                android:id="@+id/switchVibrate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:id="@+id/switchVibrate"/>
         </LinearLayout>
 
         <!-- SONECA -->
+        <!-- ✅ NÃO CLICÁVEL + "Disponível em breve" -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_card_glass"
             android:padding="22dp"
             android:layout_marginBottom="40dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:clickable="false"
+            android:focusable="false">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Bloco de texto (título + subtítulo) -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="🌙 Modo Soneca"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"/>
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="🌙 Modo Soneca"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:text="Disponível em breve"
+                    android:textColor="#94A3B8"
+                    android:textSize="12sp"
+                    android:layout_marginTop="6dp"/>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/txtSnoozeValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="5 minutos"
                 android:textColor="#94A3B8"
                 android:textSize="14sp"
