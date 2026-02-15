@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="?android:colorBackground"
+    android:background="@drawable/bg_screen_gradient"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -29,15 +29,15 @@
                 android:text="Configurações"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                android:textColor="?android:textColorPrimary"
+                android:textColor="#FFFFFF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
-        <!-- ⏰ CONFIGURAR DESPERTADOR (CARD CLICÁVEL) -->
+        <!-- ⏰ CONFIGURAR DESPERTADOR -->
         <LinearLayout
             android:id="@+id/cardAlarm"
-            android:background="@color/card_color"
+            android:background="@drawable/bg_card_glass"
             android:padding="18dp"
             android:layout_marginBottom="16dp"
             android:gravity="center_vertical"
@@ -57,7 +57,7 @@
 
         <!-- TEMA ESCURO -->
         <LinearLayout
-            android:background="@color/card_color"
+            android:background="@drawable/bg_card_glass"
             android:padding="18dp"
             android:layout_marginBottom="16dp"
             android:gravity="center_vertical"
@@ -80,7 +80,7 @@
 
         <!-- VOLUME -->
         <LinearLayout
-            android:background="@color/card_color"
+            android:background="@drawable/bg_card_glass"
             android:padding="18dp"
             android:orientation="vertical"
             android:layout_marginBottom="16dp"
@@ -121,12 +121,13 @@
         <!-- POLÍTICA -->
         <LinearLayout
             android:id="@+id/btnPrivacy"
-            android:background="@color/card_color"
+            android:background="@drawable/bg_card_glass"
             android:padding="18dp"
             android:layout_marginBottom="16dp"
             android:gravity="center_vertical"
             android:clickable="true"
             android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -140,7 +141,7 @@
 
         <!-- VERSÃO -->
         <LinearLayout
-            android:background="@color/card_color"
+            android:background="@drawable/bg_card_glass"
             android:padding="18dp"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
