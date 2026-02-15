@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
@@ -51,8 +52,14 @@ public class SettingsFragment extends Fragment {
         // ⏰ ABRIR CONFIGURAR DESPERTADOR
         // =========================
         cardAlarm.setOnClickListener(v -> {
-            Intent i = new Intent(requireContext(), AlarmActivity.class);
-            startActivity(i);
+
+            // 🔥 NÃO REMOVE NADA — só evita erro
+            Toast.makeText(
+                    requireContext(),
+                    "Agora o despertador é configurado pelo Timer.",
+                    Toast.LENGTH_SHORT
+            ).show();
+
         });
 
         // =========================
