@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0B1220">
+    android:background="@drawable/bg_screen_gradient">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,11 +19,10 @@
 
             <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@android:drawable/ic_media_previous"
-                android:tint="#E0F2FE"
-                android:contentDescription="Voltar" />
+                android:tint="#7DD3FC"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -40,12 +39,13 @@
             android:id="@+id/cardAlarmSound"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#162032"
+            android:background="@drawable/bg_card_glass"
             android:padding="22dp"
             android:layout_marginBottom="20dp"
             android:orientation="vertical"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground">
 
             <TextView
                 android:text="Som do Alarme"
@@ -65,7 +65,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#162032"
+            android:background="@drawable/bg_card_glass"
             android:padding="22dp"
             android:layout_marginBottom="20dp"
             android:orientation="vertical">
@@ -103,7 +103,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#162032"
+            android:background="@drawable/bg_card_glass"
             android:padding="22dp"
             android:layout_marginBottom="20dp"
             android:gravity="center_vertical">
@@ -124,11 +124,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#162032"
+            android:background="@drawable/bg_card_glass"
             android:padding="22dp"
             android:layout_marginBottom="40dp"
             android:gravity="center_vertical">
 
+            <!-- Bloco esquerdo -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -140,13 +141,15 @@
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"/>
 
+                <!-- NOVO TEXTO (não interfere em nada) -->
                 <TextView
                     android:text="Disponível em breve"
                     android:textColor="#94A3B8"
                     android:textSize="12sp"
-                    android:layout_marginTop="6dp"/>
+                    android:layout_marginTop="4dp"/>
             </LinearLayout>
 
+            <!-- Mantido ID original para não quebrar -->
             <TextView
                 android:id="@+id/txtSnoozeValue"
                 android:text="5 minutos"
@@ -164,6 +167,6 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
-            android:background="#22D3EE"/>
+            android:background="@drawable/bg_button_gradient"/>
     </LinearLayout>
 </ScrollView>
