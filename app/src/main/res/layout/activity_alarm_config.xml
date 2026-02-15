@@ -152,14 +152,14 @@
                 android:layout_height="wrap_content"
                 android:text="Disponível em breve"
                 android:textColor="#94A3B8"
-                android:textSize="12sp"
+                android:textSize="18sp"
                 android:layout_marginTop="6dp"/>
 
             <TextView
                 android:id="@+id/txtSnoozeValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5 minutos"
+                android:text="😉"
                 android:textColor="#94A3B8"
                 android:textSize="14sp"
                 android:layout_marginTop="6dp"/>
