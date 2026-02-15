@@ -39,6 +39,13 @@
 
         </activity>
 
+        <!-- 🔥 NOVA TELA: CONFIGURAR DESPERTADOR -->
+        <activity
+            android:name=".AlarmConfigActivity"
+            android:exported="false"
+            android:label="Configurar Despertador"
+            android:screenOrientation="portrait"/>
+
         <!-- Tela que aparece quando o timer dispara -->
         <activity
             android:name=".AlarmRingingActivity"
