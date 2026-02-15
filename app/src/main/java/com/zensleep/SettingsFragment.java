@@ -51,14 +51,14 @@ public class SettingsFragment extends Fragment {
         txtVolumeValue.setText(volume + "%");
 
         // =========================
-        // ⏰ CONFIGURAR DESPERTADOR (AGORA MODAL BONITO)
+        // ⏰ CONFIGURAR DESPERTADOR (BOTTOM SHEET CORRETO)
         // =========================
         cardAlarm.setOnClickListener(v -> {
 
             BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
 
             View sheetView = LayoutInflater.from(requireContext())
-                    .inflate(R.layout.bottomsheet_alarm_info, null);
+                    .inflate(R.layout.dialog_alarm_info, null); // 🔥 AQUI FOI CORRIGIDO
 
             dialog.setContentView(sheetView);
             dialog.show();
