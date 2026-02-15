@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
@@ -17,7 +16,6 @@ public class SettingsFragment extends Fragment {
 
     public static final String PREFS = "zen_settings";
 
-    public static final String KEY_ALARM = "alarm_enabled";   // 🔥 NOVO
     public static final String KEY_DARK = "dark_mode";
     public static final String KEY_VOL = "volume";
 
@@ -30,9 +28,8 @@ public class SettingsFragment extends Fragment {
 
         SharedPreferences prefs = requireContext().getSharedPreferences(PREFS, 0);
 
-        // 🔥 CARD + SWITCH DO DESPERTADOR
+        // 🔥 CARD DO DESPERTADOR (SEM SWITCH)
         LinearLayout cardAlarm = view.findViewById(R.id.cardAlarm);
-        Switch switchAlarm = view.findViewById(R.id.switchAlarm);
 
         // OUTROS CONTROLES
         Switch switchDarkMode = view.findViewById(R.id.switchDarkMode);
@@ -43,36 +40,17 @@ public class SettingsFragment extends Fragment {
         // =========================
         // 🔥 CARREGA VALORES
         // =========================
-        boolean alarmEnabled = prefs.getBoolean(KEY_ALARM, false);
         boolean darkEnabled = prefs.getBoolean(KEY_DARK, true);
         int volume = prefs.getInt(KEY_VOL, 80);
 
-        switchAlarm.setChecked(alarmEnabled);
         switchDarkMode.setChecked(darkEnabled);
         seekVolume.setProgress(volume);
         txtVolumeValue.setText(volume + "%");
 
         // =========================
-        // ⏰ DESPERTADOR (SWITCH)
-        // =========================
-        switchAlarm.setOnCheckedChangeListener((buttonView, isChecked) ->
-                prefs.edit().putBoolean(KEY_ALARM, isChecked).apply()
-        );
-
-        // =========================
-        // ⏰ DESPERTADOR (ABRIR TELA)
+        // ⏰ ABRIR CONFIGURAR DESPERTADOR
         // =========================
         cardAlarm.setOnClickListener(v -> {
-
-            boolean enabledNow = prefs.getBoolean(KEY_ALARM, false);
-
-            if (!enabledNow) {
-                Toast.makeText(requireContext(),
-                        "Ative o despertador para configurar.",
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
-
             Intent i = new Intent(requireContext(), AlarmActivity.class);
             startActivity(i);
         });
