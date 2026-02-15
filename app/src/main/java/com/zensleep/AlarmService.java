@@ -55,7 +55,7 @@ public class AlarmService extends Service {
             if (extraLabel != null) label = extraLabel;
         }
 
-        // 🔥 INTENT DA TELA
+        // 🔥 INTENT DA TELA (SEM startActivity manual!)
         Intent fullScreenIntent = new Intent(this, AlarmRingingActivity.class);
         fullScreenIntent.putExtra("alarm_label", label);
         fullScreenIntent.addFlags(
@@ -72,26 +72,25 @@ public class AlarmService extends Service {
                                 PendingIntent.FLAG_IMMUTABLE
                 );
 
-        // 🔥 NOTIFICAÇÃO FORTE (IMPORTANTE NO ANDROID 14/15)
         Notification notification =
                 new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setContentTitle("⏰ Alarme")
                         .setContentText(label)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setCategory(NotificationCompat.CATEGORY_ALARM)
-                        .setPriority(NotificationCompat.PRIORITY_MAX)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setFullScreenIntent(fullScreenPendingIntent, true)
                         .setOngoing(true)
                         .build();
 
         startForeground(alarmId, notification);
 
-        // 🔥 ABRE TELA GARANTIDO
-        startActivity(fullScreenIntent);
+        // ❌ NÃO usar startActivity aqui!
+        // O fullScreenIntent já abre automaticamente.
 
         startAlarm();
 
-        return START_STICKY;
+        return START_NOT_STICKY;
     }
 
     private void startAlarm() {
@@ -114,6 +113,9 @@ public class AlarmService extends Service {
             }
             else if ("SOM_3".equals(savedSound)) {
                 soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.som3);
+            }
+            else if (savedSound != null && savedSound.startsWith("content://")) {
+                soundUri = Uri.parse(savedSound);
             }
             else {
                 soundUri = android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI;
@@ -138,13 +140,11 @@ public class AlarmService extends Service {
             mediaPlayer.start();
 
         } catch (Exception e) {
-
             try {
                 mediaPlayer = MediaPlayer.create(
                         this,
                         android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
                 );
-
                 if (mediaPlayer != null) {
                     mediaPlayer.setLooping(true);
                     mediaPlayer.start();
@@ -152,7 +152,6 @@ public class AlarmService extends Service {
             } catch (Exception ignored) {}
         }
 
-        // 🔥 VIBRAÇÃO SEGURA
         if (vibrateEnabled) {
 
             vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
