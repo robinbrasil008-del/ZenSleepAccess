@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,7 +26,7 @@ public class AlarmConfigActivity extends AppCompatActivity {
     private static final int PICK_AUDIO_REQUEST = 1001;
 
     private TextView txtAlarmSound;
-    private String selectedSound = "SOM_1"; // padrão
+    private String selectedSound = "SOM_1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
         int snooze = prefs.getInt(KEY_ALARM_SNOOZE, 5);
         selectedSound = prefs.getString(KEY_ALARM_SOUND, "SOM_1");
 
-        // Atualiza nome do som
         updateSoundText();
 
         seekVolume.setProgress(savedVolume);
@@ -60,8 +58,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
         txtSnooze.setText(snooze + " minutos");
 
         btnBack.setOnClickListener(v -> finish());
-
-        // 🔥 ABRIR SELETOR DE SOM
         cardAlarmSound.setOnClickListener(v -> openSoundDialog());
 
         seekVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -69,7 +65,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 txtVolume.setText(progress + "%");
             }
-
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
@@ -105,23 +100,34 @@ public class AlarmConfigActivity extends AppCompatActivity {
             switch (which) {
                 case 0:
                     selectedSound = "SOM_1";
+                    updateSoundText();
                     break;
                 case 1:
                     selectedSound = "SOM_2";
+                    updateSoundText();
                     break;
                 case 2:
                     selectedSound = "SOM_3";
+                    updateSoundText();
                     break;
                 case 3:
-                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, PICK_AUDIO_REQUEST);
-                    return;
+                    openAudioPicker();
+                    break;
             }
-
-            updateSoundText();
         });
 
         builder.show();
+    }
+
+    private void openAudioPicker() {
+
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("audio/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+
+        startActivityForResult(intent, PICK_AUDIO_REQUEST);
     }
 
     private void updateSoundText() {
@@ -152,8 +158,17 @@ public class AlarmConfigActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_AUDIO_REQUEST && resultCode == RESULT_OK && data != null) {
+
             Uri uri = data.getData();
+
             if (uri != null) {
+
+                // 🔥 Persistir permissão
+                getContentResolver().takePersistableUriPermission(
+                        uri,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION
+                );
+
                 selectedSound = uri.toString();
                 updateSoundText();
             }
