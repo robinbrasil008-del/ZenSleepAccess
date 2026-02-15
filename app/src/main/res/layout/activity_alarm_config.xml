@@ -48,12 +48,16 @@
             android:foreground="?attr/selectableItemBackground">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Som do Alarme"
                 android:textColor="#94A3B8"
                 android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/txtAlarmSound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="🎵 Padrão"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
@@ -85,6 +89,8 @@
 
                 <TextView
                     android:id="@+id/txtAlarmVolumeValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="80%"
                     android:textColor="#94A3B8"
                     android:textSize="14sp"/>
@@ -116,8 +122,11 @@
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"/>
 
+            <!-- 🔥 CORREÇÃO AQUI -->
             <Switch
-                android:id="@+id/switchVibrate"/>
+                android:id="@+id/switchVibrate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <!-- SONECA -->
@@ -130,12 +139,16 @@
             android:gravity="center_vertical">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="🌙 Modo Soneca"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/txtSnoozeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="5 minutos"
                 android:textColor="#94A3B8"
                 android:textSize="14sp"
