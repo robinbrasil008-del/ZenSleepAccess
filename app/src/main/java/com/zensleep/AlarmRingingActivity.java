@@ -15,16 +15,16 @@ public class AlarmRingingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // 🔥 GARANTE ABERTURA COM TELA BLOQUEADA
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true);
             setTurnScreenOn(true);
-        } else {
-            getWindow().addFlags(
-                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
-                    WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-            );
         }
+
+        getWindow().addFlags(
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
+        );
 
         setContentView(R.layout.activity_alarm_ringing);
 
@@ -35,11 +35,30 @@ public class AlarmRingingActivity extends AppCompatActivity {
 
         if (label != null && !label.isEmpty()) {
             txtTitle.setText("⏰ " + label);
+        } else {
+            txtTitle.setText("⏰ Alarme");
         }
 
         btnStop.setOnClickListener(v -> {
-            stopService(new Intent(this, AlarmService.class));
+            try {
+                Intent stopIntent = new Intent(this, AlarmService.class);
+                stopIntent.setAction("STOP_ALARM");
+                startService(stopIntent);
+            } catch (Exception ignored) {}
+
             finish();
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // 🔥 SEGURANÇA EXTRA: garante que o serviço pare
+        try {
+            Intent stopIntent = new Intent(this, AlarmService.class);
+            stopIntent.setAction("STOP_ALARM");
+            startService(stopIntent);
+        } catch (Exception ignored) {}
     }
 }
