@@ -20,7 +20,7 @@ import androidx.core.app.NotificationCompat;
 
 public class AlarmService extends Service {
 
-    private static final String CHANNEL_ID = "ZEN_ALARM_SERVICE";
+    private static final String CHANNEL_ID = "ZEN_ALARM_CHANNEL";
 
     private MediaPlayer mediaPlayer;
     private Vibrator vibrator;
@@ -47,7 +47,7 @@ public class AlarmService extends Service {
         }
 
         int alarmId = 9999;
-        String label = "ZenSleep";
+        String label = "Alarme";
 
         if (intent != null) {
             alarmId = intent.getIntExtra("alarm_id", 9999);
@@ -55,7 +55,7 @@ public class AlarmService extends Service {
             if (extraLabel != null) label = extraLabel;
         }
 
-        // 🔥 INTENT DA TELA (SEM startActivity manual!)
+        // 🔥 INTENT TELA FULLSCREEN
         Intent fullScreenIntent = new Intent(this, AlarmRingingActivity.class);
         fullScreenIntent.putExtra("alarm_label", label);
         fullScreenIntent.addFlags(
@@ -66,8 +66,21 @@ public class AlarmService extends Service {
         PendingIntent fullScreenPendingIntent =
                 PendingIntent.getActivity(
                         this,
-                        alarmId,
+                        0,
                         fullScreenIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT |
+                                PendingIntent.FLAG_IMMUTABLE
+                );
+
+        // 🔥 BOTÃO PARAR
+        Intent stopIntent = new Intent(this, AlarmService.class);
+        stopIntent.setAction("STOP_ALARM");
+
+        PendingIntent stopPendingIntent =
+                PendingIntent.getService(
+                        this,
+                        1,
+                        stopIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT |
                                 PendingIntent.FLAG_IMMUTABLE
                 );
@@ -80,17 +93,23 @@ public class AlarmService extends Service {
                         .setCategory(NotificationCompat.CATEGORY_ALARM)
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setFullScreenIntent(fullScreenPendingIntent, true)
+                        .addAction(
+                                R.mipmap.ic_launcher,
+                                "PARAR",
+                                stopPendingIntent
+                        )
+                        .setAutoCancel(false)
                         .setOngoing(true)
                         .build();
 
         startForeground(alarmId, notification);
 
-        // ❌ NÃO usar startActivity aqui!
-        // O fullScreenIntent já abre automaticamente.
+        // 🔥 FORÇA ABERTURA IMEDIATA DA TELA
+        startActivity(fullScreenIntent);
 
         startAlarm();
 
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     private void startAlarm() {
@@ -113,9 +132,6 @@ public class AlarmService extends Service {
             }
             else if ("SOM_3".equals(savedSound)) {
                 soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.som3);
-            }
-            else if (savedSound != null && savedSound.startsWith("content://")) {
-                soundUri = Uri.parse(savedSound);
             }
             else {
                 soundUri = android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI;
@@ -140,16 +156,16 @@ public class AlarmService extends Service {
             mediaPlayer.start();
 
         } catch (Exception e) {
-            try {
-                mediaPlayer = MediaPlayer.create(
-                        this,
-                        android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
-                );
-                if (mediaPlayer != null) {
-                    mediaPlayer.setLooping(true);
-                    mediaPlayer.start();
-                }
-            } catch (Exception ignored) {}
+
+            mediaPlayer = MediaPlayer.create(
+                    this,
+                    android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
+            );
+
+            if (mediaPlayer != null) {
+                mediaPlayer.setLooping(true);
+                mediaPlayer.start();
+            }
         }
 
         if (vibrateEnabled) {
@@ -180,7 +196,8 @@ public class AlarmService extends Service {
         if (powerManager == null) return;
 
         wakeLock = powerManager.newWakeLock(
-                PowerManager.PARTIAL_WAKE_LOCK,
+                PowerManager.PARTIAL_WAKE_LOCK |
+                        PowerManager.ACQUIRE_CAUSES_WAKEUP,
                 "ZenSleep::AlarmWakeLock"
         );
 
@@ -199,6 +216,8 @@ public class AlarmService extends Service {
                     );
 
             channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            channel.enableVibration(true);
+            channel.setBypassDnd(true);
 
             NotificationManager manager =
                     getSystemService(NotificationManager.class);
