@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -26,6 +27,11 @@ public class AlarmService extends Service {
     private Vibrator vibrator;
     private PowerManager.WakeLock wakeLock;
 
+    public static final String PREFS = "zen_settings";
+    public static final String KEY_ALARM_VOLUME = "alarm_volume";
+    public static final String KEY_ALARM_VIBRATE = "alarm_vibrate";
+    public static final String KEY_ALARM_SOUND = "alarm_sound";
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -41,16 +47,13 @@ public class AlarmService extends Service {
             return START_NOT_STICKY;
         }
 
-        int alarmId = 0;
+        int alarmId = 1;
         String label = "ZenSleep";
-        String soundUriString = null;
 
         if (intent != null) {
-            alarmId = intent.getIntExtra("alarm_id", 0);
+            alarmId = intent.getIntExtra("alarm_id", 1);
             String extraLabel = intent.getStringExtra("alarm_label");
             if (extraLabel != null) label = extraLabel;
-
-            soundUriString = intent.getStringExtra("alarm_sound");
         }
 
         Intent fullScreenIntent =
@@ -102,29 +105,31 @@ public class AlarmService extends Service {
 
         startActivity(fullScreenIntent);
 
-        forceAlarmVolume();
-        startAlarm(soundUriString);
+        startAlarm();
 
         return START_STICKY;
     }
 
-    private void startAlarm(String soundUriString) {
+    private void startAlarm() {
+
+        SharedPreferences prefs = getSharedPreferences(PREFS, 0);
+
+        int savedVolume = prefs.getInt(KEY_ALARM_VOLUME, 80);
+        boolean vibrateEnabled = prefs.getBoolean(KEY_ALARM_VIBRATE, true);
+        String savedSound = prefs.getString(KEY_ALARM_SOUND, "DEFAULT");
 
         try {
 
             Uri soundUri;
 
-            if ("SOM_1".equals(soundUriString)) {
+            if ("SOM_1".equals(savedSound)) {
                 soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.som1);
             }
-            else if ("SOM_2".equals(soundUriString)) {
+            else if ("SOM_2".equals(savedSound)) {
                 soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.som2);
             }
-            else if ("SOM_3".equals(soundUriString)) {
+            else if ("SOM_3".equals(savedSound)) {
                 soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.som3);
-            }
-            else if (soundUriString != null && soundUriString.startsWith("content://")) {
-                soundUri = Uri.parse(soundUriString);
             }
             else {
                 soundUri = android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI;
@@ -142,53 +147,42 @@ public class AlarmService extends Service {
             mediaPlayer.setDataSource(this, soundUri);
             mediaPlayer.setLooping(true);
             mediaPlayer.prepare();
+
+            float volume = savedVolume / 100f;
+            mediaPlayer.setVolume(volume, volume);
+
             mediaPlayer.start();
 
         } catch (Exception e) {
 
-            // 🔥 Fallback automático
-            try {
-                mediaPlayer = MediaPlayer.create(
-                        this,
-                        android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
-                );
+            mediaPlayer = MediaPlayer.create(
+                    this,
+                    android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
+            );
+
+            if (mediaPlayer != null) {
                 mediaPlayer.setLooping(true);
                 mediaPlayer.start();
-            } catch (Exception ignored) {}
-        }
-
-        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-
-        if (vibrator != null) {
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(
-                        VibrationEffect.createWaveform(
-                                new long[]{0, 700, 700},
-                                0
-                        )
-                );
-            } else {
-                vibrator.vibrate(new long[]{0, 700, 700}, 0);
             }
         }
-    }
 
-    private void forceAlarmVolume() {
+        if (vibrateEnabled) {
 
-        AudioManager audioManager =
-                (AudioManager) getSystemService(AUDIO_SERVICE);
+            vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
-        if (audioManager != null) {
+            if (vibrator != null) {
 
-            int maxVolume =
-                    audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-
-            audioManager.setStreamVolume(
-                    AudioManager.STREAM_ALARM,
-                    maxVolume,
-                    0
-            );
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(
+                            VibrationEffect.createWaveform(
+                                    new long[]{0, 700, 700},
+                                    0
+                            )
+                    );
+                } else {
+                    vibrator.vibrate(new long[]{0, 700, 700}, 0);
+                }
+            }
         }
     }
 
