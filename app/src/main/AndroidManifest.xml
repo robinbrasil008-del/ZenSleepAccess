@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Permissões essenciais -->
+    <!-- ================= PERMISSÕES ================= -->
+
+    <!-- Tela cheia -->
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+
+    <!-- Notificações (Android 13+) -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
+    <!-- Vibração -->
     <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <!-- WakeLock -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <!-- Foreground -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
 
-    <!-- 🔥 NECESSÁRIA para setExactAndAllowWhileIdle (Android 12+) -->
+    <!-- Alarmes exatos -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 
-    <!-- 🔥 Para reiniciar alarmes após reboot -->
+    <!-- Reiniciar alarmes após reboot -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <!-- 🔥 PERMISSÕES PARA SOM UPLOAD -->
+    
+    <!-- Android 13+ -->
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
+
+    <!-- Android 12 ou inferior -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"/>
+
+    <!-- ================================================= -->
 
     <application
         android:allowBackup="true"
