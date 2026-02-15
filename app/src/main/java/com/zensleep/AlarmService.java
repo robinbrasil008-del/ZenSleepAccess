@@ -101,7 +101,7 @@ public class AlarmService extends Service {
 
         try {
 
-            Uri soundUri;
+            Uri soundUri = null;
 
             if ("SOM_1".equals(savedSound)) {
                 soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.som1);
@@ -113,41 +113,33 @@ public class AlarmService extends Service {
                 soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.som3);
             }
             else if (savedSound != null && savedSound.startsWith("content://")) {
-                // 🔥 AQUI ESTÁ A CORREÇÃO
                 soundUri = Uri.parse(savedSound);
             }
 
-            mediaPlayer = new MediaPlayer();
+            // 🔥 Só executa se realmente houver som selecionado
+            if (soundUri != null) {
 
-            mediaPlayer.setAudioAttributes(
-                    new AudioAttributes.Builder()
-                            .setUsage(AudioAttributes.USAGE_ALARM)
-                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                            .build()
-            );
+                mediaPlayer = new MediaPlayer();
 
-            mediaPlayer.setDataSource(this, soundUri);
-            mediaPlayer.setLooping(true);
-            mediaPlayer.prepare();
-
-            float volume = savedVolume / 100f;
-            mediaPlayer.setVolume(volume, volume);
-
-            mediaPlayer.start();
-
-        } catch (Exception e) {
-
-            try {
-                mediaPlayer = MediaPlayer.create(
-                        this,
-                        android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
+                mediaPlayer.setAudioAttributes(
+                        new AudioAttributes.Builder()
+                                .setUsage(AudioAttributes.USAGE_ALARM)
+                                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                .build()
                 );
 
-                if (mediaPlayer != null) {
-                    mediaPlayer.setLooping(true);
-                    mediaPlayer.start();
-                }
-            } catch (Exception ignored) {}
+                mediaPlayer.setDataSource(this, soundUri);
+                mediaPlayer.setLooping(true);
+                mediaPlayer.prepare();
+
+                float volume = savedVolume / 100f;
+                mediaPlayer.setVolume(volume, volume);
+
+                mediaPlayer.start();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         if (vibrateEnabled) {
