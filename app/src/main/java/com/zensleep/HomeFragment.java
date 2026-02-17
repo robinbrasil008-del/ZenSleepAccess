@@ -145,6 +145,13 @@ public class HomeFragment extends Fragment {
         Button btnStartTimer = dialogView.findViewById(R.id.btnStartTimer);
         Switch switchTimerAlarm = dialogView.findViewById(R.id.switchTimerAlarm);
 
+        // 🔥 NOVO: Card clicável para abrir configurações do despertador
+        View cardTimerAlarm = dialogView.findViewById(R.id.cardTimerAlarm);
+        cardTimerAlarm.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), AlarmConfigActivity.class);
+            startActivity(intent);
+        });
+
         AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setView(dialogView)
                 .create();
@@ -183,9 +190,7 @@ public class HomeFragment extends Fragment {
 
                 if (alarmManager != null) {
 
-                    // 🔥 PERMISSÃO ANDROID 12+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-
                         if (!alarmManager.canScheduleExactAlarms()) {
 
                             Toast.makeText(
