@@ -16,19 +16,11 @@
     <color name="primaryVariant">#081224</color>
     <color name="onPrimary">#FFFFFF</color>
     <color name="statusBarColor">#081224</color>
-
-    <!-- ========================= -->
-    <!-- 🔥 ADIÇÕES PARA DRAWABLE -->
-    <!-- ========================= -->
-
     <!-- Botão gradiente escuro -->
     <color name="buttonStart">#38BDF8</color>
     <color name="buttonEnd">#22D3EE</color>
-    <!-- GRADIENT -->
     <color name="gradientStart">#0B1220</color>
     <color name="gradientEnd">#111827</color>
-
-    <!-- CARD BACKGROUND -->
     <color name="cardBackground">#1F2A3A</color>
 
 </resources>
