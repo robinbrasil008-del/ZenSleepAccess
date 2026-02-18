@@ -129,6 +129,9 @@
                         android:id="@+id/seekChuva"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone"
+                        android:alpha="0.9"
                         android:max="100"
                         android:progress="80"/>
                 </LinearLayout>
@@ -190,6 +193,9 @@
                         android:id="@+id/seekMar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone"
+                        android:alpha="0.9"
                         android:max="100"
                         android:progress="80"/>
                 </LinearLayout>
@@ -251,6 +257,9 @@
                         android:id="@+id/seekFloresta"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone"
+                        android:alpha="0.9"
                         android:max="100"
                         android:progress="80"/>
                 </LinearLayout>
@@ -312,6 +321,9 @@
                         android:id="@+id/seekLareira"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone"
+                        android:alpha="0.9"
                         android:max="100"
                         android:progress="80"/>
                 </LinearLayout>
@@ -373,6 +385,9 @@
                         android:id="@+id/seekVento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone"
+                        android:alpha="0.9"
                         android:max="100"
                         android:progress="80"/>
                 </LinearLayout>
@@ -434,6 +449,9 @@
                         android:id="@+id/seekGrilos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone"
+                        android:alpha="0.9"
                         android:max="100"
                         android:progress="80"/>
                 </LinearLayout>
@@ -495,6 +513,9 @@
                         android:id="@+id/seekPassaros"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone"
+                        android:alpha="0.9"
                         android:max="100"
                         android:progress="80"/>
                 </LinearLayout>
@@ -557,6 +578,9 @@
                         android:id="@+id/seekRiacho"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone"
+                        android:alpha="0.9"
                         android:max="100"
                         android:progress="80"/>
                 </LinearLayout>
@@ -618,6 +642,9 @@
                         android:id="@+id/seekCafeteira"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone"
+                        android:alpha="0.9"
                         android:max="100"
                         android:progress="80"/>
                 </LinearLayout>
