@@ -231,6 +231,10 @@ public class HomeFragment extends Fragment {
             mp.start();
             button.setImageResource(android.R.drawable.ic_media_pause);
 
+            // 🔥 mostra a barra quando começar a tocar
+         if(seekBar != null) {
+           seekBar.setVisibility(View.VISIBLE);
+
             // se acabar por algum motivo, limpa estado
             mp.setOnErrorListener((m, what, extra) -> {
                 stopSingle(key, button);
@@ -262,6 +266,10 @@ public class HomeFragment extends Fragment {
 
         if (button != null) {
             button.setImageResource(android.R.drawable.ic_media_play);
+            
+            SeekBar seekBar = getSeekBarByKey(key);
+        if (seekBar != null) {
+            seekBar.setVisibility(View.GONE);
         }
     }
 
