@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,31 +24,32 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import java.util.HashMap;
+
 public class HomeFragment extends Fragment {
 
-    private MediaPlayer mediaPlayer;
+    // ======= PLAYER (NOVO MIX / MULTI-SOM) =======
+    private final HashMap<String, MediaPlayer> players = new HashMap<>();
+
     private CountDownTimer countDownTimer;
 
     private TextView txtTimer;
-    private ImageView btnPlayChuva, btnPlayMar;
 
-    // ✅ NOVOS BOTÕES
+    // PLAY BUTTONS
+    private ImageView btnPlayChuva, btnPlayMar;
     private ImageView btnPlayFloresta, btnPlayLareira, btnPlayVento,
             btnPlayGrilos, btnPlayPassaros, btnPlayRiacho, btnPlayCafeteira;
 
-    private ImageView starChuva, starMar;
+    // SEEKBARS (VOLUME POR CARD)
+    private SeekBar seekChuva, seekMar, seekFloresta, seekLareira,
+            seekVento, seekGrilos, seekPassaros, seekRiacho, seekCafeteira;
 
-    // ✅ NOVAS ESTRELAS
+    // FAVORITOS
+    private ImageView starChuva, starMar;
     private ImageView starFloresta, starLareira, starVento,
             starGrilos, starPassaros, starRiacho, starCafeteira;
 
     private Button btnTimer;
-
-    private boolean isChuvaPlaying = false;
-    private boolean isMarPlaying = false;
-
-    // ✅ CONTROLE DO SOM ATUAL (pra evitar tocar 2 ao mesmo tempo)
-    private String currentSoundKey = null;
 
     public HomeFragment() {
         super(R.layout.fragment_home);
@@ -56,10 +58,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
+        // ======= PLAY BUTTONS =======
         btnPlayChuva = view.findViewById(R.id.btnPlayChuva);
         btnPlayMar = view.findViewById(R.id.btnPlayMar);
 
-        // ✅ NOVOS findViewById (precisa existir no XML)
         btnPlayFloresta = view.findViewById(R.id.btnPlayFloresta);
         btnPlayLareira = view.findViewById(R.id.btnPlayLareira);
         btnPlayVento = view.findViewById(R.id.btnPlayVento);
@@ -68,10 +70,22 @@ public class HomeFragment extends Fragment {
         btnPlayRiacho = view.findViewById(R.id.btnPlayRiacho);
         btnPlayCafeteira = view.findViewById(R.id.btnPlayCafeteira);
 
+        // ======= SEEKBARS =======
+        seekChuva = view.findViewById(R.id.seekChuva);
+        seekMar = view.findViewById(R.id.seekMar);
+
+        seekFloresta = view.findViewById(R.id.seekFloresta);
+        seekLareira = view.findViewById(R.id.seekLareira);
+        seekVento = view.findViewById(R.id.seekVento);
+        seekGrilos = view.findViewById(R.id.seekGrilos);
+        seekPassaros = view.findViewById(R.id.seekPassaros);
+        seekRiacho = view.findViewById(R.id.seekRiacho);
+        seekCafeteira = view.findViewById(R.id.seekCafeteira);
+
+        // ======= FAVORITOS =======
         starChuva = view.findViewById(R.id.starChuva);
         starMar = view.findViewById(R.id.starMar);
 
-        // ✅ NOVOS favoritos (precisa existir no XML)
         starFloresta = view.findViewById(R.id.starFloresta);
         starLareira = view.findViewById(R.id.starLareira);
         starVento = view.findViewById(R.id.starVento);
@@ -80,22 +94,24 @@ public class HomeFragment extends Fragment {
         starRiacho = view.findViewById(R.id.starRiacho);
         starCafeteira = view.findViewById(R.id.starCafeteira);
 
+        // ======= TIMER =======
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
 
+        // ======= SETUP MIX (MULTI-SOM) =======
+        setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
+        setupSound("mar", R.raw.mar, btnPlayMar, seekMar);
+
+        setupSound("floresta", R.raw.floresta, btnPlayFloresta, seekFloresta);
+        setupSound("lareira", R.raw.lareira, btnPlayLareira, seekLareira);
+        setupSound("vento", R.raw.vento_suave, btnPlayVento, seekVento);
+        setupSound("grilos", R.raw.grilos, btnPlayGrilos, seekGrilos);
+        setupSound("passaros", R.raw.passaros, btnPlayPassaros, seekPassaros);
+        setupSound("riacho", R.raw.riacho, btnPlayRiacho, seekRiacho);
+        setupSound("cafeteira", R.raw.cafeteira, btnPlayCafeteira, seekCafeteira);
+
+        // ======= FAVORITOS CLIQUES =======
         updateStars();
-
-        btnPlayChuva.setOnClickListener(v -> toggleChuva());
-        btnPlayMar.setOnClickListener(v -> toggleMar());
-
-        // ✅ NOVOS clique play/pause
-        btnPlayFloresta.setOnClickListener(v -> toggleGeneric("floresta", R.raw.floresta, btnPlayFloresta));
-        btnPlayLareira.setOnClickListener(v -> toggleGeneric("lareira", R.raw.lareira, btnPlayLareira));
-        btnPlayVento.setOnClickListener(v -> toggleGeneric("vento", R.raw.vento_suave, btnPlayVento));
-        btnPlayGrilos.setOnClickListener(v -> toggleGeneric("grilos", R.raw.grilos, btnPlayGrilos));
-        btnPlayPassaros.setOnClickListener(v -> toggleGeneric("passaros", R.raw.passaros, btnPlayPassaros));
-        btnPlayRiacho.setOnClickListener(v -> toggleGeneric("riacho", R.raw.riacho, btnPlayRiacho));
-        btnPlayCafeteira.setOnClickListener(v -> toggleGeneric("cafeteira", R.raw.cafeteira, btnPlayCafeteira));
 
         starChuva.setOnClickListener(v -> {
             FavoritesManager.toggleFavorite(requireContext(), "chuva");
@@ -107,7 +123,6 @@ public class HomeFragment extends Fragment {
             updateStars();
         });
 
-        // ✅ NOVOS favoritos
         starFloresta.setOnClickListener(v -> {
             FavoritesManager.toggleFavorite(requireContext(), "floresta");
             updateStars();
@@ -146,6 +161,7 @@ public class HomeFragment extends Fragment {
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
 
+    // ======= VOLUME MASTER (CONFIG) =======
     private float getSavedVolume() {
         SharedPreferences prefs =
                 requireContext().getSharedPreferences("zen_settings", 0);
@@ -153,116 +169,117 @@ public class HomeFragment extends Fragment {
         return volumePercent / 100f;
     }
 
-    private void applyVolume() {
-        if (mediaPlayer != null) {
-            float volume = getSavedVolume();
-            mediaPlayer.setVolume(volume, volume);
+    private float computeFinalVolume(SeekBar seekBar) {
+        float master = getSavedVolume();                 // 0..1
+        float card = (seekBar != null ? (seekBar.getProgress() / 100f) : 0.8f); // 0..1
+        float finalVol = master * card;
+        if (finalVol < 0f) finalVol = 0f;
+        if (finalVol > 1f) finalVol = 1f;
+        return finalVol;
+    }
+
+    private void applyVolumeForKey(String key, SeekBar seekBar) {
+        MediaPlayer mp = players.get(key);
+        if (mp != null) {
+            float v = computeFinalVolume(seekBar);
+            mp.setVolume(v, v);
         }
     }
 
-    private void toggleChuva() {
-        if (isChuvaPlaying) {
-            stopSound();
-            return;
+    private void applyMasterVolumeToAll() {
+        // Reaplica master*card em todo mundo (útil quando muda no settings)
+        applyVolumeForKey("chuva", seekChuva);
+        applyVolumeForKey("mar", seekMar);
+        applyVolumeForKey("floresta", seekFloresta);
+        applyVolumeForKey("lareira", seekLareira);
+        applyVolumeForKey("vento", seekVento);
+        applyVolumeForKey("grilos", seekGrilos);
+        applyVolumeForKey("passaros", seekPassaros);
+        applyVolumeForKey("riacho", seekRiacho);
+        applyVolumeForKey("cafeteira", seekCafeteira);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        applyMasterVolumeToAll();
+    }
+
+    // ======= SETUP DO SOM (MIX) =======
+    private void setupSound(String key, int rawRes, ImageView button, SeekBar seekBar) {
+
+        // garante progress default
+        if (seekBar != null && seekBar.getProgress() <= 0) {
+            seekBar.setProgress(80);
         }
 
-        stopSound();
+        // clique play/pause individual
+        button.setOnClickListener(v -> {
+            if (players.containsKey(key)) {
+                stopSingle(key, button);
+                return;
+            }
 
-        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.chuva);
-        mediaPlayer.setLooping(true);
-        applyVolume();
-        mediaPlayer.start();
+            MediaPlayer mp = MediaPlayer.create(requireContext(), rawRes);
+            mp.setLooping(true);
 
-        btnPlayChuva.setImageResource(android.R.drawable.ic_media_pause);
-        btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
+            players.put(key, mp);
 
-        // ✅ reseta ícones dos novos também
-        resetNewButtonsToPlay();
+            // aplica volume MASTER * CARD
+            applyVolumeForKey(key, seekBar);
 
-        isChuvaPlaying = true;
-        isMarPlaying = false;
-        currentSoundKey = "chuva";
-    }
+            mp.start();
+            button.setImageResource(android.R.drawable.ic_media_pause);
 
-    private void toggleMar() {
-        if (isMarPlaying) {
-            stopSound();
-            return;
+            // se acabar por algum motivo, limpa estado
+            mp.setOnErrorListener((m, what, extra) -> {
+                stopSingle(key, button);
+                return true;
+            });
+        });
+
+        // volume por card
+        if (seekBar != null) {
+            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar sb, int progress, boolean fromUser) {
+                    applyVolumeForKey(key, sb);
+                }
+
+                @Override public void onStartTrackingTouch(SeekBar sb) {}
+                @Override public void onStopTrackingTouch(SeekBar sb) {}
+            });
         }
-
-        stopSound();
-
-        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.mar);
-        mediaPlayer.setLooping(true);
-        applyVolume();
-        mediaPlayer.start();
-
-        btnPlayMar.setImageResource(android.R.drawable.ic_media_pause);
-        btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
-
-        // ✅ reseta ícones dos novos também
-        resetNewButtonsToPlay();
-
-        isMarPlaying = true;
-        isChuvaPlaying = false;
-        currentSoundKey = "mar";
     }
 
-    // ✅ NOVO: toggle genérico (não mexe no timer)
-    private void toggleGeneric(String key, int rawRes, ImageView button) {
-
-        // se clicou no mesmo que já tá tocando -> para
-        if (currentSoundKey != null && currentSoundKey.equals(key) && mediaPlayer != null) {
-            stopSound();
-            return;
+    private void stopSingle(String key, ImageView button) {
+        MediaPlayer mp = players.get(key);
+        if (mp != null) {
+            try { mp.stop(); } catch (Exception ignored) {}
+            try { mp.release(); } catch (Exception ignored) {}
         }
+        players.remove(key);
 
-        stopSound();
-
-        mediaPlayer = MediaPlayer.create(requireContext(), rawRes);
-        mediaPlayer.setLooping(true);
-        applyVolume();
-        mediaPlayer.start();
-
-        // reseta todos pra play e só esse fica pause
-        btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
-        btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
-        resetNewButtonsToPlay();
-
-        button.setImageResource(android.R.drawable.ic_media_pause);
-
-        isChuvaPlaying = false;
-        isMarPlaying = false;
-        currentSoundKey = key;
+        if (button != null) {
+            button.setImageResource(android.R.drawable.ic_media_play);
+        }
     }
 
-    private void resetNewButtonsToPlay() {
-        if (btnPlayFloresta != null) btnPlayFloresta.setImageResource(android.R.drawable.ic_media_play);
-        if (btnPlayLareira != null) btnPlayLareira.setImageResource(android.R.drawable.ic_media_play);
-        if (btnPlayVento != null) btnPlayVento.setImageResource(android.R.drawable.ic_media_play);
-        if (btnPlayGrilos != null) btnPlayGrilos.setImageResource(android.R.drawable.ic_media_play);
-        if (btnPlayPassaros != null) btnPlayPassaros.setImageResource(android.R.drawable.ic_media_play);
-        if (btnPlayRiacho != null) btnPlayRiacho.setImageResource(android.R.drawable.ic_media_play);
-        if (btnPlayCafeteira != null) btnPlayCafeteira.setImageResource(android.R.drawable.ic_media_play);
-    }
-
+    // ======= STOP GERAL (PARA TUDO) =======
     private void stopSound() {
-        if (mediaPlayer != null) {
-            try { mediaPlayer.stop(); } catch (Exception ignored) {}
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
-
-        btnPlayChuva.setImageResource(android.R.drawable.ic_media_play);
-        btnPlayMar.setImageResource(android.R.drawable.ic_media_play);
-
-        resetNewButtonsToPlay();
-
-        isChuvaPlaying = false;
-        isMarPlaying = false;
-        currentSoundKey = null;
+        // Para TODOS os sons (mantém nome stopSound pra não quebrar o resto)
+        stopSingle("chuva", btnPlayChuva);
+        stopSingle("mar", btnPlayMar);
+        stopSingle("floresta", btnPlayFloresta);
+        stopSingle("lareira", btnPlayLareira);
+        stopSingle("vento", btnPlayVento);
+        stopSingle("grilos", btnPlayGrilos);
+        stopSingle("passaros", btnPlayPassaros);
+        stopSingle("riacho", btnPlayRiacho);
+        stopSingle("cafeteira", btnPlayCafeteira);
     }
 
+    // ======= TIMER (MANTIDO + ALARME) =======
     private void openTimerDialog() {
 
         View dialogView = LayoutInflater.from(requireContext())
@@ -272,12 +289,14 @@ public class HomeFragment extends Fragment {
         Button btnStartTimer = dialogView.findViewById(R.id.btnStartTimer);
         Switch switchTimerAlarm = dialogView.findViewById(R.id.switchTimerAlarm);
 
-        // 🔥 NOVO: Card clicável para abrir configurações do despertador
+        // 🔥 Card clicável para abrir configurações do despertador
         View cardTimerAlarm = dialogView.findViewById(R.id.cardTimerAlarm);
-        cardTimerAlarm.setOnClickListener(v -> {
-            Intent intent = new Intent(requireContext(), AlarmConfigActivity.class);
-            startActivity(intent);
-        });
+        if (cardTimerAlarm != null) {
+            cardTimerAlarm.setOnClickListener(v -> {
+                Intent intent = new Intent(requireContext(), AlarmConfigActivity.class);
+                startActivity(intent);
+            });
+        }
 
         AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setView(dialogView)
@@ -307,7 +326,7 @@ public class HomeFragment extends Fragment {
 
             long millis = minutes * 60L * 1000L;
 
-            boolean shouldTriggerAlarm = switchTimerAlarm.isChecked();
+            boolean shouldTriggerAlarm = switchTimerAlarm != null && switchTimerAlarm.isChecked();
 
             if (shouldTriggerAlarm) {
 
@@ -383,7 +402,7 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onFinish() {
                     txtTimer.setText("00:00");
-                    stopSound();
+                    stopSound(); // para todos
                 }
 
             }.start();
@@ -394,6 +413,7 @@ public class HomeFragment extends Fragment {
         dialog.show();
     }
 
+    // ======= FAVORITOS (MANTIDO) =======
     private void updateStars() {
 
         boolean chuvaFav =
@@ -432,7 +452,6 @@ public class HomeFragment extends Fragment {
             starMar.setColorFilter(0xFFFFFFFF);
         }
 
-        // ✅ NOVOS
         if (starFloresta != null) {
             if (florestaFav) {
                 starFloresta.setImageResource(android.R.drawable.btn_star_big_on);
@@ -507,10 +526,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
         stopSound();
+
         if (countDownTimer != null) {
             countDownTimer.cancel();
             countDownTimer = null;
         }
     }
-                                     }
+                }
