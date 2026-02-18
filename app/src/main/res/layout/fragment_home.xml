@@ -77,7 +77,7 @@
             <!-- CARD CHUVA -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="240dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -111,19 +111,26 @@
                         android:text="Chuva"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <ImageView
                         android:id="@+id/btnPlayChuva"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="18dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Chuva"/>
+
+                    <SeekBar
+                        android:id="@+id/seekChuva"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="80"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -131,7 +138,7 @@
             <!-- CARD MAR -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="240dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -165,19 +172,26 @@
                         android:text="Ondas do Mar"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <ImageView
                         android:id="@+id/btnPlayMar"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="18dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Ondas do Mar"/>
+
+                    <SeekBar
+                        android:id="@+id/seekMar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="80"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -185,7 +199,7 @@
             <!-- ✅ FLORESTA -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="240dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -219,19 +233,26 @@
                         android:text="Floresta"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <ImageView
                         android:id="@+id/btnPlayFloresta"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="18dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Floresta"/>
+
+                    <SeekBar
+                        android:id="@+id/seekFloresta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="80"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -239,7 +260,7 @@
             <!-- ✅ LAREIRA -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="240dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -273,19 +294,26 @@
                         android:text="Lareira"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <ImageView
                         android:id="@+id/btnPlayLareira"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="18dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Lareira"/>
+
+                    <SeekBar
+                        android:id="@+id/seekLareira"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="80"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -293,7 +321,7 @@
             <!-- ✅ VENTO SUAVE -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="240dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -327,19 +355,26 @@
                         android:text="Vento Suave"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <ImageView
                         android:id="@+id/btnPlayVento"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="18dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Vento Suave"/>
+
+                    <SeekBar
+                        android:id="@+id/seekVento"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="80"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -347,7 +382,7 @@
             <!-- ✅ NOITE COM GRILOS -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="240dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -381,19 +416,26 @@
                         android:text="Noite com Grilos"
                         android:textColor="@android:color/white"
                         android:textSize="15sp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <ImageView
                         android:id="@+id/btnPlayGrilos"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="18dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Noite com Grilos"/>
+
+                    <SeekBar
+                        android:id="@+id/seekGrilos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="80"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -401,7 +443,7 @@
             <!-- ✅ PÁSSAROS -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="240dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -435,19 +477,26 @@
                         android:text="Pássaros"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <ImageView
                         android:id="@+id/btnPlayPassaros"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="18dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Pássaros"/>
+
+                    <SeekBar
+                        android:id="@+id/seekPassaros"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="80"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -455,7 +504,7 @@
             <!-- ✅ RIACHO -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="240dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -489,20 +538,27 @@
                         android:text="Riacho"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <ImageView
                         android:id="@+id/btnPlayRiacho"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_marginTop="0dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="18dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Riacho"/>
+
+                    <SeekBar
+                        android:id="@+id/seekRiacho"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="80"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -510,7 +566,7 @@
             <!-- ✅ CAFETEIRA -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="240dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -544,19 +600,26 @@
                         android:text="Cafeteira"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <ImageView
                         android:id="@+id/btnPlayCafeteira"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="18dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Cafeteira"/>
+
+                    <SeekBar
+                        android:id="@+id/seekCafeteira"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="80"/>
                 </LinearLayout>
 
             </FrameLayout>
