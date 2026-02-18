@@ -513,4 +513,4 @@ public class HomeFragment extends Fragment {
             countDownTimer = null;
         }
     }
-    }
+                                     }
