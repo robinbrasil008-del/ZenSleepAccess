@@ -71,7 +71,7 @@ public class FavoritesFragment extends Fragment {
 
         // ✅ CORRIGIDO
         if (FavoritesManager.isFavorite(requireContext(), "grilos")) {
-            addCard("✨", "Noite com Grilos", R.raw.noite_grilos);
+            addCard("✨", "Noite com Grilos", R.raw.grilos);
             hasFavorites = true;
         }
 
