@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -16,9 +17,8 @@ import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView navHome, navFav, navSettings;
+    LinearLayout navHome, navFav, navSettings;
 
-    // 🔥 Launcher moderno para permissão (Android 13+)
     private ActivityResultLauncher<String> notificationPermissionLauncher;
 
     @Override
@@ -40,14 +40,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // ==========================
-        // 🔔 REGISTRA PERMISSÃO NOTIFICAÇÃO
+        // 🔔 PERMISSÃO NOTIFICAÇÃO
         // ==========================
         notificationPermissionLauncher =
                 registerForActivityResult(
                         new ActivityResultContracts.RequestPermission(),
-                        isGranted -> {
-                            // Não precisa fazer nada aqui
-                        }
+                        isGranted -> {}
                 );
 
         checkNotificationPermission();
@@ -80,9 +78,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // ==========================
-    // 🔔 ANDROID 13+ NOTIFICATION
-    // ==========================
     private void checkNotificationPermission() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -106,12 +101,28 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private void selectMenu(TextView selected) {
+    private void selectMenu(LinearLayout selected) {
 
-        navHome.setTextColor(0xFF94A3B8);
-        navFav.setTextColor(0xFF94A3B8);
-        navSettings.setTextColor(0xFF94A3B8);
+        resetMenuColors(navHome);
+        resetMenuColors(navFav);
+        resetMenuColors(navSettings);
 
-        selected.setTextColor(getColor(android.R.color.white));
+        highlightMenu(selected);
+    }
+
+    private void resetMenuColors(LinearLayout menu) {
+        TextView icon = (TextView) menu.getChildAt(0);
+        TextView text = (TextView) menu.getChildAt(1);
+
+        icon.setTextColor(0xFF94A3B8);
+        text.setTextColor(0xFF94A3B8);
+    }
+
+    private void highlightMenu(LinearLayout menu) {
+        TextView icon = (TextView) menu.getChildAt(0);
+        TextView text = (TextView) menu.getChildAt(1);
+
+        icon.setTextColor(0xFFFFFFFF);
+        text.setTextColor(0xFFFFFFFF);
     }
 }
