@@ -174,6 +174,357 @@
 
             </FrameLayout>
 
+            <!-- ✅ FLORESTA -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/bg_card"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/starFloresta"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end|top"
+                    android:src="@android:drawable/btn_star_big_off"
+                    android:tint="@android:color/white"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="🌲"
+                        android:textSize="42sp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Floresta"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/btnPlayFloresta"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/bg_play_circle"
+                        android:padding="20dp"
+                        android:src="@android:drawable/ic_media_play"
+                        android:tint="@android:color/white"/>
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!-- ✅ LAREIRA -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/bg_card"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/starLareira"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end|top"
+                    android:src="@android:drawable/btn_star_big_off"
+                    android:tint="@android:color/white"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="🔥"
+                        android:textSize="42sp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Lareira"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/btnPlayLareira"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/bg_play_circle"
+                        android:padding="20dp"
+                        android:src="@android:drawable/ic_media_play"
+                        android:tint="@android:color/white"/>
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!-- ✅ VENTO SUAVE -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/bg_card"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/starVento"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end|top"
+                    android:src="@android:drawable/btn_star_big_off"
+                    android:tint="@android:color/white"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="🌬"
+                        android:textSize="42sp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Vento Suave"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/btnPlayVento"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/bg_play_circle"
+                        android:padding="20dp"
+                        android:src="@android:drawable/ic_media_play"
+                        android:tint="@android:color/white"/>
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!-- ✅ NOITE COM GRILOS -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/bg_card"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/starGrilos"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end|top"
+                    android:src="@android:drawable/btn_star_big_off"
+                    android:tint="@android:color/white"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="✨"
+                        android:textSize="42sp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Noite com Grilos"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/btnPlayGrilos"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/bg_play_circle"
+                        android:padding="20dp"
+                        android:src="@android:drawable/ic_media_play"
+                        android:tint="@android:color/white"/>
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!-- ✅ PÁSSAROS -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/bg_card"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/starPassaros"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end|top"
+                    android:src="@android:drawable/btn_star_big_off"
+                    android:tint="@android:color/white"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="🐦"
+                        android:textSize="42sp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Pássaros"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/btnPlayPassaros"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/bg_play_circle"
+                        android:padding="20dp"
+                        android:src="@android:drawable/ic_media_play"
+                        android:tint="@android:color/white"/>
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!-- ✅ RIACHO -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/bg_card"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/starRiacho"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end|top"
+                    android:src="@android:drawable/btn_star_big_off"
+                    android:tint="@android:color/white"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="🏞"
+                        android:textSize="42sp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Riacho"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/btnPlayRiacho"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="0dp"
+                        android:background="@drawable/bg_play_circle"
+                        android:padding="20dp"
+                        android:src="@android:drawable/ic_media_play"
+                        android:tint="@android:color/white"/>
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!-- ✅ CAFETEIRA -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/bg_card"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/starCafeteira"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end|top"
+                    android:src="@android:drawable/btn_star_big_off"
+                    android:tint="@android:color/white"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="☕"
+                        android:textSize="42sp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Cafeteira"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/btnPlayCafeteira"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/bg_play_circle"
+                        android:padding="20dp"
+                        android:src="@android:drawable/ic_media_play"
+                        android:tint="@android:color/white"/>
+                </LinearLayout>
+
+            </FrameLayout>
+
         </GridLayout>
 
     </LinearLayout>
