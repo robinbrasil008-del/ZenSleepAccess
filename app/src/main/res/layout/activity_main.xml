@@ -13,45 +13,86 @@
         android:layout_height="match_parent" />
 
     <!-- MENU INFERIOR FUNCIONAL -->
+<LinearLayout
+    android:id="@+id/bottomNav"
+    android:background="#0F172A"
+    android:orientation="horizontal"
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:weightSum="3"
+    android:paddingTop="6dp">
+
+    <!-- INÍCIO -->
     <LinearLayout
-        android:id="@+id/bottomNav"
-        android:background="#0F172A"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:weightSum="3">
+        android:id="@+id/navHome"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/navHome"
+            android:text="🏠"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
             android:text="Início"
             android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/navFav"
-            android:text="Favoritos"
-            android:textColor="#94A3B8"
-            android:textSize="14sp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/navSettings"
-            android:text="Ajustes"
-            android:textColor="#94A3B8"
-            android:textSize="14sp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
-</RelativeLayout>
+    <!-- FAVORITOS -->
+    <LinearLayout
+        android:id="@+id/navFav"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="⭐"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Favoritos"
+            android:textColor="#94A3B8"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <!-- AJUSTES -->
+    <LinearLayout
+        android:id="@+id/navSettings"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="⚙"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Ajustes"
+            android:textColor="#94A3B8"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</LinearLayout>
