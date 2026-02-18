@@ -63,13 +63,15 @@ public class FavoritesFragment extends Fragment {
             hasFavorites = true;
         }
 
-        if (FavoritesManager.isFavorite(requireContext(), "vento")) {
-            addCard("🌬", "Vento Suave", R.raw.vento);
+        // ✅ CORRIGIDO
+        if (FavoritesManager.isFavorite(requireContext(), "vento_suave")) {
+            addCard("🌬", "Vento Suave", R.raw.vento_suave);
             hasFavorites = true;
         }
 
-        if (FavoritesManager.isFavorite(requireContext(), "grilos")) {
-            addCard("✨", "Noite com Grilos", R.raw.grilos);
+        // ✅ CORRIGIDO
+        if (FavoritesManager.isFavorite(requireContext(), "noite_grilos")) {
+            addCard("✨", "Noite com Grilos", R.raw.noite_grilos);
             hasFavorites = true;
         }
 
