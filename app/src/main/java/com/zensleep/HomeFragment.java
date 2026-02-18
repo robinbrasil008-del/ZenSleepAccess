@@ -231,10 +231,6 @@ public class HomeFragment extends Fragment {
             mp.start();
             button.setImageResource(android.R.drawable.ic_media_pause);
 
-            // 🔥 mostra a barra quando começar a tocar
-         if(seekBar != null) {
-           seekBar.setVisibility(View.VISIBLE);
-
             // se acabar por algum motivo, limpa estado
             mp.setOnErrorListener((m, what, extra) -> {
                 stopSingle(key, button);
@@ -244,6 +240,9 @@ public class HomeFragment extends Fragment {
 
         // volume por card
         if (seekBar != null) {
+            
+            seekBar.setVisibility(View.VISIBLE);
+            
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar sb, int progress, boolean fromUser) {
