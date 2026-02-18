@@ -81,7 +81,10 @@
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/starChuva"
@@ -119,7 +122,8 @@
                         android:background="@drawable/bg_play_circle"
                         android:padding="20dp"
                         android:src="@android:drawable/ic_media_play"
-                        android:tint="@android:color/white"/>
+                        android:tint="@android:color/white"
+                        android:contentDescription="Tocar ou pausar Chuva"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -131,7 +135,10 @@
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/starMar"
@@ -169,7 +176,8 @@
                         android:background="@drawable/bg_play_circle"
                         android:padding="20dp"
                         android:src="@android:drawable/ic_media_play"
-                        android:tint="@android:color/white"/>
+                        android:tint="@android:color/white"
+                        android:contentDescription="Tocar ou pausar Ondas do Mar"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -181,7 +189,10 @@
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/starFloresta"
@@ -219,7 +230,8 @@
                         android:background="@drawable/bg_play_circle"
                         android:padding="20dp"
                         android:src="@android:drawable/ic_media_play"
-                        android:tint="@android:color/white"/>
+                        android:tint="@android:color/white"
+                        android:contentDescription="Tocar ou pausar Floresta"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -231,7 +243,10 @@
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/starLareira"
@@ -269,7 +284,8 @@
                         android:background="@drawable/bg_play_circle"
                         android:padding="20dp"
                         android:src="@android:drawable/ic_media_play"
-                        android:tint="@android:color/white"/>
+                        android:tint="@android:color/white"
+                        android:contentDescription="Tocar ou pausar Lareira"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -281,7 +297,10 @@
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/starVento"
@@ -319,7 +338,8 @@
                         android:background="@drawable/bg_play_circle"
                         android:padding="20dp"
                         android:src="@android:drawable/ic_media_play"
-                        android:tint="@android:color/white"/>
+                        android:tint="@android:color/white"
+                        android:contentDescription="Tocar ou pausar Vento Suave"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -331,7 +351,10 @@
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/starGrilos"
@@ -369,7 +392,8 @@
                         android:background="@drawable/bg_play_circle"
                         android:padding="20dp"
                         android:src="@android:drawable/ic_media_play"
-                        android:tint="@android:color/white"/>
+                        android:tint="@android:color/white"
+                        android:contentDescription="Tocar ou pausar Noite com Grilos"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -381,7 +405,10 @@
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/starPassaros"
@@ -419,7 +446,8 @@
                         android:background="@drawable/bg_play_circle"
                         android:padding="20dp"
                         android:src="@android:drawable/ic_media_play"
-                        android:tint="@android:color/white"/>
+                        android:tint="@android:color/white"
+                        android:contentDescription="Tocar ou pausar Pássaros"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -431,7 +459,10 @@
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/starRiacho"
@@ -470,7 +501,8 @@
                         android:background="@drawable/bg_play_circle"
                         android:padding="20dp"
                         android:src="@android:drawable/ic_media_play"
-                        android:tint="@android:color/white"/>
+                        android:tint="@android:color/white"
+                        android:contentDescription="Tocar ou pausar Riacho"/>
                 </LinearLayout>
 
             </FrameLayout>
@@ -482,7 +514,10 @@
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/starCafeteira"
@@ -520,7 +555,8 @@
                         android:background="@drawable/bg_play_circle"
                         android:padding="20dp"
                         android:src="@android:drawable/ic_media_play"
-                        android:tint="@android:color/white"/>
+                        android:tint="@android:color/white"
+                        android:contentDescription="Tocar ou pausar Cafeteira"/>
                 </LinearLayout>
 
             </FrameLayout>
