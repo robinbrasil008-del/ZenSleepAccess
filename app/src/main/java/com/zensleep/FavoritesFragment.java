@@ -51,6 +51,43 @@ public class FavoritesFragment extends Fragment {
             hasFavorites = true;
         }
 
+        // 🔥 NOVOS SONS
+
+        if (FavoritesManager.isFavorite(requireContext(), "floresta")) {
+            addCard("🌲", "Floresta", R.raw.floresta);
+            hasFavorites = true;
+        }
+
+        if (FavoritesManager.isFavorite(requireContext(), "lareira")) {
+            addCard("🔥", "Lareira", R.raw.lareira);
+            hasFavorites = true;
+        }
+
+        if (FavoritesManager.isFavorite(requireContext(), "vento")) {
+            addCard("🌬", "Vento Suave", R.raw.vento);
+            hasFavorites = true;
+        }
+
+        if (FavoritesManager.isFavorite(requireContext(), "grilos")) {
+            addCard("✨", "Noite com Grilos", R.raw.grilos);
+            hasFavorites = true;
+        }
+
+        if (FavoritesManager.isFavorite(requireContext(), "passaros")) {
+            addCard("🐦", "Pássaros", R.raw.passaros);
+            hasFavorites = true;
+        }
+
+        if (FavoritesManager.isFavorite(requireContext(), "riacho")) {
+            addCard("🏞", "Riacho", R.raw.riacho);
+            hasFavorites = true;
+        }
+
+        if (FavoritesManager.isFavorite(requireContext(), "cafeteira")) {
+            addCard("☕", "Cafeteira", R.raw.cafeteira);
+            hasFavorites = true;
+        }
+
         emptyText.setVisibility(hasFavorites ? View.GONE : View.VISIBLE);
     }
 
@@ -58,7 +95,7 @@ public class FavoritesFragment extends Fragment {
 
         LinearLayout card = new LinearLayout(requireContext());
         card.setOrientation(LinearLayout.VERTICAL);
-        card.setGravity(View.TEXT_ALIGNMENT_CENTER);
+        card.setGravity(android.view.Gravity.CENTER);
         card.setPadding(20,20,20,20);
         card.setBackgroundResource(R.drawable.bg_card);
 
@@ -104,5 +141,16 @@ public class FavoritesFragment extends Fragment {
         card.addView(playButton);
 
         favoritesGrid.addView(card);
+    }
+
+    // 🔥 SEGURANÇA EXTRA (evita vazamento de memória)
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 }
