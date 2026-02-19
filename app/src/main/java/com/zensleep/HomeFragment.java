@@ -269,11 +269,27 @@ public class HomeFragment extends Fragment {
         if (button != null) {
             button.setImageResource(android.R.drawable.ic_media_play);
         }
-            
+
+            SeekBar seekBar = getSeekBarByKey(key);
         if (seekBar != null) {
             seekBar.setVisibility(View.GONE);
           }
       }
+
+    private SeekBar getSeekBarByKey(String key) {
+    switch (key) {
+        case "chuva": return seekChuva;
+        case "mar": return seekMar;
+        case "floresta": return seekFloresta;
+        case "lareira": return seekLareira;
+        case "vento": return seekVento;
+        case "grilos": return seekGrilos;
+        case "passaros": return seekPassaros;
+        case "riacho": return seekRiacho;
+        case "cafeteira": return seekCafeteira;
+        default: return null;
+      }
+    }
 
     // ======= STOP GERAL (PARA TUDO) =======
     private void stopSound() {
