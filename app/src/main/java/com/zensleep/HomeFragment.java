@@ -241,7 +241,7 @@ public class HomeFragment extends Fragment {
         // volume por card
         if (seekBar != null) {
             
-            seekBar.setVisibility(View.VISIBLE);
+            seekBar.setVisibility(View.VISIBLE)
             
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
