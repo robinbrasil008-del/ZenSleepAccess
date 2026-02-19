@@ -250,8 +250,13 @@ public class HomeFragment extends Fragment {
 
                 @Override public void onStartTrackingTouch(SeekBar sb) {}
                 @Override public void onStopTrackingTouch(SeekBar sb) {}
-                 }
-               }
+                 });
+            
+              }
+            
+           });
+        
+        }
                                   
         private void stopSingle(String key, ImageView button) {
         MediaPlayer mp = players.get(key);
