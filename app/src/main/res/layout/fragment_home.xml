@@ -120,7 +120,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="14dp"
+                        android:padding="10dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Chuva"/>
@@ -181,10 +181,10 @@
 
                     <ImageView
                         android:id="@+id/btnPlayMar"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="10dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Ondas do Mar"/>
@@ -245,10 +245,10 @@
 
                     <ImageView
                         android:id="@+id/btnPlayFloresta"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="10dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Floresta"/>
@@ -309,10 +309,10 @@
 
                     <ImageView
                         android:id="@+id/btnPlayLareira"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="10dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Lareira"/>
@@ -373,10 +373,10 @@
 
                     <ImageView
                         android:id="@+id/btnPlayVento"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="10dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Vento Suave"/>
@@ -437,10 +437,10 @@
 
                     <ImageView
                         android:id="@+id/btnPlayGrilos"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="10dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Noite com Grilos"/>
@@ -501,10 +501,10 @@
 
                     <ImageView
                         android:id="@+id/btnPlayPassaros"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="10dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Pássaros"/>
@@ -565,11 +565,11 @@
 
                     <ImageView
                         android:id="@+id/btnPlayRiacho"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginTop="0dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="10dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Riacho"/>
@@ -630,10 +630,10 @@
 
                     <ImageView
                         android:id="@+id/btnPlayCafeteira"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_play_circle"
-                        android:padding="20dp"
+                        android:padding="10dp"
                         android:src="@android:drawable/ic_media_play"
                         android:tint="@android:color/white"
                         android:contentDescription="Tocar ou pausar Cafeteira"/>
