@@ -267,6 +267,7 @@ public class HomeFragment extends Fragment {
             SeekBar seekBar = getSeekBarByKey(key);
         if (seekBar != null) {
             seekBar.setVisibility(View.GONE);
+          }
         }
       }
 
