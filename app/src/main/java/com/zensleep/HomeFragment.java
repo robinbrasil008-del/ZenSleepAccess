@@ -236,12 +236,11 @@ public class HomeFragment extends Fragment {
                 stopSingle(key, button);
                 return true;
             });
-        });
 
         // volume por card
         if (seekBar != null) {
             
-            seekBar.setVisibility(View.VISIBLE)
+            seekBar.setVisibility(View.VISIBLE);
             
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
