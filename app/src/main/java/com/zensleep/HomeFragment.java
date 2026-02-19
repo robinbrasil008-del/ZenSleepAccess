@@ -250,6 +250,8 @@ public class HomeFragment extends Fragment {
 
                 @Override public void onStartTrackingTouch(SeekBar sb) {}
                 @Override public void onStopTrackingTouch(SeekBar sb) {}
+               }
+              }
             });
          }
 
@@ -269,7 +271,6 @@ public class HomeFragment extends Fragment {
             seekBar.setVisibility(View.GONE);
         }
       }
-    }
 
     // ======= STOP GERAL (PARA TUDO) =======
     private void stopSound() {
