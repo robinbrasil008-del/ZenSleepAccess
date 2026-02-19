@@ -253,9 +253,7 @@ public class HomeFragment extends Fragment {
                  });
                }
             
-         }
-
-    private void stopSingle(String key, ImageView button) {
+            private void stopSingle(String key, ImageView button) {
         MediaPlayer mp = players.get(key);
         if (mp != null) {
             try { mp.stop(); } catch (Exception ignored) {}
