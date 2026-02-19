@@ -270,7 +270,6 @@ public class HomeFragment extends Fragment {
             button.setImageResource(android.R.drawable.ic_media_play);
         }
             
-            SeekBar seekBar = getSeekBarByKey(key);
         if (seekBar != null) {
             seekBar.setVisibility(View.GONE);
           }
