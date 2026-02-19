@@ -268,12 +268,12 @@ public class HomeFragment extends Fragment {
 
         if (button != null) {
             button.setImageResource(android.R.drawable.ic_media_play);
+        }
             
             SeekBar seekBar = getSeekBarByKey(key);
         if (seekBar != null) {
             seekBar.setVisibility(View.GONE);
           }
-        }
       }
 
     // ======= STOP GERAL (PARA TUDO) =======
