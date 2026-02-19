@@ -230,7 +230,7 @@ public class HomeFragment extends Fragment {
 
             mp.start();
             button.setImageResource(android.R.drawable.ic_media_pause);
-        {
+        
             // se acabar por algum motivo, limpa estado
             mp.setOnErrorListener((m, what, extra) -> {
                 stopSingle(key, button);
@@ -268,6 +268,7 @@ public class HomeFragment extends Fragment {
         if (seekBar != null) {
             seekBar.setVisibility(View.GONE);
         }
+      }
     }
 
     // ======= STOP GERAL (PARA TUDO) =======
