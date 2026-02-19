@@ -250,7 +250,7 @@ public class HomeFragment extends Fragment {
 
                 @Override public void onStartTrackingTouch(SeekBar sb) {}
                 @Override public void onStopTrackingTouch(SeekBar sb) {}
-               }
+                
               }
             });
          }
