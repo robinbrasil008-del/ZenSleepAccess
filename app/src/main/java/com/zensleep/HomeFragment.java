@@ -230,14 +230,12 @@ public class HomeFragment extends Fragment {
 
             mp.start();
             button.setImageResource(android.R.drawable.ic_media_pause);
-
+        {
             // se acabar por algum motivo, limpa estado
             mp.setOnErrorListener((m, what, extra) -> {
                 stopSingle(key, button);
                 return true;
-        )
             });
-        )
 
         // volume por card
         if (seekBar != null) {
