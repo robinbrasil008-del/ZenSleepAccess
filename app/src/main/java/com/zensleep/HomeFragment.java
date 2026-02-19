@@ -235,7 +235,9 @@ public class HomeFragment extends Fragment {
             mp.setOnErrorListener((m, what, extra) -> {
                 stopSingle(key, button);
                 return true;
+        )
             });
+        )
 
         // volume por card
         if (seekBar != null) {
