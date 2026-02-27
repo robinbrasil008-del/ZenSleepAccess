@@ -22,6 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.android.gms.ads.FullScreenContentCallback;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -29,6 +34,8 @@ import androidx.fragment.app.Fragment;
 import java.util.HashMap;
 
 public class HomeFragment extends Fragment {
+
+    private InterstitialAd mInterstitialAd;
 
     private AdView adView;
 
@@ -61,6 +68,8 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        loadInterstitialAd();
 
         adView = view.findViewById(R.id.adView);
 
@@ -119,6 +128,12 @@ public class HomeFragment extends Fragment {
         setupSound("riacho", R.raw.riacho, btnPlayRiacho, seekRiacho);
         setupSound("cafeteira", R.raw.cafeteira, btnPlayCafeteira, seekCafeteira);
 
+        new android.os.Handler().postDelayed(() -> {
+    if (mInterstitialAd != null) {
+        mInterstitialAd.show(requireActivity());
+    }
+}, 2000); // 2 segundos após abrir
+
         // ======= FAVORITOS CLIQUES =======
         updateStars();
 
@@ -168,6 +183,43 @@ public class HomeFragment extends Fragment {
         });
 
         btnTimer.setOnClickListener(v -> openTimerDialog());
+    }
+
+    private void loadInterstitialAd() {
+
+    AdRequest adRequest = new AdRequest.Builder().build();
+
+    InterstitialAd.load(requireContext(),
+            "ca-app-pub-3940256099942544/1033173712", // ID TESTE
+            adRequest,
+            new InterstitialAdLoadCallback() {
+
+                @Override
+                public void onAdLoaded(InterstitialAd interstitialAd) {
+                    mInterstitialAd = interstitialAd;
+
+                    mInterstitialAd.setFullScreenContentCallback(
+                            new FullScreenContentCallback() {
+
+                                @Override
+                                public void onAdDismissedFullScreenContent() {
+                                    mInterstitialAd = null;
+                                    loadInterstitialAd(); // carrega outro
+                                }
+
+                                @Override
+                                public void onAdFailedToShowFullScreenContent(
+                                        com.google.android.gms.ads.AdError adError) {
+                                    mInterstitialAd = null;
+                                }
+                            });
+                }
+
+                @Override
+                public void onAdFailedToLoad(LoadAdError loadAdError) {
+                    mInterstitialAd = null;
+                }
+            });
     }
 
     // ======= VOLUME MASTER (CONFIG) =======
