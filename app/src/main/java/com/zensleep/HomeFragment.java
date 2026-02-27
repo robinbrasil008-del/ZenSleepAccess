@@ -194,11 +194,11 @@ public class HomeFragment extends Fragment {
                 public void onAdLoaded(InterstitialAd interstitialAd) {
                     mInterstitialAd = interstitialAd;
 
-                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
-        if (mInterstitialAd != null) {
-            mInterstitialAd.show(requireActivity());
-        }
-    }, 800);
+                    new android.os.Handler().postDelayed(() -> {
+    if (mInterstitialAd != null) {
+        mInterstitialAd.show(requireActivity());
+    }
+}, 800); // 0.8 segundos após abrir
 
                     mInterstitialAd.setFullScreenContentCallback(
                             new FullScreenContentCallback() {
