@@ -128,6 +128,12 @@ public class HomeFragment extends Fragment {
         setupSound("riacho", R.raw.riacho, btnPlayRiacho, seekRiacho);
         setupSound("cafeteira", R.raw.cafeteira, btnPlayCafeteira, seekCafeteira);
 
+        new android.os.Handler().postDelayed(() -> {
+    if (mInterstitialAd != null) {
+        mInterstitialAd.show(requireActivity());
+    }
+}, 800); // 0.8 segundos após abrir
+
         // ======= FAVORITOS CLIQUES =======
         updateStars();
 
