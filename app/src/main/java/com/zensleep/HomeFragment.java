@@ -71,12 +71,6 @@ public class HomeFragment extends Fragment {
 
         loadInterstitialAd();
 
-        new android.os.Handler().postDelayed(() -> {
-    if (mInterstitialAd != null) {
-        mInterstitialAd.show(requireActivity());
-    }
-}, 1000); // 1 segundos após abrir
-
         adView = view.findViewById(R.id.adView);
 
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -133,6 +127,12 @@ public class HomeFragment extends Fragment {
         setupSound("passaros", R.raw.passaros, btnPlayPassaros, seekPassaros);
         setupSound("riacho", R.raw.riacho, btnPlayRiacho, seekRiacho);
         setupSound("cafeteira", R.raw.cafeteira, btnPlayCafeteira, seekCafeteira);
+
+        new android.os.Handler().postDelayed(() -> {
+    if (mInterstitialAd != null) {
+        mInterstitialAd.show(requireActivity());
+    }
+}, 1000); // 1 segundos após abrir
 
         // ======= FAVORITOS CLIQUES =======
         updateStars();
