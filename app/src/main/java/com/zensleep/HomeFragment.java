@@ -206,7 +206,6 @@ public class HomeFragment extends Fragment {
                                 @Override
                                 public void onAdDismissedFullScreenContent() {
                                     mInterstitialAd = null;
-                                    loadInterstitialAd(); // carrega outro
                                 }
 
                                 @Override
