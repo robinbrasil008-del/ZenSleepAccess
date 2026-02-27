@@ -132,7 +132,7 @@ public class HomeFragment extends Fragment {
     if (mInterstitialAd != null) {
         mInterstitialAd.show(requireActivity());
     }
-}, 1000); // 1 segundos após abrir
+}vi 800); // 0.8 segundos após abrir
 
         // ======= FAVORITOS CLIQUES =======
         updateStars();
@@ -197,6 +197,10 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onAdLoaded(InterstitialAd interstitialAd) {
                     mInterstitialAd = interstitialAd;
+
+                    if (mInterstitialAd != null) {
+        mInterstitialAd.show(requireActivity());
+                    }
 
                     mInterstitialAd.setFullScreenContentCallback(
                             new FullScreenContentCallback() {
