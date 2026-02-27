@@ -4,12 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+
     <LinearLayout
         android:padding="24dp"
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <com.google.android.gms.ads.AdView
+    android:id="@+id/adView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    ads:adSize="BANNER"
+    ads:adUnitId="ca-app-pub-8296610548842772/3634743500"/>
 
         <!-- TÍTULO -->
         <TextView
