@@ -20,6 +20,8 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -27,6 +29,8 @@ import androidx.fragment.app.Fragment;
 import java.util.HashMap;
 
 public class HomeFragment extends Fragment {
+
+    private AdView adView;
 
     // ======= PLAYER (NOVO MIX / MULTI-SOM) =======
     private final HashMap<String, MediaPlayer> players = new HashMap<>();
@@ -57,6 +61,11 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        adView = view.findViewById(R.id.adView);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         // ======= PLAY BUTTONS =======
         btnPlayChuva = view.findViewById(R.id.btnPlayChuva);
