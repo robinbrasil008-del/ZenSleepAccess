@@ -78,12 +78,6 @@ public class HomeFragment extends Fragment {
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
-        new Handler().postDelayed(() -> {
-        if (mInterstitialAd != null) {
-            mInterstitialAd.show(requireActivity());
-        }
-    }, 800); // 0.8 segundos
-
         // ======= PLAY BUTTONS =======
         btnPlayChuva = view.findViewById(R.id.btnPlayChuva);
         btnPlayMar = view.findViewById(R.id.btnPlayMar);
@@ -199,6 +193,12 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onAdLoaded(InterstitialAd interstitialAd) {
                     mInterstitialAd = interstitialAd;
+
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(requireActivity());
+        }
+    }, 800);
 
                     mInterstitialAd.setFullScreenContentCallback(
                             new FullScreenContentCallback() {
