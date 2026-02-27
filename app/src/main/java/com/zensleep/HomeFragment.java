@@ -206,7 +206,7 @@ public class HomeFragment extends Fragment {
                                     if (mInterstitialAd != null) {
                                      mInterstitialAd.show(requireActivity());
                                    }
-                                 }, 800); // 0.8 segundos
+                                 }, 2000); // 2 segundos
                                 }
 
                                 @Override
