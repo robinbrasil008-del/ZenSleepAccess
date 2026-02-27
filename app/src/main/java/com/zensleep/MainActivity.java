@@ -78,6 +78,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+        import com.google.android.gms.ads.MobileAds;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    MobileAds.initialize(this);
+    }
+
     private void checkNotificationPermission() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
