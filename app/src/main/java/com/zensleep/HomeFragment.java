@@ -199,13 +199,13 @@ public class HomeFragment extends Fragment {
                                 public void onAdDismissedFullScreenContent() {
                                     mInterstitialAd = null;
                                     loadInterstitialAd(); // carrega outro
+                              
+                                    new Handler().postDelayed(() -> {
+                                    if (mInterstitialAd != null) {
+                                     mInterstitialAd.show(requireActivity());
+                                   }
+                                 }, 800); // 0.8 segundos
                                 }
-
-                new android.os.Handler().postDelayed(() -> {
-                if (mInterstitialAd != null) {
-                    mInterstitialAd.show(requireActivity());
-                 }
-               }, 1000); // 1 segundos após abrir
 
                                 @Override
                                 public void onAdFailedToShowFullScreenContent(
