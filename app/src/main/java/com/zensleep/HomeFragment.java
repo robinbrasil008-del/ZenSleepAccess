@@ -71,9 +71,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        loadInterstitialAd();
-
         adView = view.findViewById(R.id.adView);
+
+        loadInterstitialAd();
 
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
