@@ -71,6 +71,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
+        UnityAds.show(this, "Interstitial_Android");
+
         adView = view.findViewById(R.id.adView);
 
         loadInterstitialAd();
