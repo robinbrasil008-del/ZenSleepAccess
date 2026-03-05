@@ -78,6 +78,22 @@ public class HomeFragment extends Fragment {
 
         UnityAds.show(getActivity(), "Interstitial_Android");
 
+        UnityAds.initialize(getActivity(), "257178685", true, new IUnityAdsInitializationListener() {
+        Log.d("ADS", "Tentando mostrar anúncio");
+
+    @Override
+    public void onInitializationComplete() {
+
+        UnityAds.show(getActivity(), "Interstitial_Android");
+
+    }
+
+    @Override
+    public void onInitializationFailed(UnityAds.UnityAdsInitializationError error, String message) {
+
+    }
+});
+
         adView = view.findViewById(R.id.adView);
 
         loadInterstitialAd();
@@ -194,10 +210,6 @@ FrameLayout bannerLayout = view.findViewById(R.id.banner_container);
 bannerLayout.addView(banner);
 
 banner.load();
-
-        if (UnityAds.isInitialized()) {
-    UnityAds.show(getActivity(), "Interstitial_Android");
-        }
     }
 
     private void loadInterstitialAd() {
