@@ -34,6 +34,7 @@ import com.unity3d.ads.IUnityAdsShowListener;
 import com.unity3d.services.banners.BannerView;
 import com.unity3d.services.banners.UnityBannerSize;
 import android.widget.FrameLayout;
+import android.util.Log;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -78,9 +79,10 @@ public class HomeFragment extends Fragment {
 
         UnityAds.show(getActivity(), "Interstitial_Android");
 
-        UnityAds.initialize(getActivity(), "257178685", true, new IUnityAdsInitializationListener() {
         Log.d("ADS", "Tentando mostrar anúncio");
 
+        UnityAds.initialize(getActivity(), "257178685", true, new IUnityAdsInitializationListener() {
+        
     @Override
     public void onInitializationComplete() {
 
