@@ -31,6 +31,8 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.unity3d.ads.UnityAds;
 import com.unity3d.ads.IUnityAdsShowListener;
+import com.unity3d.services.banners.BannerView;
+import com.unity3d.services.banners.UnityBannerSize;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -183,11 +185,19 @@ public class HomeFragment extends Fragment {
         });
 
         btnTimer.setOnClickListener(v -> openTimerDialog());
-    }
 
-    if (UnityAds.isInitialized()) {
+        BannerView banner = new BannerView(getActivity(), "Banner_Android", new UnityBannerSize(320, 50));
+
+FrameLayout bannerLayout = view.findViewById(R.id.banner_container);
+
+bannerLayout.addView(banner);
+
+banner.load();
+
+        if (UnityAds.isInitialized()) {
     UnityAds.show(getActivity(), "Interstitial_Android");
-}
+        }
+    }
 
     private void loadInterstitialAd() {
 
