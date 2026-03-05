@@ -15,12 +15,16 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.ads.MobileAds;
+import com.unity3d.ads.UnityAds;
 
 public class MainActivity extends AppCompatActivity {
 
     LinearLayout navHome, navFav, navSettings;
 
     private ActivityResultLauncher<String> notificationPermissionLauncher;
+
+    String unityGameID = "257178685"; // seu Game ID
+    boolean testMode = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         MobileAds.initialize(this);
+        UnityAds.initialize(this, unityGameID, testMode);
         setContentView(R.layout.activity_main);
 
         // ==========================
