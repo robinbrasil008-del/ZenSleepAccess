@@ -185,6 +185,10 @@ public class HomeFragment extends Fragment {
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
 
+    if (UnityAds.isInitialized()) {
+    UnityAds.show(getActivity(), "Interstitial_Android");
+}
+
     private void loadInterstitialAd() {
 
     AdRequest adRequest = new AdRequest.Builder().build();
