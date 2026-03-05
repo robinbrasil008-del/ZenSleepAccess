@@ -29,6 +29,8 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.FullScreenContentCallback;
+import com.unity3d.ads.UnityAds;
+import com.unity3d.ads.IUnityAdsShowListener;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -71,7 +73,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        UnityAds.show(this, "Interstitial_Android");
+        UnityAds.show(getActivity(), "Interstitial_Android");
 
         adView = view.findViewById(R.id.adView);
 
