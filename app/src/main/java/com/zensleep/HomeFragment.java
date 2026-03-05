@@ -81,20 +81,13 @@ public class HomeFragment extends Fragment {
 
         Log.d("ADS", "Tentando mostrar anúncio");
 
-        UnityAds.initialize(getActivity(), "257178685", true, new IUnityAdsInitializationListener() {
-        
-    @Override
-    public void onInitializationComplete() {
+        new Handler().postDelayed(() -> {
 
+    if (UnityAds.isInitialized()) {
         UnityAds.show(getActivity(), "Interstitial_Android");
-
     }
 
-    @Override
-    public void onInitializationFailed(UnityAds.UnityAdsInitializationError error, String message) {
-
-    }
-});
+}, 3000);
 
         adView = view.findViewById(R.id.adView);
 
