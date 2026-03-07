@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.ads.MobileAds;
-import com.unity3d.ads.UnityAds;
 import com.unity3d.ads.mediation.LevelPlay;
 import com.unity3d.ads.mediation.LevelPlayConfiguration;
 import com.unity3d.ads.mediation.LevelPlayInitListener;
