@@ -15,11 +15,10 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.ads.MobileAds;
-import com.unity3d.ads.mediation.LevelPlay;
-import com.unity3d.ads.mediation.LevelPlayConfiguration;
-import com.unity3d.ads.mediation.LevelPlayInitListener;
-import com.unity3d.ads.mediation.LevelPlayInitError;
-
+import com.unity3d.mediation.LevelPlay;
+import com.unity3d.mediation.LevelPlayConfiguration;
+import com.unity3d.mediation.LevelPlayInitListener;
+import com.unity3d.mediation.LevelPlayInitError;
 import androidx.annotation.NonNull;
 
 public class MainActivity extends AppCompatActivity {
