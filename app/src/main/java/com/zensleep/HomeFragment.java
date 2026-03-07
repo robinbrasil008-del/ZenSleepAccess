@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
         new Handler().postDelayed(() -> {
 
     if (UnityAds.isInitialized()) {
-        UnityAds.show(getActivity(), "3oh4eeooj8o0n9c");
+        UnityAds.show(getActivity(), "3oh4eeuojp8oon90");
     }
 
 }, 3000);
@@ -196,7 +196,7 @@ public class HomeFragment extends Fragment {
 
         btnTimer.setOnClickListener(v -> openTimerDialog());
 
-        BannerView banner = new BannerView(getActivity(), "0a85gt7srsub3n6n", new UnityBannerSize(320, 50));
+        BannerView banner = new BannerView(getActivity(), "0a85gt7srsu83n6n", new UnityBannerSize(320, 50));
 
 FrameLayout bannerLayout = view.findViewById(R.id.banner_container);
 
