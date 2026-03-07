@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         
         setContentView(R.layout.activity_main);
 
-        String APP_KEY = "257178685";
+        IronSource.init(this, "257178685");
 
 LevelPlayConfiguration config =
         new LevelPlayConfiguration.Builder(APP_KEY).build();
