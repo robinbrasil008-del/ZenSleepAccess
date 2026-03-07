@@ -16,10 +16,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.ads.MobileAds;
 import com.unity3d.ads.UnityAds;
-import com.unity3d.ads.mediation.LevelPlay;
-import com.unity3d.ads.mediation.init.LevelPlayInitError;
-import com.unity3d.ads.mediation.init.LevelPlayInitListener;
-import com.unity3d.ads.mediation.init.LevelPlayConfiguration;
+import com.unity3d.mediation.LevelPlay;
+import com.unity3d.mediation.init.LevelPlayConfiguration;
+import com.unity3d.mediation.init.LevelPlayInitListener;
+import com.unity3d.mediation.init.LevelPlayInitError;
 import androidx.annotation.NonNull;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<String> notificationPermissionLauncher;
 
     public static boolean levelPlayReady = false;
+    
     public static final String APP_KEY = "257178685";
     
     @Override
