@@ -16,7 +16,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.ads.MobileAds;
 import com.unity3d.ads.UnityAds;
-import com.ironsource.mediationsdk.IronSource;
+import com.unity3d.ads.mediation.LevelPlay;
+import com.unity3d.ads.mediation.init.LevelPlayInitError;
+import com.unity3d.ads.mediation.init.LevelPlayInitListener;
+import com.unity3d.ads.mediation.init.LevelPlayConfiguration;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,9 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityResultLauncher<String> notificationPermissionLauncher;
 
-    String appKey = "257178685";
-    boolean testMode = true;
-
+    public static boolean levelPlayReady = false;
+    public static final String APP_KEY = "257178685";
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -44,9 +47,22 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         MobileAds.initialize(this);
-        UnityAds.initialize(this, unityGameID, testMode);
-        IronSource.init(this, appKey);
         setContentView(R.layout.activity_main);
+
+        LevelPlayConfiguration config =
+                new LevelPlayConfiguration.Builder(APP_KEY).build();
+
+        LevelPlay.init(this, config, new LevelPlayInitListener() {
+            @Override
+            public void onInitSuccess() {
+                levelPlayReady = true;
+            }
+
+            @Override
+            public void onInitFailed(@NonNull LevelPlayInitError error) {
+                levelPlayReady = false;
+            }
+        });
 
         // ==========================
         // 🔔 PERMISSÃO NOTIFICAÇÃO
