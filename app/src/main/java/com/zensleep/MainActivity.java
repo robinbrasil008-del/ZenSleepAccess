@@ -16,10 +16,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.ads.MobileAds;
 import com.ironsource.mediationsdk.IronSource;
-import com.unity3d.mediation.LevelPlay;
-import com.unity3d.mediation.LevelPlayConfiguration;
-import com.unity3d.mediation.LevelPlayInitListener;
-import com.unity3d.mediation.LevelPlayInitError;
 import androidx.annotation.NonNull;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,23 +46,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         IronSource.init(this, "257178685");
-
-LevelPlayConfiguration config =
-        new LevelPlayConfiguration.Builder(APP_KEY).build();
-
-LevelPlay.init(this, config, new LevelPlayInitListener() {
-
-    @Override
-    public void onInitSuccess() {
-        System.out.println("LevelPlay iniciado");
-    }
-
-    @Override
-    public void onInitFailed(@NonNull LevelPlayInitError error) {
-        System.out.println("Erro LevelPlay: " + error.getErrorMessage());
-    }
-
-});
 
         // ==========================
         // 🔔 PERMISSÃO NOTIFICAÇÃO
