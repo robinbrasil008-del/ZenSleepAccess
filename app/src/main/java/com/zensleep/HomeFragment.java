@@ -29,10 +29,6 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.FullScreenContentCallback;
-import com.unity3d.ads.UnityAds;
-import com.unity3d.ads.IUnityAdsShowListener;
-import com.unity3d.services.banners.BannerView;
-import com.unity3d.services.banners.UnityBannerSize;
 import android.widget.FrameLayout;
 import android.util.Log;
 
@@ -76,16 +72,6 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
-        Log.d("ADS", "Tentando mostrar anúncio");
-
-        new Handler().postDelayed(() -> {
-
-    if (UnityAds.isInitialized()) {
-        UnityAds.show(getActivity(), "3oh4eeuojp8oon90");
-    }
-
-}, 3000);
 
         adView = view.findViewById(R.id.adView);
 
@@ -195,15 +181,6 @@ public class HomeFragment extends Fragment {
         });
 
         btnTimer.setOnClickListener(v -> openTimerDialog());
-
-        BannerView banner = new BannerView(getActivity(), "0a85gt7srsu83n6n", new UnityBannerSize(320, 50));
-
-FrameLayout bannerLayout = view.findViewById(R.id.banner_container);
-
-bannerLayout.addView(banner);
-
-banner.load();
-    }
 
     private void loadInterstitialAd() {
 
