@@ -20,6 +20,7 @@ import com.unity3d.ads.mediation.LevelPlay;
 import com.unity3d.ads.mediation.init.LevelPlayInitError;
 import com.unity3d.ads.mediation.init.LevelPlayInitListener;
 import com.unity3d.ads.mediation.init.LevelPlayConfiguration;
+import androidx.annotation.NonNull;
 
 public class MainActivity extends AppCompatActivity {
 
