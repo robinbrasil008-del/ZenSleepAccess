@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.ads.MobileAds;
 import com.unity3d.ads.UnityAds;
+import com.ironsource.mediationsdk.IronSource;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityResultLauncher<String> notificationPermissionLauncher;
 
-    String unityGameID = "257178685"; // seu Game ID
+    String appKey = "257178685";
     boolean testMode = true;
 
     @Override
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         MobileAds.initialize(this);
         UnityAds.initialize(this, unityGameID, testMode);
+        IronSource.init(this, appKey);
         setContentView(R.layout.activity_main);
 
         // ==========================
