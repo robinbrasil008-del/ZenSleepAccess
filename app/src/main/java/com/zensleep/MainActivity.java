@@ -15,10 +15,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.ads.MobileAds;
-import com.unity3d.mediation.LevelPlay;
-import com.unity3d.mediation.init.LevelPlayConfiguration;
-import com.unity3d.mediation.init.LevelPlayInitListener;
-import com.unity3d.mediation.init.LevelPlayInitError;
+import com.unity3d.ads.mediation.LevelPlay;
+import com.unity3d.ads.mediation.LevelPlayConfiguration;
+import com.unity3d.ads.mediation.LevelPlayInitListener;
+import com.unity3d.ads.mediation.LevelPlayInitError;
+
 import androidx.annotation.NonNull;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,10 +27,6 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout navHome, navFav, navSettings;
 
     private ActivityResultLauncher<String> notificationPermissionLauncher;
-
-    public static boolean levelPlayReady = false;
-    
-    public static final String APP_KEY = "257178685";
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,20 +47,24 @@ public class MainActivity extends AppCompatActivity {
         MobileAds.initialize(this);
         setContentView(R.layout.activity_main);
 
-        LevelPlayConfiguration config =
-                new LevelPlayConfiguration.Builder(APP_KEY).build();
+        String APP_KEY = "257178685";
 
-        LevelPlay.init(this, config, new LevelPlayInitListener() {
-            @Override
-            public void onInitSuccess() {
-                levelPlayReady = true;
-            }
+LevelPlayConfiguration config =
+        new LevelPlayConfiguration.Builder(APP_KEY).build();
 
-            @Override
-            public void onInitFailed(@NonNull LevelPlayInitError error) {
-                levelPlayReady = false;
-            }
-        });
+LevelPlay.init(this, config, new LevelPlayInitListener() {
+
+    @Override
+    public void onInitSuccess() {
+        System.out.println("LevelPlay iniciado");
+    }
+
+    @Override
+    public void onInitFailed(@NonNull LevelPlayInitError error) {
+        System.out.println("Erro LevelPlay: " + error.getErrorMessage());
+    }
+
+});
 
         // ==========================
         // 🔔 PERMISSÃO NOTIFICAÇÃO
