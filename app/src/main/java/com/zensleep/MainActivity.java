@@ -44,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
         );
 
         super.onCreate(savedInstanceState);
+        
         MobileAds.initialize(this);
+        
         setContentView(R.layout.activity_main);
 
         String APP_KEY = "257178685";
