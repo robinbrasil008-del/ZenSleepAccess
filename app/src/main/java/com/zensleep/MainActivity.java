@@ -17,12 +17,16 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.ads.MobileAds;
 import com.ironsource.mediationsdk.IronSource;
 import androidx.annotation.NonNull;
+import com.ironsource.mediationsdk.IronSourceBannerLayout;
+import com.ironsource.mediationsdk.ISBannerSize;
 
 public class MainActivity extends AppCompatActivity {
 
     LinearLayout navHome, navFav, navSettings;
 
     private ActivityResultLauncher<String> notificationPermissionLauncher;
+
+    IronSource.init(this, "257178685");
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +46,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         
         MobileAds.initialize(this);
+
+        IronSource.loadInterstitial();
+
+        IronSourceBannerLayout banner =
+        IronSource.createBanner(this, ISBannerSize.BANNER);
+
+        FrameLayout bannerContainer = findViewById(R.id.banner_container);
+
+        bannerContainer.addView(banner);
+
+        IronSource.loadBanner(banner);
         
         setContentView(R.layout.activity_main);
-
-        IronSource.init(this, "257178685");
 
         // ==========================
         // 🔔 PERMISSÃO NOTIFICAÇÃO
