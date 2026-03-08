@@ -48,18 +48,25 @@ public class MainActivity extends AppCompatActivity {
         
         MobileAds.initialize(this);
 
-        IronSource.loadInterstitial();
-        
         IronSource.init(this, "SEU_APP_KEY");
-    
-        IronSourceBannerLayout banner =
-        IronSource.createBanner(this, ISBannerSize.BANNER);
+        
+        new Handler().postDelayed(() -> {
 
-        FrameLayout bannerContainer = findViewById(R.id.banner_container);
+        IronSource.loadInterstitial();
 
-        bannerContainer.addView(banner);
+        }, 2000);
 
-        IronSource.loadBanner(banner);
+        new Handler().postDelayed(() -> {
+
+    IronSourceBannerLayout banner =
+            IronSource.createBanner(this, ISBannerSize.BANNER);
+
+    FrameLayout bannerContainer = findViewById(R.id.banner_container);
+    bannerContainer.addView(banner);
+
+    IronSource.loadBanner(banner);
+
+}, 3000);
         
         setContentView(R.layout.activity_main);
 
