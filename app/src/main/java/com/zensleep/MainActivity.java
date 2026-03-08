@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityResultLauncher<String> notificationPermissionLauncher;
 
-    IronSource.init(this, "257178685");
+    private static final String APP_KEY = "257178685";
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
         MobileAds.initialize(this);
 
         IronSource.loadInterstitial();
-
+        
+        IronSource.init(this, "SEU_APP_KEY");
+    
         IronSourceBannerLayout banner =
         IronSource.createBanner(this, ISBannerSize.BANNER);
 
