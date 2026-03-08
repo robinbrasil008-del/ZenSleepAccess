@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -50,13 +52,13 @@ public class MainActivity extends AppCompatActivity {
 
         IronSource.init(this, "SEU_APP_KEY");
         
-        new Handler().postDelayed(() -> {
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
 
-        IronSource.loadInterstitial();
+    IronSource.loadInterstitial();
 
-        }, 2000);
+}, 2000);
 
-        new Handler().postDelayed(() -> {
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
 
     IronSourceBannerLayout banner =
             IronSource.createBanner(this, ISBannerSize.BANNER);
