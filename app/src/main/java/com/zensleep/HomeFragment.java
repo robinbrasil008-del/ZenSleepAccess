@@ -214,13 +214,13 @@ colorAnim.start();
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
 
-    private void startBorderAnimation(View timerCard){
+    private void startBorderAnimation(View view) {
 
-    ValueAnimator colorAnim = ValueAnimator.ofArgb(
-            Color.parseColor("#FFD400"),
-            Color.parseColor("#FFFFFF"),
-            Color.parseColor("#7CFF00"),
-            Color.parseColor("#FFD400")
+    ValueAnimator colorAnim = ValueAnimator.ofObject(
+            new ArgbEvaluator(),
+            0xFFFFD400,
+            0xFF7CFF00,
+            0xFFFFD400
     );
 
     colorAnim.setDuration(3000);
@@ -230,7 +230,9 @@ colorAnim.start();
 
         int color = (int) animator.getAnimatedValue();
 
-        GradientDrawable drawable = (GradientDrawable) view.getBackground();
+        GradientDrawable drawable =
+                (GradientDrawable) view.getBackground();
+
         drawable.setStroke(5, color);
 
     });
