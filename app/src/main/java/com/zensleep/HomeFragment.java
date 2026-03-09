@@ -241,27 +241,25 @@ colorAnim.start();
     }
 
     private void loadInterstitialAd() {
-
     AdRequest adRequest = new AdRequest.Builder().build();
 
-    InterstitialAd.load(requireContext(),
-            "ca-app-pub-8296610548842772/8938304987", // ID TESTE
+    InterstitialAd.load(
+            requireContext(),
+            "ca-app-pub-8296610548842772/8938304987",
             adRequest,
             new InterstitialAdLoadCallback() {
-
                 @Override
                 public void onAdLoaded(InterstitialAd interstitialAd) {
                     mInterstitialAd = interstitialAd;
 
                     new android.os.Handler().postDelayed(() -> {
-    if (mInterstitialAd != null) {
-        mInterstitialAd.show(requireActivity());
-    }
-}, 800); // 0.8 segundos após abrir
+                        if (mInterstitialAd != null) {
+                            mInterstitialAd.show(requireActivity());
+                        }
+                    }, 800);
 
                     mInterstitialAd.setFullScreenContentCallback(
                             new FullScreenContentCallback() {
-
                                 @Override
                                 public void onAdDismissedFullScreenContent() {
                                     mInterstitialAd = null;
@@ -273,9 +271,16 @@ colorAnim.start();
                                     mInterstitialAd = null;
                                 }
                             }
-                          }
-                       }):
-                    }
+                    );
+                }
+
+                @Override
+                public void onAdFailedToLoad(LoadAdError loadAdError) {
+                    mInterstitialAd = null;
+                }
+            }
+    );
+    }
 
     // ======= VOLUME MASTER (CONFIG) =======
     private float getSavedVolume() {
