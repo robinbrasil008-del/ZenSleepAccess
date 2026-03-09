@@ -9,6 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.os.Handler;
 import android.os.Looper;
+import android.animation.ValueAnimator;
+import android.view.View;
+import android.animation.ObjectAnimator;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
