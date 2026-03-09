@@ -86,8 +86,6 @@ public class HomeFragment extends Fragment {
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
-        View timerCard = view.findViewById(R.id.timerCard);
-
 ValueAnimator colorAnim = ValueAnimator.ofArgb(
         Color.parseColor("#FFD400"),
         Color.parseColor("#FFFFFF"),
