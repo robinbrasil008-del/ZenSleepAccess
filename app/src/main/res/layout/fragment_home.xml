@@ -85,7 +85,7 @@
             <!-- CARD CHUVA -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="240dp"
+                android:layout_height="190dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -149,7 +149,7 @@
             <!-- CARD MAR -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="240dp"
+                android:layout_height="190dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -213,7 +213,7 @@
             <!-- ✅ FLORESTA -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="240dp"
+                android:layout_height="190dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -277,7 +277,7 @@
             <!-- ✅ LAREIRA -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="240dp"
+                android:layout_height="190dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -341,7 +341,7 @@
             <!-- ✅ VENTO SUAVE -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="240dp"
+                android:layout_height="190dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -405,7 +405,7 @@
             <!-- ✅ NOITE COM GRILOS -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="240dp"
+                android:layout_height="190dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -469,7 +469,7 @@
             <!-- ✅ PÁSSAROS -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="240dp"
+                android:layout_height="190dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -533,7 +533,7 @@
             <!-- ✅ RIACHO -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="240dp"
+                android:layout_height="190dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
@@ -598,7 +598,7 @@
             <!-- ✅ CAFETEIRA -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="240dp"
+                android:layout_height="190dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 android:background="@drawable/bg_card"
