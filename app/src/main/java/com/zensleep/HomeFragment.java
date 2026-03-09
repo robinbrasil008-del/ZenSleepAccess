@@ -84,16 +84,18 @@ public class HomeFragment extends Fragment {
 
         View borderGlow = view.findViewById(R.id.borderGlow);
 
-        ValueAnimator animator = ValueAnimator.ofInt(0, 10000);
-        animator.setDuration(4000);
-        animator.setRepeatCount(ValueAnimator.INFINITE);
+if (borderGlow != null) {
 
-        animator.addUpdateListener(animation -> {
-            int level = (int) animation.getAnimatedValue();
-            borderGlow.getBackground().setLevel(level);
-        });
+    ValueAnimator animator = ValueAnimator.ofInt(0, 10000);
+    animator.setDuration(4000);
+    animator.setRepeatCount(ValueAnimator.INFINITE);
 
-        animator.start();
+    animator.addUpdateListener(animation -> {
+        int level = (int) animation.getAnimatedValue();
+        borderGlow.getBackground().setLevel(level);
+    });
+
+    animator.start();
 
         // ======= PLAY BUTTONS =======
         btnPlayChuva = view.findViewById(R.id.btnPlayChuva);
