@@ -55,6 +55,13 @@ public class MainActivity extends AppCompatActivity {
     IronSource.loadInterstitial();
 
 }, 2000);
+
+        View borderGlow = findViewById(R.id.borderGlow);
+
+ObjectAnimator rotate = ObjectAnimator.ofFloat(borderGlow, "rotation", 0f, 360f);
+rotate.setDuration(6000);
+rotate.setRepeatCount(ObjectAnimator.INFINITE);
+rotate.start();
         
         setContentView(R.layout.activity_main);
 
