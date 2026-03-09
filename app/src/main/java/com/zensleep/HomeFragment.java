@@ -272,8 +272,7 @@ colorAnim.start();
                                         com.google.android.gms.ads.AdError adError) {
                                     mInterstitialAd = null;
                                 }
-                                
-                             });
+                            }
                           }
                        }):
                     }
