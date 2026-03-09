@@ -50,8 +50,8 @@
 
         <!-- 🔥 NOVO RELÓGIO ESTILIZADO -->
         <LinearLayout
-            android:layout_width="280dp"
-            android:layout_height="60dp"
+            android:layout_width="250dp"
+            android:layout_height="110dp"
             android:layout_marginBottom="24dp"
             android:gravity="center"
             android:layout_marginTop="10dp"
