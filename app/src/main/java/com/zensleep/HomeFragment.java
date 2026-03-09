@@ -34,6 +34,9 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import android.widget.FrameLayout;
 import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import android.view.ViewGroup;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -105,6 +108,10 @@ colorAnim.addUpdateListener(animator -> {
 });
 
 colorAnim.start();
+
+        View timerCard = view.findViewById(R.id.timerCard);
+
+        startBorderAnimation(timerCard);
 
         // ======= PLAY BUTTONS =======
         btnPlayChuva = view.findViewById(R.id.btnPlayChuva);
@@ -242,6 +249,30 @@ colorAnim.start();
                                     mInterstitialAd = null;
                                 }
                             });
+                }
+
+                private void startBorderAnimation(View timerCard){
+
+    ValueAnimator colorAnim = ValueAnimator.ofArgb(
+            Color.parseColor("#FFD400"),
+            Color.parseColor("#FFFFFF"),
+            Color.parseColor("#7CFF00"),
+            Color.parseColor("#FFD400")
+    );
+
+    colorAnim.setDuration(3000);
+    colorAnim.setRepeatCount(ValueAnimator.INFINITE);
+
+    colorAnim.addUpdateListener(animator -> {
+
+        int color = (int) animator.getAnimatedValue();
+
+        GradientDrawable drawable = (GradientDrawable) timerCard.getBackground();
+        drawable.setStroke(5, color);
+
+    });
+
+    colorAnim.start();
                 }
 
                 @Override
