@@ -251,37 +251,6 @@ colorAnim.start();
                             });
                 }
 
-                private void startBorderAnimation(View timerCard){
-
-    ValueAnimator colorAnim = ValueAnimator.ofArgb(
-            Color.parseColor("#FFD400"),
-            Color.parseColor("#FFFFFF"),
-            Color.parseColor("#7CFF00"),
-            Color.parseColor("#FFD400")
-    );
-
-    colorAnim.setDuration(3000);
-    colorAnim.setRepeatCount(ValueAnimator.INFINITE);
-
-    colorAnim.addUpdateListener(animator -> {
-
-        int color = (int) animator.getAnimatedValue();
-
-        GradientDrawable drawable = (GradientDrawable) timerCard.getBackground();
-        drawable.setStroke(5, color);
-
-    });
-
-    colorAnim.start();
-                }
-
-                @Override
-                public void onAdFailedToLoad(LoadAdError loadAdError) {
-                    mInterstitialAd = null;
-                }
-            });
-    }
-
     // ======= VOLUME MASTER (CONFIG) =======
     private float getSavedVolume() {
         SharedPreferences prefs =
@@ -669,6 +638,30 @@ colorAnim.start();
             }
         }
     }
+
+                private void startBorderAnimation(View timerCard){
+
+    ValueAnimator colorAnim = ValueAnimator.ofArgb(
+            Color.parseColor("#FFD400"),
+            Color.parseColor("#FFFFFF"),
+            Color.parseColor("#7CFF00"),
+            Color.parseColor("#FFD400")
+    );
+
+    colorAnim.setDuration(3000);
+    colorAnim.setRepeatCount(ValueAnimator.INFINITE);
+
+    colorAnim.addUpdateListener(animator -> {
+
+        int color = (int) animator.getAnimatedValue();
+
+        GradientDrawable drawable = (GradientDrawable) timerCard.getBackground();
+        drawable.setStroke(5, color);
+
+    });
+
+    colorAnim.start();
+                }
 
     @Override
     public void onDestroyView() {
