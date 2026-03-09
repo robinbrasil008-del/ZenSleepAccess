@@ -19,8 +19,6 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.ads.MobileAds;
 import com.ironsource.mediationsdk.IronSource;
 import androidx.annotation.NonNull;
-import com.ironsource.mediationsdk.IronSourceBannerLayout;
-import com.ironsource.mediationsdk.ISBannerSize;
 import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,18 +55,6 @@ public class MainActivity extends AppCompatActivity {
     IronSource.loadInterstitial();
 
 }, 2000);
-
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-
-    IronSourceBannerLayout banner =
-            IronSource.createBanner(this, ISBannerSize.BANNER);
-
-    FrameLayout bannerContainer = findViewById(R.id.banner_container);
-    bannerContainer.addView(banner);
-
-    IronSource.loadBanner(banner);
-
-}, 3000);
         
         setContentView(R.layout.activity_main);
 
