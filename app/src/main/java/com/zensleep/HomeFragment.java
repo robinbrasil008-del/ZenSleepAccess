@@ -230,7 +230,7 @@ colorAnim.start();
 
         int color = (int) animator.getAnimatedValue();
 
-        GradientDrawable drawable = (GradientDrawable) timerCard.getBackground();
+        GradientDrawable drawable = (GradientDrawable) view.getBackground();
         drawable.setStroke(5, color);
 
     });
