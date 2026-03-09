@@ -22,6 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Handler;
 import android.os.Looper;
+import android.animation.ValueAnimator;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.AdRequest;
@@ -79,6 +82,29 @@ public class HomeFragment extends Fragment {
 
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
+
+        View timerCard = view.findViewById(R.id.timerCard);
+
+ValueAnimator colorAnim = ValueAnimator.ofArgb(
+        Color.parseColor("#FFD400"),
+        Color.parseColor("#FFFFFF"),
+        Color.parseColor("#7CFF00"),
+        Color.parseColor("#FFD400")
+);
+
+colorAnim.setDuration(4000);
+colorAnim.setRepeatCount(ValueAnimator.INFINITE);
+
+colorAnim.addUpdateListener(animator -> {
+
+    int color = (int) animator.getAnimatedValue();
+
+    GradientDrawable drawable = (GradientDrawable) timerCard.getBackground();
+    drawable.setStroke(4, color);
+
+});
+
+colorAnim.start();
 
         // ======= PLAY BUTTONS =======
         btnPlayChuva = view.findViewById(R.id.btnPlayChuva);
