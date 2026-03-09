@@ -273,9 +273,10 @@ colorAnim.start();
                                     mInterstitialAd = null;
                                 }
                                 
-                            });
-                }
-            }
+                             });
+                          }
+                       }
+                    }
 
     // ======= VOLUME MASTER (CONFIG) =======
     private float getSavedVolume() {
@@ -676,6 +677,6 @@ colorAnim.start();
             countDownTimer = null;
         }
     }
-            }
+            
                         
                         
