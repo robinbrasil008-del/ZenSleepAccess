@@ -61,12 +61,16 @@ public class MainActivity extends AppCompatActivity {
 
         View borderGlow = findViewById(R.id.borderGlow);
 
-ObjectAnimator rotate = ObjectAnimator.ofFloat(borderGlow, "rotation", 0f, 360f);
-rotate.setDuration(6000);
-rotate.setRepeatCount(ObjectAnimator.INFINITE);
-rotate.start();
-        
-        setContentView(R.layout.activity_main);
+ValueAnimator animator = ValueAnimator.ofInt(0, 10000);
+animator.setDuration(4000);
+animator.setRepeatCount(ValueAnimator.INFINITE);
+
+animator.addUpdateListener(animation -> {
+    int level = (int) animation.getAnimatedValue();
+    borderGlow.getBackground().setLevel(level);
+});
+
+animator.start();
 
         // ==========================
         // 🔔 PERMISSÃO NOTIFICAÇÃO
