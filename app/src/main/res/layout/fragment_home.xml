@@ -50,6 +50,7 @@
 
         <!-- 🔥 NOVO RELÓGIO ESTILIZADO -->
           <LinearLayout
+            android:id="@+id/timerCard"
             android:layout_width="240dp"
             android:layout_height="75dp"
             android:layout_marginBottom="24dp"
