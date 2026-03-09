@@ -96,6 +96,7 @@ if (borderGlow != null) {
     });
 
     animator.start();
+}):
 
         // ======= PLAY BUTTONS =======
         btnPlayChuva = view.findViewById(R.id.btnPlayChuva);
