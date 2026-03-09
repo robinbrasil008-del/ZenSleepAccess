@@ -272,8 +272,10 @@ colorAnim.start();
                                         com.google.android.gms.ads.AdError adError) {
                                     mInterstitialAd = null;
                                 }
+                                
                             });
                 }
+            }
 
     // ======= VOLUME MASTER (CONFIG) =======
     private float getSavedVolume() {
