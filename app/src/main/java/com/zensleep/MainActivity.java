@@ -9,9 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.os.Handler;
 import android.os.Looper;
-import android.animation.ValueAnimator;
-import android.view.View;
-import android.animation.ObjectAnimator;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -58,19 +55,6 @@ public class MainActivity extends AppCompatActivity {
     IronSource.loadInterstitial();
 
 }, 2000);
-
-        View borderGlow = findViewById(R.id.borderGlow);
-
-ValueAnimator animator = ValueAnimator.ofInt(0, 10000);
-animator.setDuration(4000);
-animator.setRepeatCount(ValueAnimator.INFINITE);
-
-animator.addUpdateListener(animation -> {
-    int level = (int) animation.getAnimatedValue();
-    borderGlow.getBackground().setLevel(level);
-});
-
-animator.start();
 
         // ==========================
         // 🔔 PERMISSÃO NOTIFICAÇÃO
