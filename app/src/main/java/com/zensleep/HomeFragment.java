@@ -275,7 +275,7 @@ colorAnim.start();
                                 
                              });
                           }
-                       }
+                       }):
                     }
 
     // ======= VOLUME MASTER (CONFIG) =======
