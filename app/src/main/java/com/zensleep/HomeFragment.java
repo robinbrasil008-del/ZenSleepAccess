@@ -681,6 +681,5 @@ colorAnim.start();
             countDownTimer = null;
         }
     }
-            
-                        
+}
                         
