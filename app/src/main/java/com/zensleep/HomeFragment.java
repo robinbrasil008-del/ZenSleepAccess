@@ -240,6 +240,8 @@ colorAnim.start();
     colorAnim.start();
     }
 
+}
+
     private void loadInterstitialAd() {
 
     AdRequest adRequest = new AdRequest.Builder().build();
@@ -675,4 +677,5 @@ colorAnim.start();
         }
     }
             }
+                        
                         
