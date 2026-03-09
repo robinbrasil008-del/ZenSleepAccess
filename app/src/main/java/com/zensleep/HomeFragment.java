@@ -639,7 +639,21 @@ colorAnim.start();
         }
     }
 
-                private void startBorderAnimation(View timerCard){
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        stopSound();
+
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+    }
+            }
+                        
+
+                        private void startBorderAnimation(View timerCard){
 
     ValueAnimator colorAnim = ValueAnimator.ofArgb(
             Color.parseColor("#FFD400"),
@@ -661,17 +675,4 @@ colorAnim.start();
     });
 
     colorAnim.start();
-                }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        stopSound();
-
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-            countDownTimer = null;
-        }
     }
-                }
