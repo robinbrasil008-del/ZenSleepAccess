@@ -82,22 +82,6 @@ public class HomeFragment extends Fragment {
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
-        View borderGlow = view.findViewById(R.id.borderGlow);
-
-if (borderGlow != null) {
-
-    ValueAnimator animator = ValueAnimator.ofInt(0, 10000);
-    animator.setDuration(4000);
-    animator.setRepeatCount(ValueAnimator.INFINITE);
-
-    animator.addUpdateListener(animation -> {
-        int level = (int) animation.getAnimatedValue();
-        borderGlow.getBackground().setLevel(level);
-    });
-
-    animator.start();
-    }
-
         // ======= PLAY BUTTONS =======
         btnPlayChuva = view.findViewById(R.id.btnPlayChuva);
         btnPlayMar = view.findViewById(R.id.btnPlayMar);
