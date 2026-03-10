@@ -71,6 +71,7 @@
                 android:id="@+id/txtTimer"
                 android:text="00:00"
                 android:textSize="44sp"
+                android:gravity="center"
                 android:textStyle="bold"
                 android:textColor="?attr/colorPrimary"
                 android:letterSpacing="0.08"
