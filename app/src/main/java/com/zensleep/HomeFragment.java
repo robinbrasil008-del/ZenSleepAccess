@@ -194,30 +194,26 @@ public class HomeFragment extends Fragment {
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
 
-    private void startBorderAnimation(View view) {
+    private void startBorderAnimation(View targetView) {
 
-    ValueAnimator colorAnim = ValueAnimator.ofObject(
-            new ArgbEvaluator(),
-            0xFFFFD400,
-            0xFF7CFF00,
-            0xFFFFD400
+    GradientDrawable drawable = (GradientDrawable) targetView.getBackground();
+
+    ValueAnimator animator = ValueAnimator.ofArgb(
+            Color.parseColor("#FFD400"),
+            Color.parseColor("#FFFFFF"),
+            Color.parseColor("#7CFF00"),
+            Color.parseColor("#FFD400")
     );
 
-    colorAnim.setDuration(3000);
-    colorAnim.setRepeatCount(ValueAnimator.INFINITE);
+    animator.setDuration(4000);
+    animator.setRepeatCount(ValueAnimator.INFINITE);
 
-    colorAnim.addUpdateListener(animator -> {
-
-        int color = (int) animator.getAnimatedValue();
-
-        GradientDrawable drawable =
-                (GradientDrawable) view.getBackground();
-
+    animator.addUpdateListener(animation -> {
+        int color = (int) animation.getAnimatedValue();
         drawable.setStroke(5, color);
-
     });
 
-    colorAnim.start();
+    animator.start();
     }
 
     private void loadInterstitialAd() {
