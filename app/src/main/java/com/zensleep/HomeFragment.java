@@ -101,7 +101,7 @@ colorAnim.addUpdateListener(animator -> {
 
     int color = (int) animator.getAnimatedValue();
 
-    GradientDrawable drawable = (GradientDrawable) timerCard.getBackground();
+    GradientDrawable drawable = (GradientDrawable) view.getBackground();
     drawable.setStroke(4, color);
 
 });
