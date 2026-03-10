@@ -190,32 +190,60 @@ public class HomeFragment extends Fragment {
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
 
+    private final Handler borderHandler = new Handler(Looper.getMainLooper());
+    private Runnable borderRunnable;
+    private GradientDrawable timerBorderDrawable;
+    private boolean borderAnimating = false;
+
     private void startBorderAnimation(View targetView) {
+    stopBorderAnimation();
 
-    GradientDrawable drawable = new GradientDrawable();
-    drawable.setColor(Color.parseColor("#1E2A3A"));
-    drawable.setCornerRadius(32f);
+    timerBorderDrawable = new GradientDrawable();
+    timerBorderDrawable.setColor(Color.parseColor("#1E2A3A"));
+    timerBorderDrawable.setCornerRadius(32f);
+    timerBorderDrawable.setStroke(6, Color.parseColor("#FFD400"));
 
-    targetView.setBackground(drawable);
+    targetView.setBackground(timerBorderDrawable);
 
-    ValueAnimator animator = ValueAnimator.ofArgb(
+    final int[] colors = new int[]{
             Color.parseColor("#FFD400"),
             Color.parseColor("#FFFFFF"),
             Color.parseColor("#7CFF00"),
             Color.parseColor("#FFD400")
-    );
+    };
 
-    animator.setDuration(2000);
-    animator.setRepeatCount(ValueAnimator.INFINITE);
+    borderAnimating = true;
 
-    animator.addUpdateListener(animation -> {
+    borderRunnable = new Runnable() {
+        int index = 0;
 
-        int color = (int) animation.getAnimatedValue();
-        drawable.setStroke(6, color);
+        @Override
+        public void run() {
+            if (!borderAnimating || timerBorderDrawable == null) return;
 
-    });
+            timerBorderDrawable.setStroke(6, colors[index]);
+            targetView.invalidate();
 
-    animator.start();
+            index++;
+            if (index >= colors.length) index = 0;
+
+            borderHandler.postDelayed(this, 250);
+        }
+    };
+
+    borderHandler.post(borderRunnable);
+    }
+
+    private void stopBorderAnimation() {
+    borderAnimating = false;
+
+    if (borderRunnable != null) {
+        borderHandler.removeCallbacks(borderRunnable);
+    }
+
+    if (timerBorderDrawable != null) {
+        timerBorderDrawable.setStroke(6, Color.parseColor("#FFD400"));
+    }
     }
     
     private void loadInterstitialAd() {
@@ -530,6 +558,9 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onFinish() {
                     txtTimer.setText("00:00");
+
+                     stopBorderAnimation();
+                    
                     stopSound(); // para todos
                 }
 
