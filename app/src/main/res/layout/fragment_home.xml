@@ -57,7 +57,7 @@
             android:gravity="center"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:background="@drawable/bg_card_glass"
+            android:background="@drawable/bg_timer_card"
             android:padding="20dp">
 
             <TextView
