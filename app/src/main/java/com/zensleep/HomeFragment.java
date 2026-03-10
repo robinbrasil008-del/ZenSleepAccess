@@ -203,7 +203,7 @@ public class HomeFragment extends Fragment {
     float radius = 32f * density;
     float stroke = 4f * density;
 
-    animatedBorderDrawable = new AnimatedBorderDrawable(radius, stroke);
+    animatedBorderDrawable = new AnimatedBorderDrawable(targetView, radius, stroke);
     targetView.setBackground(animatedBorderDrawable);
     animatedBorderDrawable.start();
     }
