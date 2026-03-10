@@ -87,10 +87,6 @@ public class HomeFragment extends Fragment {
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
-        View timerCard = view.findViewById(R.id.timerCard);
-
-        startBorderAnimation(timerCard);
-
         // ======= PLAY BUTTONS =======
         btnPlayChuva = view.findViewById(R.id.btnPlayChuva);
         btnPlayMar = view.findViewById(R.id.btnPlayMar);
@@ -194,7 +190,7 @@ public class HomeFragment extends Fragment {
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
 
-    private void startBorderAnimation(View targetView) {
+    private void startBorderAnimation(View targetView){
 
     GradientDrawable drawable = (GradientDrawable) targetView.getBackground();
 
@@ -205,12 +201,14 @@ public class HomeFragment extends Fragment {
             Color.parseColor("#FFD400")
     );
 
-    animator.setDuration(4000);
+    animator.setDuration(2000);
     animator.setRepeatCount(ValueAnimator.INFINITE);
 
     animator.addUpdateListener(animation -> {
+
         int color = (int) animation.getAnimatedValue();
         drawable.setStroke(5, color);
+
     });
 
     animator.start();
@@ -448,6 +446,9 @@ public class HomeFragment extends Fragment {
             }
 
             long millis = minutes * 60L * 1000L;
+
+            View timerCard = getView().findViewById(R.id.timerCard);
+            startBorderAnimation(timerCard);
 
             boolean shouldTriggerAlarm = switchTimerAlarm != null && switchTimerAlarm.isChecked();
 
