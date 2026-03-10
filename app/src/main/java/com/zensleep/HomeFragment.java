@@ -194,60 +194,39 @@ public class HomeFragment extends Fragment {
     private Runnable borderRunnable;
     private GradientDrawable timerBorderDrawable;
     private boolean borderAnimating = false;
+    private AnimatedBorderDrawable animatedBorderDrawable;
 
     private void startBorderAnimation(View targetView) {
     stopBorderAnimation();
 
-    float radius = getResources().getDisplayMetrics().density * 32f; // 32dp
-    float strokeWidth = getResources().getDisplayMetrics().density * 3f;
+    float density = getResources().getDisplayMetrics().density;
+    float radius = 32f * density;
+    float stroke = 4f * density;
 
-    borderAnimating = true;
-
-    borderRunnable = new Runnable() {
-        float angle = 0f;
-
-        @Override
-        public void run() {
-            if (!borderAnimating) return;
-
-            int[] colors = new int[]{
-                    Color.parseColor("#FFD400"),
-                    Color.parseColor("#FFFFFF"),
-                    Color.parseColor("#7CFF00"),
-                    Color.parseColor("#FFD400")
-            };
-
-            // Gradiente que vai “rodando”
-            GradientDrawable drawable = new GradientDrawable(
-                    GradientDrawable.Orientation.LEFT_RIGHT,
-                    colors
-            );
-            drawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
-            drawable.setCornerRadius(radius);
-            drawable.setColor(Color.parseColor("#1E2A3A"));
-            drawable.setStroke((int) strokeWidth, colors[(int)(angle % colors.length)]);
-
-            targetView.setBackground(drawable);
-            targetView.invalidate();
-
-            angle += 0.2f;
-
-            borderHandler.postDelayed(this, 60);
-        }
-    };
-
-    borderHandler.post(borderRunnable);
+    animatedBorderDrawable = new AnimatedBorderDrawable(radius, stroke);
+    targetView.setBackground(animatedBorderDrawable);
+    animatedBorderDrawable.start();
     }
     
     private void stopBorderAnimation() {
-    borderAnimating = false;
-
-    if (borderRunnable != null) {
-        borderHandler.removeCallbacks(borderRunnable);
+    if (animatedBorderDrawable != null) {
+        animatedBorderDrawable.stop();
+        animatedBorderDrawable = null;
     }
 
-    if (timerBorderDrawable != null) {
-        timerBorderDrawable.setStroke(6, Color.parseColor("#FFD400"));
+    View root = getView();
+    if (root != null) {
+        View timerCard = root.findViewById(R.id.timerCard);
+        if (timerCard != null) {
+            float radius = getResources().getDisplayMetrics().density * 32f;
+
+            GradientDrawable normalDrawable = new GradientDrawable();
+            normalDrawable.setColor(Color.parseColor("#1E2A3A"));
+            normalDrawable.setCornerRadius(radius);
+            normalDrawable.setStroke(6, Color.parseColor("#FFD400"));
+
+            timerCard.setBackground(normalDrawable);
+        }
     }
     }
     
