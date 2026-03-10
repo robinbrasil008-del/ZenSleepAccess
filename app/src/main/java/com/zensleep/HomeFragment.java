@@ -87,27 +87,6 @@ public class HomeFragment extends Fragment {
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
-ValueAnimator colorAnim = ValueAnimator.ofArgb(
-        Color.parseColor("#FFD400"),
-        Color.parseColor("#FFFFFF"),
-        Color.parseColor("#7CFF00"),
-        Color.parseColor("#FFD400")
-);
-
-colorAnim.setDuration(4000);
-colorAnim.setRepeatCount(ValueAnimator.INFINITE);
-
-colorAnim.addUpdateListener(animator -> {
-
-    int color = (int) animator.getAnimatedValue();
-
-    GradientDrawable drawable = (GradientDrawable) view.getBackground();
-    drawable.setStroke(4, color);
-
-});
-
-colorAnim.start();
-
         View timerCard = view.findViewById(R.id.timerCard);
 
         startBorderAnimation(timerCard);
