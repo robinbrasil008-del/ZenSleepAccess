@@ -199,43 +199,46 @@ public class HomeFragment extends Fragment {
     stopBorderAnimation();
 
     float radius = getResources().getDisplayMetrics().density * 32f; // 32dp
-
-    timerBorderDrawable = new GradientDrawable();
-    timerBorderDrawable.setColor(Color.parseColor("#1E2A3A"));
-    timerBorderDrawable.setCornerRadius(radius);
-    timerBorderDrawable.setStroke(6, Color.parseColor("#FFD400"));
-
-    targetView.setBackground(timerBorderDrawable);
-
-    final int[] colors = new int[]{
-            Color.parseColor("#FFD400"),
-            Color.parseColor("#FFFFFF"),
-            Color.parseColor("#7CFF00"),
-            Color.parseColor("#FFD400")
-    };
+    float strokeWidth = getResources().getDisplayMetrics().density * 3f;
 
     borderAnimating = true;
 
     borderRunnable = new Runnable() {
-        int index = 0;
+        float angle = 0f;
 
         @Override
         public void run() {
-            if (!borderAnimating || timerBorderDrawable == null) return;
+            if (!borderAnimating) return;
 
-            timerBorderDrawable.setStroke(6, colors[index]);
+            int[] colors = new int[]{
+                    Color.parseColor("#FFD400"),
+                    Color.parseColor("#FFFFFF"),
+                    Color.parseColor("#7CFF00"),
+                    Color.parseColor("#FFD400")
+            };
+
+            // Gradiente que vai “rodando”
+            GradientDrawable drawable = new GradientDrawable(
+                    GradientDrawable.Orientation.LEFT_RIGHT,
+                    colors
+            );
+            drawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
+            drawable.setCornerRadius(radius);
+            drawable.setColor(Color.parseColor("#1E2A3A"));
+            drawable.setStroke((int) strokeWidth, colors[(int)(angle % colors.length)]);
+
+            targetView.setBackground(drawable);
             targetView.invalidate();
 
-            index++;
-            if (index >= colors.length) index = 0;
+            angle += 0.2f;
 
-            borderHandler.postDelayed(this, 250);
+            borderHandler.postDelayed(this, 60);
         }
     };
 
     borderHandler.post(borderRunnable);
     }
-
+    
     private void stopBorderAnimation() {
     borderAnimating = false;
 
