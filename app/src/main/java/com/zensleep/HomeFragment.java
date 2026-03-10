@@ -190,9 +190,9 @@ public class HomeFragment extends Fragment {
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
 
-    private void startBorderAnimation(View targetView){
+    private void startBorderAnimation(View targetView) {
 
-    GradientDrawable drawable = (GradientDrawable) targetView.getBackground();
+    GradientDrawable drawable = (GradientDrawable) targetView.getBackground().mutate();
 
     ValueAnimator animator = ValueAnimator.ofArgb(
             Color.parseColor("#FFD400"),
@@ -207,13 +207,15 @@ public class HomeFragment extends Fragment {
     animator.addUpdateListener(animation -> {
 
         int color = (int) animation.getAnimatedValue();
-        drawable.setStroke(5, color);
+        drawable.setStroke(6, color);
+
+        targetView.invalidate();
 
     });
 
     animator.start();
     }
-
+    
     private void loadInterstitialAd() {
     AdRequest adRequest = new AdRequest.Builder().build();
 
