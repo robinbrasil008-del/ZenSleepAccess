@@ -9,9 +9,9 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import androidx.annotation.NonNull;
@@ -24,12 +24,15 @@ public class AnimatedBorderDrawable extends Drawable {
     private final RectF rectF = new RectF();
     private final float cornerRadius;
     private final float strokeWidth;
+    private final View hostView;
+
     private float rotation = 0f;
     private SweepGradient sweepGradient;
     private final Matrix gradientMatrix = new Matrix();
     private ValueAnimator animator;
 
-    public AnimatedBorderDrawable(float cornerRadius, float strokeWidth) {
+    public AnimatedBorderDrawable(View hostView, float cornerRadius, float strokeWidth) {
+        this.hostView = hostView;
         this.cornerRadius = cornerRadius;
         this.strokeWidth = strokeWidth;
 
@@ -49,7 +52,6 @@ public class AnimatedBorderDrawable extends Drawable {
         float cx = bounds.exactCenterX();
         float cy = bounds.exactCenterY();
 
-        // brilho concentrado + faixa escura para parecer "correndo"
         int[] colors = new int[]{
                 Color.TRANSPARENT,
                 Color.parseColor("#FFD400"),
@@ -60,10 +62,10 @@ public class AnimatedBorderDrawable extends Drawable {
 
         float[] positions = new float[]{
                 0.00f,
-                0.10f,
-                0.18f,
-                0.26f,
-                0.35f
+                0.08f,
+                0.14f,
+                0.20f,
+                0.28f
         };
 
         sweepGradient = new SweepGradient(cx, cy, colors, positions);
@@ -94,13 +96,19 @@ public class AnimatedBorderDrawable extends Drawable {
         stop();
 
         animator = ValueAnimator.ofFloat(0f, 360f);
-        animator.setDuration(1800);
+        animator.setDuration(1600);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setInterpolator(new LinearInterpolator());
+
         animator.addUpdateListener(animation -> {
             rotation = (float) animation.getAnimatedValue();
             invalidateSelf();
+
+            if (hostView != null) {
+                hostView.postInvalidateOnAnimation();
+            }
         });
+
         animator.start();
     }
 
@@ -127,4 +135,4 @@ public class AnimatedBorderDrawable extends Drawable {
     public int getOpacity() {
         return PixelFormat.TRANSLUCENT;
     }
-            }
+}
