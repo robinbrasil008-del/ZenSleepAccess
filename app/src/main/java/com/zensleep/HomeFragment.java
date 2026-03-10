@@ -198,9 +198,11 @@ public class HomeFragment extends Fragment {
     private void startBorderAnimation(View targetView) {
     stopBorderAnimation();
 
+    float radius = getResources().getDisplayMetrics().density * 32f; // 32dp
+
     timerBorderDrawable = new GradientDrawable();
     timerBorderDrawable.setColor(Color.parseColor("#1E2A3A"));
-    timerBorderDrawable.setCornerRadius(32f);
+    timerBorderDrawable.setCornerRadius(radius);
     timerBorderDrawable.setStroke(6, Color.parseColor("#FFD400"));
 
     targetView.setBackground(timerBorderDrawable);
