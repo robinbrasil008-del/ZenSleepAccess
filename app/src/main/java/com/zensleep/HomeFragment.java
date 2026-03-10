@@ -192,7 +192,11 @@ public class HomeFragment extends Fragment {
 
     private void startBorderAnimation(View targetView) {
 
-    GradientDrawable drawable = (GradientDrawable) targetView.getBackground().mutate();
+    GradientDrawable drawable = new GradientDrawable();
+    drawable.setColor(Color.parseColor("#1E2A3A"));
+    drawable.setCornerRadius(32f);
+
+    targetView.setBackground(drawable);
 
     ValueAnimator animator = ValueAnimator.ofArgb(
             Color.parseColor("#FFD400"),
@@ -208,8 +212,6 @@ public class HomeFragment extends Fragment {
 
         int color = (int) animation.getAnimatedValue();
         drawable.setStroke(6, color);
-
-        targetView.invalidate();
 
     });
 
