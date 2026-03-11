@@ -189,11 +189,7 @@ public class HomeFragment extends Fragment {
 
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
-
-    private final Handler borderHandler = new Handler(Looper.getMainLooper());
-    private Runnable borderRunnable;
-    private GradientDrawable timerBorderDrawable;
-    private boolean borderAnimating = false;
+    
     private AnimatedBorderDrawable animatedBorderDrawable;
 
     private void startBorderAnimation(View targetView) {
