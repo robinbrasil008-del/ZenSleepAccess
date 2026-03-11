@@ -193,6 +193,7 @@ public class HomeFragment extends Fragment {
     private AnimatedBorderDrawable animatedBorderDrawable;
 
     private void startBorderAnimation(View targetView) {
+
     stopBorderAnimation();
 
     float density = getResources().getDisplayMetrics().density;
@@ -200,7 +201,10 @@ public class HomeFragment extends Fragment {
     float stroke = 4f * density;
 
     animatedBorderDrawable = new AnimatedBorderDrawable(targetView, radius, stroke);
+
+    targetView.setBackground(null); // limpa fundo antigo
     targetView.setBackground(animatedBorderDrawable);
+
     animatedBorderDrawable.start();
     }
     
