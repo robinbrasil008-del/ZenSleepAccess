@@ -193,7 +193,6 @@ public class HomeFragment extends Fragment {
     private AnimatedBorderDrawable animatedBorderDrawable;
 
     private void startBorderAnimation(View targetView) {
-
     stopBorderAnimation();
 
     float density = getResources().getDisplayMetrics().density;
@@ -201,10 +200,7 @@ public class HomeFragment extends Fragment {
     float stroke = 4f * density;
 
     animatedBorderDrawable = new AnimatedBorderDrawable(targetView, radius, stroke);
-
-    targetView.setBackground(null); // limpa fundo antigo
     targetView.setBackground(animatedBorderDrawable);
-
     animatedBorderDrawable.start();
     }
     
@@ -212,6 +208,21 @@ public class HomeFragment extends Fragment {
     if (animatedBorderDrawable != null) {
         animatedBorderDrawable.stop();
         animatedBorderDrawable = null;
+    }
+
+    View root = getView();
+    if (root != null) {
+        View timerCard = root.findViewById(R.id.timerCard);
+        if (timerCard != null) {
+            float radius = getResources().getDisplayMetrics().density * 32f;
+
+            GradientDrawable normalDrawable = new GradientDrawable();
+            normalDrawable.setColor(Color.parseColor("#1E2A3A"));
+            normalDrawable.setCornerRadius(radius);
+            normalDrawable.setStroke(6, Color.parseColor("#FFD400"));
+
+            timerCard.setBackground(normalDrawable);
+        }
     }
     }
     
