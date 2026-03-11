@@ -59,7 +59,6 @@ public class AnimatedBorderDrawable extends Drawable {
         float cx = bounds.exactCenterX();
         float cy = bounds.exactCenterY();
 
-        // faixa de luz pequena
         int[] colors = new int[]{
                 Color.TRANSPARENT,
                 Color.TRANSPARENT,
@@ -72,11 +71,11 @@ public class AnimatedBorderDrawable extends Drawable {
 
         float[] positions = new float[]{
                 0.0f,
-                0.40f,
+                0.45f,
                 0.48f,
                 0.50f,
                 0.52f,
-                0.60f,
+                0.55f,
                 1.0f
         };
 
@@ -99,8 +98,8 @@ public class AnimatedBorderDrawable extends Drawable {
 
         if (sweepGradient != null) {
 
+            matrix.reset();
             matrix.setRotate(rotation, rectF.centerX(), rectF.centerY());
-
             sweepGradient.setLocalMatrix(matrix);
         }
 
@@ -112,7 +111,7 @@ public class AnimatedBorderDrawable extends Drawable {
         stop();
 
         animator = ValueAnimator.ofFloat(0f, 360f);
-        animator.setDuration(2200);
+        animator.setDuration(1600);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setInterpolator(new LinearInterpolator());
 
@@ -123,7 +122,7 @@ public class AnimatedBorderDrawable extends Drawable {
             invalidateSelf();
 
             if (hostView != null) {
-                hostView.postInvalidateOnAnimation();
+                hostView.invalidate();
             }
 
         });
@@ -136,7 +135,6 @@ public class AnimatedBorderDrawable extends Drawable {
         if (animator != null) {
 
             animator.cancel();
-
             animator = null;
         }
     }
