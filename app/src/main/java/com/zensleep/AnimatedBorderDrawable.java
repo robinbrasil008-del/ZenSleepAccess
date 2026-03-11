@@ -69,10 +69,10 @@ public class AnimatedBorderDrawable extends Drawable {
 
         float[] positions = new float[]{
                 0.0f,
-                0.10f,
-                0.20f,
-                0.30f,
-                0.40f
+                0.12f,
+                0.18f,
+                0.25f,
+                0.35f
         };
 
         sweepGradient = new SweepGradient(cx, cy, colors, positions);
@@ -107,7 +107,7 @@ public class AnimatedBorderDrawable extends Drawable {
         stop();
 
         animator = ValueAnimator.ofFloat(0f, 360f);
-        animator.setDuration(2000);
+        animator.setDuration(1800);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setInterpolator(new LinearInterpolator());
 
@@ -118,8 +118,9 @@ public class AnimatedBorderDrawable extends Drawable {
             invalidateSelf();
 
             if (hostView != null) {
-                hostView.invalidate();
+                hostView.postInvalidateOnAnimation();
             }
+
         });
 
         animator.start();
@@ -139,7 +140,6 @@ public class AnimatedBorderDrawable extends Drawable {
     public void setAlpha(int alpha) {
 
         fillPaint.setAlpha(alpha);
-
         strokePaint.setAlpha(alpha);
     }
 
@@ -147,7 +147,6 @@ public class AnimatedBorderDrawable extends Drawable {
     public void setColorFilter(@Nullable ColorFilter colorFilter) {
 
         fillPaint.setColorFilter(colorFilter);
-
         strokePaint.setColorFilter(colorFilter);
     }
 
