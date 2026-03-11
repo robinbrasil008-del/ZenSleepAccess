@@ -463,7 +463,7 @@ public class HomeFragment extends Fragment {
 
             long millis = minutes * 60L * 1000L;
 
-            View timerCard = getView().findViewById(R.id.timerCard);
+            View timerCard = requireView().findViewById(R.id.timerCard);
             startBorderAnimation(timerCard);
 
             boolean shouldTriggerAlarm = switchTimerAlarm != null && switchTimerAlarm.isChecked();
