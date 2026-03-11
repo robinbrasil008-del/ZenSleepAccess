@@ -19,24 +19,25 @@ import androidx.annotation.Nullable;
 
 public class AnimatedBorderDrawable extends Drawable {
 
-    private final Paint fillPaint;
-    private final Paint strokePaint;
+    private Paint fillPaint;
+    private Paint strokePaint;
 
-    private final RectF rectF = new RectF();
+    private RectF rect = new RectF();
 
-    private final float cornerRadius;
-    private final float strokeWidth;
-
-    private final View hostView;
+    private float cornerRadius;
+    private float strokeWidth;
 
     private SweepGradient gradient;
-    private final Matrix matrix = new Matrix();
+    private Matrix matrix = new Matrix();
 
-    private float angle = 0f;
+    private float rotation = 0f;
 
     private ValueAnimator animator;
 
+    private View hostView;
+
     public AnimatedBorderDrawable(View hostView, float cornerRadius, float strokeWidth) {
+
         this.hostView = hostView;
         this.cornerRadius = cornerRadius;
         this.strokeWidth = strokeWidth;
@@ -52,12 +53,20 @@ public class AnimatedBorderDrawable extends Drawable {
 
     @Override
     protected void onBoundsChange(Rect bounds) {
+
         super.onBoundsChange(bounds);
 
-        float cx = bounds.exactCenterX();
-        float cy = bounds.exactCenterY();
+        rect.set(
+                bounds.left + strokeWidth / 2f,
+                bounds.top + strokeWidth / 2f,
+                bounds.right - strokeWidth / 2f,
+                bounds.bottom - strokeWidth / 2f
+        );
 
-        int[] colors = {
+        float cx = rect.centerX();
+        float cy = rect.centerY();
+
+        int[] colors = new int[]{
                 Color.TRANSPARENT,
                 Color.TRANSPARENT,
                 Color.parseColor("#FFD400"),
@@ -67,39 +76,32 @@ public class AnimatedBorderDrawable extends Drawable {
                 Color.TRANSPARENT
         };
 
-        float[] pos = {
-                0f,
+        float[] positions = new float[]{
+                0.0f,
                 0.45f,
-                0.48f,
+                0.49f,
                 0.50f,
-                0.52f,
+                0.51f,
                 0.55f,
-                1f
+                1.0f
         };
 
-        gradient = new SweepGradient(cx, cy, colors, pos);
-        strokePaint.setShader(gradient);
+        gradient = new SweepGradient(cx, cy, colors, positions);
 
-        rectF.set(
-                bounds.left + strokeWidth / 2f,
-                bounds.top + strokeWidth / 2f,
-                bounds.right - strokeWidth / 2f,
-                bounds.bottom - strokeWidth / 2f
-        );
+        strokePaint.setShader(gradient);
     }
 
     @Override
     public void draw(@NonNull Canvas canvas) {
 
-        canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, fillPaint);
+        canvas.drawRoundRect(rect, cornerRadius, cornerRadius, fillPaint);
 
         if (gradient != null) {
-            matrix.reset();
-            matrix.setRotate(angle, rectF.centerX(), rectF.centerY());
+            matrix.setRotate(rotation, rect.centerX(), rect.centerY());
             gradient.setLocalMatrix(matrix);
         }
 
-        canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, strokePaint);
+        canvas.drawRoundRect(rect, cornerRadius, cornerRadius, strokePaint);
     }
 
     public void start() {
@@ -107,16 +109,19 @@ public class AnimatedBorderDrawable extends Drawable {
         stop();
 
         animator = ValueAnimator.ofFloat(0f, 360f);
-        animator.setDuration(2000);
+        animator.setDuration(1200);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setInterpolator(new LinearInterpolator());
 
         animator.addUpdateListener(animation -> {
 
-            angle = (float) animation.getAnimatedValue();
+            rotation = (float) animation.getAnimatedValue();
 
-            invalidateSelf();          // redesenha o drawable
-            hostView.invalidate();     // força a view a redesenhar
+            invalidateSelf();
+
+            if (hostView != null) {
+                hostView.invalidate();
+            }
 
         });
 
