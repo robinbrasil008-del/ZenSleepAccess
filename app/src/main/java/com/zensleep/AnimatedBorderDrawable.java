@@ -29,15 +29,14 @@ public class AnimatedBorderDrawable extends Drawable {
 
     private final View hostView;
 
-    private SweepGradient sweepGradient;
+    private SweepGradient gradient;
     private final Matrix matrix = new Matrix();
 
-    private float rotation = 0f;
+    private float angle = 0f;
 
     private ValueAnimator animator;
 
     public AnimatedBorderDrawable(View hostView, float cornerRadius, float strokeWidth) {
-
         this.hostView = hostView;
         this.cornerRadius = cornerRadius;
         this.strokeWidth = strokeWidth;
@@ -53,13 +52,12 @@ public class AnimatedBorderDrawable extends Drawable {
 
     @Override
     protected void onBoundsChange(Rect bounds) {
-
         super.onBoundsChange(bounds);
 
         float cx = bounds.exactCenterX();
         float cy = bounds.exactCenterY();
 
-        int[] colors = new int[]{
+        int[] colors = {
                 Color.TRANSPARENT,
                 Color.TRANSPARENT,
                 Color.parseColor("#FFD400"),
@@ -69,19 +67,18 @@ public class AnimatedBorderDrawable extends Drawable {
                 Color.TRANSPARENT
         };
 
-        float[] positions = new float[]{
-                0.0f,
+        float[] pos = {
+                0f,
                 0.45f,
                 0.48f,
                 0.50f,
                 0.52f,
                 0.55f,
-                1.0f
+                1f
         };
 
-        sweepGradient = new SweepGradient(cx, cy, colors, positions);
-
-        strokePaint.setShader(sweepGradient);
+        gradient = new SweepGradient(cx, cy, colors, pos);
+        strokePaint.setShader(gradient);
 
         rectF.set(
                 bounds.left + strokeWidth / 2f,
@@ -96,11 +93,10 @@ public class AnimatedBorderDrawable extends Drawable {
 
         canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, fillPaint);
 
-        if (sweepGradient != null) {
-
+        if (gradient != null) {
             matrix.reset();
-            matrix.setRotate(rotation, rectF.centerX(), rectF.centerY());
-            sweepGradient.setLocalMatrix(matrix);
+            matrix.setRotate(angle, rectF.centerX(), rectF.centerY());
+            gradient.setLocalMatrix(matrix);
         }
 
         canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, strokePaint);
@@ -111,19 +107,16 @@ public class AnimatedBorderDrawable extends Drawable {
         stop();
 
         animator = ValueAnimator.ofFloat(0f, 360f);
-        animator.setDuration(1600);
+        animator.setDuration(2000);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setInterpolator(new LinearInterpolator());
 
         animator.addUpdateListener(animation -> {
 
-            rotation = (float) animation.getAnimatedValue();
+            angle = (float) animation.getAnimatedValue();
 
-            invalidateSelf();
-
-            if (hostView != null) {
-                hostView.invalidate();
-            }
+            invalidateSelf();          // redesenha o drawable
+            hostView.invalidate();     // força a view a redesenhar
 
         });
 
@@ -133,7 +126,6 @@ public class AnimatedBorderDrawable extends Drawable {
     public void stop() {
 
         if (animator != null) {
-
             animator.cancel();
             animator = null;
         }
@@ -141,21 +133,18 @@ public class AnimatedBorderDrawable extends Drawable {
 
     @Override
     public void setAlpha(int alpha) {
-
         fillPaint.setAlpha(alpha);
         strokePaint.setAlpha(alpha);
     }
 
     @Override
     public void setColorFilter(@Nullable ColorFilter colorFilter) {
-
         fillPaint.setColorFilter(colorFilter);
         strokePaint.setColorFilter(colorFilter);
     }
 
     @Override
     public int getOpacity() {
-
         return PixelFormat.TRANSLUCENT;
     }
 }
