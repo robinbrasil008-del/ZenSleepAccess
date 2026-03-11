@@ -30,7 +30,7 @@ public class AnimatedBorderDrawable extends Drawable {
     private final View hostView;
 
     private SweepGradient sweepGradient;
-    private final Matrix gradientMatrix = new Matrix();
+    private final Matrix matrix = new Matrix();
 
     private float rotation = 0f;
 
@@ -59,20 +59,25 @@ public class AnimatedBorderDrawable extends Drawable {
         float cx = bounds.exactCenterX();
         float cy = bounds.exactCenterY();
 
+        // faixa de luz pequena
         int[] colors = new int[]{
+                Color.TRANSPARENT,
                 Color.TRANSPARENT,
                 Color.parseColor("#FFD400"),
                 Color.parseColor("#FFFFFF"),
                 Color.parseColor("#7CFF00"),
+                Color.TRANSPARENT,
                 Color.TRANSPARENT
         };
 
         float[] positions = new float[]{
                 0.0f,
-                0.12f,
-                0.18f,
-                0.25f,
-                0.35f
+                0.40f,
+                0.48f,
+                0.50f,
+                0.52f,
+                0.60f,
+                1.0f
         };
 
         sweepGradient = new SweepGradient(cx, cy, colors, positions);
@@ -94,9 +99,9 @@ public class AnimatedBorderDrawable extends Drawable {
 
         if (sweepGradient != null) {
 
-            gradientMatrix.setRotate(rotation, rectF.centerX(), rectF.centerY());
+            matrix.setRotate(rotation, rectF.centerX(), rectF.centerY());
 
-            sweepGradient.setLocalMatrix(gradientMatrix);
+            sweepGradient.setLocalMatrix(matrix);
         }
 
         canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, strokePaint);
@@ -107,7 +112,7 @@ public class AnimatedBorderDrawable extends Drawable {
         stop();
 
         animator = ValueAnimator.ofFloat(0f, 360f);
-        animator.setDuration(1800);
+        animator.setDuration(2200);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setInterpolator(new LinearInterpolator());
 
