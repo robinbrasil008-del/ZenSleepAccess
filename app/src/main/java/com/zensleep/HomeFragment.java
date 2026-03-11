@@ -463,9 +463,6 @@ public class HomeFragment extends Fragment {
 
             long millis = minutes * 60L * 1000L;
 
-            View timerCard = requireView().findViewById(R.id.timerCard);
-            startBorderAnimation(timerCard);
-
             boolean shouldTriggerAlarm = switchTimerAlarm != null && switchTimerAlarm.isChecked();
 
             if (shouldTriggerAlarm) {
@@ -525,6 +522,9 @@ public class HomeFragment extends Fragment {
             if (countDownTimer != null) {
                 countDownTimer.cancel();
             }
+
+            View timerCard = requireView().findViewById(R.id.timerCard);
+            startBorderAnimation(timerCard);
 
             countDownTimer = new CountDownTimer(millis, 1000) {
 
