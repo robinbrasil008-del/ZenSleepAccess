@@ -213,21 +213,6 @@ public class HomeFragment extends Fragment {
         animatedBorderDrawable.stop();
         animatedBorderDrawable = null;
     }
-
-    View root = getView();
-    if (root != null) {
-        View timerCard = root.findViewById(R.id.timerCard);
-        if (timerCard != null) {
-            float radius = getResources().getDisplayMetrics().density * 32f;
-
-            GradientDrawable normalDrawable = new GradientDrawable();
-            normalDrawable.setColor(Color.parseColor("#1E2A3A"));
-            normalDrawable.setCornerRadius(radius);
-            normalDrawable.setStroke(6, Color.parseColor("#FFD400"));
-
-            timerCard.setBackground(normalDrawable);
-        }
-    }
     }
     
     private void loadInterstitialAd() {
