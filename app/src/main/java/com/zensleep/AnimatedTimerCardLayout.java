@@ -44,7 +44,7 @@ public class AnimatedTimerCardLayout extends LinearLayout {
 
         if (!animating) return;
 
-        phase -= 20;
+        phase -= 22;
 
         // efeito respirando
         if (glowIncreasing) {
