@@ -22,6 +22,8 @@ public class AnimatedTimerCardLayout extends LinearLayout {
     private Paint movingPaint;
     private SweepGradient gradient;
     private Matrix gradientMatrix = new Matrix();
+    private float glowAlpha = 180f;
+    private boolean glowIncreasing = true;
 
     private RectF rectF = new RectF();
     private Path borderPath = new Path();
@@ -37,18 +39,33 @@ public class AnimatedTimerCardLayout extends LinearLayout {
     private Handler handler = new Handler(Looper.getMainLooper());
 
     private Runnable animatorRunnable = new Runnable() {
-        @Override
-        public void run() {
+    @Override
+    public void run() {
 
-            if (!animating) return;
+        if (!animating) return;
 
-            phase -= 10;
+        phase -= 10;
 
-            invalidate();
-
-            handler.postDelayed(this, 16);
+        // efeito respirando
+        if (glowIncreasing) {
+            glowAlpha += 6;
+            if (glowAlpha >= 255) {
+                glowIncreasing = false;
+            }
+        } else {
+            glowAlpha -= 6;
+            if (glowAlpha <= 120) {
+                glowIncreasing = true;
+            }
         }
-    };
+
+        movingPaint.setAlpha((int) glowAlpha);
+
+        invalidate();
+
+        handler.postDelayed(this, 16);
+    }
+};
 
     public AnimatedTimerCardLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -62,11 +79,12 @@ public class AnimatedTimerCardLayout extends LinearLayout {
         float density = getResources().getDisplayMetrics().density;
 
         cornerRadius = 32f * density;
-        strokeWidth = 4f * density;
+        strokeWidth = 4f * density:
 
         fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         fillPaint.setColor(Color.parseColor("#1E2A3A"));
         fillPaint.setStyle(Paint.Style.FILL);
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
 
         borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         borderPaint.setStrokeWidth(strokeWidth);
@@ -78,6 +96,12 @@ public class AnimatedTimerCardLayout extends LinearLayout {
         movingPaint.setStyle(Paint.Style.STROKE);
         movingPaint.setColor(Color.parseColor("#FFD400"));
         movingPaint.setStrokeCap(Paint.Cap.ROUND);
+        movingPaint.setShadowLayer(
+        18f,
+        0f,
+        0f,
+        Color.parseColor("#FFD400")
+        );
     }
 
     @Override
