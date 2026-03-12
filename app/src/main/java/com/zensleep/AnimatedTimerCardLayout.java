@@ -94,11 +94,13 @@ public class AnimatedTimerCardLayout extends LinearLayout {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+protected void onDraw(Canvas canvas) {
 
-        canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, fillPaint);
+    canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, fillPaint);
 
-        canvas.drawPath(borderPath, borderPaint);
+    canvas.drawPath(borderPath, borderPaint);
+
+    if (animating) {
 
         float segment = pathLength * 0.15f;
 
@@ -111,8 +113,16 @@ public class AnimatedTimerCardLayout extends LinearLayout {
 
         canvas.drawPath(borderPath, movingPaint);
 
-        super.onDraw(canvas);
+    } else {
+
+        movingPaint.setPathEffect(null);
+        movingPaint.setColor(Color.parseColor("#FFD400"));
+
+        canvas.drawPath(borderPath, movingPaint);
     }
+
+    super.onDraw(canvas);
+}
 
     public void startBorderAnimation() {
 
@@ -123,12 +133,14 @@ public class AnimatedTimerCardLayout extends LinearLayout {
 
     public void stopBorderAnimation() {
 
-        animating = false;
+    animating = false;
 
-        handler.removeCallbacks(animatorRunnable);
+    handler.removeCallbacks(animatorRunnable);
 
-        phase = 0;
+    phase = 0;
 
-        invalidate();
+    movingPaint.setPathEffect(null);
+
+    invalidate();
     }
 }
