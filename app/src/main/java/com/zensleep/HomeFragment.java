@@ -189,42 +189,7 @@ public class HomeFragment extends Fragment {
 
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
-    
-    private AnimatedBorderDrawable animatedBorderDrawable;
 
-    private void startBorderAnimation(View targetView) {
-    stopBorderAnimation();
-
-    float density = getResources().getDisplayMetrics().density;
-    float radius = 32f * density;
-    float stroke = 4f * density;
-
-    animatedBorderDrawable = new AnimatedBorderDrawable(targetView, radius, stroke);
-    targetView.setBackground(animatedBorderDrawable);
-    animatedBorderDrawable.start();
-    }
-    
-    private void stopBorderAnimation() {
-    if (animatedBorderDrawable != null) {
-        animatedBorderDrawable.stop();
-        animatedBorderDrawable = null;
-    }
-
-    View root = getView();
-    if (root != null) {
-        View timerCard = root.findViewById(R.id.timerCard);
-        if (timerCard != null) {
-            float radius = getResources().getDisplayMetrics().density * 32f;
-
-            GradientDrawable normalDrawable = new GradientDrawable();
-            normalDrawable.setColor(Color.parseColor("#1E2A3A"));
-            normalDrawable.setCornerRadius(radius);
-            normalDrawable.setStroke(6, Color.parseColor("#FFD400"));
-
-            timerCard.setBackground(normalDrawable);
-        }
-    }
-    }
     
     private void loadInterstitialAd() {
     AdRequest adRequest = new AdRequest.Builder().build();
@@ -519,8 +484,8 @@ public class HomeFragment extends Fragment {
                 countDownTimer.cancel();
             }
 
-            View timerCard = requireView().findViewById(R.id.timerCard);
-            startBorderAnimation(timerCard);
+            AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
+            timerCard.startBorderAnimation();
 
             countDownTimer = new CountDownTimer(millis, 1000) {
 
@@ -539,7 +504,8 @@ public class HomeFragment extends Fragment {
                 public void onFinish() {
                     txtTimer.setText("00:00");
 
-                     stopBorderAnimation();
+                     AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
+                     timerCard.stopBorderAnimation();
                     
                     stopSound(); // para todos
                 }
