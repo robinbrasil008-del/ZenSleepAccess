@@ -44,7 +44,7 @@ public class AnimatedTimerCardLayout extends LinearLayout {
 
         if (!animating) return;
 
-        phase -= 18;
+        phase -= 20;
 
         // efeito respirando
         if (glowIncreasing) {
@@ -139,6 +139,10 @@ movingPaint.setShader(gradient);
 
     @Override
 protected void onDraw(Canvas canvas) {
+
+    Path clipPath = new Path();
+    clipPath.addRoundRect(rectF, cornerRadius, cornerRadius, Path.Direction.CW);
+    canvas.clipPath(clipPath);
 
     canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, fillPaint);
 
