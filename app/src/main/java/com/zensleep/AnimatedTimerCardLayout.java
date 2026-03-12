@@ -12,12 +12,16 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
+import android.graphics.SweepGradient;
+import android.graphics.Matrix;
 
 public class AnimatedTimerCardLayout extends LinearLayout {
 
     private Paint fillPaint;
     private Paint borderPaint;
     private Paint movingPaint;
+    private SweepGradient gradient;
+    private Matrix gradientMatrix = new Matrix();
 
     private RectF rectF = new RectF();
     private Path borderPath = new Path();
@@ -91,6 +95,22 @@ public class AnimatedTimerCardLayout extends LinearLayout {
 
         PathMeasure measure = new PathMeasure(borderPath, true);
         pathLength = measure.getLength();
+
+        gradient = new SweepGradient(
+        rectF.centerX(),
+        rectF.centerY(),
+        new int[]{
+                Color.parseColor("#FFD400"),
+                Color.parseColor("#FF6B00"),
+                Color.parseColor("#FF00E1"),
+                Color.parseColor("#7CFF00"),
+                Color.parseColor("#00E5FF"),
+                Color.parseColor("#FFD400")
+        },
+        null
+);
+
+movingPaint.setShader(gradient);
     }
 
     @Override
@@ -99,6 +119,9 @@ protected void onDraw(Canvas canvas) {
     canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, fillPaint);
 
     canvas.drawPath(borderPath, borderPaint);
+
+    gradientMatrix.setRotate(-phase, rectF.centerX(), rectF.centerY());
+    gradient.setLocalMatrix(gradientMatrix);
 
     if (animating) {
 
