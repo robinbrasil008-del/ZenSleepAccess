@@ -17,7 +17,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     ads:adSize="BANNER"
-    ads:adUnitId="ca-app-pub-8296610548842772/7784029047"/>
+    ads:adUnitId="ca-app-pub-8296610548842772/5516771003"/>
 
         <!-- TÍTULO -->
         <TextView
