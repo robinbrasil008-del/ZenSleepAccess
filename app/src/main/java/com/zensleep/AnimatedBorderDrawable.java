@@ -1,92 +1,101 @@
 package com.zensleep;
 
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
-import android.graphics.PixelFormat;
-import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
-import android.view.View;
+import android.util.AttributeSet;
 import android.view.animation.LinearInterpolator;
+import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class AnimatedBorderDrawable extends Drawable {
+public class AnimatedTimerCardLayout extends LinearLayout {
 
-    private final View hostView;
-
-    private final float cornerRadius;
-    private final float strokeWidth;
-
-    private final Paint fillPaint;
-    private final Paint baseBorderPaint;
-    private final Paint movingBorderPaint;
+    private final Paint fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint baseBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint movingBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private final RectF rectF = new RectF();
     private final Path borderPath = new Path();
 
+    private float cornerRadiusPx;
+    private float strokeWidthPx;
     private float pathLength = 0f;
     private float phase = 0f;
 
+    private boolean borderAnimating = false;
     private ValueAnimator animator;
 
-    public AnimatedBorderDrawable(View hostView, float cornerRadius, float strokeWidth) {
-        this.hostView = hostView;
-        this.cornerRadius = cornerRadius;
-        this.strokeWidth = strokeWidth;
+    public AnimatedTimerCardLayout(Context context) {
+        super(context);
+        init();
+    }
 
-        fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    public AnimatedTimerCardLayout(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public AnimatedTimerCardLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    private void init() {
+        setWillNotDraw(false);
+
+        float density = getResources().getDisplayMetrics().density;
+        cornerRadiusPx = 32f * density;
+        strokeWidthPx = 4f * density;
+
         fillPaint.setStyle(Paint.Style.FILL);
         fillPaint.setColor(Color.parseColor("#1E2A3A"));
 
-        baseBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         baseBorderPaint.setStyle(Paint.Style.STROKE);
-        baseBorderPaint.setStrokeWidth(strokeWidth);
+        baseBorderPaint.setStrokeWidth(strokeWidthPx);
         baseBorderPaint.setColor(Color.parseColor("#2A3445"));
 
-        movingBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         movingBorderPaint.setStyle(Paint.Style.STROKE);
-        movingBorderPaint.setStrokeWidth(strokeWidth);
+        movingBorderPaint.setStrokeWidth(strokeWidthPx);
         movingBorderPaint.setStrokeCap(Paint.Cap.ROUND);
         movingBorderPaint.setStrokeJoin(Paint.Join.ROUND);
         movingBorderPaint.setColor(Color.parseColor("#FFD400"));
+
+        setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override
-    protected void onBoundsChange(Rect bounds) {
-        super.onBoundsChange(bounds);
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
 
         rectF.set(
-                bounds.left + strokeWidth / 2f,
-                bounds.top + strokeWidth / 2f,
-                bounds.right - strokeWidth / 2f,
-                bounds.bottom - strokeWidth / 2f
+                strokeWidthPx / 2f,
+                strokeWidthPx / 2f,
+                w - strokeWidthPx / 2f,
+                h - strokeWidthPx / 2f
         );
 
         borderPath.reset();
-        borderPath.addRoundRect(rectF, cornerRadius, cornerRadius, Path.Direction.CW);
+        borderPath.addRoundRect(rectF, cornerRadiusPx, cornerRadiusPx, Path.Direction.CW);
 
         PathMeasure measure = new PathMeasure(borderPath, true);
         pathLength = measure.getLength();
     }
 
     @Override
-    public void draw(@NonNull Canvas canvas) {
-        canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, fillPaint);
+    protected void onDraw(Canvas canvas) {
+        canvas.drawRoundRect(rectF, cornerRadiusPx, cornerRadiusPx, fillPaint);
 
-        // borda base escura
-        canvas.drawPath(borderPath, baseBorderPaint);
+        if (borderAnimating) {
+            canvas.drawPath(borderPath, baseBorderPaint);
 
-        // segmento de luz correndo na borda
-        if (pathLength > 0f) {
-            float segment = pathLength * 0.16f; // tamanho da luz
+            float segment = pathLength * 0.18f;
             movingBorderPaint.setPathEffect(
                     new DashPathEffect(
                             new float[]{segment, pathLength},
@@ -94,11 +103,19 @@ public class AnimatedBorderDrawable extends Drawable {
                     )
             );
             canvas.drawPath(borderPath, movingBorderPaint);
+        } else {
+            movingBorderPaint.setPathEffect(null);
+            movingBorderPaint.setColor(Color.parseColor("#FFD400"));
+            canvas.drawPath(borderPath, movingBorderPaint);
         }
+
+        super.onDraw(canvas);
     }
 
-    public void start() {
-        stop();
+    public void startBorderAnimation() {
+        stopBorderAnimation();
+
+        borderAnimating = true;
 
         animator = ValueAnimator.ofFloat(0f, pathLength);
         animator.setDuration(1400);
@@ -107,40 +124,21 @@ public class AnimatedBorderDrawable extends Drawable {
 
         animator.addUpdateListener(animation -> {
             phase = -(float) animation.getAnimatedValue();
-            invalidateSelf();
-
-            if (hostView != null) {
-                hostView.postInvalidateOnAnimation();
-            }
+            postInvalidateOnAnimation();
         });
 
         animator.start();
     }
 
-    public void stop() {
+    public void stopBorderAnimation() {
+        borderAnimating = false;
+
         if (animator != null) {
             animator.cancel();
             animator = null;
         }
-        movingBorderPaint.setPathEffect(null);
-    }
 
-    @Override
-    public void setAlpha(int alpha) {
-        fillPaint.setAlpha(alpha);
-        baseBorderPaint.setAlpha(alpha);
-        movingBorderPaint.setAlpha(alpha);
-    }
-
-    @Override
-    public void setColorFilter(@Nullable ColorFilter colorFilter) {
-        fillPaint.setColorFilter(colorFilter);
-        baseBorderPaint.setColorFilter(colorFilter);
-        movingBorderPaint.setColorFilter(colorFilter);
-    }
-
-    @Override
-    public int getOpacity() {
-        return PixelFormat.TRANSLUCENT;
+        phase = 0f;
+        postInvalidateOnAnimation();
     }
 }
