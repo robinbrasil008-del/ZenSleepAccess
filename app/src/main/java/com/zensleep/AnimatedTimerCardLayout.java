@@ -79,7 +79,7 @@ public class AnimatedTimerCardLayout extends LinearLayout {
         float density = getResources().getDisplayMetrics().density;
 
         cornerRadius = 32f * density;
-        strokeWidth = 4f * density:
+        strokeWidth = 4f * density;
 
         fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         fillPaint.setColor(Color.parseColor("#1E2A3A"));
