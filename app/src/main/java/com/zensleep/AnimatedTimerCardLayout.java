@@ -113,6 +113,13 @@ public class AnimatedTimerCardLayout extends LinearLayout {
     }
 
     public void startBorderAnimation() {
+
+    post(() -> {
+
+        if (pathLength <= 0f) {
+            return;
+        }
+
         stopBorderAnimation();
 
         borderAnimating = true;
@@ -124,10 +131,11 @@ public class AnimatedTimerCardLayout extends LinearLayout {
 
         animator.addUpdateListener(animation -> {
             phase = -(float) animation.getAnimatedValue();
-            postInvalidateOnAnimation();
+            invalidate();
         });
 
         animator.start();
+    });
     }
 
     public void stopBorderAnimation() {
