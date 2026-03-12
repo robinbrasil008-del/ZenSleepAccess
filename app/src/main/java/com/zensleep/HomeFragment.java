@@ -196,7 +196,7 @@ public class HomeFragment extends Fragment {
 
     InterstitialAd.load(
             requireContext(),
-            "ca-app-pub-8296610548842772/5975143413",
+            "ca-app-pub-3940256099942544/1033173712",
             adRequest,
             new InterstitialAdLoadCallback() {
                 @Override
