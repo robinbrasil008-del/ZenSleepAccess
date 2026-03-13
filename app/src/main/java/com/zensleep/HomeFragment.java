@@ -204,8 +204,6 @@ public class HomeFragment extends Fragment {
     timerIcon.setFrame(0);
     timerIcon.setRepeatCount(LottieDrawable.INFINITE);
     timerIcon.setSpeed(1f);
-    timerIcon.playAnimation();
-
     }
 
     private void stopHourglassAnimation() {
