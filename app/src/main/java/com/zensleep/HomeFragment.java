@@ -501,8 +501,8 @@ public class HomeFragment extends Fragment {
             AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
             timerCard.startBorderAnimation();
             
-            timerIcon.post(() -> timerIcon.playAnimation());
-
+            timerIcon.postDelayed(() -> timerIcon.playAnimation(), 500);
+            
             countDownTimer = new CountDownTimer(millis, 1000) {
 
                 @Override
