@@ -196,7 +196,7 @@ public class HomeFragment extends Fragment {
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
 
-    private void startHourglass() {
+    private void startHourglassAnimation() {
 
     if (timerIcon == null) return;
 
