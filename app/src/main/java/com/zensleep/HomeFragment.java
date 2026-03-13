@@ -136,10 +136,6 @@ public class HomeFragment extends Fragment {
         timerIcon.setAnimation(R.raw.hourglass_animation);
         timerIcon.setRepeatCount(LottieDrawable.INFINITE);
         timerIcon.setSpeed(1f);
-
-        timerIcon.addLottieOnCompositionLoadedListener(composition -> {
-             // aqui garante que a animação está pronta
-        });
         
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
@@ -503,7 +499,7 @@ public class HomeFragment extends Fragment {
             
             timerIcon.postDelayed(() -> timerIcon.playAnimation(), 500);
             
-            countDownTimer = new CountDownTimer(millis, 1000) {
+            timerIcon.playAnimation();
 
                 @Override
                 public void onTick(long millisUntilFinished) {
