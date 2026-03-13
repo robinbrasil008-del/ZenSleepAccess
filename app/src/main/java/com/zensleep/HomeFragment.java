@@ -129,8 +129,8 @@ public class HomeFragment extends Fragment {
         // ======= TIMER =======
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
-        LottieAnimationView timerIcon = getView().findViewById(R.id.timerIcon);
-
+        timerIcon = view.findViewById(R.id.timerIcon);
+        
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
         setupSound("mar", R.raw.mar, btnPlayMar, seekMar);
