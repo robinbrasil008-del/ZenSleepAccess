@@ -132,6 +132,7 @@ public class HomeFragment extends Fragment {
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
         timerIcon = view.findViewById(R.id.timerIcon);
+        timerIcon.setLayerType(View.LAYER_TYPE_HARDWARE, null);
 
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
