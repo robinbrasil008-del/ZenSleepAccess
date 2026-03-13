@@ -127,6 +127,13 @@ public class HomeFragment extends Fragment {
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
 
+        TextView timerIcon = view.findViewById(R.id.timerIcon);
+
+        ObjectAnimator rotate = ObjectAnimator.ofFloat(timerIcon, "rotation", 0f, 360f);
+        rotate.setDuration(2000);
+        rotate.setRepeatCount(ValueAnimator.INFINITE);
+        rotate.start();
+
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
         setupSound("mar", R.raw.mar, btnPlayMar, seekMar);
