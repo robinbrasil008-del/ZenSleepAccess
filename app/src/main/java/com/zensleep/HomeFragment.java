@@ -132,8 +132,6 @@ public class HomeFragment extends Fragment {
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
         timerIcon = view.findViewById(R.id.timerIcon);
-        timerIcon.setAnimation(R.raw.hourglass_animation);
-        timerIcon.setRenderMode(RenderMode.HARDWARE);
 
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
@@ -198,14 +196,18 @@ public class HomeFragment extends Fragment {
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
 
-    private void startHourglassAnimation() {
+    private void startHourglass() {
 
     if (timerIcon == null) return;
 
     timerIcon.cancelAnimation();
-    timerIcon.setFrame(0);
-    timerIcon.setRepeatCount(LottieDrawable.INFINITE);
+
+    timerIcon.setProgress(0f);
     timerIcon.setSpeed(1f);
+    timerIcon.setRepeatCount(LottieDrawable.INFINITE);
+
+    timerIcon.playAnimation();
+
     }
 
     private void stopHourglassAnimation() {
