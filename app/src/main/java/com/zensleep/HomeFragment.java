@@ -495,9 +495,6 @@ timerIcon.setSpeed(1f);
 
             AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
             timerCard.startBorderAnimation();
-            
-            AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
-            timerCard.startBorderAnimation();
 
             timerIcon.playAnimation();
 
