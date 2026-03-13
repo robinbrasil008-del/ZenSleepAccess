@@ -84,7 +84,6 @@ public class AnimatedTimerCardLayout extends LinearLayout {
         fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         fillPaint.setColor(Color.parseColor("#1E2A3A"));
         fillPaint.setStyle(Paint.Style.FILL);
-        setLayerType(LAYER_TYPE_SOFTWARE, null);
 
         borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         borderPaint.setStrokeWidth(strokeWidth);
@@ -138,7 +137,7 @@ movingPaint.setShader(gradient);
     }
 
     @Override
-protected void onDraw(Canvas canvas) {
+protected void dispatchDraw(Canvas canvas) {
 
     Path clipPath = new Path();
     clipPath.addRoundRect(rectF, cornerRadius, cornerRadius, Path.Direction.CW);
@@ -172,7 +171,7 @@ protected void onDraw(Canvas canvas) {
         canvas.drawPath(borderPath, movingPaint);
     }
 
-    super.onDraw(canvas);
+    super.dispatchDraw(canvas);
 }
 
     public void startBorderAnimation() {
