@@ -489,7 +489,7 @@ public class HomeFragment extends Fragment {
             AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
             timerCard.startBorderAnimation();
 
-            TextView timerIcon = view.findViewById(R.id.timerIcon);
+            TextView timerIcon = getView().findViewById(R.id.timerIcon);
 
             timerIconAnimator = new TimerIconAnimator();
             timerIconAnimator.start(timerIcon);
