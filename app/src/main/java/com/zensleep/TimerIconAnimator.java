@@ -7,24 +7,25 @@ import android.view.animation.LinearInterpolator;
 
 public class TimerIconAnimator {
 
-    private ObjectAnimator rotateAnimator;
+    private ObjectAnimator animator;
 
     public void start(View icon) {
 
-        if (rotateAnimator != null) return;
+        stop();
 
-        rotateAnimator = ObjectAnimator.ofFloat(icon, "rotation", 0f, 360f);
-        rotateAnimator.setDuration(2000);
-        rotateAnimator.setRepeatCount(ValueAnimator.INFINITE);
-        rotateAnimator.setInterpolator(new LinearInterpolator());
-        rotateAnimator.start();
+        animator = ObjectAnimator.ofFloat(icon, View.ROTATION, 0f, 360f);
+        animator.setDuration(2000);
+        animator.setInterpolator(new LinearInterpolator());
+        animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.setRepeatMode(ValueAnimator.RESTART);
+        animator.start();
     }
 
     public void stop() {
 
-        if (rotateAnimator != null) {
-            rotateAnimator.cancel();
-            rotateAnimator = null;
+        if (animator != null) {
+            animator.cancel();
+            animator = null;
         }
 
     }
