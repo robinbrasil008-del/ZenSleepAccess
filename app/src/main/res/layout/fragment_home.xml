@@ -53,7 +53,7 @@
           <com.zensleep.AnimatedTimerCardLayout
            android:id="@+id/timerCard"
            android:layout_width="200dp"
-           android:layout_height="55dp"
+           android:layout_height="wrap_content"
            android:layout_marginBottom="24dp"
            android:layout_marginTop="10dp"
            android:gravity="center"
@@ -73,7 +73,7 @@
     <TextView
         android:id="@+id/txtTimer"
         android:layout_width="wrap_content"
-        android:layout_height="85dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:letterSpacing="0.08"
         android:text="00:00"
