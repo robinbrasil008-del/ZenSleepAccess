@@ -61,13 +61,13 @@
            android:padding="14dp">
 
        <com.airbnb.lottie.LottieAnimationView
-          android:id="@+id/timerIcon"
-          android:layout_width="42dp"
-          android:layout_height="42dp"
-          android:layout_marginEnd="10dp"
-          app:lottie_rawRes="@raw/hourglass_animation"
-          app:lottie_autoPlay="true"
-          app:lottie_loop="true"/>
+           android:id="@+id/timerIcon"
+           android:layout_width="40dp"
+           android:layout_height="40dp"
+           android:layout_marginEnd="10dp"
+           app:lottie_autoPlay="false"
+           app:lottie_loop="true"
+           app:lottie_fileName="hourglass_animation.json"/>
               
     <TextView
         android:id="@+id/txtTimer"
