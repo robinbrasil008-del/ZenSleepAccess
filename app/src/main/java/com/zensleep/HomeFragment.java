@@ -40,6 +40,7 @@ import android.view.ViewGroup;
 import android.animation.ArgbEvaluator;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
+import com.airbnb.lottie.RenderMode;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -132,6 +133,7 @@ public class HomeFragment extends Fragment {
         btnTimer = view.findViewById(R.id.btnTimer);
         timerIcon = view.findViewById(R.id.timerIcon);
         timerIcon.setAnimation(R.raw.hourglass_animation);
+        timerIcon.setRenderMode(RenderMode.HARDWARE);
 
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
