@@ -133,6 +133,7 @@ public class HomeFragment extends Fragment {
         timerIcon = view.findViewById(R.id.timerIcon);
         timerIcon.setAnimation(R.raw.hourglass_animation);
         timerIcon.setRepeatCount(LottieDrawable.INFINITE);
+        timerIcon.setSpeed(1f);
         
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
