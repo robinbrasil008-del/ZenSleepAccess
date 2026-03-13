@@ -1,32 +1,78 @@
 package com.zensleep;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 
 public class TimerIconAnimator {
 
-    private ObjectAnimator animator;
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
-    public void start(View icon) {
+    private boolean animating = false;
+    private float angle = -12f;
+    private boolean goingRight = true;
+    private float scale = 1.0f;
+    private boolean scaleUp = true;
 
+    private final Runnable animatorRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (!animating || targetView == null) return;
+
+            // balanço
+            if (goingRight) {
+                angle += 2f;
+                if (angle >= 12f) goingRight = false;
+            } else {
+                angle -= 2f;
+                if (angle <= -12f) goingRight = true;
+            }
+
+            // respiração
+            if (scaleUp) {
+                scale += 0.01f;
+                if (scale >= 1.08f) scaleUp = false;
+            } else {
+                scale -= 0.01f;
+                if (scale <= 0.96f) scaleUp = true;
+            }
+
+            targetView.setRotation(angle);
+            targetView.setScaleX(scale);
+            targetView.setScaleY(scale);
+
+            handler.postDelayed(this, 16);
+        }
+    };
+
+    private View targetView;
+
+    public void start(View iconView) {
         stop();
 
-        animator = ObjectAnimator.ofFloat(icon, View.ROTATION, 0f, 360f);
-        animator.setDuration(2000);
-        animator.setInterpolator(new LinearInterpolator());
-        animator.setRepeatCount(ValueAnimator.INFINITE);
-        animator.setRepeatMode(ValueAnimator.RESTART);
-        animator.start();
+        targetView = iconView;
+        animating = true;
+
+        targetView.setPivotX(targetView.getWidth() / 2f);
+        targetView.setPivotY(targetView.getHeight() / 2f);
+
+        handler.post(animatorRunnable);
     }
 
     public void stop() {
+        animating = false;
+        handler.removeCallbacks(animatorRunnable);
 
-        if (animator != null) {
-            animator.cancel();
-            animator = null;
+        if (targetView != null) {
+            targetView.setRotation(0f);
+            targetView.setScaleX(1f);
+            targetView.setScaleY(1f);
         }
 
+        targetView = null;
+        angle = -12f;
+        goingRight = true;
+        scale = 1.0f;
+        scaleUp = true;
     }
 }
