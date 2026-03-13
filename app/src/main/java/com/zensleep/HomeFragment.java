@@ -128,6 +128,7 @@ public class HomeFragment extends Fragment {
         // ======= TIMER =======
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
+        timerIconAnimator = new TimerIconAnimator();
 
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
@@ -488,10 +489,8 @@ public class HomeFragment extends Fragment {
 
             AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
             timerCard.startBorderAnimation();
-
-            TextView timerIcon = getView().findViewById(R.id.timerIcon);
-
-            timerIconAnimator = new TimerIconAnimator();
+            
+            TextView timerIcon = root.findViewById(R.id.timerIcon);
             timerIconAnimator.start(timerIcon);
 
             countDownTimer = new CountDownTimer(millis, 1000) {
@@ -514,6 +513,7 @@ public class HomeFragment extends Fragment {
                      AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
                      timerCard.stopBorderAnimation();
 
+                    TextView timerIcon = root.findViewById(R.id.timerIcon);
                     timerIconAnimator.stop();
                     
                     stopSound(); // para todos
