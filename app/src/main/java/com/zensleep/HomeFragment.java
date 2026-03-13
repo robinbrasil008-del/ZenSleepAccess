@@ -38,9 +38,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.view.ViewGroup;
 import android.animation.ArgbEvaluator;
-import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.LottieDrawable;
-import com.airbnb.lottie.RenderMode;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -60,8 +57,7 @@ public class HomeFragment extends Fragment {
 
     private TextView txtTimer;
 
-    private LottieAnimationView timerIcon;
-
+    private HourglassAnimator hourglassAnimator;
     // PLAY BUTTONS
     private ImageView btnPlayChuva, btnPlayMar;
     private ImageView btnPlayFloresta, btnPlayLareira, btnPlayVento,
@@ -131,9 +127,9 @@ public class HomeFragment extends Fragment {
         // ======= TIMER =======
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
-        timerIcon = view.findViewById(R.id.timerIcon);
-        timerIcon.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-
+        LottieAnimationView timerIcon = view.findViewById(R.id.timerIcon);
+        hourglassAnimator = new HourglassAnimator(timerIcon);
+        
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
         setupSound("mar", R.raw.mar, btnPlayMar, seekMar);
@@ -195,29 +191,6 @@ public class HomeFragment extends Fragment {
         });
 
         btnTimer.setOnClickListener(v -> openTimerDialog());
-    }
-
-    private void startHourglassAnimation() {
-
-    if (timerIcon == null) return;
-
-    timerIcon.cancelAnimation();
-
-    timerIcon.setProgress(0f);
-    timerIcon.setSpeed(1f);
-    timerIcon.setRepeatCount(LottieDrawable.INFINITE);
-
-    timerIcon.playAnimation();
-
-    }
-
-    private void stopHourglassAnimation() {
-
-    if (timerIcon == null) return;
-
-    timerIcon.pauseAnimation();
-    timerIcon.setFrame(0);
-
     }
     
     private void loadInterstitialAd() {
@@ -516,7 +489,7 @@ public class HomeFragment extends Fragment {
             AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
             timerCard.startBorderAnimation();
 
-            startHourglassAnimation();
+            hourglassAnimator.start();
 
             countDownTimer = new CountDownTimer(millis, 1000) {
 
@@ -538,7 +511,7 @@ public class HomeFragment extends Fragment {
                      AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
                      timerCard.stopBorderAnimation();
 
-                    stopHourglassAnimation();
+                    hourglassAnimator.stop();
                     
                     stopSound(); // para todos
                 }
