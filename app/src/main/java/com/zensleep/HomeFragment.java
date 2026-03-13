@@ -131,11 +131,8 @@ public class HomeFragment extends Fragment {
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
         timerIcon = view.findViewById(R.id.timerIcon);
+        timerIcon.setAnimation(R.raw.hourglass_animation);
 
-timerIcon.setAnimation(R.raw.hourglass_animation);
-timerIcon.setRepeatCount(LottieDrawable.INFINITE);
-timerIcon.setSpeed(1f);
-        
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
         setupSound("mar", R.raw.mar, btnPlayMar, seekMar);
@@ -199,6 +196,26 @@ timerIcon.setSpeed(1f);
         btnTimer.setOnClickListener(v -> openTimerDialog());
     }
 
+    private void startHourglassAnimation() {
+
+    if (timerIcon == null) return;
+
+    timerIcon.cancelAnimation();
+    timerIcon.setFrame(0);
+    timerIcon.setRepeatCount(LottieDrawable.INFINITE);
+    timerIcon.setSpeed(1f);
+    timerIcon.playAnimation();
+
+    }
+
+    private void stopHourglassAnimation() {
+
+    if (timerIcon == null) return;
+
+    timerIcon.pauseAnimation();
+    timerIcon.setFrame(0);
+
+    }
     
     private void loadInterstitialAd() {
     AdRequest adRequest = new AdRequest.Builder().build();
@@ -496,7 +513,7 @@ timerIcon.setSpeed(1f);
             AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
             timerCard.startBorderAnimation();
 
-            timerIcon.playAnimation();
+            startHourglassAnimation();
 
             countDownTimer = new CountDownTimer(millis, 1000) {
 
@@ -518,8 +535,7 @@ timerIcon.setSpeed(1f);
                      AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
                      timerCard.stopBorderAnimation();
 
-                    timerIcon.cancelAnimation();
-                    timerIcon.setFrame(0);
+                    stopHourglassAnimation();
                     
                     stopSound(); // para todos
                 }
