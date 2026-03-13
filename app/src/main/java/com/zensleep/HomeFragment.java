@@ -130,10 +130,16 @@ public class HomeFragment extends Fragment {
         // ======= TIMER =======
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
+
         timerIcon = view.findViewById(R.id.timerIcon);
+
         timerIcon.setAnimation(R.raw.hourglass_animation);
         timerIcon.setRepeatCount(LottieDrawable.INFINITE);
         timerIcon.setSpeed(1f);
+
+        timerIcon.addLottieOnCompositionLoadedListener(composition -> {
+             // aqui garante que a animação está pronta
+        });
         
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
@@ -495,7 +501,7 @@ public class HomeFragment extends Fragment {
             AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
             timerCard.startBorderAnimation();
             
-            timerIcon.playAnimation();
+            timerIcon.post(() -> timerIcon.playAnimation());
 
             countDownTimer = new CountDownTimer(millis, 1000) {
 
