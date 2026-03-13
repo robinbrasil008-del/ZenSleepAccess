@@ -57,8 +57,6 @@ public class HomeFragment extends Fragment {
 
     private TextView txtTimer;
 
-    private TimerIconAnimator timerIconAnimator;
-
     // PLAY BUTTONS
     private ImageView btnPlayChuva, btnPlayMar;
     private ImageView btnPlayFloresta, btnPlayLareira, btnPlayVento,
@@ -490,8 +488,8 @@ public class HomeFragment extends Fragment {
             AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
             timerCard.startBorderAnimation();
             
-            TextView timerIcon = getView().findViewById(R.id.timerIcon);
-            timerIconAnimator.start(timerIcon);
+            com.airbnb.lottie.LottieAnimationView timerIcon = getView().findViewById(R.id.timerIcon);
+            timerIcon.playAnimation();
 
             countDownTimer = new CountDownTimer(millis, 1000) {
 
@@ -513,8 +511,9 @@ public class HomeFragment extends Fragment {
                      AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
                      timerCard.stopBorderAnimation();
 
-                    TextView timerIcon = getView().findViewById(R.id.timerIcon);
-                    timerIconAnimator.stop();
+                    com.airbnb.lottie.LottieAnimationView timerIcon = getView().findViewById(R.id.timerIcon);
+                    timerIcon.cancelAnimation();
+                    timerIcon.setFrame(0);
                     
                     stopSound(); // para todos
                 }
