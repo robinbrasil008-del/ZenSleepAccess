@@ -38,7 +38,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.view.ViewGroup;
 import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -57,6 +56,8 @@ public class HomeFragment extends Fragment {
     private CountDownTimer countDownTimer;
 
     private TextView txtTimer;
+
+    private TimerIconAnimator timerIconAnimator;
 
     // PLAY BUTTONS
     private ImageView btnPlayChuva, btnPlayMar;
@@ -127,13 +128,6 @@ public class HomeFragment extends Fragment {
         // ======= TIMER =======
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
-
-        TextView timerIcon = view.findViewById(R.id.timerIcon);
-
-        ObjectAnimator rotate = ObjectAnimator.ofFloat(timerIcon, "rotation", 0f, 360f);
-        rotate.setDuration(2000);
-        rotate.setRepeatCount(ValueAnimator.INFINITE);
-        rotate.start();
 
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
@@ -495,6 +489,11 @@ public class HomeFragment extends Fragment {
             AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
             timerCard.startBorderAnimation();
 
+            TextView timerIcon = view.findViewById(R.id.timerIcon);
+
+            timerIconAnimator = new TimerIconAnimator();
+            timerIconAnimator.start(timerIcon);
+
             countDownTimer = new CountDownTimer(millis, 1000) {
 
                 @Override
@@ -514,6 +513,8 @@ public class HomeFragment extends Fragment {
 
                      AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
                      timerCard.stopBorderAnimation();
+
+                    timerIconAnimator.stop();
                     
                     stopSound(); // para todos
                 }
