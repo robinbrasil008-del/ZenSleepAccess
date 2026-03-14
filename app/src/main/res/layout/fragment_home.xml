@@ -82,6 +82,21 @@
         android:textStyle="bold" />
 </com.zensleep.AnimatedTimerCardLayout>
 
+        <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/timerIcon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        app:lottie_rawRes="@raw/hourglass_animation"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
+
+</LinearLayout>
+
         <!-- GRID -->
         <GridLayout
             android:columnCount="2"
