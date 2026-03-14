@@ -59,6 +59,7 @@ public class HomeFragment extends Fragment {
     private TextView txtTimer;
 
     private HourglassAnimator hourglassAnimator;
+    
     // PLAY BUTTONS
     private ImageView btnPlayChuva, btnPlayMar;
     private ImageView btnPlayFloresta, btnPlayLareira, btnPlayVento,
