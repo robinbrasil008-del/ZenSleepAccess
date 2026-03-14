@@ -19,7 +19,7 @@ public class HourglassAnimator {
     public void start() {
         if (icon == null) return;
 
-        icon.cancelAnimation();
+        Icon.setAnimationFromUrl("https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json");
         icon.setProgress(0f);
         icon.playAnimation();
     }
