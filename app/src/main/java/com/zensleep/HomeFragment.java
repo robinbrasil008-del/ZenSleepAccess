@@ -134,7 +134,6 @@ public class HomeFragment extends Fragment {
         hourglassAnimator = new HourglassAnimator(timerIcon);
         timerIcon.setAnimationFromUrl("https://assets2.lottiefiles.com/packages/lf20_touohxv0.json");
         timerIcon.setRepeatCount(LottieDrawable.INFINITE);
-        timerIcon.setRepeatCount(LottieDrawable.INFINITE);
         timerIcon.playAnimation();
         
         // ======= SETUP MIX (MULTI-SOM) =======
