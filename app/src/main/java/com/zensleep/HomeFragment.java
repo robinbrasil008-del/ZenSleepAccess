@@ -132,6 +132,9 @@ public class HomeFragment extends Fragment {
         btnTimer = view.findViewById(R.id.btnTimer);
         LottieAnimationView timerIcon = view.findViewById(R.id.timerIcon);
         hourglassAnimator = new HourglassAnimator(timerIcon);
+        timerIcon.setAnimation(R.raw.hourglass_animation);
+        timerIcon.setRepeatCount(LottieDrawable.INFINITE);
+        timerIcon.playAnimation();
         
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
