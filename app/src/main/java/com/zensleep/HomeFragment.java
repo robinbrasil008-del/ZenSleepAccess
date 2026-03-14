@@ -132,7 +132,8 @@ public class HomeFragment extends Fragment {
         btnTimer = view.findViewById(R.id.btnTimer);
         LottieAnimationView timerIcon = view.findViewById(R.id.timerIcon);
         hourglassAnimator = new HourglassAnimator(timerIcon);
-        timerIcon.setAnimation(R.raw.hourglass_animation);
+        timerIcon.setAnimationFromUrl("https://assets2.lottiefiles.com/packages/lf20_touohxv0.json");
+        timerIcon.setRepeatCount(LottieDrawable.INFINITE);
         timerIcon.setRepeatCount(LottieDrawable.INFINITE);
         timerIcon.playAnimation();
         
