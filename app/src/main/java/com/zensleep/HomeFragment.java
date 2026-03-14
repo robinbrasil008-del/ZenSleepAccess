@@ -39,6 +39,7 @@ import androidx.annotation.Nullable;
 import android.view.ViewGroup;
 import android.animation.ArgbEvaluator;
 import com.airbnb.lottie.LottieDrawable;
+import com.airbnb.lottie.LottieAnimationView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
