@@ -5,17 +5,18 @@ import com.airbnb.lottie.LottieDrawable;
 
 public class HourglassAnimator {
 
-    private final LottieAnimationView icon;
+    private LottieAnimationView icon;
 
     public HourglassAnimator(LottieAnimationView icon) {
         this.icon = icon;
 
-        icon.setRepeatCount(LottieDrawable.INFINITE);
-        icon.setSpeed(1f);
+        if (this.icon != null) {
+            this.icon.setRepeatCount(LottieDrawable.INFINITE);
+            this.icon.setSpeed(1f);
+        }
     }
 
     public void start() {
-
         if (icon == null) return;
 
         icon.cancelAnimation();
@@ -24,7 +25,6 @@ public class HourglassAnimator {
     }
 
     public void stop() {
-
         if (icon == null) return;
 
         icon.cancelAnimation();
