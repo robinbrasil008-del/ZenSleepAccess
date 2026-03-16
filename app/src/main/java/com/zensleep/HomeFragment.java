@@ -38,6 +38,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.view.ViewGroup;
 import android.animation.ArgbEvaluator;
+import com.bumptech.glide.Glide;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -57,7 +58,7 @@ public class HomeFragment extends Fragment {
 
     private TextView txtTimer;
 
-    private HourglassView timerIcon;
+    private ImageView timerIcon;
 
     // PLAY BUTTONS
     private ImageView btnPlayChuva, btnPlayMar;
@@ -129,6 +130,7 @@ public class HomeFragment extends Fragment {
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
         timerIcon = view.findViewById(R.id.timerIcon);
+        timerIcon.setImageResource(R.drawable.hourglass_static);
         
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
@@ -191,6 +193,22 @@ public class HomeFragment extends Fragment {
         });
 
         btnTimer.setOnClickListener(v -> openTimerDialog());
+    }
+
+    private void startHourglassAnimation() {
+    if (timerIcon == null) return;
+
+    Glide.with(this)
+            .asGif()
+            .load(R.drawable.hourglass_anim)
+            .into(timerIcon);
+    }
+
+    private void stopHourglassAnimation() {
+    if (timerIcon == null) return;
+
+    Glide.with(this).clear(timerIcon);
+    timerIcon.setImageResource(R.drawable.hourglass_static);
     }
     
     private void loadInterstitialAd() {
@@ -489,7 +507,7 @@ public class HomeFragment extends Fragment {
             AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
             timerCard.startBorderAnimation();
 
-            timerIcon.start();
+            startHourglassAnimation();
 
             countDownTimer = new CountDownTimer(millis, 1000) {
 
@@ -511,7 +529,7 @@ public class HomeFragment extends Fragment {
                      AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
                      timerCard.stopBorderAnimation();
 
-                    timerIcon.stop();
+                    stopHourglassAnimation();
                     
                     stopSound(); // para todos
                 }
