@@ -55,10 +55,10 @@
            android:layout_width="200dp"
            android:layout_height="55dp"
            android:layout_marginBottom="24dp"
-           android:layout_marginTop="20dp"
+           android:layout_marginTop="5dp"
            android:gravity="center"
            android:orientation="horizontal"
-           android:padding="20dp">
+           android:padding="7dp">
 
        <ImageView
            android:id="@+id/timerIcon"
@@ -77,8 +77,8 @@
     android:textStyle="bold"
     android:textColor="#B388FF"
     android:letterSpacing="0.08"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
+    android:layout_width="110dp"
+    android:layout_height="55dp"/>
               
 </com.zensleep.AnimatedTimerCardLayout>
 
