@@ -75,8 +75,8 @@
     android:layout_marginTop="10dp"
     android:scaleType="fitCenter"
     android:textColor="#AB47BC"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_width="150dp"
+    android:layout_height="65dp"/>
               
 </com.zensleep.AnimatedTimerCardLayout>
 
