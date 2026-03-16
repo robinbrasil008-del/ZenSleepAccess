@@ -73,10 +73,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:scaleType="fitCenter"
         android:letterSpacing="0.08"
         android:text="00:00"
         android:textColor="?attr/colorPrimary"
-        android:textSize="34sp"
+        android:textSize="28sp"
         android:textStyle="bold" />
 </com.zensleep.AnimatedTimerCardLayout>
 
