@@ -38,8 +38,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.view.ViewGroup;
 import android.animation.ArgbEvaluator;
-import com.airbnb.lottie.LottieDrawable;
-import com.airbnb.lottie.LottieAnimationView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -59,8 +57,8 @@ public class HomeFragment extends Fragment {
 
     private TextView txtTimer;
 
-    private HourglassAnimator hourglassAnimator;
-    
+    private HourglassView timerIcon;
+
     // PLAY BUTTONS
     private ImageView btnPlayChuva, btnPlayMar;
     private ImageView btnPlayFloresta, btnPlayLareira, btnPlayVento,
@@ -130,11 +128,7 @@ public class HomeFragment extends Fragment {
         // ======= TIMER =======
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
-        LottieAnimationView timerIcon = view.findViewById(R.id.timerIcon);
-        hourglassAnimator = new HourglassAnimator(timerIcon);
-        timerIcon.setAnimationFromUrl("https://assets2.lottiefiles.com/packages/lf20_touohxv0.json");
-        timerIcon.setRepeatCount(LottieDrawable.INFINITE);
-        timerIcon.playAnimation();
+        timerIcon = view.findViewById(R.id.timerIcon);
         
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
@@ -495,7 +489,7 @@ public class HomeFragment extends Fragment {
             AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
             timerCard.startBorderAnimation();
 
-            hourglassAnimator.start();
+            timerIcon.start();
 
             countDownTimer = new CountDownTimer(millis, 1000) {
 
@@ -517,7 +511,7 @@ public class HomeFragment extends Fragment {
                      AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
                      timerCard.stopBorderAnimation();
 
-                    hourglassAnimator.stop();
+                    timerIcon.stop();
                     
                     stopSound(); // para todos
                 }
