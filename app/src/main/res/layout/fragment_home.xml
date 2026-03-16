@@ -74,7 +74,7 @@
     android:textSize="28sp"
     android:gravity="center"
     android:layout_marginTop="10dp"
-    android:textStyle="bold"
+    android:scaleType="fitCenter"
     android:textColor="#B388FF"
     android:letterSpacing="0.08"
     android:layout_width="110dp"
