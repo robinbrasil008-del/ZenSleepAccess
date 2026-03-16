@@ -2,66 +2,94 @@ package com.zensleep;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 
 public class HourglassView extends View {
 
     private Paint glassPaint;
     private Paint sandPaint;
 
-    private float sandLevel = 1f;
     private float rotation = 0f;
+    private float sandLevel = 0f;
 
     private ValueAnimator animator;
+
+    public HourglassView(Context context) {
+        super(context);
+        init();
+    }
 
     public HourglassView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    private void init(){
+    public HourglassView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init();
+    }
 
-        glassPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        glassPaint.setStyle(Paint.Style.STROKE);
-        glassPaint.setStrokeWidth(6);
+    private void init() {
+
+        glassPaint = new Paint();
         glassPaint.setColor(Color.WHITE);
+        glassPaint.setStyle(Paint.Style.STROKE);
+        glassPaint.setStrokeWidth(6f);
+        glassPaint.setAntiAlias(true);
 
-        sandPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        sandPaint = new Paint();
+        sandPaint.setColor(Color.YELLOW);
         sandPaint.setStyle(Paint.Style.FILL);
-        sandPaint.setColor(Color.parseColor("#FFD400"));
+        sandPaint.setAntiAlias(true);
+
+        animator = ValueAnimator.ofFloat(0f,1f);
+        animator.setDuration(2000);
+        animator.setRepeatCount(ValueAnimator.INFINITE);
+
+        animator.addUpdateListener(animation -> {
+
+            float value = (float) animation.getAnimatedValue();
+
+            rotation = value * 360f;
+            sandLevel = value;
+
+            invalidate();
+
+        });
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
 
-        int w = getWidth();
-        int h = getHeight();
+        float w = getWidth();
+        float h = getHeight();
 
         canvas.save();
-        canvas.rotate(rotation, w/2f, h/2f);
+        canvas.rotate(rotation, w/2, h/2);
 
-        Path glass = new Path();
+        // vidro superior
+        canvas.drawLine(w*0.2f,h*0.1f,w*0.8f,h*0.1f,glassPaint);
+        canvas.drawLine(w*0.2f,h*0.1f,w*0.5f,h*0.45f,glassPaint);
+        canvas.drawLine(w*0.8f,h*0.1f,w*0.5f,h*0.45f,glassPaint);
 
-        glass.moveTo(w*0.2f, h*0.1f);
-        glass.lineTo(w*0.8f, h*0.1f);
-        glass.lineTo(w*0.55f, h*0.45f);
-        glass.lineTo(w*0.8f, h*0.9f);
-        glass.lineTo(w*0.2f, h*0.9f);
-        glass.lineTo(w*0.45f, h*0.45f);
-        glass.close();
+        // vidro inferior
+        canvas.drawLine(w*0.2f,h*0.9f,w*0.8f,h*0.9f,glassPaint);
+        canvas.drawLine(w*0.2f,h*0.9f,w*0.5f,h*0.55f,glassPaint);
+        canvas.drawLine(w*0.8f,h*0.9f,w*0.5f,h*0.55f,glassPaint);
 
-        canvas.drawPath(glass, glassPaint);
-
-        float sandHeight = h * 0.35f * sandLevel;
+        // areia descendo
+        float sandY = h*0.55f + (h*0.3f * sandLevel);
 
         canvas.drawRect(
-                w*0.32f,
-                h*0.55f,
-                w*0.68f,
-                h*0.55f + sandHeight,
+                w*0.45f,
+                sandY,
+                w*0.55f,
+                h*0.9f,
                 sandPaint
         );
 
@@ -69,36 +97,15 @@ public class HourglassView extends View {
     }
 
     public void start(){
-
-        stop();
-
-        animator = ValueAnimator.ofFloat(0f,1f);
-        animator.setDuration(4000);
-        animator.setRepeatCount(ValueAnimator.INFINITE);
-        animator.setInterpolator(new LinearInterpolator());
-
-        animator.addUpdateListener(a -> {
-
-            float p = (float)a.getAnimatedValue();
-
-            sandLevel = 1f - p;
-            rotation = p * 180f;
-
-            invalidate();
-
-        });
-
-        animator.start();
+        if(!animator.isStarted()){
+            animator.start();
+        }
     }
 
     public void stop(){
-
-        if(animator != null){
-            animator.cancel();
-        }
-
-        sandLevel = 1f;
+        animator.cancel();
         rotation = 0f;
+        sandLevel = 0f;
         invalidate();
     }
 }
