@@ -72,11 +72,9 @@
     android:id="@+id/txtTimer"
     android:text="00:00"
     android:textSize="28sp"
-    android:gravity="center"
     android:layout_marginTop="10dp"
     android:scaleType="fitCenter"
-    android:textColor="#B388FF"
-    android:letterSpacing="0.08"
+    android:textColor="#AB47BC"
     android:layout_width="110dp"
     android:layout_height="55dp"/>
               
