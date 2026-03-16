@@ -71,12 +71,12 @@
     <TextView
     android:id="@+id/txtTimer"
     android:text="00:00"
-    android:textSize="28sp"
+    android:textSize="32sp"
     android:layout_marginTop="10dp"
     android:scaleType="fitCenter"
     android:textColor="#AB47BC"
-    android:layout_width="110dp"
-    android:layout_height="55dp"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
               
 </com.zensleep.AnimatedTimerCardLayout>
 
