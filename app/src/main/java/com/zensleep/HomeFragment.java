@@ -60,6 +60,9 @@ public class HomeFragment extends Fragment {
 
     private ImageView timerIcon;
 
+    private ValueAnimator colorAnimator;
+    private ValueAnimator scaleAnimator;
+
     // PLAY BUTTONS
     private ImageView btnPlayChuva, btnPlayMar;
     private ImageView btnPlayFloresta, btnPlayLareira, btnPlayVento,
@@ -209,6 +212,64 @@ public class HomeFragment extends Fragment {
 
     Glide.with(this).clear(timerIcon);
     timerIcon.setImageResource(R.drawable.hourglass_static);
+    }
+
+    private void startTimerEffects() {
+
+    int[] colors = {
+            Color.parseColor("#B388FF"),
+            Color.parseColor("#FF80AB"),
+            Color.parseColor("#80D8FF")
+    };
+
+    colorAnimator = ValueAnimator.ofArgb(colors);
+    colorAnimator.setDuration(2000);
+    colorAnimator.setRepeatCount(ValueAnimator.INFINITE);
+    colorAnimator.setRepeatMode(ValueAnimator.REVERSE);
+
+    colorAnimator.addUpdateListener(animation ->
+            txtTimer.setTextColor((int) animation.getAnimatedValue())
+    );
+
+    colorAnimator.start();
+
+    scaleAnimator = ValueAnimator.ofFloat(1f,1.15f);
+
+    scaleAnimator.setDuration(1000);
+    scaleAnimator.setRepeatCount(ValueAnimator.INFINITE);
+    scaleAnimator.setRepeatMode(ValueAnimator.REVERSE);
+
+    scaleAnimator.addUpdateListener(animation -> {
+
+        float value = (float) animation.getAnimatedValue();
+
+        txtTimer.setScaleX(value);
+        txtTimer.setScaleY(value);
+
+    });
+
+    scaleAnimator.start();
+
+    txtTimer.setShadowLayer(
+            20f,
+            0f,
+            0f,
+            Color.parseColor("#B388FF")
+    );
+    }
+
+    private void stopTimerEffects(){
+
+    if(colorAnimator != null){
+        colorAnimator.cancel();
+    }
+
+    if(scaleAnimator != null){
+        scaleAnimator.cancel();
+    }
+
+    txtTimer.setScaleX(1f);
+    txtTimer.setScaleY(1f);
     }
     
     private void loadInterstitialAd() {
@@ -509,6 +570,8 @@ public class HomeFragment extends Fragment {
 
             startHourglassAnimation();
 
+            startTimerEffects();
+            
             countDownTimer = new CountDownTimer(millis, 1000) {
 
                 @Override
@@ -530,6 +593,9 @@ public class HomeFragment extends Fragment {
                      timerCard.stopBorderAnimation();
 
                     stopHourglassAnimation();
+
+                    startHourglassAnimation();
+                    startTimerEffects();
                     
                     stopSound(); // para todos
                 }
