@@ -594,8 +594,7 @@ public class HomeFragment extends Fragment {
 
                     stopHourglassAnimation();
 
-                    startHourglassAnimation();
-                    startTimerEffects();
+                    stopTimerEffects();
                     
                     stopSound(); // para todos
                 }
