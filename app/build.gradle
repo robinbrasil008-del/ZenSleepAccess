@@ -38,4 +38,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.google.android.gms:play-services-ads:22.6.0'
     implementation 'com.ironsource.sdk:mediationsdk:7.9.0'
+
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
 }
