@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"/>
 
         <FrameLayout
-            android:layout_width="300dp"
+            android:layout_width="200dp"
             android:layout_height="48dp">
 
     <!-- 🔥 BORDA NEON -->
@@ -55,7 +55,7 @@
             android:text="⏱ DEFINIR TIMER"
             android:textColor="@android:color/white"
             android:layout_marginBottom="24dp"
-            android:layout_width="300dp"
+            android:layout_width="200dp"
             android:layout_height="48dp"
             android:background="@android:color/transparent"/>
 
