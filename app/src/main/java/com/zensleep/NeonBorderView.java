@@ -108,9 +108,9 @@ protected void onDraw(Canvas canvas) {
         cy,
         getWidth(),
         new int[]{
-                Color.parseColor("#CCB388FF"), // lilás claro (topo)
-                Color.parseColor("#AA9333EA"), // roxo médio
-                Color.parseColor("#662D1B69")  // roxo escuro (profundo)
+                Color.parseColor("#66B388FF"), // lilás claro (topo)
+                Color.parseColor("#559333EA"), // roxo médio
+                Color.parseColor("#332D1B69")  // roxo escuro (profundo)
         },
         new float[]{0f, 0.5f, 1f},
         Shader.TileMode.CLAMP
