@@ -64,7 +64,6 @@
            android:id="@+id/timerIcon"
            android:layout_width="34dp"
            android:layout_height="34dp"
-           android:layout_marginEnd="6dp"
            android:translationX="6dp"
            android:scaleType="fitCenter"
            android:src="@drawable/hourglass_static" />
@@ -75,7 +74,7 @@
     android:textSize="32sp"
     android:gravity="center"
     android:textColor="#AB47BC"
-    android:layout_width="150dp"
+    android:layout_width="wrap_content"
     android:layout_height="65dp"/>
               
 </com.zensleep.AnimatedTimerCardLayout>
