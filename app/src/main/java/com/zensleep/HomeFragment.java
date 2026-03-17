@@ -675,6 +675,10 @@ public class HomeFragment extends Fragment {
             countDownTimer.cancel();
             countDownTimer = null;
         }
+
+        if (buttonAnimator != null) {
+        buttonAnimator.stop(btnTimer);
+        }
     }
 }
                         
