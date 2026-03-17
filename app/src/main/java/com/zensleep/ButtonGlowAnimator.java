@@ -4,13 +4,14 @@ import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 
 public class ButtonGlowAnimator {
 
-    private ValueAnimator animator;
+    private ValueAnimator glowAnimator;
     private boolean animating = false;
 
     public void start(Button button) {
@@ -20,84 +21,110 @@ public class ButtonGlowAnimator {
 
         animating = true;
 
-        // 🔥 FUNDO PRINCIPAL (ROXO)
-        GradientDrawable main = new GradientDrawable();
-        main.setShape(GradientDrawable.RECTANGLE);
-        main.setCornerRadius(dp(button, 30));
-        main.setColors(new int[]{
-                Color.parseColor("#B57CFF"),
-                Color.parseColor("#9F6BFF")
-        });
-
-        // 🔥 BORDA BRILHANTE
-        main.setStroke((int) dp(button, 2), Color.parseColor("#E0C3FF"));
-
-        // 🔥 GLOW EXTERNO (MAIS SUAVE)
+        // 🔥 CAMADA DE BRILHO (EXTERNA)
         GradientDrawable glow = new GradientDrawable();
         glow.setShape(GradientDrawable.RECTANGLE);
-        glow.setCornerRadius(dp(button, 34));
-        glow.setColor(Color.parseColor("#33A855F7")); // bem leve
+        glow.setCornerRadius(dp(button, 40));
+        glow.setColor(Color.parseColor("#66BB86FC")); // glow roxo suave
 
-        // 🔥 ORDEM CORRETA (GLOW ATRÁS!)
-        LayerDrawable layer = new LayerDrawable(new GradientDrawable[]{
-                glow,  // fundo
-                main   // frente
+        // 🔥 BOTÃO PRINCIPAL
+        GradientDrawable main = new GradientDrawable();
+        main.setShape(GradientDrawable.RECTANGLE);
+        main.setCornerRadius(dp(button, 40));
+        main.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+        main.setColors(new int[]{
+                Color.parseColor("#C084FC"),
+                Color.parseColor("#A855F7")
         });
 
-        // 🔥 INSET PEQUENO PRA NÃO ENGOLIR TEXTO
-        layer.setLayerInset(1, 4, 4, 4, 4);
+        // 🔥 BORDA DESTACADA
+        main.setStroke((int) dp(button, 2), Color.parseColor("#E9D5FF"));
+
+        // 🔥 JUNTA AS CAMADAS
+        LayerDrawable layer = new LayerDrawable(new GradientDrawable[]{glow, main});
+        layer.setLayerInset(1, 6, 6, 6, 6);
 
         button.setBackground(layer);
 
-        // 🔥 GARANTE TEXTO VISÍVEL
+        // 🔥 TEXTO GARANTIDO
         button.setTextColor(Color.WHITE);
         button.setAllCaps(false);
-        button.setTextSize(14);
+        button.setTextSize(16);
+        button.setGravity(Gravity.CENTER);
         button.setIncludeFontPadding(false);
 
-        // 🔥 SOMBRA NO TEXTO (FAZ APARECER)
+        // 🔥 SOMBRA DO TEXTO
         button.setShadowLayer(
-                8f,
+                14f,
                 0f,
                 0f,
                 Color.parseColor("#A855F7")
         );
 
-        // 🔥 ANIMAÇÃO SUAVE
-        animator = ValueAnimator.ofFloat(0.7f, 1f);
-        animator.setDuration(1400);
-        animator.setRepeatCount(ValueAnimator.INFINITE);
-        animator.setRepeatMode(ValueAnimator.REVERSE);
-        animator.setInterpolator(new LinearInterpolator());
+        // NÃO ESCALAR O BOTÃO
+        button.setScaleX(1f);
+        button.setScaleY(1f);
+        button.setAlpha(1f);
 
-        animator.addUpdateListener(animation -> {
+        // 🔥 ANIMAÇÃO DE BRILHO REAL
+        glowAnimator = ValueAnimator.ofFloat(0.55f, 1f);
+        glowAnimator.setDuration(1400);
+        glowAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        glowAnimator.setRepeatMode(ValueAnimator.REVERSE);
+        glowAnimator.setInterpolator(new LinearInterpolator());
+
+        glowAnimator.addUpdateListener(animation -> {
             if (!animating) return;
 
             float value = (float) animation.getAnimatedValue();
 
-            // brilho leve
+            // brilho externo
             glow.setAlpha((int) (255 * value));
 
-            // pulso leve (SEM estourar layout)
-            float scale = 1f + (value * 0.02f);
-            button.setScaleX(scale);
-            button.setScaleY(scale);
+            // borda pulsando suave
+            int strokeAlpha = (int) (180 + (75 * value));
+            String hexAlpha = Integer.toHexString(Math.min(255, strokeAlpha)).toUpperCase();
+            if (hexAlpha.length() == 1) hexAlpha = "0" + hexAlpha;
+
+            main.setStroke(
+                    (int) dp(button, 2),
+                    Color.parseColor("#" + hexAlpha + "E9D5FF")
+            );
+
+            // leve brilho geral sem deformar
+            button.setAlpha(0.96f + (value * 0.04f));
+
+            // sombra do texto pulsando junto
+            button.setShadowLayer(
+                    10f + (value * 10f),
+                    0f,
+                    0f,
+                    Color.parseColor("#A855F7")
+            );
         });
 
-        animator.start();
+        glowAnimator.start();
     }
 
     public void stop(Button button) {
         animating = false;
 
-        if (animator != null) {
-            animator.cancel();
-            animator = null;
+        if (glowAnimator != null) {
+            glowAnimator.cancel();
+            glowAnimator = null;
         }
 
         if (button != null) {
             button.setScaleX(1f);
             button.setScaleY(1f);
+            button.setAlpha(1f);
+            button.setTextColor(Color.WHITE);
+            button.setShadowLayer(
+                    14f,
+                    0f,
+                    0f,
+                    Color.parseColor("#A855F7")
+            );
         }
     }
 
