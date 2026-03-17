@@ -14,7 +14,7 @@ public class TimerTextAnimator {
 
     public void start(TextView textView) {
 
-        stop();
+        stop(textView);
 
         animating = true;
 
