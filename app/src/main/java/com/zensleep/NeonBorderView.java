@@ -15,6 +15,13 @@ public class NeonBorderView extends View {
 
     private float hue = 0;
 
+    private boolean isRunning = false;
+
+    public void setRunning(boolean running) {
+    this.isRunning = running;
+    invalidate(); // redesenha a view
+}
+
     public NeonBorderView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
@@ -72,13 +79,26 @@ protected void onDraw(Canvas canvas) {
     float cy = getHeight() / 2f;
 
     // 🌈 GRADIENTE RGB
-    int[] colors = new int[]{
+    int[] colors;
+
+if (isRunning) {
+    // 🔴 MODO TIMER ATIVO (vermelho vivo)
+    colors = new int[]{
+            Color.parseColor("#FF3B3B"),
+            Color.parseColor("#FF6B6B"),
+            Color.parseColor("#FF0000"),
+            Color.parseColor("#FF3B3B")
+    };
+} else {
+    // 🌈 MODO NORMAL (neon)
+    colors = new int[]{
             Color.parseColor("#A855F7"),
             Color.parseColor("#22D3EE"),
             Color.parseColor("#F472B6"),
             Color.parseColor("#FACC15"),
             Color.parseColor("#A855F7")
     };
+}
 
     SweepGradient sweep = new SweepGradient(cx, cy, colors, null);
 
