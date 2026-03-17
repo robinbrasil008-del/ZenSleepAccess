@@ -138,7 +138,8 @@ public class HomeFragment extends Fragment {
         timerIcon = view.findViewById(R.id.timerIcon);
         timerIcon.setImageResource(R.drawable.hourglass_static);
         btnDefinirTimer = view.findViewById(R.id.btnTimer);
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        neon.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        View view = inflater.inflate(R.layout.seu_layout, container, false);
         NeonBorderView neon = findViewById(R.id.neonBorder);
         ButtonGlowAnimator animator = new ButtonGlowAnimator();
         animator.attach(null, neon);
@@ -679,7 +680,7 @@ public class HomeFragment extends Fragment {
         }
 
         if (buttonAnimator != null) {
-        buttonAnimator.stop(btnTimer);
+        buttonAnimator.stop();
         }
     }
 }
