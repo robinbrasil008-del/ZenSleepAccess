@@ -49,93 +49,114 @@ public class NeonBorderView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+protected void onDraw(Canvas canvas) {
+    super.onDraw(canvas);
 
-        rect.set(
-                dp(6),
-                dp(6),
-                getWidth() - dp(6),
-                getHeight() - dp(6)
-        );
+    rect.set(
+            dp(6),
+            dp(6),
+            getWidth() - dp(6),
+            getHeight() - dp(6)
+    );
 
-        float cx = getWidth() / 2f;
-        float cy = getHeight() / 2f;
+    float cx = getWidth() / 2f;
+    float cy = getHeight() / 2f;
 
-        // 🌈 GRADIENTE RGB SUAVE (IGUAL DA IMAGEM)
-        int[] colors = new int[]{
-                Color.parseColor("#9D4EDD"),
-                Color.parseColor("#00E5FF"),
-                Color.parseColor("#FF4DFF"),
-                Color.parseColor("#FFD54F"),
-                Color.parseColor("#9D4EDD")
-        };
+    // 🌈 GRADIENTE RGB PREMIUM
+    int[] colors = new int[]{
+            Color.parseColor("#A855F7"),
+            Color.parseColor("#22D3EE"),
+            Color.parseColor("#F472B6"),
+            Color.parseColor("#FACC15"),
+            Color.parseColor("#A855F7")
+    };
 
-        SweepGradient sweep = new SweepGradient(cx, cy, colors, null);
+    SweepGradient sweep = new SweepGradient(cx, cy, colors, null);
 
-        Matrix matrix = new Matrix();
-        matrix.setRotate(hue, cx, cy);
-        sweep.setLocalMatrix(matrix);
+    Matrix matrix = new Matrix();
+    matrix.setRotate(hue, cx, cy);
+    sweep.setLocalMatrix(matrix);
 
-        borderPaint.setShader(sweep);
-        glowPaint.setShader(sweep);
+    borderPaint.setShader(sweep);
+    glowPaint.setShader(sweep);
 
-        // 🔥 GLOW SUAVE (CORRIGIDO)
-        glowPaint.setStrokeWidth(dp(14));
-        glowPaint.setAlpha(120);
-        canvas.drawRoundRect(rect, dp(40), dp(40), glowPaint);
+    // 🔥 GLOW EXTERNO SUAVE (mais natural)
+    glowPaint.setStrokeWidth(dp(18));
+    glowPaint.setAlpha(90);
+    canvas.drawRoundRect(rect, dp(40), dp(40), glowPaint);
 
-        // 🔥 BORDA FINA (PREMIUM)
-        borderPaint.setStrokeWidth(dp(2));
-        canvas.drawRoundRect(rect, dp(40), dp(40), borderPaint);
+    // 🔥 BORDA EXTERNA
+    borderPaint.setStrokeWidth(dp(2));
+    canvas.drawRoundRect(rect, dp(40), dp(40), borderPaint);
 
-        // 💜 FUNDO COM GRADIENTE (VIDRO)
-        Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
-        LinearGradient bg = new LinearGradient(
-                0, 0, getWidth(), getHeight(),
-                new int[]{
-                        Color.parseColor("#B388FF"),
-                        Color.parseColor("#7B2CBF")
-                },
-                null,
-                Shader.TileMode.CLAMP
-        );
-        fill.setShader(bg);
+    // 💜 FUNDO COM GRADIENTE + LUZ
+    Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-        canvas.drawRoundRect(
-                rect.left + dp(3),
-                rect.top + dp(3),
-                rect.right - dp(3),
-                rect.bottom - dp(3),
-                dp(40),
-                dp(40),
-                fill
-        );
+    LinearGradient bg = new LinearGradient(
+            0, 0, getWidth(), getHeight(),
+            new int[]{
+                    Color.parseColor("#C084FC"),
+                    Color.parseColor("#9333EA"),
+                    Color.parseColor("#6B21A8")
+            },
+            new float[]{0f, 0.5f, 1f},
+            Shader.TileMode.CLAMP
+    );
 
-        // ✨ REFLEXO (O QUE FALTAVA PRA FICAR IGUAL)
-        Paint highlight = new Paint(Paint.ANTI_ALIAS_FLAG);
-        LinearGradient shine = new LinearGradient(
-                0, rect.top,
-                0, rect.top + dp(25),
-                new int[]{
-                        Color.parseColor("#80FFFFFF"),
-                        Color.TRANSPARENT
-                },
-                null,
-                Shader.TileMode.CLAMP
-        );
-        highlight.setShader(shine);
+    fill.setShader(bg);
 
-        canvas.drawRoundRect(
-                rect.left + dp(6),
-                rect.top + dp(6),
-                rect.right - dp(6),
-                rect.top + dp(28),
-                dp(40),
-                dp(40),
-                highlight
-        );
-    }
+    canvas.drawRoundRect(
+            rect.left + dp(3),
+            rect.top + dp(3),
+            rect.right - dp(3),
+            rect.bottom - dp(3),
+            dp(40),
+            dp(40),
+            fill
+    );
+
+    // ✨ BORDA INTERNA (SEGREDO DO DESIGN)
+    Paint innerStroke = new Paint(Paint.ANTI_ALIAS_FLAG);
+    innerStroke.setStyle(Paint.Style.STROKE);
+    innerStroke.setStrokeWidth(dp(1.5f));
+    innerStroke.setColor(Color.parseColor("#80FFFFFF"));
+
+    canvas.drawRoundRect(
+            rect.left + dp(6),
+            rect.top + dp(6),
+            rect.right - dp(6),
+            rect.bottom - dp(6),
+            dp(40),
+            dp(40),
+            innerStroke
+    );
+
+    // ✨ REFLEXO SUPERIOR SUAVE
+    Paint highlight = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    LinearGradient shine = new LinearGradient(
+            0, rect.top,
+            0, rect.top + dp(30),
+            new int[]{
+                    Color.parseColor("#66FFFFFF"),
+                    Color.TRANSPARENT
+            },
+            null,
+            Shader.TileMode.CLAMP
+    );
+
+    highlight.setShader(shine);
+
+    canvas.drawRoundRect(
+            rect.left + dp(6),
+            rect.top + dp(6),
+            rect.right - dp(6),
+            rect.top + dp(30),
+            dp(40),
+            dp(40),
+            highlight
+    );
+}
 
     private float dp(float value) {
         return value * getResources().getDisplayMetrics().density;
