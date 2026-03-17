@@ -66,8 +66,8 @@ protected void onDraw(Canvas canvas) {
     Path clipPath = new Path();
     clipPath.addRoundRect(rect, radius, radius, Path.Direction.CW);
     canvas.save();
-    canvas.clipPath(clipPath2, Region.Op.INTERSECT);
-
+    canvas.clipPath(clipPath2);
+    
     float cx = getWidth() / 2f;
     float cy = getHeight() / 2f;
 
