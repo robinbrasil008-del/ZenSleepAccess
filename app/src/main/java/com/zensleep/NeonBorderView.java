@@ -16,10 +16,18 @@ public class NeonBorderView extends View {
     private float hue = 0;
 
     private boolean isRunning = false;
+    private String buttonText = "DEFINIR TIMER";
 
-    public void setRunning(boolean running) {
-    this.isRunning = running;
-    invalidate(); // redesenha a view
+    public void startTimer() {
+    isRunning = true;
+    buttonText = "STOP TIMER";
+    invalidate();
+    }
+
+    public void stopTimer() {
+    isRunning = false;
+    buttonText = "DEFINIR TIMER";
+    invalidate();
 }
 
     public NeonBorderView(Context context, AttributeSet attrs) {
@@ -225,6 +233,20 @@ for (int i = 0; i < 12; i++) {
     sparkle.setAlpha(100 + (i * 10));
     canvas.drawCircle(x, y, size, sparkle);
 }
+
+    Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+textPaint.setTextAlign(Paint.Align.CENTER);
+textPaint.setTextSize(dp(16));
+textPaint.setFakeBoldText(true);
+
+// cor do texto
+textPaint.setColor(isRunning ? Color.WHITE : Color.BLACK);
+
+// posição central
+float x = getWidth() / 2f;
+float y = getHeight() / 2f - ((textPaint.descent() + textPaint.ascent()) / 2);
+
+canvas.drawText(buttonText, x, y, textPaint);
 
     canvas.restore();
     
