@@ -66,7 +66,7 @@ public class TimerTextAnimator {
             textView.setScaleX(1f);
             textView.setScaleY(1f);
 
-            textView.setTextColor(Color.parseColor("#00FF9C"));
+            textView.setTextColor(Color.parseColor("#AB47BC"));
             textView.setShadowLayer(30f, 0f, 0f, Color.parseColor("#00FF9C"));
         }
 
