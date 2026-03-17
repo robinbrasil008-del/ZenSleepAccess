@@ -140,7 +140,7 @@ public class HomeFragment extends Fragment {
         timerIcon.setImageResource(R.drawable.hourglass_static);
         btnDefinirTimer = view.findViewById(R.id.btnTimer);
         neon.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        NeonBorderView neon = findViewById(R.id.neonBorder);
+        NeonBorderView neon = view.findViewById(R.id.neonBorder);
         ButtonGlowAnimator animator = new ButtonGlowAnimator();
         animator.attach(null, neon);
         
