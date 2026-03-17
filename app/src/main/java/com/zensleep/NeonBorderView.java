@@ -162,36 +162,46 @@ protected void onDraw(Canvas canvas) {
             highlight
     );
 
-    // ✨✨ BRILHOS (SPARKLES PREMIUM)
+    // ✨✨ BRILHO ESPALHADO (EFEITO PREMIUM REAL)
+
 Paint sparkle = new Paint(Paint.ANTI_ALIAS_FLAG);
-sparkle.setMaskFilter(new BlurMaskFilter(12, BlurMaskFilter.Blur.NORMAL));
+sparkle.setMaskFilter(new BlurMaskFilter(20, BlurMaskFilter.Blur.NORMAL));
 
-// brilho forte principal
-sparkle.setColor(Color.WHITE);
-sparkle.setAlpha(255);
-
+// leve cintilação animada
 float pulse = (float) (Math.sin(Math.toRadians(hue * 2)) * 0.5f + 0.5f);
 
-// brilho grande animado
-canvas.drawCircle(
-        rect.left + dp(30) + pulse * dp(40),
-        rect.top + dp(12),
-        dp(4 + pulse * 2),
-        sparkle
+// 🔥 camada de brilho suave geral (ESSENCIAL)
+RadialGradient glowSpread = new RadialGradient(
+        rect.centerX(),
+        rect.centerY(),
+        getWidth() * 0.8f,
+        new int[]{
+                Color.parseColor("#33FFFFFF"),
+                Color.parseColor("#22C084FC"),
+                Color.TRANSPARENT
+        },
+        new float[]{0f, 0.6f, 1f},
+        Shader.TileMode.CLAMP
 );
 
-// brilho secundário
-sparkle.setAlpha(200);
-canvas.drawCircle(
-        rect.right - dp(40),
-        rect.top + dp(20),
-        dp(3),
-        sparkle
-);
+sparkle.setShader(glowSpread);
+canvas.drawRoundRect(rect, dp(40), dp(40), sparkle);
 
-// mini pontos (estilo estrela)
-sparkle.setAlpha(180);
-canvas.drawCircle(rect.centerX(), rect.top + dp(10), dp(2), sparkle);
+// ✨ partículas espalhadas (random fixo baseado no hue)
+
+sparkle.setShader(null);
+sparkle.setColor(Color.WHITE);
+
+for (int i = 0; i < 12; i++) {
+
+    float x = rect.left + (getWidth() * ((i * 37 + hue) % 100) / 100f);
+    float y = rect.top + (getHeight() * ((i * 53 + hue) % 100) / 100f);
+
+    float size = dp(1.5f + pulse * 2);
+
+    sparkle.setAlpha(100 + (i * 10));
+    canvas.drawCircle(x, y, size, sparkle);
+}
     
 }
     private float dp(float value) {
