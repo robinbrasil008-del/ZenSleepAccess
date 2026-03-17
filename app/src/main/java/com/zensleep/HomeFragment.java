@@ -59,7 +59,6 @@ public class HomeFragment extends Fragment {
 
     private TextView txtTimer;
 
-    private NeonBorderView neon;
     private Button btnDefinirTimer;
     private ButtonGlowAnimator buttonAnimator;
 
@@ -139,10 +138,6 @@ public class HomeFragment extends Fragment {
         timerIcon = view.findViewById(R.id.timerIcon);
         timerIcon.setImageResource(R.drawable.hourglass_static);
         btnDefinirTimer = view.findViewById(R.id.btnTimer);
-        neon.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        NeonBorderView neon = view.findViewById(R.id.neonBorder);
-        ButtonGlowAnimator animator = new ButtonGlowAnimator();
-        animator.attach(null, neon);
         
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
