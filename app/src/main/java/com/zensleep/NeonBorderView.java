@@ -54,26 +54,49 @@ public class NeonBorderView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+protected void onDraw(Canvas canvas) {
+    super.onDraw(canvas);
 
-        rect.set(
-                dp(6),
-                dp(6),
-                getWidth() - dp(6),
-                getHeight() - dp(6)
-        );
+    rect.set(
+            dp(6),
+            dp(6),
+            getWidth() - dp(6),
+            getHeight() - dp(6)
+    );
 
-        int color = Color.HSVToColor(new float[]{hue, 1f, 1f});
+    // 🔥 GRADIENTE IGUAL AO DA IMAGEM
+    int[] colors = new int[]{
+            Color.parseColor("#8A2BE2"), // roxo
+            Color.parseColor("#00FFFF"), // azul neon
+            Color.parseColor("#FF00FF"), // rosa
+            Color.parseColor("#FFD700"), // amarelo
+            Color.parseColor("#8A2BE2")  // volta pro roxo
+    };
 
-        // GLOW
-        glowPaint.setColor(color);
-        canvas.drawRoundRect(rect, dp(40), dp(40), glowPaint);
+    float[] positions = new float[]{
+            0f, 0.25f, 0.5f, 0.75f, 1f
+    };
 
-        // BORDA
-        borderPaint.setColor(color);
-        canvas.drawRoundRect(rect, dp(40), dp(40), borderPaint);
-    }
+    SweepGradient gradient = new SweepGradient(
+            getWidth() / 2f,
+            getHeight() / 2f,
+            colors,
+            positions
+    );
+
+    Matrix matrix = new Matrix();
+    matrix.setRotate(hue, getWidth() / 2f, getHeight() / 2f);
+    gradient.setLocalMatrix(matrix);
+
+    borderPaint.setShader(gradient);
+    glowPaint.setShader(gradient);
+
+    // GLOW SUAVE
+    canvas.drawRoundRect(rect, dp(40), dp(40), glowPaint);
+
+    // BORDA
+    canvas.drawRoundRect(rect, dp(40), dp(40), borderPaint);
+}
 
     private float dp(float value) {
         return value * getResources().getDisplayMetrics().density;
