@@ -39,6 +39,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <FrameLayout
+            android:layout_width="300dp"
+            android:layout_height="48dp">
+
+    <!-- 🔥 BORDA NEON -->
+        <com.zensleep.NeonBorderView
+            android:id="@+id/neonBorder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
         <!-- BOTÃO TIMER -->
         <Button
             android:id="@+id/btnTimer"
@@ -48,6 +58,8 @@
             android:layout_width="300dp"
             android:layout_height="48dp"
             android:background="@android:color/transparent"/>
+
+            </FrameLayout>
             
         <!-- 🔥 NOVO RELÓGIO ESTILIZADO -->
           <com.zensleep.AnimatedTimerCardLayout
