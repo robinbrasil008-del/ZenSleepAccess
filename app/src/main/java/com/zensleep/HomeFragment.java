@@ -60,8 +60,7 @@ public class HomeFragment extends Fragment {
 
     private ImageView timerIcon;
 
-    private ValueAnimator colorAnimator;
-    private ValueAnimator scaleAnimator;
+    private TimerTextAnimator timerAnimator = new TimerTextAnimator();
 
     // PLAY BUTTONS
     private ImageView btnPlayChuva, btnPlayMar;
@@ -212,67 +211,6 @@ public class HomeFragment extends Fragment {
 
     Glide.with(this).clear(timerIcon);
     timerIcon.setImageResource(R.drawable.hourglass_static);
-    }
-
-    private void startTimerEffects() {
-
-    // 💚 VERDE PULSANTE
-    int colorStart = Color.parseColor("#00E676"); // verde claro
-    int colorEnd = Color.parseColor("#00C853");   // verde mais forte
-
-    colorAnimator = ValueAnimator.ofArgb(colorStart, colorEnd);
-    colorAnimator.setDuration(800);
-    colorAnimator.setRepeatCount(ValueAnimator.INFINITE);
-    colorAnimator.setRepeatMode(ValueAnimator.REVERSE);
-
-    colorAnimator.addUpdateListener(animation ->
-            txtTimer.setTextColor((int) animation.getAnimatedValue())
-    );
-
-    colorAnimator.start();
-
-
-    // 💓 PULSAR (escala)
-    scaleAnimator = ValueAnimator.ofFloat(1f, 1.12f);
-
-    scaleAnimator.setDuration(800);
-    scaleAnimator.setRepeatCount(ValueAnimator.INFINITE);
-    scaleAnimator.setRepeatMode(ValueAnimator.REVERSE);
-
-    scaleAnimator.addUpdateListener(animation -> {
-
-        float value = (float) animation.getAnimatedValue();
-
-        txtTimer.setScaleX(value);
-        txtTimer.setScaleY(value);
-
-    });
-
-    scaleAnimator.start();
-
-
-    // ✨ GLOW VERDE
-    txtTimer.setShadowLayer(
-            25f,
-            0f,
-            0f,
-            Color.parseColor("#00E676")
-    );
-    }
-
-    private void stopTimerEffects(){
-
-    if(colorAnimator != null){
-        colorAnimator.cancel();
-    }
-
-    if(scaleAnimator != null){
-        scaleAnimator.cancel();
-    }
-
-    txtTimer.setScaleX(1f);
-    txtTimer.setScaleY(1f);
-    txtTimer.setTextColor(Color.parseColor("#00E676"));
     }
     
     private void loadInterstitialAd() {
@@ -573,7 +511,7 @@ public class HomeFragment extends Fragment {
 
             startHourglassAnimation();
 
-            startTimerEffects();
+            timerAnimator.start(txtTimer);
             
             countDownTimer = new CountDownTimer(millis, 1000) {
 
@@ -597,7 +535,7 @@ public class HomeFragment extends Fragment {
 
                     stopHourglassAnimation();
 
-                    stopTimerEffects();
+                    timerAnimator.stop(txtTimer);
                     
                     stopSound(); // para todos
                 }
