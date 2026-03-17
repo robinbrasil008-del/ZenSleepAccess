@@ -216,14 +216,12 @@ public class HomeFragment extends Fragment {
 
     private void startTimerEffects() {
 
-    int[] colors = {
-            Color.parseColor("#B388FF"),
-            Color.parseColor("#FF80AB"),
-            Color.parseColor("#80D8FF")
-    };
+    // 💚 VERDE PULSANTE
+    int colorStart = Color.parseColor("#00E676"); // verde claro
+    int colorEnd = Color.parseColor("#00C853");   // verde mais forte
 
-    colorAnimator = ValueAnimator.ofArgb(colors);
-    colorAnimator.setDuration(2000);
+    colorAnimator = ValueAnimator.ofArgb(colorStart, colorEnd);
+    colorAnimator.setDuration(800);
     colorAnimator.setRepeatCount(ValueAnimator.INFINITE);
     colorAnimator.setRepeatMode(ValueAnimator.REVERSE);
 
@@ -233,9 +231,11 @@ public class HomeFragment extends Fragment {
 
     colorAnimator.start();
 
-    scaleAnimator = ValueAnimator.ofFloat(1f,1.15f);
 
-    scaleAnimator.setDuration(1000);
+    // 💓 PULSAR (escala)
+    scaleAnimator = ValueAnimator.ofFloat(1f, 1.12f);
+
+    scaleAnimator.setDuration(800);
     scaleAnimator.setRepeatCount(ValueAnimator.INFINITE);
     scaleAnimator.setRepeatMode(ValueAnimator.REVERSE);
 
@@ -250,11 +250,13 @@ public class HomeFragment extends Fragment {
 
     scaleAnimator.start();
 
+
+    // ✨ GLOW VERDE
     txtTimer.setShadowLayer(
-            20f,
+            25f,
             0f,
             0f,
-            Color.parseColor("#B388FF")
+            Color.parseColor("#00E676")
     );
     }
 
@@ -270,6 +272,7 @@ public class HomeFragment extends Fragment {
 
     txtTimer.setScaleX(1f);
     txtTimer.setScaleY(1f);
+    txtTimer.setTextColor(Color.parseColor("#00E676"));
     }
     
     private void loadInterstitialAd() {
