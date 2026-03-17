@@ -29,6 +29,11 @@ public class NeonBorderView extends View {
 
     private void init() {
 
+        setOnClickListener(v -> {
+        isRunning = !isRunning;
+        invalidate();
+        });
+
         setWillNotDraw(false);
 
         rect = new RectF();
