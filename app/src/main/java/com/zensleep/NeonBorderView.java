@@ -104,17 +104,17 @@ protected void onDraw(Canvas canvas) {
     Paint glass = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     RadialGradient glassGradient = new RadialGradient(
-            cx,
-            cy,
-            getWidth(),
-            new int[]{
-                    Color.parseColor("#66FFFFFF"),
-                    Color.parseColor("#33C084FC"),
-                    Color.parseColor("#662D1B69")
-            },
-            new float[]{0f, 0.5f, 1f},
-            Shader.TileMode.CLAMP
-    );
+        cx,
+        cy,
+        getWidth(),
+        new int[]{
+                Color.parseColor("#CCB388FF"), // lilás claro (topo)
+                Color.parseColor("#AA9333EA"), // roxo médio
+                Color.parseColor("#662D1B69")  // roxo escuro (profundo)
+        },
+        new float[]{0f, 0.5f, 1f},
+        Shader.TileMode.CLAMP
+);
 
     glass.setShader(glassGradient);
 
