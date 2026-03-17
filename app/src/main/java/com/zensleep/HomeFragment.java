@@ -59,6 +59,8 @@ public class HomeFragment extends Fragment {
 
     private TextView txtTimer;
 
+    private ButtonGlowAnimator buttonAnimator;
+
     private ImageView timerIcon;
 
     private TimerTextAnimator timerAnimator = new TimerTextAnimator();
@@ -134,6 +136,8 @@ public class HomeFragment extends Fragment {
         btnTimer = view.findViewById(R.id.btnTimer);
         timerIcon = view.findViewById(R.id.timerIcon);
         timerIcon.setImageResource(R.drawable.hourglass_static);
+        buttonAnimator = new ButtonGlowAnimator();
+        buttonAnimator.start(btnDefinirTimer);
         
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
