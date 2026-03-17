@@ -104,8 +104,6 @@ protected void onDraw(Canvas canvas) {
     borderPaint.setShadowLayer(20, 0, 0, Color.parseColor("#A855F7"));
     canvas.drawRoundRect(rect, radius, radius, borderPaint);
 
-    canvas.restore();
-
     // 💎 FUNDO GLASS REAL (CAMADAS)
     Paint glass = new Paint(Paint.ANTI_ALIAS_FLAG);
 
@@ -202,6 +200,8 @@ for (int i = 0; i < 12; i++) {
     sparkle.setAlpha(100 + (i * 10));
     canvas.drawCircle(x, y, size, sparkle);
 }
+
+    canvas.restore();
     
 }
     private float dp(float value) {
