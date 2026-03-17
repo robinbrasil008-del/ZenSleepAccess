@@ -1,57 +1,22 @@
 package com.zensleep;
 
-import android.animation.ValueAnimator;
-import android.content.Context;
-import android.graphics.*;
-import android.util.AttributeSet;
 import android.view.View;
 
-public class NeonBorderView extends View {
+public class ButtonGlowAnimator {
 
-    private Paint paint;
-    private RectF rect;
+    private NeonBorderView neonView;
 
-    private float hue = 0f;
+    public void attach(View parent, NeonBorderView border) {
+        this.neonView = border;
 
-    public NeonBorderView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(6f);
-
-        rect = new RectF();
-
-        startAnimation();
+        if (neonView != null) {
+            neonView.setVisibility(View.VISIBLE);
+        }
     }
 
-    private void startAnimation() {
-
-        ValueAnimator animator = ValueAnimator.ofFloat(0f, 360f);
-        animator.setDuration(4000);
-        animator.setRepeatCount(ValueAnimator.INFINITE);
-
-        animator.addUpdateListener(animation -> {
-            hue = (float) animation.getAnimatedValue();
-            invalidate();
-        });
-
-        animator.start();
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        rect.set(6, 6, getWidth() - 6, getHeight() - 6);
-
-        int color = Color.HSVToColor(new float[]{hue, 1f, 1f});
-
-        paint.setColor(color);
-
-        // 🔥 glow real
-        paint.setMaskFilter(new BlurMaskFilter(20, BlurMaskFilter.Blur.NORMAL));
-
-        canvas.drawRoundRect(rect, 40f, 40f, paint);
+    public void stop() {
+        if (neonView != null) {
+            neonView.setVisibility(View.GONE);
+        }
     }
 }
