@@ -2,12 +2,11 @@ package com.zensleep;
 
 import android.animation.ValueAnimator;
 import android.graphics.Color;
-import android.util.TypedValue;
 import android.widget.TextView;
 
 public class TimerTextAnimator {
 
-    private ValueAnimator sizeAnimator;
+    private ValueAnimator pulseAnimator;
     private ValueAnimator colorAnimator;
 
     private boolean animating = false;
@@ -18,58 +17,57 @@ public class TimerTextAnimator {
 
         animating = true;
 
-        final float normalSizeSp = 32f;
-        final float pulseSizeSp = 36f;
+        // 💓 PULSO VISÍVEL DE VERDADE (alpha + glow)
+        pulseAnimator = ValueAnimator.ofFloat(0f, 1f);
+        pulseAnimator.setDuration(700);
+        pulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        pulseAnimator.setRepeatMode(ValueAnimator.REVERSE);
 
-        // 💓 PULSAR DE VERDADE PELO TAMANHO DO TEXTO
-        sizeAnimator = ValueAnimator.ofFloat(normalSizeSp, pulseSizeSp);
-        sizeAnimator.setDuration(600);
-        sizeAnimator.setRepeatCount(ValueAnimator.INFINITE);
-        sizeAnimator.setRepeatMode(ValueAnimator.REVERSE);
-
-        sizeAnimator.addUpdateListener(animation -> {
+        pulseAnimator.addUpdateListener(animation -> {
             if (!animating) return;
 
             float value = (float) animation.getAnimatedValue();
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, value);
+
+            // alpha pulsa
+            float alpha = 0.55f + (value * 0.45f); // vai de 0.55 até 1.00
+            textView.setAlpha(alpha);
+
+            // glow pulsa junto
+            float glow = 10f + (value * 28f); // vai de 10 até 38
+            textView.setShadowLayer(
+                    glow,
+                    0f,
+                    0f,
+                    Color.parseColor("#00FF9C")
+            );
         });
 
-        sizeAnimator.start();
+        pulseAnimator.start();
 
         // 💚 COR VERDE ANIMADA
         colorAnimator = ValueAnimator.ofArgb(
                 Color.parseColor("#00FF9C"),
                 Color.parseColor("#00C853")
         );
-
         colorAnimator.setDuration(700);
         colorAnimator.setRepeatCount(ValueAnimator.INFINITE);
         colorAnimator.setRepeatMode(ValueAnimator.REVERSE);
 
         colorAnimator.addUpdateListener(animation -> {
             if (!animating) return;
-
             textView.setTextColor((int) animation.getAnimatedValue());
         });
 
         colorAnimator.start();
-
-        // ✨ GLOW
-        textView.setShadowLayer(
-                30f,
-                0f,
-                0f,
-                Color.parseColor("#00FF9C")
-        );
     }
 
     public void stop(TextView textView) {
 
         animating = false;
 
-        if (sizeAnimator != null) {
-            sizeAnimator.cancel();
-            sizeAnimator = null;
+        if (pulseAnimator != null) {
+            pulseAnimator.cancel();
+            pulseAnimator = null;
         }
 
         if (colorAnimator != null) {
@@ -77,7 +75,7 @@ public class TimerTextAnimator {
             colorAnimator = null;
         }
 
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 32f);
+        textView.setAlpha(1f);
         textView.setTextColor(Color.parseColor("#00FF9C"));
         textView.setShadowLayer(
                 30f,
