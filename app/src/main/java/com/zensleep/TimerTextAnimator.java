@@ -20,20 +20,26 @@ public class TimerTextAnimator {
 
         // 💓 PULSAR
         scaleAnimator = ValueAnimator.ofFloat(1f, 1.15f);
-        scaleAnimator.setDuration(700);
-        scaleAnimator.setRepeatCount(ValueAnimator.INFINITE);
-        scaleAnimator.setRepeatMode(ValueAnimator.REVERSE);
 
-        scaleAnimator.addUpdateListener(animation -> {
+scaleAnimator.setDuration(600);
+scaleAnimator.setRepeatCount(ValueAnimator.INFINITE);
+scaleAnimator.setRepeatMode(ValueAnimator.REVERSE);
 
-            if (!animating) return;
+scaleAnimator.addUpdateListener(animation -> {
 
-            float value = (float) animation.getAnimatedValue();
+    if (!animating) return;
 
-            textView.setScaleX(value);
-            textView.setScaleY(value);
+    float value = (float) animation.getAnimatedValue();
 
-        });
+    // 🔥 FORÇA PULSO VISUAL
+    textView.setScaleX(value);
+    textView.setScaleY(value);
+
+    // 🔥 GARANTE CENTRALIZAÇÃO DO PULSO
+    textView.setPivotX(textView.getWidth() / 2f);
+    textView.setPivotY(textView.getHeight() / 2f);
+
+});
 
         scaleAnimator.start();
 
