@@ -52,17 +52,26 @@ public class NeonBorderView extends View {
 protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
 
+    float padding = dp(6);
     rect.set(
-            dp(6),
-            dp(6),
-            getWidth() - dp(6),
-            getHeight() - dp(6)
+            padding,
+            padding,
+            getWidth() - padding,
+            getHeight() - padding
     );
+
+    float radius = dp(40);
+
+    // 🔒 CLIP PRA NÃO VAZAR (RESOLVE O QUADRADO)
+    Path clipPath = new Path();
+    clipPath.addRoundRect(rect, radius, radius, Path.Direction.CW);
+    canvas.save();
+    canvas.clipPath(clipPath);
 
     float cx = getWidth() / 2f;
     float cy = getHeight() / 2f;
 
-    // 🌈 GRADIENTE RGB PREMIUM
+    // 🌈 GRADIENTE RGB
     int[] colors = new int[]{
             Color.parseColor("#A855F7"),
             Color.parseColor("#22D3EE"),
@@ -80,65 +89,55 @@ protected void onDraw(Canvas canvas) {
     borderPaint.setShader(sweep);
     glowPaint.setShader(sweep);
 
-    // 🔥 GLOW EXTERNO SUAVE (mais natural)
-    glowPaint.setStrokeWidth(dp(18));
-    glowPaint.setAlpha(90);
-    canvas.drawRoundRect(rect, dp(40), dp(40), glowPaint);
+    // 🔥 GLOW CONTROLADO (AGORA NÃO VAZA)
+    glowPaint.setStrokeWidth(dp(16));
+    glowPaint.setAlpha(100);
+    canvas.drawRoundRect(rect, radius, radius, glowPaint);
 
-    // 🔥 BORDA EXTERNA
+    // 🔥 BORDA
     borderPaint.setStrokeWidth(dp(2));
-    canvas.drawRoundRect(rect, dp(40), dp(40), borderPaint);
+    canvas.drawRoundRect(rect, radius, radius, borderPaint);
 
-    // 💜 FUNDO COM GRADIENTE + LUZ
-    Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
+    canvas.restore();
 
-    LinearGradient bg = new LinearGradient(
-            0, 0, getWidth(), getHeight(),
+    // 💎 FUNDO GLASS REAL (CAMADAS)
+    Paint glass = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    RadialGradient glassGradient = new RadialGradient(
+            cx,
+            cy,
+            getWidth(),
             new int[]{
-                    Color.parseColor("#C084FC"),
-                    Color.parseColor("#9333EA"),
-                    Color.parseColor("#6B21A8")
+                    Color.parseColor("#66FFFFFF"),
+                    Color.parseColor("#33C084FC"),
+                    Color.parseColor("#662D1B69")
             },
             new float[]{0f, 0.5f, 1f},
             Shader.TileMode.CLAMP
     );
 
-    fill.setShader(bg);
+    glass.setShader(glassGradient);
 
     canvas.drawRoundRect(
             rect.left + dp(3),
             rect.top + dp(3),
             rect.right - dp(3),
             rect.bottom - dp(3),
-            dp(40),
-            dp(40),
-            fill
+            radius,
+            radius,
+            glass
     );
 
-    // ✨ BORDA INTERNA (SEGREDO DO DESIGN)
-    Paint innerStroke = new Paint(Paint.ANTI_ALIAS_FLAG);
-    innerStroke.setStyle(Paint.Style.STROKE);
-    innerStroke.setStrokeWidth(dp(1.5f));
-    innerStroke.setColor(Color.parseColor("#80FFFFFF"));
-
-    canvas.drawRoundRect(
-            rect.left + dp(6),
-            rect.top + dp(6),
-            rect.right - dp(6),
-            rect.bottom - dp(6),
-            dp(40),
-            dp(40),
-            innerStroke
-    );
-
-    // ✨ REFLEXO SUPERIOR SUAVE
+    // ✨ REFLEXO TOP (VIDRO REAL)
     Paint highlight = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     LinearGradient shine = new LinearGradient(
-            0, rect.top,
-            0, rect.top + dp(30),
+            0,
+            rect.top,
+            0,
+            rect.top + dp(30),
             new int[]{
-                    Color.parseColor("#66FFFFFF"),
+                    Color.parseColor("#80FFFFFF"),
                     Color.TRANSPARENT
             },
             null,
@@ -152,12 +151,11 @@ protected void onDraw(Canvas canvas) {
             rect.top + dp(6),
             rect.right - dp(6),
             rect.top + dp(30),
-            dp(40),
-            dp(40),
+            radius,
+            radius,
             highlight
     );
 }
-
     private float dp(float value) {
         return value * getResources().getDisplayMetrics().density;
     }
