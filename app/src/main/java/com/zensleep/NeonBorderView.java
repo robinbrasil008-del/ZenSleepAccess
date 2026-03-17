@@ -164,11 +164,6 @@ protected void onDraw(Canvas canvas) {
 
     // ✨✨ BRILHO ESPALHADO (EFEITO PREMIUM REAL)
 
-    Path clipPath = new Path();
-    clipPath.addRoundRect(rect, radius, radius, Path.Direction.CW);
-    canvas.save();
-    canvas.clipPath(clipPath2);
-
 Paint sparkle = new Paint(Paint.ANTI_ALIAS_FLAG);
 sparkle.setMaskFilter(new BlurMaskFilter(20, BlurMaskFilter.Blur.NORMAL));
 
@@ -207,8 +202,6 @@ for (int i = 0; i < 12; i++) {
     sparkle.setAlpha(100 + (i * 10));
     canvas.drawCircle(x, y, size, sparkle);
 }
-
-    canvas.restore();
     
 }
     private float dp(float value) {
