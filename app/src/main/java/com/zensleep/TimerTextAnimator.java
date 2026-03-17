@@ -12,7 +12,7 @@ public class TimerTextAnimator {
 
     private boolean animating = false;
 
-    public void start(textView) {
+    public void start(TextView textView) {
 
         stop();
 
@@ -68,7 +68,7 @@ public class TimerTextAnimator {
         );
     }
 
-    public void stop(textView) {
+    public void stop(TextView textView) {
 
         animating = false;
 
