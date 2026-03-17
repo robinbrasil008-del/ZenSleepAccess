@@ -1,88 +1,62 @@
 package com.zensleep;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
-import android.graphics.Color;
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.TextView;
 
 public class TimerTextAnimator {
 
+    private final Handler handler = new Handler(Looper.getMainLooper());
+
     private boolean animating = false;
-    private ValueAnimator colorAnimator;
+    private float scale = 1f;
+    private boolean growing = true;
+
+    private TextView target;
+
+    private final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+
+            if (!animating || target == null) return;
+
+            if (growing) {
+                scale += 0.02f;
+                if (scale >= 1.2f) growing = false;
+            } else {
+                scale -= 0.02f;
+                if (scale <= 1f) growing = true;
+            }
+
+            target.setScaleX(scale);
+            target.setScaleY(scale);
+
+            handler.postDelayed(this, 16);
+        }
+    };
 
     public void start(TextView textView) {
 
         stop(textView);
 
+        target = textView;
         animating = true;
 
-        // 💓 PULSO REAL (ANDROID NATIVO - NÃO FALHA)
-        textView.animate()
-                .scaleX(1.15f)
-                .scaleY(1.15f)
-                .setDuration(500)
-                .withEndAction(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!animating) return;
-
-                        textView.animate()
-                                .scaleX(1f)
-                                .scaleY(1f)
-                                .setDuration(500)
-                                .withEndAction(this)
-                                .start();
-                    }
-                })
-                .start();
-
-        // 💚 COR ANIMADA
-        colorAnimator = ValueAnimator.ofObject(
-                new ArgbEvaluator(),
-                Color.parseColor("#00FF9C"),
-                Color.parseColor("#00C853")
-        );
-
-        colorAnimator.setDuration(700);
-        colorAnimator.setRepeatCount(ValueAnimator.INFINITE);
-        colorAnimator.setRepeatMode(ValueAnimator.REVERSE);
-
-        colorAnimator.addUpdateListener(animation -> {
-            if (!animating) return;
-            textView.setTextColor((int) animation.getAnimatedValue());
-        });
-
-        colorAnimator.start();
-
-        // ✨ GLOW
-        textView.setShadowLayer(
-                30f,
-                0f,
-                0f,
-                Color.parseColor("#00FF9C")
-        );
+        handler.post(runnable);
     }
 
     public void stop(TextView textView) {
 
         animating = false;
+        handler.removeCallbacks(runnable);
 
-        textView.animate().cancel();
-
-        if (colorAnimator != null) {
-            colorAnimator.cancel();
-            colorAnimator = null;
+        if (textView != null) {
+            textView.setScaleX(2f);
+            textView.setScaleY(2f);
         }
 
-        textView.setScaleX(1f);
-        textView.setScaleY(1f);
-        textView.setTextColor(Color.parseColor("#00FF9C"));
-
-        textView.setShadowLayer(
-                30f,
-                0f,
-                0f,
-                Color.parseColor("#00FF9C")
-        );
+        target = null;
+        scale = 1f;
+        growing = true;
     }
 }
