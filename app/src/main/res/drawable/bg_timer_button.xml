@@ -1,0 +1,30 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 🔥 GLOW EXTERNO -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="40dp"/>
+            <gradient
+                android:startColor="#8033FFCC"
+                android:endColor="#80A855F7"
+                android:angle="0"/>
+        </shape>
+    </item>
+
+    <!-- 💎 BOTÃO PRINCIPAL -->
+    <item android:inset="2dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="40dp"/>
+
+            <gradient
+                android:startColor="#A855F7"
+                android:endColor="#7C3AED"
+                android:angle="0"/>
+
+            <stroke
+                android:width="2dp"
+                android:color="#CCFFFFFF"/>
+        </shape>
+    </item>
+
+</layer-list>
