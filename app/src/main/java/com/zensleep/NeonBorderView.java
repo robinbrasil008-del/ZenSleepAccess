@@ -64,40 +64,63 @@ protected void onDraw(Canvas canvas) {
             getHeight() - dp(6)
     );
 
-    // 🔥 GRADIENTE IGUAL AO DA IMAGEM
+    float cx = getWidth() / 2f;
+    float cy = getHeight() / 2f;
+
+    // 🔥 GRADIENTE RGB (BORDA)
     int[] colors = new int[]{
-            Color.parseColor("#8A2BE2"), // roxo
-            Color.parseColor("#00FFFF"), // azul neon
-            Color.parseColor("#FF00FF"), // rosa
-            Color.parseColor("#FFD700"), // amarelo
-            Color.parseColor("#8A2BE2")  // volta pro roxo
+            Color.parseColor("#8A2BE2"),
+            Color.parseColor("#00FFFF"),
+            Color.parseColor("#FF00FF"),
+            Color.parseColor("#FFD700"),
+            Color.parseColor("#8A2BE2")
     };
 
-    float[] positions = new float[]{
-            0f, 0.25f, 0.5f, 0.75f, 1f
-    };
-
-    SweepGradient gradient = new SweepGradient(
-            getWidth() / 2f,
-            getHeight() / 2f,
-            colors,
-            positions
-    );
+    SweepGradient sweep = new SweepGradient(cx, cy, colors, null);
 
     Matrix matrix = new Matrix();
-    matrix.setRotate(hue, getWidth() / 2f, getHeight() / 2f);
-    gradient.setLocalMatrix(matrix);
+    matrix.setRotate(hue, cx, cy);
+    sweep.setLocalMatrix(matrix);
 
-    borderPaint.setShader(gradient);
-    glowPaint.setShader(gradient);
+    borderPaint.setShader(sweep);
+    glowPaint.setShader(sweep);
 
-    // GLOW SUAVE
+    // 🔥 GLOW EXTERNO FORTE (igual imagem)
+    glowPaint.setStrokeWidth(dp(20));
+    glowPaint.setAlpha(180);
     canvas.drawRoundRect(rect, dp(40), dp(40), glowPaint);
 
-    // BORDA
+    // 🔥 BORDA PRINCIPAL
+    borderPaint.setStrokeWidth(dp(3));
     canvas.drawRoundRect(rect, dp(40), dp(40), borderPaint);
-}
 
+    // 🔥 FUNDO ROXO (ESSENCIAL)
+    Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
+    fill.setStyle(Paint.Style.FILL);
+
+    LinearGradient bg = new LinearGradient(
+            0, 0, getWidth(), getHeight(),
+            new int[]{
+                    Color.parseColor("#B066FF"),
+                    Color.parseColor("#7A3FFF")
+            },
+            null,
+            Shader.TileMode.CLAMP
+    );
+
+    fill.setShader(bg);
+
+    // desenha fundo por baixo da borda
+    canvas.drawRoundRect(
+            rect.left + dp(4),
+            rect.top + dp(4),
+            rect.right - dp(4),
+            rect.bottom - dp(4),
+            dp(40),
+            dp(40),
+            fill
+    );
+}
     private float dp(float value) {
         return value * getResources().getDisplayMetrics().density;
     }
