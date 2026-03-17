@@ -138,6 +138,7 @@ public class HomeFragment extends Fragment {
         timerIcon = view.findViewById(R.id.timerIcon);
         timerIcon.setImageResource(R.drawable.hourglass_static);
         btnDefinirTimer = view.findViewById(R.id.btnTimer);
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
         buttonAnimator = new ButtonGlowAnimator();
         buttonAnimator.start(btnDefinirTimer);
         
