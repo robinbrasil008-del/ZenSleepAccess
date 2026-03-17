@@ -44,7 +44,6 @@
             android:id="@+id/btnTimer"
             android:text="⏱ DEFINIR TIMER"
             android:textColor="@android:color/white"
-            android:background="@drawable/bg_button"
             android:layout_marginBottom="16dp"
             android:layout_width="match_parent"
             android:layout_height="48dp"
