@@ -18,30 +18,35 @@ public class TimerTextAnimator {
 
         animating = true;
 
-        // 💓 PULSAR
-        scaleAnimator = ValueAnimator.ofFloat(1f, 1.15f);
+        // 🔥 GARANTE PERFORMANCE (IMPORTANTE)
+        textView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
 
-scaleAnimator.setDuration(600);
-scaleAnimator.setRepeatCount(ValueAnimator.INFINITE);
-scaleAnimator.setRepeatMode(ValueAnimator.REVERSE);
+        // 🔥 ESPERA A VIEW TER TAMANHO (ESSA É A CHAVE DO BUG)
+        textView.post(() -> {
 
-scaleAnimator.addUpdateListener(animation -> {
+            // 💓 PULSAR (AGORA FUNCIONA)
+            scaleAnimator = ValueAnimator.ofFloat(1f, 1.18f);
 
-    if (!animating) return;
+            scaleAnimator.setDuration(600);
+            scaleAnimator.setRepeatCount(ValueAnimator.INFINITE);
+            scaleAnimator.setRepeatMode(ValueAnimator.REVERSE);
 
-    float value = (float) animation.getAnimatedValue();
+            scaleAnimator.addUpdateListener(animation -> {
 
-    // 🔥 FORÇA PULSO VISUAL
-    textView.setScaleX(value);
-    textView.setScaleY(value);
+                if (!animating) return;
 
-    // 🔥 GARANTE CENTRALIZAÇÃO DO PULSO
-    textView.setPivotX(textView.getWidth() / 2f);
-    textView.setPivotY(textView.getHeight() / 2f);
+                float value = (float) animation.getAnimatedValue();
 
-});
+                // 🔥 CENTRALIZA ANTES DE ESCALAR
+                textView.setPivotX(textView.getWidth() / 2f);
+                textView.setPivotY(textView.getHeight() / 2f);
 
-        scaleAnimator.start();
+                textView.setScaleX(value);
+                textView.setScaleY(value);
+            });
+
+            scaleAnimator.start();
+        });
 
 
         // 💚 COR VERDE ANIMADA
@@ -84,5 +89,8 @@ scaleAnimator.addUpdateListener(animation -> {
         textView.setScaleX(1f);
         textView.setScaleY(1f);
         textView.setTextColor(Color.parseColor("#00FF9C"));
+
+        // 🔥 REMOVE HARDWARE LAYER
+        textView.setLayerType(View.LAYER_TYPE_NONE, null);
     }
 }
