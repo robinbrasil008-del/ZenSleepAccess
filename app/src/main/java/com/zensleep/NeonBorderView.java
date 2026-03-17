@@ -26,20 +26,15 @@ public class NeonBorderView extends View {
 
         rect = new RectF();
 
-        // BORDA COLORIDA (RGB)
         borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         borderPaint.setStyle(Paint.Style.STROKE);
-        borderPaint.setStrokeWidth(dp(3));
 
-        // GLOW EXTERNO (SUAVE)
         glowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         glowPaint.setStyle(Paint.Style.STROKE);
-        glowPaint.setStrokeWidth(dp(12));
-        glowPaint.setMaskFilter(new BlurMaskFilter(25, BlurMaskFilter.Blur.NORMAL));
+        glowPaint.setMaskFilter(new BlurMaskFilter(30, BlurMaskFilter.Blur.NORMAL));
 
-        // ANIMAÇÃO RGB
         ValueAnimator animator = ValueAnimator.ofFloat(0, 360);
-        animator.setDuration(4000);
+        animator.setDuration(5000);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setInterpolator(new LinearInterpolator());
 
@@ -50,77 +45,98 @@ public class NeonBorderView extends View {
 
         animator.start();
 
-        setLayerType(LAYER_TYPE_SOFTWARE, null); // necessário pro glow
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
     }
 
     @Override
-protected void onDraw(Canvas canvas) {
-    super.onDraw(canvas);
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
 
-    rect.set(
-            dp(6),
-            dp(6),
-            getWidth() - dp(6),
-            getHeight() - dp(6)
-    );
+        rect.set(
+                dp(6),
+                dp(6),
+                getWidth() - dp(6),
+                getHeight() - dp(6)
+        );
 
-    float cx = getWidth() / 2f;
-    float cy = getHeight() / 2f;
+        float cx = getWidth() / 2f;
+        float cy = getHeight() / 2f;
 
-    // 🔥 GRADIENTE RGB (BORDA)
-    int[] colors = new int[]{
-            Color.parseColor("#8A2BE2"),
-            Color.parseColor("#00FFFF"),
-            Color.parseColor("#FF00FF"),
-            Color.parseColor("#FFD700"),
-            Color.parseColor("#8A2BE2")
-    };
+        // 🌈 GRADIENTE RGB SUAVE (IGUAL DA IMAGEM)
+        int[] colors = new int[]{
+                Color.parseColor("#9D4EDD"),
+                Color.parseColor("#00E5FF"),
+                Color.parseColor("#FF4DFF"),
+                Color.parseColor("#FFD54F"),
+                Color.parseColor("#9D4EDD")
+        };
 
-    SweepGradient sweep = new SweepGradient(cx, cy, colors, null);
+        SweepGradient sweep = new SweepGradient(cx, cy, colors, null);
 
-    Matrix matrix = new Matrix();
-    matrix.setRotate(hue, cx, cy);
-    sweep.setLocalMatrix(matrix);
+        Matrix matrix = new Matrix();
+        matrix.setRotate(hue, cx, cy);
+        sweep.setLocalMatrix(matrix);
 
-    borderPaint.setShader(sweep);
-    glowPaint.setShader(sweep);
+        borderPaint.setShader(sweep);
+        glowPaint.setShader(sweep);
 
-    // 🔥 GLOW EXTERNO FORTE (igual imagem)
-    glowPaint.setStrokeWidth(dp(20));
-    glowPaint.setAlpha(180);
-    canvas.drawRoundRect(rect, dp(40), dp(40), glowPaint);
+        // 🔥 GLOW SUAVE (CORRIGIDO)
+        glowPaint.setStrokeWidth(dp(14));
+        glowPaint.setAlpha(120);
+        canvas.drawRoundRect(rect, dp(40), dp(40), glowPaint);
 
-    // 🔥 BORDA PRINCIPAL
-    borderPaint.setStrokeWidth(dp(3));
-    canvas.drawRoundRect(rect, dp(40), dp(40), borderPaint);
+        // 🔥 BORDA FINA (PREMIUM)
+        borderPaint.setStrokeWidth(dp(2));
+        canvas.drawRoundRect(rect, dp(40), dp(40), borderPaint);
 
-    // 🔥 FUNDO ROXO (ESSENCIAL)
-    Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
-    fill.setStyle(Paint.Style.FILL);
+        // 💜 FUNDO COM GRADIENTE (VIDRO)
+        Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
+        LinearGradient bg = new LinearGradient(
+                0, 0, getWidth(), getHeight(),
+                new int[]{
+                        Color.parseColor("#B388FF"),
+                        Color.parseColor("#7B2CBF")
+                },
+                null,
+                Shader.TileMode.CLAMP
+        );
+        fill.setShader(bg);
 
-    LinearGradient bg = new LinearGradient(
-            0, 0, getWidth(), getHeight(),
-            new int[]{
-                    Color.parseColor("#B066FF"),
-                    Color.parseColor("#7A3FFF")
-            },
-            null,
-            Shader.TileMode.CLAMP
-    );
+        canvas.drawRoundRect(
+                rect.left + dp(3),
+                rect.top + dp(3),
+                rect.right - dp(3),
+                rect.bottom - dp(3),
+                dp(40),
+                dp(40),
+                fill
+        );
 
-    fill.setShader(bg);
+        // ✨ REFLEXO (O QUE FALTAVA PRA FICAR IGUAL)
+        Paint highlight = new Paint(Paint.ANTI_ALIAS_FLAG);
+        LinearGradient shine = new LinearGradient(
+                0, rect.top,
+                0, rect.top + dp(25),
+                new int[]{
+                        Color.parseColor("#80FFFFFF"),
+                        Color.TRANSPARENT
+                },
+                null,
+                Shader.TileMode.CLAMP
+        );
+        highlight.setShader(shine);
 
-    // desenha fundo por baixo da borda
-    canvas.drawRoundRect(
-            rect.left + dp(4),
-            rect.top + dp(4),
-            rect.right - dp(4),
-            rect.bottom - dp(4),
-            dp(40),
-            dp(40),
-            fill
-    );
-}
+        canvas.drawRoundRect(
+                rect.left + dp(6),
+                rect.top + dp(6),
+                rect.right - dp(6),
+                rect.top + dp(28),
+                dp(40),
+                dp(40),
+                highlight
+        );
+    }
+
     private float dp(float value) {
         return value * getResources().getDisplayMetrics().density;
     }
