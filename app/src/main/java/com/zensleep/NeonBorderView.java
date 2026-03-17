@@ -66,7 +66,7 @@ protected void onDraw(Canvas canvas) {
     Path clipPath = new Path();
     clipPath.addRoundRect(rect, radius, radius, Path.Direction.CW);
     canvas.save();
-    canvas.clipPath(clipPath);
+    canvas.clipPath(clipPath2, Region.Op.INTERSECT);
 
     float cx = getWidth() / 2f;
     float cy = getHeight() / 2f;
@@ -103,8 +103,6 @@ protected void onDraw(Canvas canvas) {
     // 🔥 BORDA
     borderPaint.setShadowLayer(20, 0, 0, Color.parseColor("#A855F7"));
     canvas.drawRoundRect(rect, radius, radius, borderPaint);
-
-    canvas.restore();
 
     // 💎 FUNDO GLASS REAL (CAMADAS)
     Paint glass = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -202,6 +200,8 @@ for (int i = 0; i < 12; i++) {
     sparkle.setAlpha(100 + (i * 10));
     canvas.drawCircle(x, y, size, sparkle);
 }
+
+    canvas.restore();
     
 }
     private float dp(float value) {
