@@ -155,6 +155,32 @@ protected void onDraw(Canvas canvas) {
             radius,
             highlight
     );
+
+    // ✨✨ BRILHOS (SPARKLES PREMIUM)
+
+Paint sparkle = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+// brilho principal
+sparkle.setColor(Color.parseColor("#CCFFFFFF"));
+sparkle.setMaskFilter(new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL));
+
+// posição animada (usa o hue que já existe)
+float x1 = rect.left + (getWidth() * ((hue % 100) / 100f));
+float y1 = rect.top + dp(10);
+
+canvas.drawCircle(x1, y1, dp(3), sparkle);
+
+// brilho secundário
+sparkle.setAlpha(180);
+float x2 = rect.right - (getWidth() * ((hue % 150) / 150f));
+float y2 = rect.top + dp(20);
+
+canvas.drawCircle(x2, y2, dp(2), sparkle);
+
+// micro brilho fixo
+sparkle.setAlpha(120);
+canvas.drawCircle(rect.left + dp(20), rect.top + dp(15), dp(1.5f), sparkle);
+    
 }
     private float dp(float value) {
         return value * getResources().getDisplayMetrics().density;
