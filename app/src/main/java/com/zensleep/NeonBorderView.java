@@ -63,10 +63,10 @@ protected void onDraw(Canvas canvas) {
     float radius = dp(40);
 
     // 🔒 CLIP PRA NÃO VAZAR (RESOLVE O QUADRADO)
-    canvas.clipPath(brilhoClip);
+    Path clipPath = new Path();
     clipPath.addRoundRect(rect, radius, radius, Path.Direction.CW);
     canvas.save();
-    canvas.clipPath(clipPath2);
+    canvas.clipPath(clipPath);
     
     float cx = getWidth() / 2f;
     float cy = getHeight() / 2f;
