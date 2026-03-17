@@ -104,6 +104,8 @@ protected void onDraw(Canvas canvas) {
     borderPaint.setShadowLayer(20, 0, 0, Color.parseColor("#A855F7"));
     canvas.drawRoundRect(rect, radius, radius, borderPaint);
 
+    canvas.restore();
+
     // 💎 FUNDO GLASS REAL (CAMADAS)
     Paint glass = new Paint(Paint.ANTI_ALIAS_FLAG);
 
@@ -161,6 +163,13 @@ protected void onDraw(Canvas canvas) {
     );
 
     // ✨✨ BRILHO ESPALHADO (EFEITO PREMIUM REAL)
+
+    canvas.save();
+
+Path clipPath2 = new Path();
+clipPath2.addRoundRect(rect, dp(40), dp(40), Path.Direction.CW);
+
+canvas.clipPath(clipPath2);
 
 Paint sparkle = new Paint(Paint.ANTI_ALIAS_FLAG);
 sparkle.setMaskFilter(new BlurMaskFilter(20, BlurMaskFilter.Blur.NORMAL));
