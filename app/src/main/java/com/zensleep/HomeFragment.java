@@ -40,6 +40,7 @@ import android.view.ViewGroup;
 import android.animation.ArgbEvaluator;
 import com.bumptech.glide.Glide;
 import com.zensleep.TimerTextAnimator;
+import com.zensleep.NeonBorderView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -59,7 +60,7 @@ public class HomeFragment extends Fragment {
 
     private TextView txtTimer;
 
-    NeonBorderView neonBorderView;
+    private NeonBorderView neonBorderView;
     private Button btnDefinirTimer;
     private ButtonGlowAnimator buttonAnimator;
 
