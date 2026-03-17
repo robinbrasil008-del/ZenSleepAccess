@@ -164,12 +164,10 @@ protected void onDraw(Canvas canvas) {
 
     // ✨✨ BRILHO ESPALHADO (EFEITO PREMIUM REAL)
 
+    Path clipPath = new Path();
+    clipPath.addRoundRect(rect, radius, radius, Path.Direction.CW);
     canvas.save();
-
-Path clipPath2 = new Path();
-clipPath2.addRoundRect(rect, dp(40), dp(40), Path.Direction.CW);
-
-canvas.clipPath(clipPath2);
+    canvas.clipPath(clipPath2);
 
 Paint sparkle = new Paint(Paint.ANTI_ALIAS_FLAG);
 sparkle.setMaskFilter(new BlurMaskFilter(20, BlurMaskFilter.Blur.NORMAL));
