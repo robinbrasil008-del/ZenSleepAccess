@@ -90,12 +90,18 @@ protected void onDraw(Canvas canvas) {
     glowPaint.setShader(sweep);
 
     // 🔥 GLOW CONTROLADO (AGORA NÃO VAZA)
-    glowPaint.setStrokeWidth(dp(16));
-    glowPaint.setAlpha(100);
+    glowPaint.setStrokeWidth(dp(22));
+    glowPaint.setAlpha(200); // MAIS FORTE
+    glowPaint.setMaskFilter(new BlurMaskFilter(35, BlurMaskFilter.Blur.NORMAL));
+    canvas.drawRoundRect(rect, radius, radius, glowPaint);
+
+    // 🔥 segunda camada de glow (mais intensa)
+    glowPaint.setAlpha(120);
+    glowPaint.setStrokeWidth(dp(30));
     canvas.drawRoundRect(rect, radius, radius, glowPaint);
 
     // 🔥 BORDA
-    borderPaint.setStrokeWidth(dp(2));
+    borderPaint.setShadowLayer(20, 0, 0, Color.parseColor("#A855F7"));
     canvas.drawRoundRect(rect, radius, radius, borderPaint);
 
     canvas.restore();
@@ -157,29 +163,35 @@ protected void onDraw(Canvas canvas) {
     );
 
     // ✨✨ BRILHOS (SPARKLES PREMIUM)
-
 Paint sparkle = new Paint(Paint.ANTI_ALIAS_FLAG);
+sparkle.setMaskFilter(new BlurMaskFilter(12, BlurMaskFilter.Blur.NORMAL));
 
-// brilho principal
-sparkle.setColor(Color.parseColor("#CCFFFFFF"));
-sparkle.setMaskFilter(new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL));
+// brilho forte principal
+sparkle.setColor(Color.WHITE);
+sparkle.setAlpha(255);
 
-// posição animada (usa o hue que já existe)
-float x1 = rect.left + (getWidth() * ((hue % 100) / 100f));
-float y1 = rect.top + dp(10);
+float pulse = (float) (Math.sin(Math.toRadians(hue * 2)) * 0.5f + 0.5f);
 
-canvas.drawCircle(x1, y1, dp(3), sparkle);
+// brilho grande animado
+canvas.drawCircle(
+        rect.left + dp(30) + pulse * dp(40),
+        rect.top + dp(12),
+        dp(4 + pulse * 2),
+        sparkle
+);
 
 // brilho secundário
+sparkle.setAlpha(200);
+canvas.drawCircle(
+        rect.right - dp(40),
+        rect.top + dp(20),
+        dp(3),
+        sparkle
+);
+
+// mini pontos (estilo estrela)
 sparkle.setAlpha(180);
-float x2 = rect.right - (getWidth() * ((hue % 150) / 150f));
-float y2 = rect.top + dp(20);
-
-canvas.drawCircle(x2, y2, dp(2), sparkle);
-
-// micro brilho fixo
-sparkle.setAlpha(120);
-canvas.drawCircle(rect.left + dp(20), rect.top + dp(15), dp(1.5f), sparkle);
+canvas.drawCircle(rect.centerX(), rect.top + dp(10), dp(2), sparkle);
     
 }
     private float dp(float value) {
