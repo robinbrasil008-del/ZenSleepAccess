@@ -134,6 +134,7 @@ public class HomeFragment extends Fragment {
         btnTimer = view.findViewById(R.id.btnTimer);
         timerIcon = view.findViewById(R.id.timerIcon);
         timerIcon.setImageResource(R.drawable.hourglass_static);
+        timerAnimator.start(txtTimer);
         
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
@@ -511,8 +512,6 @@ public class HomeFragment extends Fragment {
             timerCard.startBorderAnimation();
 
             startHourglassAnimation();
-
-            timerAnimator.start(txtTimer);
             
             countDownTimer = new CountDownTimer(millis, 1000) {
 
