@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class ButtonGlowAnimator {
 
-    private ValueAnimator animator;
+    private ValueAnimator glowAnimator;
     private boolean animating = false;
 
     public void start(Button button) {
@@ -20,70 +20,77 @@ public class ButtonGlowAnimator {
 
         animating = true;
 
-        // ===== ESTILO BASE DO BOTÃO =====
-        GradientDrawable glowDrawable = new GradientDrawable();
-        glowDrawable.setShape(GradientDrawable.RECTANGLE);
-        glowDrawable.setCornerRadius(dp(button, 32));
-        glowDrawable.setColor(Color.parseColor("#33FFFFFF")); // glow suave externo
+        // 🔥 CAMADA DE BRILHO (EXTERNA)
+        GradientDrawable glow = new GradientDrawable();
+        glow.setShape(GradientDrawable.RECTANGLE);
+        glow.setCornerRadius(dp(button, 40));
+        glow.setColor(Color.parseColor("#66BB86FC")); // glow roxo suave
 
-        GradientDrawable mainDrawable = new GradientDrawable();
-        mainDrawable.setShape(GradientDrawable.RECTANGLE);
-        mainDrawable.setCornerRadius(dp(button, 32));
-        mainDrawable.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
-        mainDrawable.setColors(new int[]{
-                Color.parseColor("#B57CFF"),
-                Color.parseColor("#A56EF0")
+        // 🔥 BOTÃO PRINCIPAL
+        GradientDrawable main = new GradientDrawable();
+        main.setShape(GradientDrawable.RECTANGLE);
+        main.setCornerRadius(dp(button, 40));
+        main.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+        main.setColors(new int[]{
+                Color.parseColor("#C084FC"),
+                Color.parseColor("#A855F7")
         });
-        mainDrawable.setStroke((int) dp(button, 2), Color.parseColor("#CCF4E8FF"));
 
-        LayerDrawable layerDrawable = new LayerDrawable(new GradientDrawable[]{
-                glowDrawable,
-                mainDrawable
-        });
-        layerDrawable.setLayerInset(1, 3, 3, 3, 3);
+        // 🔥 BORDA DESTACADA
+        main.setStroke((int) dp(button, 2), Color.parseColor("#E9D5FF"));
 
-        button.setBackground(layerDrawable);
+        // 🔥 JUNTA AS CAMADAS
+        LayerDrawable layer = new LayerDrawable(new GradientDrawable[]{glow, main});
+        layer.setLayerInset(1, 6, 6, 6, 6);
+
+        button.setBackground(layer);
+
+        // 🔥 TEXTO VISÍVEL
         button.setTextColor(Color.WHITE);
         button.setAllCaps(false);
-        button.setAlpha(1f);
-        button.setScaleX(1f);
-        button.setScaleY(1f);
+        button.setTextSize(16);
 
-        // ===== ANIMAÇÃO =====
-        animator = ValueAnimator.ofFloat(0f, 1f);
-        animator.setDuration(1400);
-        animator.setRepeatCount(ValueAnimator.INFINITE);
-        animator.setRepeatMode(ValueAnimator.REVERSE);
-        animator.setInterpolator(new LinearInterpolator());
+        // 🔥 SOMBRA DO TEXTO (IMPORTANTE PRA APARECER)
+        button.setShadowLayer(
+                12f,
+                0f,
+                0f,
+                Color.parseColor("#A855F7")
+        );
 
-        animator.addUpdateListener(animation -> {
+        // 🔥 ANIMAÇÃO DE BRILHO REAL
+        glowAnimator = ValueAnimator.ofFloat(0.6f, 1f);
+        glowAnimator.setDuration(1200);
+        glowAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        glowAnimator.setRepeatMode(ValueAnimator.REVERSE);
+        glowAnimator.setInterpolator(new LinearInterpolator());
+
+        glowAnimator.addUpdateListener(animation -> {
             if (!animating) return;
 
             float value = (float) animation.getAnimatedValue();
 
-            // brilho suave
-            float alpha = 0.90f + (value * 0.10f);
-            button.setAlpha(alpha);
+            // brilho externo
+            glow.setAlpha((int) (255 * value));
 
-            // pulso leve
-            float scale = 1f + (value * 0.03f);
+            // leve pulso
+            float scale = 1f + (value * 0.04f);
             button.setScaleX(scale);
             button.setScaleY(scale);
         });
 
-        animator.start();
+        glowAnimator.start();
     }
 
     public void stop(Button button) {
         animating = false;
 
-        if (animator != null) {
-            animator.cancel();
-            animator = null;
+        if (glowAnimator != null) {
+            glowAnimator.cancel();
+            glowAnimator = null;
         }
 
         if (button != null) {
-            button.setAlpha(1f);
             button.setScaleX(1f);
             button.setScaleY(1f);
         }
