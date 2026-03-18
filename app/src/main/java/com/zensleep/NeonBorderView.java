@@ -15,9 +15,6 @@ public class NeonBorderView extends View {
 
     private float hue = 0;
 
-    private boolean isRunning = false;
-    private String buttonText = "⏱ DEFINIR TIMER";
-
     public NeonBorderView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
