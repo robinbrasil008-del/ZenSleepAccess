@@ -139,7 +139,6 @@ public class HomeFragment extends Fragment {
         btnTimer = view.findViewById(R.id.btnTimer);
         timerIcon = view.findViewById(R.id.timerIcon);
         timerIcon.setImageResource(R.drawable.hourglass_static);
-        btnDefinirTimer = view.findViewById(R.id.btnTimer);
         neonBorderView = view.findViewById(R.id.neonBorderView);
         
         // ======= SETUP MIX (MULTI-SOM) =======
