@@ -145,6 +145,7 @@ public class HomeFragment extends Fragment {
             countDownTimer.cancel();
         }
 
+        timerCard.stopBorderAnimation();
         stopSound();
         stopHourglassAnimation();
         timerAnimator.stop(txtTimer);
