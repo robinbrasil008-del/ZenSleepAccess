@@ -517,7 +517,7 @@ public class HomeFragment extends Fragment {
 
             timerAnimator.start(txtTimer);
 
-            btnTimer.setSelected(true);
+            neonBorderView.setSelected(true);
 
             countDownTimer = new CountDownTimer(millis, 1000) {
 
@@ -543,7 +543,7 @@ public class HomeFragment extends Fragment {
 
                     timerAnimator.stop(txtTimer);
 
-                    btnTimer.setSelected(false);
+                    neonBorderView.setSelected(false);
                     
                     stopSound(); // para todos
                 }
