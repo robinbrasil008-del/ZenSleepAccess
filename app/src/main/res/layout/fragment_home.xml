@@ -70,7 +70,7 @@
 </com.zensleep.AnimatedTimerCardLayout>
 
         <FrameLayout
-            android:layout_width="200dp"
+            android:layout_width="170dp"
             android:layout_height="48dp">
 
     <!-- 🔥 BORDA NEON -->
@@ -84,7 +84,7 @@
             android:id="@+id/btnTimer"
             android:textColor="@android:color/white"
             android:layout_marginBottom="24dp"
-            android:layout_width="200dp"
+            android:layout_width="170dp"
             android:layout_height="48dp"
             android:background="@android:color/transparent"/>
 
