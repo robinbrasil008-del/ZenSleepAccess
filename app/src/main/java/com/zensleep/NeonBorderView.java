@@ -25,11 +25,6 @@ public class NeonBorderView extends View {
 
     private void init() {
 
-        setOnClickListener(v -> {
-        isRunning = !isRunning;
-        invalidate();
-        });
-
         setWillNotDraw(false);
 
         rect = new RectF();
@@ -82,12 +77,7 @@ protected void onDraw(Canvas canvas) {
     // 🌈 GRADIENTE RGB
     int[] colors;
 
-    boolean isRunning = false;
-
-if (getParent() instanceof View) {
-    View parent = (View) getParent();
-    isRunning = parent.isSelected();
-    }
+    boolean isRunning = isSelected();
 
 if (isRunning) {
     // 🔴 MODO TIMER ATIVO (vermelho vivo)
@@ -247,6 +237,13 @@ canvas.drawText(text, x, y, textPaint);
     canvas.restore();
     
 }
+
+@Override
+public void setSelected(boolean selected) {
+    super.setSelected(selected);
+    invalidate(); // 🔥 força redesenho
+}
+    
     private float dp(float value) {
         return value * getResources().getDisplayMetrics().density;
     }
