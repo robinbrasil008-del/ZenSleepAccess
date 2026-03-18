@@ -222,7 +222,7 @@ textPaint.setTextSize(dp(16));
 textPaint.setFakeBoldText(true);
 
 // cor do texto
-textPaint.setColor(isRunning ? Color.WHITE : Color.BLACK);
+textPaint.setColor(isRunning ? Color.BLACK : Color.BLACK);
 
 // posição central
 float x = getWidth() / 2f;
