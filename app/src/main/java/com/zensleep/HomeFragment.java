@@ -40,7 +40,6 @@ import android.view.ViewGroup;
 import android.animation.ArgbEvaluator;
 import com.bumptech.glide.Glide;
 import com.zensleep.TimerTextAnimator;
-import com.zensleep.NeonBorderView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -518,8 +517,6 @@ public class HomeFragment extends Fragment {
 
             timerAnimator.start(txtTimer);
 
-            neonBorderView.startTimer();
-
             countDownTimer = new CountDownTimer(millis, 1000) {
 
                 @Override
@@ -543,8 +540,6 @@ public class HomeFragment extends Fragment {
                     stopHourglassAnimation();
 
                     timerAnimator.stop(txtTimer);
-
-                    neonBorderView.stopTimer();
                     
                     stopSound(); // para todos
                 }
