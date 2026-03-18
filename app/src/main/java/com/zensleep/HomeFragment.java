@@ -59,6 +59,7 @@ public class HomeFragment extends Fragment {
 
     private TextView txtTimer;
 
+    private NeonBorderView neonBorderView;
     private Button btnDefinirTimer;
     private ButtonGlowAnimator buttonAnimator;
 
@@ -137,6 +138,7 @@ public class HomeFragment extends Fragment {
         btnTimer = view.findViewById(R.id.btnTimer);
         timerIcon = view.findViewById(R.id.timerIcon);
         timerIcon.setImageResource(R.drawable.hourglass_static);
+        neonBorderView = view.findViewById(R.id.neonBorder);
         
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
