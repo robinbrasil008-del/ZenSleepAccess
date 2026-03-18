@@ -16,19 +16,7 @@ public class NeonBorderView extends View {
     private float hue = 0;
 
     private boolean isRunning = false;
-    private String buttonText = "DEFINIR TIMER";
-
-    public void startTimer() {
-    isRunning = true;
-    buttonText = "⏱ STOP TIMER";
-    invalidate();
-    }
-
-    public void stopTimer() {
-    isRunning = false;
-    buttonText = "⏱ DEFINIR TIMER";
-    invalidate();
-}
+    private String buttonText = "⏱ DEFINIR TIMER";
 
     public NeonBorderView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -93,6 +81,13 @@ protected void onDraw(Canvas canvas) {
 
     // 🌈 GRADIENTE RGB
     int[] colors;
+
+    boolean isRunning = false;
+
+if (getParent() instanceof View) {
+    View parent = (View) getParent();
+    isRunning = parent.isSelected();
+    }
 
 if (isRunning) {
     // 🔴 MODO TIMER ATIVO (vermelho vivo)
@@ -246,8 +241,9 @@ textPaint.setColor(isRunning ? Color.WHITE : Color.BLACK);
 float x = getWidth() / 2f;
 float y = getHeight() / 2f - ((textPaint.descent() + textPaint.ascent()) / 2);
 
-canvas.drawText(buttonText, x, y, textPaint);
-
+String text = isRunning ? "⏱ STOP TIMER" : "⏱ DEFINIR TIMER";
+canvas.drawText(text, x, y, textPaint);
+    
     canvas.restore();
     
 }
