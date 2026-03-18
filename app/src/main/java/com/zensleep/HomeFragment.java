@@ -223,8 +223,7 @@ public class HomeFragment extends Fragment {
             FavoritesManager.toggleFavorite(requireContext(), "cafeteira");
             updateStars();
         });
-
-        btnTimer.setOnClickListener(v -> openTimerDialog());
+        
     }
 
     private void startHourglassAnimation() {
