@@ -136,6 +136,30 @@ public class HomeFragment extends Fragment {
         // ======= TIMER =======
         txtTimer = view.findViewById(R.id.txtTimer);
         btnTimer = view.findViewById(R.id.btnTimer);
+        btnTimer.setOnClickListener(v -> {
+
+     if (neonBorderView.isSelected()) {
+        // 🔴 SE ESTÁ RODANDO → PARA TUDO
+
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+
+        stopSound();
+        stopHourglassAnimation();
+        timerAnimator.stop(txtTimer);
+
+        neonBorderView.setSelected(false);
+
+        txtTimer.setText("00:00");
+
+        } else {
+        // 🟢 SE NÃO ESTÁ RODANDO → ABRE O DIALOG
+
+        openTimerDialog(); // 👈 ESSE MÉTODO QUE VOCÊ JÁ TEM
+        }
+
+        });
         timerIcon = view.findViewById(R.id.timerIcon);
         timerIcon.setImageResource(R.drawable.hourglass_static);
         neonBorderView = view.findViewById(R.id.neonBorder);
