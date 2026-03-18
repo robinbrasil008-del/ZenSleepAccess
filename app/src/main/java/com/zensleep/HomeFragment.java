@@ -62,6 +62,7 @@ public class HomeFragment extends Fragment {
     private NeonBorderView neonBorderView;
     private Button btnDefinirTimer;
     private ButtonGlowAnimator buttonAnimator;
+    private AnimatedTimerCardLayout timerCard;
 
     private ImageView timerIcon;
 
