@@ -48,7 +48,7 @@
            android:layout_marginTop="10dp"
            android:gravity="center"
            android:orientation="horizontal"
-           android:padding="7dp">
+           android:padding="5dp">
 
        <ImageView
            android:id="@+id/timerIcon"
