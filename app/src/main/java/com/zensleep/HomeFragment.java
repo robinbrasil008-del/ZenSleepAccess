@@ -146,6 +146,7 @@ public class HomeFragment extends Fragment {
             countDownTimer.cancel();
         }
 
+        AnimatedTimerCardLayout timerCard = requireView().findViewById(R.id.timerCard);
         timerCard.stopBorderAnimation();
         stopSound();
         stopHourglassAnimation();
