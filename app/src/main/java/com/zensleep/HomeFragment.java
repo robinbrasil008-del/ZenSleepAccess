@@ -517,6 +517,8 @@ public class HomeFragment extends Fragment {
 
             timerAnimator.start(txtTimer);
 
+            btnTimer.setSelected(true);
+
             countDownTimer = new CountDownTimer(millis, 1000) {
 
                 @Override
@@ -540,6 +542,8 @@ public class HomeFragment extends Fragment {
                     stopHourglassAnimation();
 
                     timerAnimator.stop(txtTimer);
+
+                    btnTimer.setSelected(false);
                     
                     stopSound(); // para todos
                 }
