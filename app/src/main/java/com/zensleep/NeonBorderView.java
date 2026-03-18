@@ -20,13 +20,13 @@ public class NeonBorderView extends View {
 
     public void startTimer() {
     isRunning = true;
-    buttonText = "STOP TIMER";
+    buttonText = "⏱ STOP TIMER";
     invalidate();
     }
 
     public void stopTimer() {
     isRunning = false;
-    buttonText = "DEFINIR TIMER";
+    buttonText = "⏱ DEFINIR TIMER";
     invalidate();
 }
 
