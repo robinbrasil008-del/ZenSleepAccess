@@ -38,8 +38,6 @@
             android:layout_marginBottom="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        
-        </FrameLayout>
             
         <!-- 🔥 NOVO RELÓGIO ESTILIZADO -->
           <com.zensleep.AnimatedTimerCardLayout
@@ -50,7 +48,7 @@
            android:layout_marginTop="6dp"
            android:gravity="center"
            android:orientation="horizontal"
-           android:padding="7dp"/>
+           android:padding="7dp"
 
        <ImageView
            android:id="@+id/timerIcon"
@@ -58,7 +56,7 @@
            android:layout_height="34dp"
            android:translationX="6dp"
            android:scaleType="fitCenter"
-           android:src="@drawable/hourglass_static" />
+           android:src="@drawable/hourglass_static"/>
               
     <TextView
     android:id="@+id/txtTimer"
@@ -71,9 +69,9 @@
               
 </com.zensleep.AnimatedTimerCardLayout>
 
-        <FrameLayout
+    <FrameLayout
             android:layout_width="170dp"
-            android:layout_height="48dp"/>
+            android:layout_height="48dp"
 
     <!-- 🔥 BORDA NEON -->
         <com.zensleep.NeonBorderView
@@ -87,10 +85,11 @@
             android:textColor="@android:color/white"
             android:layout_width="170dp"
             android:layout_height="48dp"
+            android:layout_marginTop="6dp"
             android:background="@android:color/transparent"/>
 
-            </FrameLayout>
-
+    </FrameLayout>
+        
         <!-- GRID -->
         <GridLayout
             android:columnCount="2"
