@@ -48,7 +48,7 @@
            android:layout_marginTop="6dp"
            android:gravity="center"
            android:orientation="horizontal"
-           android:padding="7dp"
+           android:padding="7dp">
 
        <ImageView
            android:id="@+id/timerIcon"
@@ -71,7 +71,7 @@
 
     <FrameLayout
             android:layout_width="170dp"
-            android:layout_height="48dp"
+            android:layout_height="48dp">
 
     <!-- 🔥 BORDA NEON -->
         <com.zensleep.NeonBorderView
