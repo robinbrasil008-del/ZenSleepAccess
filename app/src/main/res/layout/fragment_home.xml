@@ -22,7 +22,7 @@
 
         <!-- TÍTULO -->
         <ImageView
-    android:layout_width="wrap_content"
+    android:layout_width="220dp"
     android:layout_height="wrap_content"
     android:src="@drawable/logo_zensleep"
     android:layout_marginTop="10dp"
