@@ -133,24 +133,22 @@
         android:padding="16dp">
 
         <TextView
-            android:text="🌧"
-            android:textSize="42sp"
-            android:layout_marginBottom="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
             android:text="Chuva"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="20dp"
+            android:shadowColor="#000000"
+            android:shadowRadius="4"
+            android:shadowDx="0"
+            android:shadowDy="2"/>
 
         <ImageView
             android:id="@+id/btnPlayChuva"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
             android:src="@android:drawable/ic_media_play"
@@ -215,26 +213,24 @@
         android:padding="16dp">
 
         <TextView
-            android:text="🌲"
-            android:textSize="42sp"
-            android:layout_marginBottom="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
             android:text="Floresta"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="20dp"
+            android:shadowColor="#000000"
+            android:shadowRadius="4"
+            android:shadowDx="0"
+            android:shadowDy="2"/>
 
         <ImageView
             android:id="@+id/btnPlayFloresta"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
-            android:padding="10dp"
+            android:padding="12dp"
             android:src="@android:drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Floresta"/>
@@ -296,26 +292,24 @@
         android:padding="16dp">
 
         <TextView
-            android:text="🔥"
-            android:textSize="42sp"
-            android:layout_marginBottom="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
             android:text="Lareira"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="20dp"
+            android:shadowColor="#000000"
+            android:shadowRadius="4"
+            android:shadowDx="0"
+            android:shadowDy="2"/>
 
         <ImageView
             android:id="@+id/btnPlayLareira"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
-            android:padding="10dp"
+            android:padding="12dp"
             android:src="@android:drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Lareira"/>
@@ -377,26 +371,24 @@
         android:padding="16dp">
 
         <TextView
-            android:text="🌬"
-            android:textSize="42sp"
-            android:layout_marginBottom="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
             android:text="Vento Suave"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="20dp"
+            android:shadowColor="#000000"
+            android:shadowRadius="4"
+            android:shadowDx="0"
+            android:shadowDy="2"/>
 
         <ImageView
             android:id="@+id/btnPlayVento"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
-            android:padding="10dp"
+            android:padding="12dp"
             android:src="@android:drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Vento Suave"/>
@@ -458,26 +450,24 @@
         android:padding="16dp">
 
         <TextView
-            android:text="✨"
-            android:textSize="42sp"
-            android:layout_marginBottom="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
             android:text="Noite com Grilos"
             android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="20dp"
+            android:shadowColor="#000000"
+            android:shadowRadius="4"
+            android:shadowDx="0"
+            android:shadowDy="2"/>
 
         <ImageView
             android:id="@+id/btnPlayGrilos"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
-            android:padding="10dp"
+            android:padding="12dp"
             android:src="@android:drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Noite com Grilos"/>
@@ -539,26 +529,24 @@
         android:padding="16dp">
 
         <TextView
-            android:text="🐦"
-            android:textSize="42sp"
-            android:layout_marginBottom="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
             android:text="Pássaros"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="20dp"
+            android:shadowColor="#000000"
+            android:shadowRadius="4"
+            android:shadowDx="0"
+            android:shadowDy="2"/>
 
         <ImageView
             android:id="@+id/btnPlayPassaros"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
-            android:padding="10dp"
+            android:padding="12dp"
             android:src="@android:drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Pássaros"/>
@@ -620,26 +608,24 @@
         android:padding="16dp">
 
         <TextView
-            android:text="🏞"
-            android:textSize="42sp"
-            android:layout_marginBottom="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
             android:text="Riacho"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="20dp"
+            android:shadowColor="#000000"
+            android:shadowRadius="4"
+            android:shadowDx="0"
+            android:shadowDy="2"/>
 
         <ImageView
             android:id="@+id/btnPlayRiacho"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
-            android:padding="10dp"
+            android:padding="12dp"
             android:src="@android:drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Riacho"/>
@@ -701,26 +687,24 @@
         android:padding="16dp">
 
         <TextView
-            android:text="☕"
-            android:textSize="42sp"
-            android:layout_marginBottom="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
             android:text="Cafeteira"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="20dp"
+            android:shadowColor="#000000"
+            android:shadowRadius="4"
+            android:shadowDx="0"
+            android:shadowDy="2"/>
 
         <ImageView
             android:id="@+id/btnPlayCafeteira"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
-            android:padding="10dp"
+            android:padding="12dp"
             android:src="@android:drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Cafeteira"/>
