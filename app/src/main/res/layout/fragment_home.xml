@@ -127,7 +127,7 @@
     <!-- 📦 CONTEÚDO -->
     <LinearLayout
         android:orientation="vertical"
-        android:gravity="center"
+        android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
@@ -137,8 +137,7 @@
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -146,6 +145,7 @@
             android:id="@+id/btnPlayChuva"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
@@ -205,7 +205,7 @@
     <!-- CONTEÚDO -->
     <LinearLayout
         android:orientation="vertical"
-        android:gravity="center"
+        android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
@@ -215,8 +215,7 @@
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -224,6 +223,7 @@
             android:id="@+id/btnPlayFloresta"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
@@ -282,7 +282,7 @@
     <!-- CONTEÚDO -->
     <LinearLayout
         android:orientation="vertical"
-        android:gravity="center"
+        android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
@@ -292,8 +292,7 @@
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -301,6 +300,7 @@
             android:id="@+id/btnPlayLareira"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
@@ -359,7 +359,7 @@
     <!-- CONTEÚDO -->
     <LinearLayout
         android:orientation="vertical"
-        android:gravity="center"
+        android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
@@ -369,8 +369,7 @@
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -378,6 +377,7 @@
             android:id="@+id/btnPlayVento"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
@@ -436,7 +436,7 @@
     <!-- CONTEÚDO -->
     <LinearLayout
         android:orientation="vertical"
-        android:gravity="center"
+        android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
@@ -446,8 +446,7 @@
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -455,6 +454,7 @@
             android:id="@+id/btnPlayGrilos"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
@@ -513,7 +513,7 @@
     <!-- CONTEÚDO -->
     <LinearLayout
         android:orientation="vertical"
-        android:gravity="center"
+        android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
@@ -523,8 +523,7 @@
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -532,6 +531,7 @@
             android:id="@+id/btnPlayPassaros"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
@@ -590,7 +590,7 @@
     <!-- CONTEÚDO -->
     <LinearLayout
         android:orientation="vertical"
-        android:gravity="center"
+        android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
@@ -600,8 +600,7 @@
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -609,6 +608,7 @@
             android:id="@+id/btnPlayRiacho"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
@@ -667,7 +667,7 @@
     <!-- CONTEÚDO -->
     <LinearLayout
         android:orientation="vertical"
-        android:gravity="center"
+        android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
@@ -677,8 +677,7 @@
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -686,6 +685,7 @@
             android:id="@+id/btnPlayCafeteira"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
