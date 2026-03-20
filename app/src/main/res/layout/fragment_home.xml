@@ -203,7 +203,7 @@
         android:tint="@android:color/white"/>
 
     <!-- CONTEÚDO -->
-    <LinearLayout
+    <FrameLayout
         android:orientation="vertical"
         android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
@@ -240,7 +240,7 @@
             android:alpha="0.9"
             android:max="100"
             android:progress="80"/>
-    </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>
 
@@ -280,7 +280,7 @@
         android:tint="@android:color/white"/>
 
     <!-- CONTEÚDO -->
-    <LinearLayout
+    <FrameLayout
         android:orientation="vertical"
         android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
@@ -317,7 +317,7 @@
             android:alpha="0.9"
             android:max="100"
             android:progress="80"/>
-    </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>
 
@@ -357,7 +357,7 @@
         android:tint="@android:color/white"/>
 
     <!-- CONTEÚDO -->
-    <LinearLayout
+    <FrameLayout
         android:orientation="vertical"
         android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
@@ -394,7 +394,7 @@
             android:alpha="0.9"
             android:max="100"
             android:progress="80"/>
-    </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>
             
@@ -434,7 +434,7 @@
         android:tint="@android:color/white"/>
 
     <!-- CONTEÚDO -->
-    <LinearLayout
+    <FrameLayout
         android:orientation="vertical"
         android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
@@ -471,7 +471,7 @@
             android:alpha="0.9"
             android:max="100"
             android:progress="80"/>
-    </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>
 
@@ -511,7 +511,7 @@
         android:tint="@android:color/white"/>
 
     <!-- CONTEÚDO -->
-    <LinearLayout
+    <FrameLayout
         android:orientation="vertical"
         android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
@@ -548,7 +548,7 @@
             android:alpha="0.9"
             android:max="100"
             android:progress="80"/>
-    </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>
 
@@ -588,7 +588,7 @@
         android:tint="@android:color/white"/>
 
     <!-- CONTEÚDO -->
-    <LinearLayout
+    <FrameLayout
         android:orientation="vertical"
         android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
@@ -625,7 +625,7 @@
             android:alpha="0.9"
             android:max="100"
             android:progress="80"/>
-    </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>
 
@@ -665,7 +665,7 @@
         android:tint="@android:color/white"/>
 
     <!-- CONTEÚDO -->
-    <LinearLayout
+    <FrameLayout
         android:orientation="vertical"
         android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
@@ -702,7 +702,7 @@
             android:alpha="0.9"
             android:max="100"
             android:progress="80"/>
-    </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>
             
