@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:background="?android:colorBackground"
     android:layout_width="match_parent"
@@ -138,10 +139,8 @@
             android:textStyle="bold"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="20dp"
-            android:shadowColor="#000000"
-            android:shadowRadius="4"
-            android:shadowDx="0"
-            android:shadowDy="2"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <ImageView
             android:id="@+id/btnPlayChuva"
@@ -218,10 +217,8 @@
             android:textStyle="bold"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="20dp"
-            android:shadowColor="#000000"
-            android:shadowRadius="4"
-            android:shadowDx="0"
-            android:shadowDy="2"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <ImageView
             android:id="@+id/btnPlayFloresta"
@@ -297,10 +294,8 @@
             android:textStyle="bold"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="20dp"
-            android:shadowColor="#000000"
-            android:shadowRadius="4"
-            android:shadowDx="0"
-            android:shadowDy="2"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <ImageView
             android:id="@+id/btnPlayLareira"
@@ -376,10 +371,8 @@
             android:textStyle="bold"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="20dp"
-            android:shadowColor="#000000"
-            android:shadowRadius="4"
-            android:shadowDx="0"
-            android:shadowDy="2"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <ImageView
             android:id="@+id/btnPlayVento"
@@ -455,10 +448,8 @@
             android:textStyle="bold"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="20dp"
-            android:shadowColor="#000000"
-            android:shadowRadius="4"
-            android:shadowDx="0"
-            android:shadowDy="2"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <ImageView
             android:id="@+id/btnPlayGrilos"
@@ -534,10 +525,8 @@
             android:textStyle="bold"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="20dp"
-            android:shadowColor="#000000"
-            android:shadowRadius="4"
-            android:shadowDx="0"
-            android:shadowDy="2"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <ImageView
             android:id="@+id/btnPlayPassaros"
@@ -613,10 +602,8 @@
             android:textStyle="bold"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="20dp"
-            android:shadowColor="#000000"
-            android:shadowRadius="4"
-            android:shadowDx="0"
-            android:shadowDy="2"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <ImageView
             android:id="@+id/btnPlayRiacho"
@@ -692,10 +679,8 @@
             android:textStyle="bold"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="20dp"
-            android:shadowColor="#000000"
-            android:shadowRadius="4"
-            android:shadowDx="0"
-            android:shadowDy="2"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <ImageView
             android:id="@+id/btnPlayCafeteira"
