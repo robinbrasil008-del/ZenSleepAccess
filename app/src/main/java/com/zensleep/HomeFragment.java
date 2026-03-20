@@ -69,16 +69,16 @@ public class HomeFragment extends Fragment {
     private TimerTextAnimator timerAnimator = new TimerTextAnimator();
 
     // PLAY BUTTONS
-    private ImageView btnPlayChuva, btnPlayMar;
+    private ImageView btnPlayChuva;
     private ImageView btnPlayFloresta, btnPlayLareira, btnPlayVento,
             btnPlayGrilos, btnPlayPassaros, btnPlayRiacho, btnPlayCafeteira;
 
     // SEEKBARS (VOLUME POR CARD)
-    private SeekBar seekChuva, seekMar, seekFloresta, seekLareira,
+    private SeekBar seekChuva, seekFloresta, seekLareira,
             seekVento, seekGrilos, seekPassaros, seekRiacho, seekCafeteira;
 
     // FAVORITOS
-    private ImageView starChuva, starMar;
+    private ImageView starChuva;
     private ImageView starFloresta, starLareira, starVento,
             starGrilos, starPassaros, starRiacho, starCafeteira;
 
@@ -100,7 +100,6 @@ public class HomeFragment extends Fragment {
 
         // ======= PLAY BUTTONS =======
         btnPlayChuva = view.findViewById(R.id.btnPlayChuva);
-        btnPlayMar = view.findViewById(R.id.btnPlayMar);
 
         btnPlayFloresta = view.findViewById(R.id.btnPlayFloresta);
         btnPlayLareira = view.findViewById(R.id.btnPlayLareira);
@@ -112,7 +111,6 @@ public class HomeFragment extends Fragment {
 
         // ======= SEEKBARS =======
         seekChuva = view.findViewById(R.id.seekChuva);
-        seekMar = view.findViewById(R.id.seekMar);
 
         seekFloresta = view.findViewById(R.id.seekFloresta);
         seekLareira = view.findViewById(R.id.seekLareira);
@@ -124,7 +122,6 @@ public class HomeFragment extends Fragment {
 
         // ======= FAVORITOS =======
         starChuva = view.findViewById(R.id.starChuva);
-        starMar = view.findViewById(R.id.starMar);
 
         starFloresta = view.findViewById(R.id.starFloresta);
         starLareira = view.findViewById(R.id.starLareira);
@@ -169,7 +166,6 @@ public class HomeFragment extends Fragment {
         
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
-        setupSound("mar", R.raw.mar, btnPlayMar, seekMar);
 
         setupSound("floresta", R.raw.floresta, btnPlayFloresta, seekFloresta);
         setupSound("lareira", R.raw.lareira, btnPlayLareira, seekLareira);
@@ -184,11 +180,6 @@ public class HomeFragment extends Fragment {
 
         starChuva.setOnClickListener(v -> {
             FavoritesManager.toggleFavorite(requireContext(), "chuva");
-            updateStars();
-        });
-
-        starMar.setOnClickListener(v -> {
-            FavoritesManager.toggleFavorite(requireContext(), "mar");
             updateStars();
         });
 
@@ -315,7 +306,6 @@ public class HomeFragment extends Fragment {
     private void applyMasterVolumeToAll() {
         // Reaplica master*card em todo mundo (útil quando muda no settings)
         applyVolumeForKey("chuva", seekChuva);
-        applyVolumeForKey("mar", seekMar);
         applyVolumeForKey("floresta", seekFloresta);
         applyVolumeForKey("lareira", seekLareira);
         applyVolumeForKey("vento", seekVento);
@@ -405,7 +395,6 @@ public class HomeFragment extends Fragment {
     private SeekBar getSeekBarByKey(String key) {
     switch (key) {
         case "chuva": return seekChuva;
-        case "mar": return seekMar;
         case "floresta": return seekFloresta;
         case "lareira": return seekLareira;
         case "vento": return seekVento;
@@ -421,7 +410,6 @@ public class HomeFragment extends Fragment {
     private void stopSound() {
         // Para TODOS os sons (mantém nome stopSound pra não quebrar o resto)
         stopSingle("chuva", btnPlayChuva);
-        stopSingle("mar", btnPlayMar);
         stopSingle("floresta", btnPlayFloresta);
         stopSingle("lareira", btnPlayLareira);
         stopSingle("vento", btnPlayVento);
@@ -589,9 +577,6 @@ public class HomeFragment extends Fragment {
 
         boolean chuvaFav =
                 FavoritesManager.isFavorite(requireContext(), "chuva");
-        boolean marFav =
-                FavoritesManager.isFavorite(requireContext(), "mar");
-
         boolean florestaFav =
                 FavoritesManager.isFavorite(requireContext(), "floresta");
         boolean lareiraFav =
@@ -613,14 +598,6 @@ public class HomeFragment extends Fragment {
         } else {
             starChuva.setImageResource(android.R.drawable.btn_star_big_off);
             starChuva.setColorFilter(0xFFFFFFFF);
-        }
-
-        if (marFav) {
-            starMar.setImageResource(android.R.drawable.btn_star_big_on);
-            starMar.setColorFilter(0xFFFFC107);
-        } else {
-            starMar.setImageResource(android.R.drawable.btn_star_big_off);
-            starMar.setColorFilter(0xFFFFFFFF);
         }
 
         if (starFloresta != null) {
