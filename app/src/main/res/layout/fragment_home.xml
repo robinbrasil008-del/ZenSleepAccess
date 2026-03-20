@@ -145,9 +145,8 @@
             android:id="@+id/btnPlayChuva"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
             android:background="@drawable/bg_play_circle"
-            android:padding="12dp"
+            android:padding="6dp"
             android:src="@android:drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Chuva"/>
