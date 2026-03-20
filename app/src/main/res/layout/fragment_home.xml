@@ -96,6 +96,7 @@
     android:layout_columnWeight="1"
     android:background="@drawable/bg_card"
     android:clipToOutline="true"
+    android:elevation="6dp"
     android:foreground="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true">
