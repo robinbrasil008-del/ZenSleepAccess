@@ -659,68 +659,85 @@
 
             <!-- ✅ CAFETEIRA -->
             <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="190dp"
-                android:layout_margin="8dp"
-                android:layout_columnWeight="1"
-                android:background="@drawable/bg_card"
-                android:padding="16dp"
-                android:foreground="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
+    android:layout_width="0dp"
+    android:layout_height="190dp"
+    android:layout_margin="8dp"
+    android:layout_columnWeight="1"
+    android:background="@drawable/bg_card"
+    android:clipToOutline="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
-                <ImageView
-                    android:id="@+id/starCafeteira"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="end|top"
-                    android:src="@android:drawable/btn_star_big_off"
-                    android:tint="@android:color/white"/>
+    <!-- IMAGEM DE FUNDO -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_cafeteira"
+        android:scaleType="centerCrop" />
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+    <!-- OVERLAY QUENTE (EFEITO ACONCHEGO) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#66330000"/>
 
-                    <TextView
-                        android:text="☕"
-                        android:textSize="42sp"
-                        android:layout_marginBottom="6dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+    <!-- ESTRELA -->
+    <ImageView
+        android:id="@+id/starCafeteira"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="end|top"
+        android:layout_margin="8dp"
+        android:src="@android:drawable/btn_star_big_off"
+        android:tint="@android:color/white"/>
 
-                    <TextView
-                        android:text="Cafeteira"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+    <!-- CONTEÚDO -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
-                    <ImageView
-                        android:id="@+id/btnPlayCafeteira"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bg_play_circle"
-                        android:padding="10dp"
-                        android:src="@android:drawable/ic_media_play"
-                        android:tint="@android:color/white"
-                        android:contentDescription="Tocar ou pausar Cafeteira"/>
+        <TextView
+            android:text="☕"
+            android:textSize="42sp"
+            android:layout_marginBottom="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-                    <SeekBar
-                        android:id="@+id/seekCafeteira"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:visibility="gone"
-                        android:alpha="0.9"
-                        android:max="100"
-                        android:progress="80"/>
-                </LinearLayout>
+        <TextView
+            android:text="Cafeteira"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-            </FrameLayout>
+        <ImageView
+            android:id="@+id/btnPlayCafeteira"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_play_circle"
+            android:padding="10dp"
+            android:src="@android:drawable/ic_media_play"
+            android:tint="@android:color/white"
+            android:contentDescription="Tocar ou pausar Cafeteira"/>
 
+        <SeekBar
+            android:id="@+id/seekCafeteira"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            android:alpha="0.9"
+            android:max="100"
+            android:progress="80"/>
+    </LinearLayout>
+
+</FrameLayout>
+            
         </GridLayout>
 
     </LinearLayout>
