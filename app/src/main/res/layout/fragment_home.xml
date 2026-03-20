@@ -128,14 +128,16 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:padding="7dp">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:padding="16dp">
 
         <TextView
             android:text="Chuva"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
@@ -146,7 +148,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
-            android:padding="6dp"
+            android:padding="12dp"
             android:src="@android:drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Chuva"/>
