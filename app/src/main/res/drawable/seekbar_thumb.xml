@@ -1,4 +1,30 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <size android:width="18dp" android:height="18dp"/>
-    <solid android:color="#00E5FF"/>
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- GLOW -->
+    <item>
+        <shape>
+            <size android:width="28dp" android:height="28dp"/>
+            <solid android:color="#3300E5FF"/>
+        </shape>
+    </item>
+
+    <!-- BORDA -->
+    <item>
+        <shape>
+            <size android:width="20dp" android:height="20dp"/>
+            <stroke
+                android:width="2dp"
+                android:color="#00E5FF"/>
+            <solid android:color="#101A2B"/>
+        </shape>
+    </item>
+
+    <!-- CENTRO -->
+    <item>
+        <shape>
+            <size android:width="10dp" android:height="10dp"/>
+            <solid android:color="#00E5FF"/>
+        </shape>
+    </item>
+
+</layer-list>
