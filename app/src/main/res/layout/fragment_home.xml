@@ -221,7 +221,11 @@
             android:textStyle="bold"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
 
         <ImageView
             android:id="@+id/btnPlayFloresta"
@@ -299,7 +303,11 @@
             android:textStyle="bold"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
 
         <ImageView
             android:id="@+id/btnPlayLareira"
@@ -377,7 +385,11 @@
             android:textStyle="bold"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
 
         <ImageView
             android:id="@+id/btnPlayVento"
@@ -455,7 +467,11 @@
             android:textStyle="bold"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
 
         <ImageView
             android:id="@+id/btnPlayGrilos"
@@ -533,7 +549,11 @@
             android:textStyle="bold"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
 
         <ImageView
             android:id="@+id/btnPlayPassaros"
@@ -611,7 +631,11 @@
             android:textStyle="bold"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
 
         <ImageView
             android:id="@+id/btnPlayRiacho"
@@ -689,7 +713,11 @@
             android:textStyle="bold"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
 
         <ImageView
             android:id="@+id/btnPlayCafeteira"
