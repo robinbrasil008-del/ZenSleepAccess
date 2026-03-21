@@ -147,11 +147,14 @@
 
         <ImageView
             android:id="@+id/btnPlayChuva"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:padding="12dp"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Chuva"/>
 
@@ -227,11 +230,14 @@
 
         <ImageView
             android:id="@+id/btnPlayFloresta"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:padding="12dp"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Floresta"/>
 
@@ -307,11 +313,14 @@
 
         <ImageView
             android:id="@+id/btnPlayLareira"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:padding="12dp"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Lareira"/>
 
@@ -387,11 +396,14 @@
 
         <ImageView
             android:id="@+id/btnPlayVento"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:padding="12dp"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Vento Suave"/>
 
@@ -467,11 +479,14 @@
 
         <ImageView
             android:id="@+id/btnPlayGrilos"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:padding="12dp"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Noite com Grilos"/>
 
@@ -547,11 +562,14 @@
 
         <ImageView
             android:id="@+id/btnPlayPassaros"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:padding="12dp"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Pássaros"/>
 
@@ -627,11 +645,14 @@
 
         <ImageView
             android:id="@+id/btnPlayRiacho"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:padding="12dp"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Riacho"/>
 
@@ -707,11 +728,14 @@
 
         <ImageView
             android:id="@+id/btnPlayCafeteira"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:padding="12dp"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Cafeteira"/>
 
