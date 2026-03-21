@@ -151,10 +151,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:background="@drawable/bg_play_circle"
             android:padding="12dp"
             app:srcCompat="@drawable/ic_media_play"
-            android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Chuva"/>
 
         <SeekBar
@@ -233,10 +231,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:background="@drawable/bg_play_circle"
             android:padding="12dp"
             app:srcCompat="@drawable/ic_media_play"
-            android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Floresta"/>
 
         <SeekBar
@@ -315,10 +311,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:background="@drawable/bg_play_circle"
             android:padding="12dp"
             app:srcCompat="@drawable/ic_media_play"
-            android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Lareira"/>
 
         <SeekBar
@@ -397,10 +391,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:background="@drawable/bg_play_circle"
             android:padding="12dp"
             app:srcCompat="@drawable/ic_media_play"
-            android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Vento Suave"/>
 
         <SeekBar
@@ -479,10 +471,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:background="@drawable/bg_play_circle"
             android:padding="12dp"
             app:srcCompat="@drawable/ic_media_play"
-            android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Noite com Grilos"/>
 
         <SeekBar
@@ -561,10 +551,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:background="@drawable/bg_play_circle"
             android:padding="12dp"
             app:srcCompat="@drawable/ic_media_play"
-            android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Pássaros"/>
 
         <SeekBar
@@ -643,10 +631,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:background="@drawable/bg_play_circle"
             android:padding="12dp"
             app:srcCompat="@drawable/ic_media_play"
-            android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Riacho"/>
 
         <SeekBar
@@ -725,10 +711,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:background="@drawable/bg_play_circle"
             android:padding="12dp"
             app:srcCompat="@drawable/ic_media_play"
-            android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Cafeteira"/>
 
         <SeekBar
