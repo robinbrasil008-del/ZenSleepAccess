@@ -3,7 +3,7 @@
     <!-- GLOW EXTERNO -->
     <item>
         <shape android:shape="oval">
-            <size android:width="28dp" android:height="28dp"/>
+            <size android:width="18dp" android:height="18dp"/>
             <solid android:color="#2200E5FF"/>
         </shape>
     </item>
@@ -11,7 +11,7 @@
     <!-- CÍRCULO PRINCIPAL -->
     <item>
         <shape android:shape="oval">
-            <size android:width="16dp" android:height="16dp"/>
+            <size android:width="10dp" android:height="10dp"/>
             <gradient
                 android:startColor="#00E5FF"
                 android:endColor="#EA00FF"
@@ -22,7 +22,7 @@
     <!-- CENTRO BRANCO -->
     <item>
         <shape android:shape="oval">
-            <size android:width="6dp" android:height="6dp"/>
+            <size android:width="4dp" android:height="4dp"/>
             <solid android:color="#FFFFFF"/>
         </shape>
     </item>
