@@ -153,7 +153,7 @@
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
-            android:src="@drawable/ic_media_play"
+            app:srcCompat="@drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Chuva"/>
 
@@ -235,7 +235,7 @@
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
-            android:src="@drawable/ic_media_play"
+            app:srcCompat="@drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Floresta"/>
 
@@ -317,7 +317,7 @@
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
-            android:src="@drawable/ic_media_play"
+            app:srcCompat="@drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Lareira"/>
 
@@ -399,7 +399,7 @@
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
-            android:src="drawable/ic_media_play"
+            app:srcCompat="@drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Vento Suave"/>
 
@@ -481,7 +481,7 @@
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
-            android:src="@drawable/ic_media_play"
+            app:srcCompat="@drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Noite com Grilos"/>
 
@@ -563,7 +563,7 @@
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
-            android:src="@drawable/ic_media_play"
+            app:srcCompat="@drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Pássaros"/>
 
@@ -645,7 +645,7 @@
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
-            android:src="@drawable/ic_media_play"
+            app:srcCompat="@drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Riacho"/>
 
@@ -727,7 +727,7 @@
             android:layout_gravity="center"
             android:background="@drawable/bg_play_circle"
             android:padding="12dp"
-            android:src="@drawable/ic_media_play"
+            app:srcCompat="@drawable/ic_media_play"
             android:tint="@android:color/white"
             android:contentDescription="Tocar ou pausar Cafeteira"/>
 
