@@ -2,24 +2,24 @@
 
     <!-- FUNDO -->
     <item android:id="@android:id/background">
-        <shape>
+        <shape android:shape="rectangle">
             <corners android:radius="100dp"/>
-            <solid android:color="#22FFFFFF"/>
-            <size android:height="4dp"/>
+            <solid android:color="#1AFFFFFF"/>
+            <size android:height="6dp"/>
         </shape>
     </item>
 
     <!-- PROGRESSO -->
     <item android:id="@android:id/progress">
         <clip>
-            <shape>
+            <shape android:shape="rectangle">
                 <corners android:radius="100dp"/>
                 <gradient
                     android:startColor="#00E5FF"
                     android:centerColor="#7C4DFF"
                     android:endColor="#EA00FF"
                     android:angle="0"/>
-                <size android:height="4dp"/>
+                <size android:height="6dp"/>
             </shape>
         </clip>
     </item>
