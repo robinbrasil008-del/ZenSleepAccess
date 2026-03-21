@@ -346,6 +346,14 @@ public class HomeFragment extends Fragment {
 
             mp.start();
             button.setImageResource(R.drawable.ic_media_pause);
+
+            button.animate()
+           .translationY(-30f)
+           .scaleX(1.05f)
+           .scaleY(1.05f)
+           .setDuration(180)
+           .setInterpolator(new android.view.animation.DecelerateInterpolator())
+           .start();
         
             // se acabar por algum motivo, limpa estado
             mp.setOnErrorListener((m, what, extra) -> {
@@ -385,6 +393,14 @@ public class HomeFragment extends Fragment {
         if (button != null) {
             button.setImageResource(R.drawable.ic_media_play);
         }
+
+            button.animate()
+           .translationY(0)
+           .scaleX(1f)
+           .scaleY(1f)
+           .setDuration(200)
+           .setInterpolator(new android.view.animation.DecelerateInterpolator())
+           .start();
 
             SeekBar seekBar = getSeekBarByKey(key);
         if (seekBar != null) {
