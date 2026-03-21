@@ -345,7 +345,7 @@ public class HomeFragment extends Fragment {
             applyVolumeForKey(key, seekBar);
 
             mp.start();
-            button.setImageResource(android.R.drawable.ic_media_pause);
+            button.setImageResource(R.drawable.ic_media_pause);
         
             // se acabar por algum motivo, limpa estado
             mp.setOnErrorListener((m, what, extra) -> {
@@ -383,7 +383,7 @@ public class HomeFragment extends Fragment {
         players.remove(key);
 
         if (button != null) {
-            button.setImageResource(android.R.drawable.ic_media_play);
+            button.setImageResource(R.drawable.ic_media_play);
         }
 
             SeekBar seekBar = getSeekBarByKey(key);
