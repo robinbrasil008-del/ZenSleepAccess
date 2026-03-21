@@ -169,7 +169,7 @@
             android:splitTrack="false"
             android:thumbOffset="0dp"
             android:layout_marginBottom="20dp"
-            android:translationY="-3dp"
+            android:translationY="+3dp"
             android:visibility="gone"
             android:alpha="0.9"
             android:max="100"
