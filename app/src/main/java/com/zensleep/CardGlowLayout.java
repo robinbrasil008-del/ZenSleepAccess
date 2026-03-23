@@ -39,10 +39,11 @@ public class CardGlowLayout extends FrameLayout {
         setWillNotDraw(false);
         setLayerType(LAYER_TYPE_SOFTWARE, null);
 
+        // 🔥 CONFIG PREMIUM DO GLOW
         glowPaint.setStyle(Paint.Style.STROKE);
-        glowPaint.setStrokeWidth(dp(3));
-        glowPaint.setColor(Color.parseColor("#AA00E5FF"));
-        glowPaint.setMaskFilter(new BlurMaskFilter(dp(18), BlurMaskFilter.Blur.NORMAL));
+        glowPaint.setStrokeWidth(dp(5)); // mais grosso
+        glowPaint.setColor(Color.parseColor("#00F0FF")); // neon forte
+        glowPaint.setMaskFilter(new BlurMaskFilter(dp(28), BlurMaskFilter.Blur.NORMAL)); // glow pesado
     }
 
     public void startGlow() {
@@ -52,8 +53,9 @@ public class CardGlowLayout extends FrameLayout {
             glowAnimator.cancel();
         }
 
-        glowAnimator = ValueAnimator.ofFloat(120f, 255f);
-        glowAnimator.setDuration(900);
+        // 🔥 EFEITO RESPIRANDO
+        glowAnimator = ValueAnimator.ofFloat(80f, 255f);
+        glowAnimator.setDuration(700);
         glowAnimator.setRepeatCount(ValueAnimator.INFINITE);
         glowAnimator.setRepeatMode(ValueAnimator.REVERSE);
         glowAnimator.setInterpolator(new LinearInterpolator());
@@ -62,6 +64,12 @@ public class CardGlowLayout extends FrameLayout {
             invalidate();
         });
         glowAnimator.start();
+
+        // 🔥 LEVANTA O CARD (EFEITO PREMIUM)
+        animate()
+                .translationZ(dp(6))
+                .setDuration(200)
+                .start();
 
         invalidate();
     }
@@ -75,6 +83,13 @@ public class CardGlowLayout extends FrameLayout {
         }
 
         glowAlpha = 0f;
+
+        // 🔥 VOLTA AO NORMAL
+        animate()
+                .translationZ(0)
+                .setDuration(200)
+                .start();
+
         invalidate();
     }
 
@@ -85,10 +100,10 @@ public class CardGlowLayout extends FrameLayout {
         if (!glowing) return;
 
         rect.set(
-                dp(3),
-                dp(3),
-                getWidth() - dp(3),
-                getHeight() - dp(3)
+                dp(4),
+                dp(4),
+                getWidth() - dp(4),
+                getHeight() - dp(4)
         );
 
         glowPaint.setAlpha((int) glowAlpha);
