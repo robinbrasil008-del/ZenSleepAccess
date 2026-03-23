@@ -180,7 +180,8 @@
    </com.zensleep.CardGlowLayout>
 
             <!-- ✅ FLORESTA -->
-            <FrameLayout
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardFloresta"
     android:layout_width="0dp"
     android:layout_height="190dp"
     android:layout_margin="8dp"
@@ -266,10 +267,11 @@
             android:progress="80"/>
     </FrameLayout>
 
-</FrameLayout>
+</com.zensleep.CardGlowLayout>
 
             <!-- ✅ LAREIRA -->
-            <FrameLayout
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardLareira"
     android:layout_width="0dp"
     android:layout_height="190dp"
     android:layout_margin="8dp"
@@ -355,10 +357,11 @@
             android:progress="80"/>
     </FrameLayout>
 
-</FrameLayout>
+</com.zensleep.CardGlowLayout>
 
             <!-- ✅ VENTO SUAVE -->
-            <FrameLayout
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardVento"
     android:layout_width="0dp"
     android:layout_height="190dp"
     android:layout_margin="8dp"
@@ -444,10 +447,11 @@
             android:progress="80"/>
     </FrameLayout>
 
-</FrameLayout>
+</com.zensleep.CardGlowLayout>
             
             <!-- ✅ NOITE COM GRILOS -->
-            <FrameLayout
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardGrilos"
     android:layout_width="0dp"
     android:layout_height="190dp"
     android:layout_margin="8dp"
@@ -533,10 +537,11 @@
             android:progress="80"/>
     </FrameLayout>
 
-</FrameLayout>
+</com.zensleep.CardGlowLayout>
 
             <!-- ✅ PÁSSAROS -->
-            <FrameLayout
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardPassaros"
     android:layout_width="0dp"
     android:layout_height="190dp"
     android:layout_margin="8dp"
@@ -622,10 +627,11 @@
             android:progress="80"/>
     </FrameLayout>
 
-</FrameLayout>
+</com.zensleep.CardGlowLayout>
 
             <!-- ✅ RIACHO -->
-            <FrameLayout
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardRiacho"
     android:layout_width="0dp"
     android:layout_height="190dp"
     android:layout_margin="8dp"
@@ -711,10 +717,11 @@
             android:progress="80"/>
     </FrameLayout>
 
-</FrameLayout>
+</com.zensleep.CardGlowLayout>
 
             <!-- ✅ CAFETEIRA -->
-            <FrameLayout
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardCafeteira"
     android:layout_width="0dp"
     android:layout_height="190dp"
     android:layout_margin="8dp"
@@ -800,7 +807,7 @@
             android:progress="80"/>
     </FrameLayout>
 
-</FrameLayout>
+</com.zensleep.CardGlowLayout>
             
         </GridLayout>
 
