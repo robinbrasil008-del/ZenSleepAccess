@@ -88,7 +88,7 @@
             android:layout_height="wrap_content">
 
             <!-- CARD CHUVA -->
-            <FrameLayout
+            <com.zensleep.CardGlowLayout
     android:id="@+id/cardChuva"
     android:layout_width="0dp"
     android:layout_height="190dp"
@@ -177,7 +177,7 @@
 
          </FrameLayout>
 
-   </FrameLayout>
+   </com.zensleep.CardGlowLayout>
 
             <!-- ✅ FLORESTA -->
             <FrameLayout
