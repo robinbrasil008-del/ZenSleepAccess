@@ -63,6 +63,8 @@ public class HomeFragment extends Fragment {
     private Button btnDefinirTimer;
     private ButtonGlowAnimator buttonAnimator;
     private AnimatedTimerCardLayout timerCard;
+    
+    private CardGlowLayout cardChuva, cardFloresta, cardLareira, cardVento, cardGrilos, cardPassaros, cardRiacho, cardCafeteira;
 
     private ImageView timerIcon;
 
@@ -108,6 +110,15 @@ public class HomeFragment extends Fragment {
         btnPlayPassaros = view.findViewById(R.id.btnPlayPassaros);
         btnPlayRiacho = view.findViewById(R.id.btnPlayRiacho);
         btnPlayCafeteira = view.findViewById(R.id.btnPlayCafeteira);
+
+        cardChuva = view.findViewById(R.id.cardChuva);
+        cardFloresta = view.findViewById(R.id.cardFloresta);
+        cardLareira = view.findViewById(R.id.cardLareira);
+        cardVento = view.findViewById(R.id.cardVento);
+        cardGrilos = view.findViewById(R.id.cardGrilos);
+        cardPassaros = view.findViewById(R.id.cardPassaros);
+        cardRiacho = view.findViewById(R.id.cardRiacho);
+        cardCafeteira = view.findViewById(R.id.cardCafeteira);
 
         // ======= SEEKBARS =======
         seekChuva = view.findViewById(R.id.seekChuva);
@@ -218,6 +229,20 @@ public class HomeFragment extends Fragment {
             updateStars();
         });
         
+    }
+
+    private CardGlowLayout getCardByKey(String key) {
+    switch (key) {
+        case "chuva": return cardChuva;
+        case "floresta": return cardFloresta;
+        case "lareira": return cardLareira;
+        case "vento": return cardVento;
+        case "grilos": return cardGrilos;
+        case "passaros": return cardPassaros;
+        case "riacho": return cardRiacho;
+        case "cafeteira": return cardCafeteira;
+        default: return null;
+    }
     }
 
     private void startHourglassAnimation() {
@@ -354,6 +379,11 @@ public class HomeFragment extends Fragment {
            .setDuration(180)
            .setInterpolator(new android.view.animation.DecelerateInterpolator())
            .start();
+
+            CardGlowLayout card = getCardByKey(key);
+            if (card != null) {
+            card.startGlow();
+           }
         
             // se acabar por algum motivo, limpa estado
             mp.setOnErrorListener((m, what, extra) -> {
@@ -401,6 +431,11 @@ public class HomeFragment extends Fragment {
            .setDuration(200)
            .setInterpolator(new android.view.animation.DecelerateInterpolator())
            .start();
+
+            CardGlowLayout card = getCardByKey(key);
+            if (card != null) {
+            card.stopGlow();
+           }
 
             SeekBar seekBar = getSeekBarByKey(key);
         if (seekBar != null) {
