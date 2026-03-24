@@ -512,6 +512,10 @@ public class HomeFragment extends Fragment {
                 .setView(dialogView)
                 .create();
 
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
         btnStartTimer.setOnClickListener(v -> {
 
             String minutesStr = inputMinutes.getText().toString().trim();
