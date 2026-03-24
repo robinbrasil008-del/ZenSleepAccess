@@ -663,79 +663,79 @@ public class HomeFragment extends Fragment {
                 FavoritesManager.isFavorite(requireContext(), "cafeteira");
 
         if (chuvaFav) {
-            starChuva.setImageResource(android.R.drawable.btn_star_big_on);
+            starChuva.setImageResource(R.drawable.btn_star_big_on);
             starChuva.setColorFilter(0xFFFFC107);
         } else {
-            starChuva.setImageResource(android.R.drawable.btn_star_big_off);
+            starChuva.setImageResource(R.drawable.btn_star_big_off);
             starChuva.setColorFilter(0xFFFFFFFF);
         }
 
         if (starFloresta != null) {
             if (florestaFav) {
-                starFloresta.setImageResource(android.R.drawable.btn_star_big_on);
+                starFloresta.setImageResource(R.drawable.btn_star_big_on);
                 starFloresta.setColorFilter(0xFFFFC107);
             } else {
-                starFloresta.setImageResource(android.R.drawable.btn_star_big_off);
+                starFloresta.setImageResource(R.drawable.btn_star_big_off);
                 starFloresta.setColorFilter(0xFFFFFFFF);
             }
         }
 
         if (starLareira != null) {
             if (lareiraFav) {
-                starLareira.setImageResource(android.R.drawable.btn_star_big_on);
+                starLareira.setImageResource(R.drawable.btn_star_big_on);
                 starLareira.setColorFilter(0xFFFFC107);
             } else {
-                starLareira.setImageResource(android.R.drawable.btn_star_big_off);
+                starLareira.setImageResource(R.drawable.btn_star_big_off);
                 starLareira.setColorFilter(0xFFFFFFFF);
             }
         }
 
         if (starVento != null) {
             if (ventoFav) {
-                starVento.setImageResource(android.R.drawable.btn_star_big_on);
+                starVento.setImageResource(R.drawable.btn_star_big_on);
                 starVento.setColorFilter(0xFFFFC107);
             } else {
-                starVento.setImageResource(android.R.drawable.btn_star_big_off);
+                starVento.setImageResource(R.drawable.btn_star_big_off);
                 starVento.setColorFilter(0xFFFFFFFF);
             }
         }
 
         if (starGrilos != null) {
             if (grilosFav) {
-                starGrilos.setImageResource(android.R.drawable.btn_star_big_on);
+                starGrilos.setImageResource(R.drawable.btn_star_big_on);
                 starGrilos.setColorFilter(0xFFFFC107);
             } else {
-                starGrilos.setImageResource(android.R.drawable.btn_star_big_off);
+                starGrilos.setImageResource(R.drawable.btn_star_big_off);
                 starGrilos.setColorFilter(0xFFFFFFFF);
             }
         }
 
         if (starPassaros != null) {
             if (passarosFav) {
-                starPassaros.setImageResource(android.R.drawable.btn_star_big_on);
+                starPassaros.setImageResource(R.drawable.btn_star_big_on);
                 starPassaros.setColorFilter(0xFFFFC107);
             } else {
-                starPassaros.setImageResource(android.R.drawable.btn_star_big_off);
+                starPassaros.setImageResource(R.drawable.btn_star_big_off);
                 starPassaros.setColorFilter(0xFFFFFFFF);
             }
         }
 
         if (starRiacho != null) {
             if (riachoFav) {
-                starRiacho.setImageResource(android.R.drawable.btn_star_big_on);
+                starRiacho.setImageResource(R.drawable.btn_star_big_on);
                 starRiacho.setColorFilter(0xFFFFC107);
             } else {
-                starRiacho.setImageResource(android.R.drawable.btn_star_big_off);
+                starRiacho.setImageResource(R.drawable.btn_star_big_off);
                 starRiacho.setColorFilter(0xFFFFFFFF);
             }
         }
 
         if (starCafeteira != null) {
             if (cafeteiraFav) {
-                starCafeteira.setImageResource(android.R.drawable.btn_star_big_on);
+                starCafeteira.setImageResource(R.drawable.btn_star_big_on);
                 starCafeteira.setColorFilter(0xFFFFC107);
             } else {
-                starCafeteira.setImageResource(android.R.drawable.btn_star_big_off);
+                starCafeteira.setImageResource(R.drawable.btn_star_big_off);
                 starCafeteira.setColorFilter(0xFFFFFFFF);
             }
         }
