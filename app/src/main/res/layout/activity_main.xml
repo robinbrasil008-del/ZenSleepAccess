@@ -15,7 +15,7 @@
     <!-- MENU INFERIOR FUNCIONAL -->
     <LinearLayout
         android:id="@+id/bottomNav"
-        android:background="#0F172A"
+        android:background="?android:colorBackground"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
