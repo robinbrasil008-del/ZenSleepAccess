@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="⭐ Favoritos"
+            android:text="Sons ❤️ Favoritos"
             android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="?android:textColorPrimary"
