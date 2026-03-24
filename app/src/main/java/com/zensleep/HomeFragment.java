@@ -120,6 +120,9 @@ public class HomeFragment extends Fragment {
         cardRiacho = view.findViewById(R.id.cardRiacho);
         cardCafeteira = view.findViewById(R.id.cardCafeteira);
 
+        View parent = (View) button.getParent();
+        ImageView eq = parent.findViewById(R.id.equalizer);
+
         // ======= SEEKBARS =======
         seekChuva = view.findViewById(R.id.seekChuva);
 
@@ -384,6 +387,10 @@ public class HomeFragment extends Fragment {
             if (card != null) {
             card.startGlow();
            }
+
+            if (eq != null) {
+            eq.setVisibility(View.VISIBLE);
+            }
         
             // se acabar por algum motivo, limpa estado
             mp.setOnErrorListener((m, what, extra) -> {
@@ -436,6 +443,10 @@ public class HomeFragment extends Fragment {
             if (card != null) {
             card.stopGlow();
            }
+
+            if (eq != null) {
+            eq.setVisibility(View.GONE);
+            }
 
             SeekBar seekBar = getSeekBarByKey(key);
         if (seekBar != null) {
