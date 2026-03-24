@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zensleep.CardGlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="0dp"
     android:layout_height="190dp"
     android:layout_margin="8dp"
@@ -11,14 +12,14 @@
     android:clickable="true"
     android:focusable="true">
 
-    <!-- 🖼 FUNDO -->
+    <!-- 🖼 IMAGEM DE FUNDO -->
     <ImageView
         android:id="@+id/imgBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
 
-    <!-- 🌑 OVERLAY -->
+    <!-- 🌑 OVERLAY ESCURO -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -39,43 +40,61 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
+        <!-- 🏷 TÍTULO -->
         <TextView
             android:id="@+id/txtTitle"
-            android:text="Título"
+            android:text="Chuva"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
 
+        <!-- ▶️ BOTÃO PLAY -->
         <ImageView
             android:id="@+id/btnPlay"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:scaleType="centerInside"
             android:scaleX="1.1"
             android:scaleY="1.1"
             android:alpha="0.95"
-            android:src="@drawable/ic_media_play"/>
+            app:srcCompat="@drawable/ic_media_play"/>
 
+        <!-- 🔊 EQUALIZER -->
         <ImageView
             android:id="@+id/equalizer"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_gravity="center"
             android:layout_marginTop="30dp"
+            android:layout_gravity="center"
             android:visibility="gone"/>
 
+        <!-- 🎚 SEEKBAR -->
         <SeekBar
             android:id="@+id/seekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center_horizontal|bottom"
+            android:progressDrawable="@drawable/seekbar_track"
+            android:thumb="@drawable/seekbar_thumb"
+            android:thumbTint="#00E5FF"
+            android:splitTrack="false"
+            android:thumbOffset="0dp"
             android:layout_marginBottom="20dp"
+            android:translationY="3dp"
             android:visibility="gone"
-            android:max="100"/>
+            android:alpha="0.9"
+            android:max="100"
+            android:progress="80"/>
+
     </FrameLayout>
 
 </com.zensleep.CardGlowLayout>
