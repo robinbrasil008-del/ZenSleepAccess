@@ -120,8 +120,6 @@ public class HomeFragment extends Fragment {
         cardRiacho = view.findViewById(R.id.cardRiacho);
         cardCafeteira = view.findViewById(R.id.cardCafeteira);
 
-        View parent = (View) v.getParent();
-        ImageView eq = parent.findViewById(R.id.equalizer);
         // ======= SEEKBARS =======
         seekChuva = view.findViewById(R.id.seekChuva);
 
