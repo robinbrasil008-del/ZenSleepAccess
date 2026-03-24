@@ -390,7 +390,12 @@ public class HomeFragment extends Fragment {
 
             if (eq != null) {
             eq.setVisibility(View.VISIBLE);
-           }
+
+             Glide.with(requireContext())
+             .asGif()
+             .load(R.drawable.equalizer) // seu gif
+             .into(eq);
+             }
         
             // se acabar por algum motivo, limpa estado
             mp.setOnErrorListener((m, what, extra) -> {
@@ -449,7 +454,7 @@ public class HomeFragment extends Fragment {
 
             if (eq != null) {
             eq.setVisibility(View.GONE);
-           }
+            }
 
             SeekBar seekBar = getSeekBarByKey(key);
         if (seekBar != null) {
