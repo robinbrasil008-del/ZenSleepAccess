@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zensleep.CardGlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cardRoot"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:background="?android:colorBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        
+        <!-- GRID -->
+        <GridLayout
+            android:columnCount="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- CARD CHUVA -->
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardChuva"
     android:layout_width="0dp"
     android:layout_height="190dp"
     android:layout_margin="8dp"
@@ -8,60 +22,774 @@
     android:background="@drawable/bg_card"
     android:clipToOutline="true"
     android:elevation="6dp"
+    android:foreground="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true">
 
     <!-- 🖼 IMAGEM DE FUNDO -->
     <ImageView
-        android:id="@+id/imgBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:src="@drawable/bg_chuva"
         android:scaleType="centerCrop"/>
 
-    <!-- 🌑 OVERLAY -->
+    <!-- 🌑 OVERLAY ESCURO -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#AA0B1220"/>
+
+    <!-- ⭐ FAVORITO -->
+    <ImageView
+        android:id="@+id/starChuva"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="end|top"
+        android:layout_margin="10dp"
+        android:src="@android:drawable/btn_star_big_off"/>
+
+    <!-- 📦 CONTEÚDO -->
+    <FrameLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:padding="16dp">
+
+        <TextView
+            android:text="Chuva"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
+
+        <ImageView
+            android:id="@+id/btnPlayChuva"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
+            app:srcCompat="@drawable/ic_media_play"
+            android:contentDescription="Tocar ou pausar Chuva"/>
+
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <SeekBar
+            android:id="@+id/seekChuva"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:progressDrawable="@drawable/seekbar_track"
+            android:thumb="@drawable/seekbar_thumb"
+            android:thumbTint="#00E5FF"
+            android:splitTrack="false"
+            android:thumbOffset="0dp"
+            android:layout_marginBottom="20dp"
+            android:translationY="+3dp"
+            android:visibility="gone"
+            android:alpha="0.9"
+            android:max="100"
+            android:progress="80"/>
+
+         </FrameLayout>
+
+   </com.zensleep.CardGlowLayout>
+
+            <!-- ✅ FLORESTA -->
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardFloresta"
+    android:layout_width="0dp"
+    android:layout_height="190dp"
+    android:layout_margin="8dp"
+    android:layout_columnWeight="1"
+    android:clipToOutline="true"
+    android:background="@drawable/bg_card"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- FUNDO FLORESTA -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_floresta"
+        android:scaleType="centerCrop" />
+
+    <!-- ESCURECER PRA DAR CONTRASTE -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#66000000"/>
 
-    <!-- ❤️ FAVORITO -->
+    <!-- ESTRELA -->
     <ImageView
-        android:id="@+id/starFavorite"
+        android:id="@+id/starFloresta"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="end|top"
         android:layout_margin="8dp"
-        android:src="@drawable/btn_star_big_on"/>
+        android:src="@android:drawable/btn_star_big_off"/>
 
-    <!-- 📦 CONTEÚDO -->
-    <LinearLayout
+    <!-- CONTEÚDO -->
+    <FrameLayout
         android:orientation="vertical"
-        android:gravity="center"
+        android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <!-- 🏷 TÍTULO -->
         <TextView
-            android:id="@+id/txtTitle"
-            android:text="Título"
+            android:text="Floresta"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
 
-        <!-- ▶️ BOTÃO PLAY -->
         <ImageView
-            android:id="@+id/btnPlay"
+            android:id="@+id/btnPlayFloresta"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:scaleType="centerInside"
-            android:src="@android:drawable/ic_media_play"
-            android:tint="@android:color/white"
-            android:contentDescription="Play"/>
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
+            app:srcCompat="@drawable/ic_media_play"
+            android:contentDescription="Tocar ou pausar Floresta"/>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <SeekBar
+            android:id="@+id/seekFloresta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:progressDrawable="@drawable/seekbar_track"
+            android:thumb="@drawable/seekbar_thumb"
+            android:thumbTint="#00E5FF"
+            android:splitTrack="false"
+            android:thumbOffset="0dp"
+            android:layout_marginBottom="20dp"
+            android:translationY="+3dp"
+            android:visibility="gone"
+            android:alpha="0.9"
+            android:max="100"
+            android:progress="80"/>
+    </FrameLayout>
 
 </com.zensleep.CardGlowLayout>
+
+            <!-- ✅ LAREIRA -->
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardLareira"
+    android:layout_width="0dp"
+    android:layout_height="190dp"
+    android:layout_margin="8dp"
+    android:layout_columnWeight="1"
+    android:background="@drawable/bg_card"
+    android:clipToOutline="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- IMAGEM DE FUNDO -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_lareira"
+        android:scaleType="centerCrop" />
+
+    <!-- OVERLAY ESCURO (DEIXA PREMIUM) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#66000000"/>
+
+    <!-- ESTRELA -->
+    <ImageView
+        android:id="@+id/starLareira"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="end|top"
+        android:layout_margin="8dp"
+        android:src="@android:drawable/btn_star_big_off"/>
+
+    <!-- CONTEÚDO -->
+    <FrameLayout
+        android:orientation="vertical"
+        android:gravity="top|center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:text="Lareira"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
+
+        <ImageView
+            android:id="@+id/btnPlayLareira"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
+            app:srcCompat="@drawable/ic_media_play"
+            android:contentDescription="Tocar ou pausar Lareira"/>
+
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <SeekBar
+            android:id="@+id/seekLareira"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:progressDrawable="@drawable/seekbar_track"
+            android:thumb="@drawable/seekbar_thumb"
+            android:thumbTint="#00E5FF"
+            android:splitTrack="false"
+            android:thumbOffset="0dp"
+            android:layout_marginBottom="20dp"
+            android:translationY="+3dp"
+            android:visibility="gone"
+            android:alpha="0.9"
+            android:max="100"
+            android:progress="80"/>
+    </FrameLayout>
+
+</com.zensleep.CardGlowLayout>
+
+            <!-- ✅ VENTO SUAVE -->
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardVento"
+    android:layout_width="0dp"
+    android:layout_height="190dp"
+    android:layout_margin="8dp"
+    android:layout_columnWeight="1"
+    android:background="@drawable/bg_card"
+    android:clipToOutline="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- IMAGEM DE FUNDO -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_vento_suave"
+        android:scaleType="centerCrop" />
+
+    <!-- OVERLAY SUAVE (menos escuro que os outros) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#55000000"/>
+
+    <!-- ESTRELA -->
+    <ImageView
+        android:id="@+id/starVento"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="end|top"
+        android:layout_margin="8dp"
+        android:src="@android:drawable/btn_star_big_off"/>
+
+    <!-- CONTEÚDO -->
+    <FrameLayout
+        android:orientation="vertical"
+        android:gravity="top|center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:text="Vento Suave"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
+
+        <ImageView
+            android:id="@+id/btnPlayVento"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
+            app:srcCompat="@drawable/ic_media_play"
+            android:contentDescription="Tocar ou pausar Vento Suave"/>
+
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <SeekBar
+            android:id="@+id/seekVento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:progressDrawable="@drawable/seekbar_track"
+            android:thumb="@drawable/seekbar_thumb"
+            android:thumbTint="#00E5FF"
+            android:splitTrack="false"
+            android:thumbOffset="0dp"
+            android:layout_marginBottom="20dp"
+            android:translationY="+3dp"
+            android:visibility="gone"
+            android:alpha="0.9"
+            android:max="100"
+            android:progress="80"/>
+    </FrameLayout>
+
+</com.zensleep.CardGlowLayout>
+            
+            <!-- ✅ NOITE COM GRILOS -->
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardGrilos"
+    android:layout_width="0dp"
+    android:layout_height="190dp"
+    android:layout_margin="8dp"
+    android:layout_columnWeight="1"
+    android:background="@drawable/bg_card"
+    android:clipToOutline="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- IMAGEM DE FUNDO -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_noite_grilos"
+        android:scaleType="centerCrop" />
+
+    <!-- OVERLAY MAIS ESCURO (EFEITO NOITE REAL) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#88000000"/>
+
+    <!-- ESTRELA -->
+    <ImageView
+        android:id="@+id/starGrilos"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="end|top"
+        android:layout_margin="8dp"
+        android:src="@android:drawable/btn_star_big_off"/>
+
+    <!-- CONTEÚDO -->
+    <FrameLayout
+        android:orientation="vertical"
+        android:gravity="top|center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:text="Noite com Grilos"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
+
+        <ImageView
+            android:id="@+id/btnPlayGrilos"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
+            app:srcCompat="@drawable/ic_media_play"
+            android:contentDescription="Tocar ou pausar Noite com Grilos"/>
+
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <SeekBar
+            android:id="@+id/seekGrilos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:progressDrawable="@drawable/seekbar_track"
+            android:thumb="@drawable/seekbar_thumb"
+            android:thumbTint="#00E5FF"
+            android:splitTrack="false"
+            android:thumbOffset="0dp"
+            android:layout_marginBottom="20dp"
+            android:translationY="+3dp"
+            android:visibility="gone"
+            android:alpha="0.9"
+            android:max="100"
+            android:progress="80"/>
+    </FrameLayout>
+
+</com.zensleep.CardGlowLayout>
+
+            <!-- ✅ PÁSSAROS -->
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardPassaros"
+    android:layout_width="0dp"
+    android:layout_height="190dp"
+    android:layout_margin="8dp"
+    android:layout_columnWeight="1"
+    android:background="@drawable/bg_card"
+    android:clipToOutline="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- IMAGEM DE FUNDO -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_passaros"
+        android:scaleType="centerCrop" />
+
+    <!-- OVERLAY MAIS LEVE (EFEITO MANHÃ) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#33000000"/>
+
+    <!-- ESTRELA -->
+    <ImageView
+        android:id="@+id/starPassaros"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="end|top"
+        android:layout_margin="8dp"
+        android:src="@android:drawable/btn_star_big_off"/>
+
+    <!-- CONTEÚDO -->
+    <FrameLayout
+        android:orientation="vertical"
+        android:gravity="top|center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:text="Pássaros"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
+
+        <ImageView
+            android:id="@+id/btnPlayPassaros"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
+            app:srcCompat="@drawable/ic_media_play"
+            android:contentDescription="Tocar ou pausar Pássaros"/>
+
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <SeekBar
+            android:id="@+id/seekPassaros"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:progressDrawable="@drawable/seekbar_track"
+            android:thumb="@drawable/seekbar_thumb"
+            android:thumbTint="#00E5FF"
+            android:splitTrack="false"
+            android:thumbOffset="0dp"
+            android:layout_marginBottom="20dp"
+            android:translationY="+3dp"
+            android:visibility="gone"
+            android:alpha="0.9"
+            android:max="100"
+            android:progress="80"/>
+    </FrameLayout>
+
+</com.zensleep.CardGlowLayout>
+
+            <!-- ✅ RIACHO -->
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardRiacho"
+    android:layout_width="0dp"
+    android:layout_height="190dp"
+    android:layout_margin="8dp"
+    android:layout_columnWeight="1"
+    android:background="@drawable/bg_card"
+    android:clipToOutline="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- IMAGEM DE FUNDO -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_riacho"
+        android:scaleType="centerCrop" />
+
+    <!-- OVERLAY EQUILIBRADO -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#44000000"/>
+
+    <!-- ESTRELA -->
+    <ImageView
+        android:id="@+id/starRiacho"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="end|top"
+        android:layout_margin="8dp"
+        android:src="@android:drawable/btn_star_big_off"/>
+
+    <!-- CONTEÚDO -->
+    <FrameLayout
+        android:orientation="vertical"
+        android:gravity="top|center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:text="Riacho"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
+
+        <ImageView
+            android:id="@+id/btnPlayRiacho"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
+            app:srcCompat="@drawable/ic_media_play"
+            android:contentDescription="Tocar ou pausar Riacho"/>
+
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <SeekBar
+            android:id="@+id/seekRiacho"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:progressDrawable="@drawable/seekbar_track"
+            android:thumb="@drawable/seekbar_thumb"
+            android:thumbTint="#00E5FF"
+            android:splitTrack="false"
+            android:thumbOffset="0dp"
+            android:layout_marginBottom="20dp"
+            android:translationY="+3dp"
+            android:visibility="gone"
+            android:alpha="0.9"
+            android:max="100"
+            android:progress="80"/>
+    </FrameLayout>
+
+</com.zensleep.CardGlowLayout>
+
+            <!-- ✅ CAFETEIRA -->
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardCafeteira"
+    android:layout_width="0dp"
+    android:layout_height="190dp"
+    android:layout_margin="8dp"
+    android:layout_columnWeight="1"
+    android:background="@drawable/bg_card"
+    android:clipToOutline="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- IMAGEM DE FUNDO -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_cafeteira"
+        android:scaleType="centerCrop" />
+
+    <!-- OVERLAY QUENTE (EFEITO ACONCHEGO) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#66330000"/>
+
+    <!-- ESTRELA -->
+    <ImageView
+        android:id="@+id/starCafeteira"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="end|top"
+        android:layout_margin="8dp"
+        android:src="@android:drawable/btn_star_big_off"/>
+
+    <!-- CONTEÚDO -->
+    <FrameLayout
+        android:orientation="vertical"
+        android:gravity="top|center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:text="Cafeteira"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
+
+        <ImageView
+            android:id="@+id/btnPlayCafeteira"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
+            app:srcCompat="@drawable/ic_media_play"
+            android:contentDescription="Tocar ou pausar Cafeteira"/>
+
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <SeekBar
+            android:id="@+id/seekCafeteira"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:progressDrawable="@drawable/seekbar_track"
+            android:thumb="@drawable/seekbar_thumb"
+            android:thumbTint="#00E5FF"
+            android:splitTrack="false"
+            android:thumbOffset="0dp"
+            android:layout_marginBottom="20dp"
+            android:translationY="+3dp"
+            android:visibility="gone"
+            android:alpha="0.9"
+            android:max="100"
+            android:progress="80"/>
+    </FrameLayout>
+
+</com.zensleep.CardGlowLayout>
+            
+        </GridLayout>
+
+</ScrollView>
