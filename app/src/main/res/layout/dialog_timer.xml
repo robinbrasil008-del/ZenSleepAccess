@@ -90,9 +90,9 @@
 </LinearLayout>
 
     <!-- BOTÃO -->
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnStartTimer"
-        android:text="INICIAR TIMER"
+        android:text="INICIAR TEMPO"
         android:textColor="#FFFFFF"
         android:background="@drawable/bg_button_gradient"
         android:backgroundTint="@null"
