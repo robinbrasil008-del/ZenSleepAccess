@@ -121,8 +121,7 @@
         android:layout_height="24dp"
         android:layout_gravity="end|top"
         android:layout_margin="10dp"
-        android:src="@drawable/btn_star_big_off"
-        android:tint="@android:color/white"/>
+        android:src="@android:drawable/btn_star_big_off"/>
 
     <!-- 📦 CONTEÚDO -->
     <FrameLayout
