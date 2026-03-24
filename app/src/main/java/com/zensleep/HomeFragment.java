@@ -373,10 +373,10 @@ public class HomeFragment extends Fragment {
             button.setImageResource(R.drawable.ic_media_pause);
 
             button.animate()
-           .translationY(-30f)
+           .translationY(-50f)
            .scaleX(1.05f)
            .scaleY(1.05f)
-           .setDuration(180)
+           .setDuration(200)
            .setInterpolator(new android.view.animation.DecelerateInterpolator())
            .start();
 
