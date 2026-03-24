@@ -45,11 +45,6 @@ public class FavoritesFragment extends Fragment {
             hasFavorites = true;
         }
 
-        if (FavoritesManager.isFavorite(requireContext(), "mar")) {
-            addCard("Ondas do Mar", "mar", R.raw.mar);
-            hasFavorites = true;
-        }
-
         if (FavoritesManager.isFavorite(requireContext(), "floresta")) {
             addCard("Floresta", "floresta", R.raw.floresta);
             hasFavorites = true;
@@ -127,7 +122,6 @@ public class FavoritesFragment extends Fragment {
     private int getImageByKey(String key) {
         switch (key) {
             case "chuva": return R.drawable.bg_chuva;
-            case "mar": return R.drawable.bg_mar;
             case "floresta": return R.drawable.bg_floresta;
             case "lareira": return R.drawable.bg_lareira;
             case "vento_suave": return R.drawable.bg_vento_suave;
