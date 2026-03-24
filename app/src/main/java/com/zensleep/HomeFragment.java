@@ -664,7 +664,7 @@ public class HomeFragment extends Fragment {
 
         if (chuvaFav) {
             starChuva.setImageResource(R.drawable.btn_star_big_on);
-            starChuva.setColorFilter(0xFFFFC107);
+            starChuva.setColorFilter(0xFFFF1744);
         } else {
             starChuva.setImageResource(R.drawable.btn_star_big_off);
             starChuva.setColorFilter(0xFFFFFFFF);
@@ -673,7 +673,7 @@ public class HomeFragment extends Fragment {
         if (starFloresta != null) {
             if (florestaFav) {
                 starFloresta.setImageResource(R.drawable.btn_star_big_on);
-                starFloresta.setColorFilter(0xFFFFC107);
+                starFloresta.setColorFilter(0xFFFF1744);
             } else {
                 starFloresta.setImageResource(R.drawable.btn_star_big_off);
                 starFloresta.setColorFilter(0xFFFFFFFF);
@@ -683,7 +683,7 @@ public class HomeFragment extends Fragment {
         if (starLareira != null) {
             if (lareiraFav) {
                 starLareira.setImageResource(R.drawable.btn_star_big_on);
-                starLareira.setColorFilter(0xFFFFC107);
+                starLareira.setColorFilter(0xFFFF1744);
             } else {
                 starLareira.setImageResource(R.drawable.btn_star_big_off);
                 starLareira.setColorFilter(0xFFFFFFFF);
@@ -693,7 +693,7 @@ public class HomeFragment extends Fragment {
         if (starVento != null) {
             if (ventoFav) {
                 starVento.setImageResource(R.drawable.btn_star_big_on);
-                starVento.setColorFilter(0xFFFFC107);
+                starVento.setColorFilter(0xFFFF1744);
             } else {
                 starVento.setImageResource(R.drawable.btn_star_big_off);
                 starVento.setColorFilter(0xFFFFFFFF);
@@ -703,7 +703,7 @@ public class HomeFragment extends Fragment {
         if (starGrilos != null) {
             if (grilosFav) {
                 starGrilos.setImageResource(R.drawable.btn_star_big_on);
-                starGrilos.setColorFilter(0xFFFFC107);
+                starGrilos.setColorFilter(0xFFFF1744);
             } else {
                 starGrilos.setImageResource(R.drawable.btn_star_big_off);
                 starGrilos.setColorFilter(0xFFFFFFFF);
@@ -713,7 +713,7 @@ public class HomeFragment extends Fragment {
         if (starPassaros != null) {
             if (passarosFav) {
                 starPassaros.setImageResource(R.drawable.btn_star_big_on);
-                starPassaros.setColorFilter(0xFFFFC107);
+                starPassaros.setColorFilter(0xFFFF1744);
             } else {
                 starPassaros.setImageResource(R.drawable.btn_star_big_off);
                 starPassaros.setColorFilter(0xFFFFFFFF);
@@ -723,7 +723,7 @@ public class HomeFragment extends Fragment {
         if (starRiacho != null) {
             if (riachoFav) {
                 starRiacho.setImageResource(R.drawable.btn_star_big_on);
-                starRiacho.setColorFilter(0xFFFFC107);
+                starRiacho.setColorFilter(0xFFFF1744);
             } else {
                 starRiacho.setImageResource(R.drawable.btn_star_big_off);
                 starRiacho.setColorFilter(0xFFFFFFFF);
@@ -733,7 +733,7 @@ public class HomeFragment extends Fragment {
         if (starCafeteira != null) {
             if (cafeteiraFav) {
                 starCafeteira.setImageResource(R.drawable.btn_star_big_on);
-                starCafeteira.setColorFilter(0xFFFFC107);
+                starCafeteira.setColorFilter(0xFFFF1744);
             } else {
                 starCafeteira.setImageResource(R.drawable.btn_star_big_off);
                 starCafeteira.setColorFilter(0xFFFFFFFF);
