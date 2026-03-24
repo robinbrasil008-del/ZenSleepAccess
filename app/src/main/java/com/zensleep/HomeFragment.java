@@ -564,6 +564,12 @@ inputMinutes.addTextChangedListener(new android.text.TextWatcher() {
                 return;
             }
 
+            // 🔥 LIMITE DE 60 MINUTOS
+            if (minutes > 60) {
+                inputMinutes.setError("Máximo permitido é 60 minutos");
+                return;
+            }
+
             long millis = minutes * 60L * 1000L;
 
             boolean shouldTriggerAlarm = switchTimerAlarm != null && switchTimerAlarm.isChecked();
