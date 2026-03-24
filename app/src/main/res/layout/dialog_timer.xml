@@ -62,7 +62,7 @@
 
     <!-- INPUT -->
     <LinearLayout
-    android:layout_width="match_parent"
+    android:layout_width="220dp"
     android:layout_height="50dp"
     android:background="@drawable/bg_input"
     android:orientation="horizontal"
@@ -96,7 +96,7 @@
         android:textColor="#FFFFFF"
         android:background="@drawable/bg_button_gradient"
         android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="28dp"/>
+        android:layout_width="180dp"
+        android:layout_height="48dp"/>
 
 </LinearLayout>
