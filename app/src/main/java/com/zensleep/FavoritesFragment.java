@@ -3,6 +3,7 @@ package com.zensleep;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.view.LayoutInflater;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -83,10 +84,11 @@ public class FavoritesFragment extends Fragment {
         emptyText.setVisibility(hasFavorites ? View.GONE : View.VISIBLE);
     }
 
-    // 🔥 CARD PREMIUM IGUAL AO HOME
+    // 🔥 CARD IGUAL AO HOME (SEM CRASH)
     private void addCard(String title, String key, int soundRes) {
 
-        View card = getLayoutInflater().inflate(R.layout.item_sound, null);
+        View card = LayoutInflater.from(requireContext())
+                .inflate(R.layout.item_sound, favoritesGrid, false);
 
         ImageView imgBg = card.findViewById(R.id.imgBackground);
         ImageView btnPlay = card.findViewById(R.id.btnPlay);
@@ -96,15 +98,15 @@ public class FavoritesFragment extends Fragment {
         txtTitle.setText(title);
         imgBg.setImageResource(getImageByKey(key));
 
-        // ❤️ já é favorito
-        btnFav.setImageResource(R.drawable.btn_star_big_on);
+        // ⭐ favorito (usa padrão do Android pra não dar erro)
+        btnFav.setImageResource(android.R.drawable.btn_star_big_on);
 
         btnPlay.setOnClickListener(v -> {
 
             if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                 mediaPlayer.release();
                 mediaPlayer = null;
-                btnPlay.setImageResource(android.R.drawable.ic_media_play);
+                btnPlay.setImageResource(R.drawable.ic_media_play);
                 return;
             }
 
@@ -112,13 +114,13 @@ public class FavoritesFragment extends Fragment {
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
 
-            btnPlay.setImageResource(android.R.drawable.ic_media_pause);
+            btnPlay.setImageResource(R.drawable.ic_media_pause);
         });
 
         favoritesGrid.addView(card);
     }
 
-    // 🔥 MAPEAMENTO DAS IMAGENS
+    // 🔥 IMAGENS IGUAIS AO HOME
     private int getImageByKey(String key) {
         switch (key) {
             case "chuva": return R.drawable.bg_chuva;
