@@ -158,6 +158,15 @@
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Chuva"/>
 
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:src="@drawable/equalizer"/>
+
         <SeekBar
             android:id="@+id/seekChuva"
             android:layout_width="match_parent"
