@@ -499,6 +499,32 @@ public class HomeFragment extends Fragment {
         Button btnStartTimer = dialogView.findViewById(R.id.btnStartTimer);
         Switch switchTimerAlarm = dialogView.findViewById(R.id.switchTimerAlarm);
 
+        // 🔥 EFEITO AO FOCAR
+inputMinutes.setOnFocusChangeListener((v, hasFocus) -> {
+    if (hasFocus) {
+        v.animate().scaleX(1.03f).scaleY(1.03f).setDuration(120);
+    } else {
+        v.animate().scaleX(1f).scaleY(1f).setDuration(120);
+    }
+});
+
+// 🔥 EFEITO AO DIGITAR
+inputMinutes.addTextChangedListener(new android.text.TextWatcher() {
+    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+    @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+    @Override
+    public void afterTextChanged(android.text.Editable s) {
+        inputMinutes.animate()
+            .alpha(0.7f)
+            .setDuration(50)
+            .withEndAction(() ->
+                inputMinutes.animate().alpha(1f).setDuration(50)
+            );
+    }
+});
+
         // 🔥 Card clicável para abrir configurações do despertador
         View cardTimerAlarm = dialogView.findViewById(R.id.cardTimerAlarm);
         if (cardTimerAlarm != null) {
