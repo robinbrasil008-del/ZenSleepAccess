@@ -87,37 +87,42 @@ public class FavoritesFragment extends Fragment {
     // 🔥 CARD IGUAL AO HOME (SEM CRASH)
     private void addCard(String title, String key, int soundRes) {
 
-        View card = LayoutInflater.from(requireContext())
-                .inflate(R.layout.item_sound, favoritesGrid, false);
+    View card = LayoutInflater.from(requireContext())
+            .inflate(R.layout.item_sound, favoritesGrid, false);
 
-        ImageView imgBg = card.findViewById(R.id.imgBackground);
-        ImageView btnPlay = card.findViewById(R.id.btnPlay);
-        ImageView btnFav = card.findViewById(R.id.starFavorite);
-        TextView txtTitle = card.findViewById(R.id.txtTitle);
+    ImageView imgBg = card.findViewById(R.id.imgBackground);
+    ImageView btnPlay = card.findViewById(R.id.btnPlay);
+    ImageView btnFav = card.findViewById(R.id.starFavorite);
+    ImageView equalizer = card.findViewById(R.id.equalizer);
+    android.widget.SeekBar seekBar = card.findViewById(R.id.seekBar);
+    TextView txtTitle = card.findViewById(R.id.txtTitle);
 
-        txtTitle.setText(title);
-        imgBg.setImageResource(getImageByKey(key));
+    txtTitle.setText(title);
+    imgBg.setImageResource(getImageByKey(key));
 
-        // ⭐ favorito (usa padrão do Android pra não dar erro)
-        btnFav.setImageResource(android.R.drawable.btn_star_big_on);
+    btnPlay.setOnClickListener(v -> {
 
-        btnPlay.setOnClickListener(v -> {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.release();
+            mediaPlayer = null;
 
-            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-                mediaPlayer.release();
-                mediaPlayer = null;
-                btnPlay.setImageResource(R.drawable.ic_media_play);
-                return;
-            }
+            btnPlay.setImageResource(R.drawable.ic_media_play);
+            equalizer.setVisibility(View.GONE);
+            seekBar.setVisibility(View.GONE);
 
-            mediaPlayer = MediaPlayer.create(requireContext(), soundRes);
-            mediaPlayer.setLooping(true);
-            mediaPlayer.start();
+            return;
+        }
 
-            btnPlay.setImageResource(R.drawable.ic_media_pause);
-        });
+        mediaPlayer = MediaPlayer.create(requireContext(), soundRes);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
 
-        favoritesGrid.addView(card);
+        btnPlay.setImageResource(R.drawable.ic_media_pause);
+        equalizer.setVisibility(View.VISIBLE);
+        seekBar.setVisibility(View.VISIBLE);
+    });
+
+    favoritesGrid.addView(card);
     }
 
     // 🔥 IMAGENS IGUAIS AO HOME
