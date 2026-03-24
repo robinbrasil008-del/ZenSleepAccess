@@ -55,6 +55,7 @@
         android:text="Definir tempo (minutos)"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
+        android:gravity="center"
         android:layout_marginBottom="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -62,7 +63,7 @@
     <!-- INPUT -->
     <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
     android:background="@drawable/bg_input"
     android:orientation="horizontal"
     android:gravity="center_vertical"
@@ -96,6 +97,6 @@
         android:background="@drawable/bg_button_gradient"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
-        android:layout_height="48dp"/>
+        android:layout_height="28dp"/>
 
 </LinearLayout>
