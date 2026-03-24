@@ -6,9 +6,11 @@
     android:layout_columnWeight="1"
     android:background="@drawable/bg_card"
     android:clipToOutline="true"
-    android:elevation="6dp">
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
-    <!-- IMAGEM -->
+    <!-- FUNDO -->
     <ImageView
         android:id="@+id/imgBackground"
         android:layout_width="match_parent"
@@ -21,13 +23,13 @@
         android:layout_height="match_parent"
         android:background="#66000000"/>
 
-    <!-- ❤️ FAVORITO -->
+    <!-- FAVORITO -->
     <ImageView
         android:id="@+id/starFavorite"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="end|top"
-        android:layout_margin="8dp"
+        android:layout_margin="10dp"
         android:src="@android:drawable/btn_star_big_on"/>
 
     <!-- CONTEÚDO -->
@@ -36,23 +38,24 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <!-- TÍTULO -->
         <TextView
             android:id="@+id/txtTitle"
             android:text="Título"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <!-- PLAY -->
         <ImageView
             android:id="@+id/btnPlay"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_media_play"
-            android:tint="@android:color/white"/>
-
+            android:scaleType="centerInside"
+            android:alpha="0.95"
+            android:src="@drawable/ic_media_play"/>
     </FrameLayout>
 
 </com.zensleep.CardGlowLayout>
