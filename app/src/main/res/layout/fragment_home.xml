@@ -257,6 +257,14 @@
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Floresta"/>
 
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
         <SeekBar
             android:id="@+id/seekFloresta"
             android:layout_width="match_parent"
@@ -346,6 +354,14 @@
             android:alpha="0.95"
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Lareira"/>
+
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
 
         <SeekBar
             android:id="@+id/seekLareira"
@@ -437,6 +453,14 @@
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Vento Suave"/>
 
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
         <SeekBar
             android:id="@+id/seekVento"
             android:layout_width="match_parent"
@@ -526,6 +550,14 @@
             android:alpha="0.95"
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Noite com Grilos"/>
+
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
 
         <SeekBar
             android:id="@+id/seekGrilos"
@@ -617,6 +649,14 @@
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Pássaros"/>
 
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
         <SeekBar
             android:id="@+id/seekPassaros"
             android:layout_width="match_parent"
@@ -707,6 +747,14 @@
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Riacho"/>
 
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
         <SeekBar
             android:id="@+id/seekRiacho"
             android:layout_width="match_parent"
@@ -796,6 +844,14 @@
             android:alpha="0.95"
             app:srcCompat="@drawable/ic_media_play"
             android:contentDescription="Tocar ou pausar Cafeteira"/>
+
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
 
         <SeekBar
             android:id="@+id/seekCafeteira"
