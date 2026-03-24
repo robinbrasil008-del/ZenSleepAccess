@@ -164,7 +164,6 @@
             android:layout_height="30dp"
             android:layout_marginTop="70dp"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
             android:visibility="gone"/>
 
         <SeekBar
