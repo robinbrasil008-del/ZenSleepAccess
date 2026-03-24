@@ -1,5 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/cardBackground"/>
-    <corners android:radius="24dp"/>
+
+    <!-- Fundo com gradiente profundo -->
+    <gradient
+        android:startColor="#1A2238"
+        android:endColor="#0B1220"
+        android:angle="270"/>
+
+    <!-- Bordas mais suaves -->
+    <corners android:radius="32dp"/>
+
+    <!-- Stroke fino e elegante -->
+    <stroke
+        android:width="1.2dp"
+        android:color="#33FFFFFF"/>
+
 </shape>
