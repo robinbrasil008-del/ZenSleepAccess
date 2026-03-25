@@ -1,4 +1,29 @@
+<com.zensleep.CardGlowLayout
+    android:id="@+id/cardChuva"
+    android:layout_width="0dp"
+    android:layout_height="190dp"
+    android:layout_margin="8dp"
+    android:layout_columnWeight="1"
+    android:background="@drawable/bg_card"
+    android:clipToOutline="true"
+    android:elevation="6dp"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
+    <!-- 🖼 IMAGEM DE FUNDO -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_chuva"
+        android:scaleType="centerCrop"/>
+
+    <!-- 🌑 OVERLAY ESCURO -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#AA0B1220"/>
+    
     <!-- ESTRELA -->
     <ImageView
         android:id="@+id/starRiacho"
