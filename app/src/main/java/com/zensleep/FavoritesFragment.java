@@ -114,8 +114,34 @@ public class FavoritesFragment extends Fragment {
         ImageView button = root.findViewById(btnId);
         SeekBar seekBar = root.findViewById(seekId);
 
-        ImageView btnFav = ((View) button.getParent().getParent())
-        .findViewById(R.id.starFavorite);
+        ImageView btnFav = null;
+
+switch (key) {
+    case "chuva":
+        btnFav = root.findViewById(R.id.starChuva);
+        break;
+    case "floresta":
+        btnFav = root.findViewById(R.id.starFloresta);
+        break;
+    case "lareira":
+        btnFav = root.findViewById(R.id.starLareira);
+        break;
+    case "vento":
+        btnFav = root.findViewById(R.id.starVento);
+        break;
+    case "grilos":
+        btnFav = root.findViewById(R.id.starGrilos);
+        break;
+    case "passaros":
+        btnFav = root.findViewById(R.id.starPassaros);
+        break;
+    case "riacho":
+        btnFav = root.findViewById(R.id.starRiacho);
+        break;
+    case "cafeteira":
+        btnFav = root.findViewById(R.id.starCafeteira);
+        break;
+}
 
 if (btnFav != null) {
 
