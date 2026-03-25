@@ -92,6 +92,9 @@ public class FavoritesFragment extends Fragment {
             parent.addView(card);
         }
     }
+
+        emptyText.setVisibility(hasFavorites ? View.GONE : View.VISIBLE);
+        
     }
 
     private void toggle(View root, int id, String key) {
