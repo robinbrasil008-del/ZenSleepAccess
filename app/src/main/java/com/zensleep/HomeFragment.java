@@ -293,6 +293,8 @@ public class HomeFragment extends Fragment {
                                 }
                             }
                     );
+
+                    showInterstitialIfReady();
                 }
 
                 @Override
