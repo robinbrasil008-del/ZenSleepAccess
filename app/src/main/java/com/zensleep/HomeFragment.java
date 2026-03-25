@@ -53,7 +53,8 @@ import java.util.HashMap;
 
 public class HomeFragment extends Fragment {
 
-    private RewardedAd mRewardedAd;
+    private com.google.android.gms.ads.rewarded.RewardedAd mRewardedAd;
+    private AlertDialog loadingDialog;
     private final String REWARDED_AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
 
     private InterstitialAd mInterstitialAd;
