@@ -81,20 +81,14 @@ public class FavoritesFragment extends Fragment {
     java.util.Map<String, View> map = new java.util.HashMap<>();
 
     map.put("chuva", root.findViewById(R.id.cardChuva));
-    hasFavorites = true;
     map.put("floresta", root.findViewById(R.id.cardFloresta));
-    hasFavorites = true;
     map.put("lareira", root.findViewById(R.id.cardLareira));
-    hasFavorites = true;
     map.put("vento", root.findViewById(R.id.cardVento));
-    hasFavorites = true;
     map.put("grilos", root.findViewById(R.id.cardGrilos));
-    hasFavorites = true;
     map.put("passaros", root.findViewById(R.id.cardPassaros));
-    hasFavorites = true;
     map.put("riacho", root.findViewById(R.id.cardRiacho));
-    hasFavorites = true;
     map.put("cafeteira", root.findViewById(R.id.cardCafeteira));
+   
     hasFavorites = true;
 
     // 🔥 REMOVE TODOS
