@@ -269,18 +269,16 @@ public class HomeFragment extends Fragment {
             "ca-app-pub-8296610548842772/5975143413",
             adRequest,
             new InterstitialAdLoadCallback() {
+
                 @Override
                 public void onAdLoaded(InterstitialAd interstitialAd) {
                     mInterstitialAd = interstitialAd;
 
-                    new android.os.Handler().postDelayed(() -> {
-                        if (mInterstitialAd != null) {
-                            mInterstitialAd.show(requireActivity());
-                        }
-                    }, 800);
+                    // NÃO MOSTRA AUTOMATICAMENTE AQUI ❌
 
                     mInterstitialAd.setFullScreenContentCallback(
                             new FullScreenContentCallback() {
+
                                 @Override
                                 public void onAdDismissedFullScreenContent() {
                                     mInterstitialAd = null;
@@ -301,6 +299,23 @@ public class HomeFragment extends Fragment {
                 }
             }
     );
+    }
+
+    public void showInterstitialIfReady() {
+
+    if (mInterstitialAd != null && isAdded()) {
+
+        Activity activity = getActivity();
+
+        if (activity != null && !activity.isFinishing() && !activity.isDestroyed()) {
+
+            mInterstitialAd.show(activity);
+            mInterstitialAd = null;
+
+            // já carrega o próximo
+            loadInterstitialAd();
+        }
+    }
     }
 
     // ======= VOLUME MASTER (CONFIG) =======
@@ -344,6 +359,7 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         applyMasterVolumeToAll();
+        showInterstitialIfReady();
     }
 
     // ======= SETUP DO SOM (MIX) =======
