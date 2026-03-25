@@ -92,7 +92,6 @@ public class FavoritesFragment extends Fragment {
 
     ImageView imgBg = card.findViewById(R.id.imgBackground);
     ImageView btnPlay = card.findViewById(R.id.btnPlay);
-    ImageView btnFav = card.findViewById(R.id.starFavorite);
     ImageView equalizer = card.findViewById(R.id.equalizer);
     android.widget.SeekBar seekBar = card.findViewById(R.id.seekBar);
     TextView txtTitle = card.findViewById(R.id.txtTitle);
@@ -100,7 +99,6 @@ public class FavoritesFragment extends Fragment {
     txtTitle.setText(title);
     imgBg.setImageResource(getImageByKey(key));
 
-    // 🔥 DEFINE O GIF DO EQUALIZER (OBRIGATÓRIO)
     equalizer.setImageResource(R.drawable.equalizer);
 
     btnPlay.setOnClickListener(v -> {
@@ -112,7 +110,6 @@ public class FavoritesFragment extends Fragment {
             btnPlay.setImageResource(R.drawable.ic_media_play);
             equalizer.setVisibility(View.GONE);
             seekBar.setVisibility(View.GONE);
-
             return;
         }
 
@@ -121,36 +118,13 @@ public class FavoritesFragment extends Fragment {
         mediaPlayer.start();
 
         btnPlay.setImageResource(R.drawable.ic_media_pause);
-
-        // 🔥 MOSTRA ELEMENTOS
         equalizer.setVisibility(View.VISIBLE);
         seekBar.setVisibility(View.VISIBLE);
-
-        // 🔥 CONFIGURA SEEKBAR FUNCIONAL
-        seekBar.setMax(100);
-
-        new Thread(() -> {
-            while (mediaPlayer != null && mediaPlayer.isPlaying()) {
-                try {
-                    int progress = (mediaPlayer.getCurrentPosition() * 100)
-                            / mediaPlayer.getDuration();
-
-                    requireActivity().runOnUiThread(() ->
-                            seekBar.setProgress(progress)
-                    );
-
-                    Thread.sleep(500);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     });
 
     favoritesGrid.addView(card);
     }
-
+    
     // 🔥 IMAGENS IGUAIS AO HOME
     private int getImageByKey(String key) {
         switch (key) {
