@@ -352,17 +352,17 @@ public class HomeFragment extends Fragment {
             });
     }
 
-    private boolean isCardUnlocked(String key) {
-    // A chuva é sempre livre
-    if (key.equals("chuva")) return true; 
-    
-    // TEMPORÁRIO PARA TESTE: Deixa os outros livres, bloqueia apenas a "floresta"
-    if (!key.equals("floresta")) return true; 
-
-    // Verifica no SharedPreferences se a floresta já foi desbloqueada
-    SharedPreferences prefs = requireContext().getSharedPreferences("zen_unlocks", Context.MODE_PRIVATE);
-    return prefs.getBoolean(key + "_unlocked", false);
-}
+        private boolean isCardUnlocked(String key) {
+        // 1. O card da chuva é sempre o primeiro e totalmente grátis!
+        if (key.equals("chuva")) {
+            return true; 
+        }
+        
+        // 2. Para todos os outros (floresta, lareira, vento, etc.), 
+        // o app vai olhar se o usuário já assistiu ao anúncio e desbloqueou.
+        SharedPreferences prefs = requireContext().getSharedPreferences("zen_unlocks", Context.MODE_PRIVATE);
+        return prefs.getBoolean(key + "_unlocked", false); // Retorna falso se ainda não desbloqueou
+    }
 
 private void unlockCard(String key) {
     SharedPreferences prefs = requireContext().getSharedPreferences("zen_unlocks", Context.MODE_PRIVATE);
