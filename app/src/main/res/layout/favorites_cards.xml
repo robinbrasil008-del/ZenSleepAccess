@@ -46,7 +46,7 @@
         android:layout_height="24dp"
         android:layout_gravity="end|top"
         android:layout_margin="10dp"
-        android:src="@drawable/btn_star_big_off"/>
+        android:src="@drawable/btn_star_big_on"/>
 
     <!-- 📦 CONTEÚDO -->
     <FrameLayout
@@ -144,7 +144,7 @@
         android:layout_height="24dp"
         android:layout_gravity="end|top"
         android:layout_margin="8dp"
-        android:src="@drawable/btn_star_big_off"/>
+        android:src="@drawable/btn_star_big_on"/>
 
     <!-- CONTEÚDO -->
     <FrameLayout
@@ -241,7 +241,7 @@
         android:layout_height="24dp"
         android:layout_gravity="end|top"
         android:layout_margin="8dp"
-        android:src="@drawable/btn_star_big_off"/>
+        android:src="@drawable/btn_star_big_on"/>
 
     <!-- CONTEÚDO -->
     <FrameLayout
@@ -338,7 +338,7 @@
         android:layout_height="24dp"
         android:layout_gravity="end|top"
         android:layout_margin="8dp"
-        android:src="@drawable/btn_star_big_off"/>
+        android:src="@drawable/btn_star_big_on"/>
 
     <!-- CONTEÚDO -->
     <FrameLayout
@@ -435,7 +435,7 @@
         android:layout_height="24dp"
         android:layout_gravity="end|top"
         android:layout_margin="8dp"
-        android:src="@drawable/btn_star_big_off"/>
+        android:src="@drawable/btn_star_big_on"/>
 
     <!-- CONTEÚDO -->
     <FrameLayout
@@ -532,7 +532,7 @@
         android:layout_height="24dp"
         android:layout_gravity="end|top"
         android:layout_margin="8dp"
-        android:src="@drawable/btn_star_big_off"/>
+        android:src="@drawable/btn_star_big_on"/>
 
     <!-- CONTEÚDO -->
     <FrameLayout
@@ -629,7 +629,7 @@
         android:layout_height="24dp"
         android:layout_gravity="end|top"
         android:layout_margin="8dp"
-        android:src="@drawable/btn_star_big_off"/>
+        android:src="@drawable/btn_star_big_on"/>
 
     <!-- CONTEÚDO -->
     <FrameLayout
@@ -726,7 +726,7 @@
         android:layout_height="24dp"
         android:layout_gravity="end|top"
         android:layout_margin="8dp"
-        android:src="@drawable/btn_star_big_off"/>
+        android:src="@drawable/btn_star_big_on"/>
 
     <!-- CONTEÚDO -->
     <FrameLayout
