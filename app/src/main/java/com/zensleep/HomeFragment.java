@@ -509,8 +509,11 @@ private void hideLoadingDialog() {
         // clique play/pause individual
         button.setOnClickListener(v -> {
 
-            if (!isCardUnlocked(key)) {
-        showRewardedAdAndUnlock(key, button);
+            // 🔴 NOVA LÓGICA DE BLOQUEIO AQUI 🔴
+             if (!isCardUnlocked(key)) {
+          // Se estiver bloqueado, mostra um alerta ou vai direto pro anúncio
+             showRewardedAdAndUnlock(key, button);
+               // Para a execução aqui, não toca o som!
             }
 
             else {
@@ -549,14 +552,14 @@ private void hideLoadingDialog() {
 
             if (eq != null) {
             eq.setVisibility(View.VISIBLE);
-
-             Glide.with(requireContext())
+           
+            Glide.with(requireContext())
              .asGif()
              .load(R.drawable.equalizer) // seu gif
-             .into(eq);
-        }
+             .into(eq):
+            }
+            
     
-        
             // se acabar por algum motivo, limpa estado
             mp.setOnErrorListener((m, what, extra) -> {
                 stopSingle(key, button);
@@ -579,12 +582,10 @@ private void hideLoadingDialog() {
                  });
 
                 }
+             }
+          }):
 
-            }
-            
-              }):
-
-           }
+             }
                                   
         private void stopSingle(String key, ImageView button) {
         MediaPlayer mp = players.get(key);
