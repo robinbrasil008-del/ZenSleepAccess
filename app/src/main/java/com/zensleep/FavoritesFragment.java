@@ -35,7 +35,7 @@ public class FavoritesFragment extends Fragment {
         setupSound(view, "lareira", R.raw.lareira,
                 R.id.btnPlayLareira, R.id.seekLareira);
 
-        setupSound(view, "vento_suave", R.raw.vento_suave,
+        setupSound(view, "vento", R.raw.vento_suave,
                 R.id.btnPlayVento, R.id.seekVento);
 
         setupSound(view, "grilos", R.raw.grilos,
