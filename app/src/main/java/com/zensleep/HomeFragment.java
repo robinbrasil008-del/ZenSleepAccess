@@ -50,6 +50,7 @@ import java.util.HashMap;
 public class HomeFragment extends Fragment {
 
     private InterstitialAd mInterstitialAd;
+    private boolean adAlreadyShown = false;
 
     private AdView adView;
 
@@ -304,7 +305,7 @@ public class HomeFragment extends Fragment {
 
     public void showInterstitialIfReady() {
 
-    if (mInterstitialAd != null && isAdded()) {
+    if (mInterstitialAd != null && !adAlreadyShown && isAdded()) {
 
         Activity activity = getActivity();
 
@@ -313,8 +314,7 @@ public class HomeFragment extends Fragment {
             mInterstitialAd.show(activity);
             mInterstitialAd = null;
 
-            // já carrega o próximo
-            loadInterstitialAd();
+            adAlreadyShown = true; // 🚫 trava pra não repetir
         }
     }
     }
@@ -360,6 +360,7 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         applyMasterVolumeToAll();
+        adAlreadyShown = false; // libera mostrar novamente
         showInterstitialIfReady();
     }
 
