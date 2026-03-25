@@ -114,6 +114,35 @@ public class FavoritesFragment extends Fragment {
         ImageView button = root.findViewById(btnId);
         SeekBar seekBar = root.findViewById(seekId);
 
+        ImageView btnFav = ((View) button.getParent().getParent())
+        .findViewById(R.id.starFavorite);
+
+if (btnFav != null) {
+
+    btnFav.setOnClickListener(v -> {
+
+        new android.app.AlertDialog.Builder(requireContext())
+                .setTitle("Remover dos favoritos")
+                .setMessage("Deseja remover este som dos favoritos?")
+                .setPositiveButton("Sim", (dialog, which) -> {
+
+                    // 🔥 REMOVE
+                    FavoritesManager.removeFavorite(requireContext(), key);
+
+                    // 🔥 PARA O SOM SE ESTIVER TOCANDO
+                    if (players.containsKey(key)) {
+                        stopSingle(key, button, seekBar);
+                    }
+
+                    // 🔥 ATUALIZA A TELA
+                    loadFavorites(getView());
+
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    });
+}
+
         if (button == null) return;
 
         button.setOnClickListener(v -> {
