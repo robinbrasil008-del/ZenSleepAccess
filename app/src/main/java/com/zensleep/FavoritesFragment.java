@@ -16,12 +16,18 @@ public class FavoritesFragment extends Fragment {
 
     private final HashMap<String, MediaPlayer> players = new HashMap<>();
 
+    private TextView emptyText;
+
     public FavoritesFragment() {
         super(R.layout.fragment_favorites);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        emptyText = view.findViewById(R.id.emptyText);
+
+        boolean hasFavorites = false;
 
         loadFavorites(view);
 
@@ -74,13 +80,21 @@ public class FavoritesFragment extends Fragment {
     java.util.Map<String, View> map = new java.util.HashMap<>();
 
     map.put("chuva", root.findViewById(R.id.cardChuva));
+    hasFavorites = true;
     map.put("floresta", root.findViewById(R.id.cardFloresta));
+    hasFavorites = true;
     map.put("lareira", root.findViewById(R.id.cardLareira));
+    hasFavorites = true;
     map.put("vento", root.findViewById(R.id.cardVento));
+    hasFavorites = true;
     map.put("grilos", root.findViewById(R.id.cardGrilos));
+    hasFavorites = true;
     map.put("passaros", root.findViewById(R.id.cardPassaros));
+    hasFavorites = true;
     map.put("riacho", root.findViewById(R.id.cardRiacho));
+    hasFavorites = true;
     map.put("cafeteira", root.findViewById(R.id.cardCafeteira));
+    hasFavorites = true;
 
     // 🔥 REMOVE TODOS
     parent.removeAllViews();
