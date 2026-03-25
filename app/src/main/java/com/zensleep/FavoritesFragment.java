@@ -101,7 +101,7 @@ public class FavoritesFragment extends Fragment {
     imgBg.setImageResource(getImageByKey(key));
 
     // 🔥 DEFINE O GIF DO EQUALIZER (OBRIGATÓRIO)
-    equalizer.setImageResource(R.drawable.equalizer_anim);
+    equalizer.setImageResource(R.drawable.equalizer);
 
     btnPlay.setOnClickListener(v -> {
 
