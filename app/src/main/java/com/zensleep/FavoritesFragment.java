@@ -59,16 +59,39 @@ public class FavoritesFragment extends Fragment {
 
     private void loadFavorites(View root) {
 
-        if (root == null) return;
+    if (root == null) return;
 
-        toggle(root, R.id.cardChuva, "chuva");
-        toggle(root, R.id.cardFloresta, "floresta");
-        toggle(root, R.id.cardLareira, "lareira");
-        toggle(root, R.id.cardVento, "vento");
-        toggle(root, R.id.cardGrilos, "grilos");
-        toggle(root, R.id.cardPassaros, "passaros");
-        toggle(root, R.id.cardRiacho, "riacho");
-        toggle(root, R.id.cardCafeteira, "cafeteira");
+    // 🔥 ORDEM DOS FAVORITOS
+    java.util.List<String> order =
+            FavoritesManager.getFavoritesOrder(requireContext());
+
+    // 🔥 TODOS OS CARDS
+    android.view.ViewGroup parent =
+            (android.view.ViewGroup) root.findViewById(R.id.cardsContainer);
+
+    if (parent == null) return;
+
+    java.util.Map<String, View> map = new java.util.HashMap<>();
+
+    map.put("chuva", root.findViewById(R.id.cardChuva));
+    map.put("floresta", root.findViewById(R.id.cardFloresta));
+    map.put("lareira", root.findViewById(R.id.cardLareira));
+    map.put("vento", root.findViewById(R.id.cardVento));
+    map.put("grilos", root.findViewById(R.id.cardGrilos));
+    map.put("passaros", root.findViewById(R.id.cardPassaros));
+    map.put("riacho", root.findViewById(R.id.cardRiacho));
+    map.put("cafeteira", root.findViewById(R.id.cardCafeteira));
+
+    // 🔥 REMOVE TODOS
+    parent.removeAllViews();
+
+    // 🔥 ADICIONA NA ORDEM CORRETA
+    for (String key : order) {
+        View card = map.get(key);
+        if (card != null) {
+            parent.addView(card);
+        }
+    }
     }
 
     private void toggle(View root, int id, String key) {
