@@ -32,6 +32,7 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.FullScreenContentCallback;
+import android.app.Activity;
 import android.widget.FrameLayout;
 import android.util.Log;
 import androidx.annotation.NonNull;
