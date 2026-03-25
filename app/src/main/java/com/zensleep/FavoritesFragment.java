@@ -64,7 +64,7 @@ public class FavoritesFragment extends Fragment {
         toggle(root, R.id.cardChuva, "chuva");
         toggle(root, R.id.cardFloresta, "floresta");
         toggle(root, R.id.cardLareira, "lareira");
-        toggle(root, R.id.cardVento, "vento_suave");
+        toggle(root, R.id.cardVento, "vento");
         toggle(root, R.id.cardGrilos, "grilos");
         toggle(root, R.id.cardPassaros, "passaros");
         toggle(root, R.id.cardRiacho, "riacho");
