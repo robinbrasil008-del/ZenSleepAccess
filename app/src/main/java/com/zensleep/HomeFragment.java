@@ -58,6 +58,8 @@ public class HomeFragment extends Fragment {
 // Troque pelo seu ID real apenas quando for publicar o app!
     private final String REWARDED_AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
 
+    private AlertDialog loadingDialog;
+
     private InterstitialAd mInterstitialAd;
     private boolean adAlreadyShown = false;
 
@@ -367,38 +369,84 @@ private void unlockCard(String key) {
     prefs.edit().putBoolean(key + "_unlocked", true).apply();
 }
 
-    private void showRewardedAdAndUnlock(String key, ImageView button) {
+    private void showRewardedAdAndUnlock(String key) {
+    // 1. Se o anúncio JÁ ESTÁ pronto em segundo plano, mostra direto!
     if (mRewardedAd != null && isAdded() && getActivity() != null) {
-        Activity activity = getActivity();
-        
-        mRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-            @Override
-            public void onAdDismissedFullScreenContent() {
-                mRewardedAd = null;
-                loadRewardedAd(); // Carrega um novo anúncio para a próxima vez
-            }
-            @Override
-            public void onAdFailedToShowFullScreenContent(com.google.android.gms.ads.AdError adError) {
-                mRewardedAd = null;
-            }
-        });
-
-        mRewardedAd.show(activity, new OnUserEarnedRewardListener() {
-            @Override
-            public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
-                // SUCESSO! O usuário assistiu ao anúncio.
-                unlockCard(key);
-                Toast.makeText(requireContext(), "Som desbloqueado com sucesso!", Toast.LENGTH_SHORT).show();
-                
-                // Opcional: Você pode forçar o play automático aqui se quiser, 
-                // mas apenas o Toast já é um bom feedback inicial.
-            }
-        });
+        displayAd(key);
     } else {
-        Toast.makeText(requireContext(), "O anúncio ainda está carregando. Tente novamente em alguns segundos.", Toast.LENGTH_SHORT).show();
-        loadRewardedAd(); // Tenta carregar novamente
+        // 2. Se o anúncio AINDA NÃO carregou, mostra o GIF!
+        showLoadingDialog();
+        
+        // E força o carregamento do anúncio agora
+        AdRequest adRequest = new AdRequest.Builder().build();
+        RewardedAd.load(requireContext(), REWARDED_AD_UNIT_ID,
+                adRequest, new RewardedAdLoadCallback() {
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        mRewardedAd = null;
+                        hideLoadingDialog(); // Esconde o GIF se der erro
+                        Toast.makeText(requireContext(), "Erro ao carregar anúncio. Tente novamente.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                        mRewardedAd = rewardedAd;
+                        hideLoadingDialog(); // Esconde o GIF pois carregou!
+                        displayAd(key);      // Mostra o vídeo
+                    }
+                });
     }
+}
+
+// Método auxiliar que apenas exibe o vídeo na tela
+private void displayAd(String key) {
+    mRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+        @Override
+        public void onAdDismissedFullScreenContent() {
+            mRewardedAd = null;
+            loadRewardedAd(); // Já deixa o próximo carregando no fundo
+        }
+        @Override
+        public void onAdFailedToShowFullScreenContent(com.google.android.gms.ads.AdError adError) {
+            mRewardedAd = null;
+        }
+    });
+
+    mRewardedAd.show(getActivity(), rewardItem -> {
+        // SUCESSO!
+        unlockCard(key);
+        Toast.makeText(requireContext(), "Som desbloqueado com sucesso!", Toast.LENGTH_SHORT).show();
+    });
+}
+
+    private void showLoadingDialog() {
+    if (loadingDialog == null) {
+        View view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_loading, null);
+        ImageView gifLoading = view.findViewById(R.id.gifLoading);
+        
+        // Usando o Glide (que você já tem) para animar o seu GIF!
+        Glide.with(this).asGif().load(R.drawable.aguarde).into(gifLoading);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setView(view);
+        builder.setCancelable(false); // Impede que o usuário feche clicando fora
+        
+        loadingDialog = builder.create();
+        if (loadingDialog.getWindow() != null) {
+            loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
     }
+    
+    if (!loadingDialog.isShowing()) {
+        loadingDialog.show();
+    }
+}
+
+private void hideLoadingDialog() {
+    if (loadingDialog != null && loadingDialog.isShowing()) {
+        loadingDialog.dismiss();
+    }
+}
 
     // ======= VOLUME MASTER (CONFIG) =======
     private float getSavedVolume() {
