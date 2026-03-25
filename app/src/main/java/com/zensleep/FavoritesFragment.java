@@ -88,11 +88,11 @@ public class FavoritesFragment extends Fragment {
     map.put("passaros", root.findViewById(R.id.cardPassaros));
     map.put("riacho", root.findViewById(R.id.cardRiacho));
     map.put("cafeteira", root.findViewById(R.id.cardCafeteira));
-   
-    hasFavorites = true;
 
     // 🔥 REMOVE TODOS
     parent.removeAllViews();
+
+   boolean hasFavorites = !order.isEmpty();
 
     // 🔥 ADICIONA NA ORDEM CORRETA
     for (String key : order) {
