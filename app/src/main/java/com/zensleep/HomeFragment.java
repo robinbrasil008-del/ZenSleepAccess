@@ -505,11 +505,9 @@ private void hideLoadingDialog() {
         button.setOnClickListener(v -> {
 
             // 🔴 NOVA LÓGICA DE BLOQUEIO AQUI 🔴
-    if (!isCardUnlocked(key)) {
         // Se estiver bloqueado, mostra um alerta ou vai direto pro anúncio
         showRewardedAdAndUnlock(key, button);
         return; // Para a execução aqui, não toca o som!
-    }
             
             if (players.containsKey(key)) {
                 stopSingle(key, button);
