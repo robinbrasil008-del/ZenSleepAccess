@@ -467,20 +467,20 @@ private void displayAd(String key, ImageView button) {
 
     // ======= SETUP DO SOM (MIX) =======
     private void setupSound(String key, int rawRes, ImageView button, SeekBar seekBar) {
+    // 1. Configuração inicial da SeekBar
+    if (seekBar != null && seekBar.getProgress() <= 0) {
+        seekBar.setProgress(80);
+    }
 
-        // garante progress default
-        if (seekBar != null && seekBar.getProgress() <= 0) {
-            seekBar.setProgress(80);
-        }
-
-        // clique play/pause individual
-        button.setOnClickListener(v -> {
-
-            if (!isCardUnlocked(key)) {
-            // Se estiver bloqueado, chama o anúncio e PARA a execução aqui
+    // 2. Clique do botão
+    button.setOnClickListener(v -> {
+        
+        // --- VERIFICA SE ESTÁ BLOQUEADO ---
+        if (!isCardUnlocked(key)) {
             showRewardedAdAndUnlock(key, button);
-            }
-
+        } 
+        // --- SE ESTIVER LIBERADO, EXECUTA O SOM ---
+        else {
             if (players.containsKey(key)) {
                 stopSingle(key, button);
                 return;
@@ -488,66 +488,42 @@ private void displayAd(String key, ImageView button) {
 
             MediaPlayer mp = MediaPlayer.create(requireContext(), rawRes);
             mp.setLooping(true);
-
             players.put(key, mp);
-
-            // aplica volume MASTER * CARD
             applyVolumeForKey(key, seekBar);
-
             mp.start();
             button.setImageResource(R.drawable.ic_media_pause);
 
-            button.animate()
-           .translationY(-60f)
-           .scaleX(1.05f)
-           .scaleY(1.05f)
-           .setDuration(250)
-           .setInterpolator(new android.view.animation.DecelerateInterpolator())
-           .start();
-
+            // Animações e Efeitos
+            button.animate().translationY(-60f).scaleX(1.05f).scaleY(1.05f).setDuration(250).start();
             CardGlowLayout card = getCardByKey(key);
-            if (card != null) {
-            card.startGlow();
-           }
+            if (card != null) card.startGlow();
 
             View parent = (View) button.getParent();
             ImageView eq = parent.findViewById(R.id.equalizer);
-
             if (eq != null) {
-            eq.setVisibility(View.VISIBLE);
+                eq.setVisibility(View.VISIBLE);
+                Glide.with(requireContext()).asGif().load(R.drawable.equalizer).into(eq);
+            }
 
-             Glide.with(requireContext())
-             .asGif()
-             .load(R.drawable.equalizer) // seu gif
-             .into(eq);
-             }
-        
-            // se acabar por algum motivo, limpa estado
             mp.setOnErrorListener((m, what, extra) -> {
                 stopSingle(key, button);
                 return true;
             });
 
-        // volume por card
-        if (seekBar != null) {
-            
-            seekBar.setVisibility(View.VISIBLE);
-            
-            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar sb, int progress, boolean fromUser) {
-                    applyVolumeForKey(key, sb);
-                }
-
-                @Override public void onStartTrackingTouch(SeekBar sb) {}
-                @Override public void onStopTrackingTouch(SeekBar sb) {}
-                 });
-            
-              }
-            
-           });
-        
-        }
+            if (seekBar != null) {
+                seekBar.setVisibility(View.VISIBLE);
+                seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar sb, int progress, boolean fromUser) {
+                        applyVolumeForKey(key, sb);
+                    }
+                    @Override public void onStartTrackingTouch(SeekBar sb) {}
+                    @Override public void onStopTrackingTouch(SeekBar sb) {}
+                });
+            }
+        } // <--- AQUI FECHA O ELSE (O que estava faltando!)
+    }); // <--- AQUI FECHA O CLICK LISTENER
+} // <--- AQUI FECHA O MÉTODO SETUPSOUND
                                   
         private void stopSingle(String key, ImageView button) {
         MediaPlayer mp = players.get(key);
