@@ -32,6 +32,10 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import android.app.Activity;
 import android.widget.FrameLayout;
 import android.util.Log;
@@ -48,6 +52,9 @@ import androidx.fragment.app.Fragment;
 import java.util.HashMap;
 
 public class HomeFragment extends Fragment {
+
+    private RewardedAd mRewardedAd;
+    private final String REWARDED_AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
 
     private InterstitialAd mInterstitialAd;
     private boolean adAlreadyShown = false;
@@ -325,6 +332,94 @@ public class HomeFragment extends Fragment {
     }
     }
 
+    private void loadRewardedAd() {
+    AdRequest adRequest = new AdRequest.Builder().build();
+    RewardedAd.load(requireContext(), REWARDED_AD_UNIT_ID,
+            adRequest, new RewardedAdLoadCallback() {
+                @Override
+                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                    mRewardedAd = null;
+                }
+
+                @Override
+                public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                    mRewardedAd = rewardedAd;
+                }
+            });
+    }
+
+    private boolean isCardUnlocked(String key) {
+    // A chuva é sempre livre
+    if (key.equals("chuva")) return true; 
+    
+    // TEMPORÁRIO PARA TESTE: Deixa os outros livres, bloqueia apenas a "floresta"
+    if (!key.equals("floresta")) return true; 
+
+    // Verifica no SharedPreferences se a floresta já foi desbloqueada
+    SharedPreferences prefs = requireContext().getSharedPreferences("zen_unlocks", Context.MODE_PRIVATE);
+    return prefs.getBoolean(key + "_unlocked", false);
+}
+
+private void unlockCard(String key) {
+    SharedPreferences prefs = requireContext().getSharedPreferences("zen_unlocks", Context.MODE_PRIVATE);
+    prefs.edit().putBoolean(key + "_unlocked", true).apply();
+}
+
+    // Ajustado para aceitar (String key, ImageView button) como pede o seu erro no log
+private void showRewardedAdAndUnlock(String key, ImageView button) {
+    // 1. Se o anúncio JÁ ESTÁ pronto no fundo, mostra direto
+    if (mRewardedAd != null && isAdded() && getActivity() != null) {
+        displayAd(key, button);
+    } else {
+        // 2. Se NÃO está pronto, mostra o seu GIF "aguarde.gif"
+        showLoadingDialog();
+        
+        AdRequest adRequest = new AdRequest.Builder().build();
+        RewardedAd.load(requireContext(), REWARDED_AD_UNIT_ID,
+                adRequest, new RewardedAdLoadCallback() {
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        mRewardedAd = null;
+                        hideLoadingDialog(); // Esconde o GIF se falhar
+                        Toast.makeText(requireContext(), "Erro ao carregar vídeo. Tente novamente.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                        mRewardedAd = rewardedAd;
+                        hideLoadingDialog(); // Esconde o GIF pois carregou!
+                        displayAd(key, button); // Mostra o vídeo
+                    }
+                });
+    }
+}
+
+// Método auxiliar para exibir o vídeo
+private void displayAd(String key, ImageView button) {
+    mRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+        @Override
+        public void onAdDismissedFullScreenContent() {
+            mRewardedAd = null;
+            loadRewardedAd(); // Recarrega o próximo em background
+        }
+        @Override
+        public void onAdFailedToShowFullScreenContent(com.google.android.gms.ads.AdError adError) {
+            mRewardedAd = null;
+        }
+    });
+
+    mRewardedAd.show(getActivity(), rewardItem -> {
+        // O usuário ganhou a recompensa!
+        unlockCard(key);
+        Toast.makeText(requireContext(), "Som desbloqueado!", Toast.LENGTH_SHORT).show();
+        
+        // Opcional: Chama o clique do botão automaticamente agora que liberou
+        if (button != null) {
+            button.performClick();
+        }
+    });
+}
+
     // ======= VOLUME MASTER (CONFIG) =======
     private float getSavedVolume() {
         SharedPreferences prefs =
@@ -380,6 +475,12 @@ public class HomeFragment extends Fragment {
 
         // clique play/pause individual
         button.setOnClickListener(v -> {
+
+            if (!isCardUnlocked(key)) {
+            // Se estiver bloqueado, chama o anúncio e PARA a execução aqui
+            showRewardedAdAndUnlock(key, button);
+            }
+
             if (players.containsKey(key)) {
                 stopSingle(key, button);
                 return;
