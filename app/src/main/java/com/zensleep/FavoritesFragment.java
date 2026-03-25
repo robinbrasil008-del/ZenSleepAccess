@@ -100,6 +100,9 @@ public class FavoritesFragment extends Fragment {
     txtTitle.setText(title);
     imgBg.setImageResource(getImageByKey(key));
 
+    // 🔥 DEFINE O GIF DO EQUALIZER (OBRIGATÓRIO)
+    equalizer.setImageResource(R.drawable.equalizer_anim);
+
     btnPlay.setOnClickListener(v -> {
 
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
@@ -118,8 +121,31 @@ public class FavoritesFragment extends Fragment {
         mediaPlayer.start();
 
         btnPlay.setImageResource(R.drawable.ic_media_pause);
+
+        // 🔥 MOSTRA ELEMENTOS
         equalizer.setVisibility(View.VISIBLE);
         seekBar.setVisibility(View.VISIBLE);
+
+        // 🔥 CONFIGURA SEEKBAR FUNCIONAL
+        seekBar.setMax(100);
+
+        new Thread(() -> {
+            while (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                try {
+                    int progress = (mediaPlayer.getCurrentPosition() * 100)
+                            / mediaPlayer.getDuration();
+
+                    requireActivity().runOnUiThread(() ->
+                            seekBar.setProgress(progress)
+                    );
+
+                    Thread.sleep(500);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     });
 
     favoritesGrid.addView(card);
