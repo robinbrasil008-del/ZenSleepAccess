@@ -1,97 +1,168 @@
-<?xml version="1.0" encoding="utf-8"?>
 
-<com.zensleep.CardGlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    <!-- ESTRELA -->
+    <ImageView
+        android:id="@+id/starRiacho"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="end|top"
+        android:layout_margin="8dp"
+        android:src="@android:drawable/btn_star_big_off"/>
+
+    <!-- CONTEÚDO -->
+    <FrameLayout
+        android:orientation="vertical"
+        android:gravity="top|center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:text="Riacho"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3"/>
+
+        <ImageView
+            android:id="@+id/btnPlayRiacho"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:alpha="0.95"
+            app:srcCompat="@drawable/ic_media_play"
+            android:contentDescription="Tocar ou pausar Riacho"/>
+
+        <ImageView
+            android:id="@+id/equalizer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <SeekBar
+            android:id="@+id/seekRiacho"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:progressDrawable="@drawable/seekbar_track"
+            android:thumb="@drawable/seekbar_thumb"
+            android:thumbTint="#00E5FF"
+            android:splitTrack="false"
+            android:thumbOffset="0dp"
+            android:layout_marginBottom="20dp"
+            android:translationY="+3dp"
+            android:visibility="gone"
+            android:alpha="0.9"
+            android:max="100"
+            android:progress="80"/>
+    </FrameLayout>
+
+</com.zensleep.CardGlowLayout>
+
+            <!-- ✅ CAFETEIRA -->
+            <com.zensleep.CardGlowLayout
+    android:id="@+id/cardCafeteira"
     android:layout_width="0dp"
     android:layout_height="190dp"
     android:layout_margin="8dp"
     android:layout_columnWeight="1"
     android:background="@drawable/bg_card"
     android:clipToOutline="true"
-    android:elevation="6dp"
     android:foreground="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true">
 
-    <!-- IMAGEM -->
+    <!-- IMAGEM DE FUNDO -->
     <ImageView
-        android:id="@+id/imgBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:src="@drawable/bg_cafeteira"
+        android:scaleType="centerCrop" />
 
-    <!-- OVERLAY -->
+    <!-- OVERLAY QUENTE (EFEITO ACONCHEGO) -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#AA0B1220"/>
+        android:background="#66330000"/>
 
-    <!-- FAVORITO -->
+    <!-- ESTRELA -->
     <ImageView
-        android:id="@+id/starFavorite"
+        android:id="@+id/starCafeteira"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="end|top"
-        android:layout_margin="10dp"
-        android:src="@android:drawable/btn_star_big_on"/>
+        android:layout_margin="8dp"
+        android:src="@android:drawable/btn_star_big_off"/>
 
     <!-- CONTEÚDO -->
     <FrameLayout
+        android:orientation="vertical"
+        android:gravity="top|center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <!-- TÍTULO -->
         <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Título"
+            android:text="Cafeteira"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:shadowColor="#80000000"
             android:shadowDx="0"
             android:shadowDy="2"
             android:shadowRadius="3"/>
 
-        <!-- PLAY -->
         <ImageView
-            android:id="@+id/btnPlay"
+            android:id="@+id/btnPlayCafeteira"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:layout_gravity="center"
             android:scaleType="centerInside"
             android:scaleX="1.1"
             android:scaleY="1.1"
             android:alpha="0.95"
-            app:srcCompat="@drawable/ic_media_play"/>
+            app:srcCompat="@drawable/ic_media_play"
+            android:contentDescription="Tocar ou pausar Cafeteira"/>
 
-        <!-- EQUALIZER -->
         <ImageView
             android:id="@+id/equalizer"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_gravity="center"
             android:layout_marginTop="30dp"
+            android:layout_gravity="center"
             android:visibility="gone"/>
 
-        <!-- SEEKBAR -->
         <SeekBar
-            android:id="@+id/seekBar"
+            android:id="@+id/seekCafeteira"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="20dp"
-            android:visibility="gone"
+            android:layout_gravity="center_horizontal|bottom"
             android:progressDrawable="@drawable/seekbar_track"
             android:thumb="@drawable/seekbar_thumb"
             android:thumbTint="#00E5FF"
+            android:splitTrack="false"
+            android:thumbOffset="0dp"
+            android:layout_marginBottom="20dp"
+            android:translationY="+3dp"
+            android:visibility="gone"
+            android:alpha="0.9"
             android:max="100"
             android:progress="80"/>
-
     </FrameLayout>
 
 </com.zensleep.CardGlowLayout>
