@@ -509,10 +509,11 @@ private void hideLoadingDialog() {
         // clique play/pause individual
         button.setOnClickListener(v -> {
 
-            // 🔴 NOVA LÓGICA DE BLOQUEIO AQUI 🔴
-        // Se estiver bloqueado, mostra um alerta ou vai direto pro anúncio
+            if (!isCardUnlocked(key)) {
         showRewardedAdAndUnlock(key, button);
-        return; // Para a execução aqui, não toca o som!
+            }
+
+            else {
             
             if (players.containsKey(key)) {
                 stopSingle(key, button);
@@ -553,7 +554,8 @@ private void hideLoadingDialog() {
              .asGif()
              .load(R.drawable.equalizer) // seu gif
              .into(eq);
-             }
+        }
+    
         
             // se acabar por algum motivo, limpa estado
             mp.setOnErrorListener((m, what, extra) -> {
@@ -575,12 +577,14 @@ private void hideLoadingDialog() {
                 @Override public void onStartTrackingTouch(SeekBar sb) {}
                 @Override public void onStopTrackingTouch(SeekBar sb) {}
                  });
+
+                }
+
+            }
             
-              }
-            
-           });
-        
-        }
+              }):
+
+           }
                                   
         private void stopSingle(String key, ImageView button) {
         MediaPlayer mp = players.get(key);
