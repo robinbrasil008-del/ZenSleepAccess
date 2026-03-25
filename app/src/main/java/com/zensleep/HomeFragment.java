@@ -369,42 +369,42 @@ private void unlockCard(String key) {
     prefs.edit().putBoolean(key + "_unlocked", true).apply();
 }
 
-    private void showRewardedAdAndUnlock(String key) {
-    // 1. Se o anúncio JÁ ESTÁ pronto em segundo plano, mostra direto!
+    // Ajustado para aceitar (String key, ImageView button) como pede o seu erro no log
+private void showRewardedAdAndUnlock(String key, ImageView button) {
+    // 1. Se o anúncio JÁ ESTÁ pronto no fundo, mostra direto
     if (mRewardedAd != null && isAdded() && getActivity() != null) {
-        displayAd(key);
+        displayAd(key, button);
     } else {
-        // 2. Se o anúncio AINDA NÃO carregou, mostra o GIF!
+        // 2. Se NÃO está pronto, mostra o seu GIF "aguarde.gif"
         showLoadingDialog();
         
-        // E força o carregamento do anúncio agora
         AdRequest adRequest = new AdRequest.Builder().build();
         RewardedAd.load(requireContext(), REWARDED_AD_UNIT_ID,
                 adRequest, new RewardedAdLoadCallback() {
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         mRewardedAd = null;
-                        hideLoadingDialog(); // Esconde o GIF se der erro
-                        Toast.makeText(requireContext(), "Erro ao carregar anúncio. Tente novamente.", Toast.LENGTH_SHORT).show();
+                        hideLoadingDialog(); // Esconde o GIF se falhar
+                        Toast.makeText(requireContext(), "Erro ao carregar vídeo. Tente novamente.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
                         mRewardedAd = rewardedAd;
                         hideLoadingDialog(); // Esconde o GIF pois carregou!
-                        displayAd(key);      // Mostra o vídeo
+                        displayAd(key, button); // Mostra o vídeo
                     }
                 });
     }
 }
 
-// Método auxiliar que apenas exibe o vídeo na tela
-private void displayAd(String key) {
+// Método auxiliar para exibir o vídeo
+private void displayAd(String key, ImageView button) {
     mRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
         @Override
         public void onAdDismissedFullScreenContent() {
             mRewardedAd = null;
-            loadRewardedAd(); // Já deixa o próximo carregando no fundo
+            loadRewardedAd(); // Recarrega o próximo em background
         }
         @Override
         public void onAdFailedToShowFullScreenContent(com.google.android.gms.ads.AdError adError) {
@@ -413,9 +413,14 @@ private void displayAd(String key) {
     });
 
     mRewardedAd.show(getActivity(), rewardItem -> {
-        // SUCESSO!
+        // O usuário ganhou a recompensa!
         unlockCard(key);
-        Toast.makeText(requireContext(), "Som desbloqueado com sucesso!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), "Som desbloqueado!", Toast.LENGTH_SHORT).show();
+        
+        // Opcional: Chama o clique do botão automaticamente agora que liberou
+        if (button != null) {
+            button.performClick();
+        }
     });
 }
 
