@@ -3,12 +3,18 @@ package com.zensleep;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.SeekBar;
 
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+
+import java.util.HashMap;
+
 public class FavoritesFragment extends Fragment {
 
-    private MediaPlayer mediaPlayer;
+    private final HashMap<String, MediaPlayer> players = new HashMap<>();
 
     public FavoritesFragment() {
         super(R.layout.fragment_favorites);
@@ -16,7 +22,33 @@ public class FavoritesFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
         loadFavorites(view);
+
+        // ===== PLAYERS IGUAL HOME =====
+        setupSound(view, "chuva", R.raw.chuva,
+                R.id.btnPlayChuva, R.id.seekChuva);
+
+        setupSound(view, "floresta", R.raw.floresta,
+                R.id.btnPlayFloresta, R.id.seekFloresta);
+
+        setupSound(view, "lareira", R.raw.lareira,
+                R.id.btnPlayLareira, R.id.seekLareira);
+
+        setupSound(view, "vento_suave", R.raw.vento_suave,
+                R.id.btnPlayVento, R.id.seekVento);
+
+        setupSound(view, "grilos", R.raw.grilos,
+                R.id.btnPlayGrilos, R.id.seekGrilos);
+
+        setupSound(view, "passaros", R.raw.passaros,
+                R.id.btnPlayPassaros, R.id.seekPassaros);
+
+        setupSound(view, "riacho", R.raw.riacho,
+                R.id.btnPlayRiacho, R.id.seekRiacho);
+
+        setupSound(view, "cafeteira", R.raw.cafeteira,
+                R.id.btnPlayCafeteira, R.id.seekCafeteira);
     }
 
     @Override
@@ -46,18 +78,132 @@ public class FavoritesFragment extends Fragment {
         if (card == null) return;
 
         card.setVisibility(
-            FavoritesManager.isFavorite(requireContext(), key)
-                ? View.VISIBLE
-                : View.GONE
+                FavoritesManager.isFavorite(requireContext(), key)
+                        ? View.VISIBLE
+                        : View.GONE
         );
+    }
+
+    // 🔥 LÓGICA COMPLETA COPIADA DO HOME
+    private void setupSound(View root, String key, int rawRes,
+                            int btnId, int seekId) {
+
+        ImageView button = root.findViewById(btnId);
+        SeekBar seekBar = root.findViewById(seekId);
+
+        if (button == null) return;
+
+        button.setOnClickListener(v -> {
+
+            if (players.containsKey(key)) {
+                stopSingle(key, button, seekBar);
+                return;
+            }
+
+            MediaPlayer mp = MediaPlayer.create(requireContext(), rawRes);
+            mp.setLooping(true);
+
+            players.put(key, mp);
+
+            // volume inicial
+            if (seekBar != null) {
+                seekBar.setProgress(80);
+                float volume = seekBar.getProgress() / 100f;
+                mp.setVolume(volume, volume);
+                seekBar.setVisibility(View.VISIBLE);
+            }
+
+            mp.start();
+            button.setImageResource(R.drawable.ic_media_pause);
+
+            // animação botão
+            button.animate()
+                    .translationY(-60f)
+                    .scaleX(1.05f)
+                    .scaleY(1.05f)
+                    .setDuration(250)
+                    .start();
+
+            // glow
+            View card = (View) button.getParent().getParent();
+            if (card instanceof CardGlowLayout) {
+                ((CardGlowLayout) card).startGlow();
+            }
+
+            // equalizer
+            View parent = (View) button.getParent();
+            ImageView eq = parent.findViewById(R.id.equalizer);
+
+            if (eq != null) {
+                eq.setVisibility(View.VISIBLE);
+
+                Glide.with(requireContext())
+                        .asGif()
+                        .load(R.drawable.equalizer)
+                        .into(eq);
+            }
+
+            // volume dinâmico
+            if (seekBar != null) {
+                seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar sb, int progress, boolean fromUser) {
+                        float volume = progress / 100f;
+                        mp.setVolume(volume, volume);
+                    }
+
+                    @Override public void onStartTrackingTouch(SeekBar sb) {}
+                    @Override public void onStopTrackingTouch(SeekBar sb) {}
+                });
+            }
+        });
+    }
+
+    private void stopSingle(String key, ImageView button, SeekBar seekBar) {
+
+        MediaPlayer mp = players.get(key);
+        if (mp != null) {
+            try { mp.stop(); } catch (Exception ignored) {}
+            try { mp.release(); } catch (Exception ignored) {}
+        }
+
+        players.remove(key);
+
+        button.setImageResource(R.drawable.ic_media_play);
+
+        button.animate()
+                .translationY(0)
+                .scaleX(1f)
+                .scaleY(1f)
+                .setDuration(200)
+                .start();
+
+        // glow off
+        View card = (View) button.getParent().getParent();
+        if (card instanceof CardGlowLayout) {
+            ((CardGlowLayout) card).stopGlow();
+        }
+
+        // equalizer off
+        View parent = (View) button.getParent();
+        ImageView eq = parent.findViewById(R.id.equalizer);
+        if (eq != null) {
+            eq.setVisibility(View.GONE);
+        }
+
+        if (seekBar != null) {
+            seekBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
+
+        for (MediaPlayer mp : players.values()) {
+            try { mp.stop(); } catch (Exception ignored) {}
+            try { mp.release(); } catch (Exception ignored) {}
         }
+        players.clear();
     }
 }
