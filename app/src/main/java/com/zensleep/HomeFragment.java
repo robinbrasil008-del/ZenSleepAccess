@@ -52,6 +52,10 @@ public class HomeFragment extends Fragment {
     private InterstitialAd mInterstitialAd;
     private boolean adAlreadyShown = false;
 
+    private boolean florestaUnlocked = false;
+
+    private String cardSelecionado = "";
+
     private AdView adView;
 
     // ======= PLAYER (NOVO MIX / MULTI-SOM) =======
