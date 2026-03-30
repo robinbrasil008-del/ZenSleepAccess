@@ -282,7 +282,7 @@
     </FrameLayout>
 
                 <LinearLayout
-    android:id="@+id/lockOverlayFloresta"
+    android:id="@+id/lockOverlayFloresta" 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#A6000000"
@@ -290,20 +290,31 @@
     android:orientation="vertical"
     android:clickable="false" 
     android:focusable="false">
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_cadeado" 
-        app:tint="#FFD700" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="6dp" 
+        android:text="PREMIUM"
+        android:textColor="#9D00FF" 
+        android:textSize="18sp" 
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:gravity="center"
-        android:text="PREMIUM\nAssista um anúncio\npara desbloquear"
+        android:text="Assista um anúncio\npara desbloquear"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="bold" />
+
 </LinearLayout>
 
 </com.zensleep.CardGlowLayout>
@@ -404,28 +415,39 @@
     </FrameLayout>
 
                 <LinearLayout
-    android:id="@+id/lockOverlayLareira"
+    android:id="@+id/lockOverlayLareira" 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A6000000" 
+    android:background="#A6000000"
     android:gravity="center"
     android:orientation="vertical"
     android:clickable="false" 
     android:focusable="false">
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_cadeado" 
-        app:tint="#FFD700" /> 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="6dp" 
+        android:text="PREMIUM"
+        android:textColor="#9D00FF" 
+        android:textSize="18sp" 
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:gravity="center"
-        android:text="PREMIUM\nAssista um anúncio\npara desbloquear"
+        android:text="Assista um anúncio\npara desbloquear"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="bold" />
+
 </LinearLayout>
 
 </com.zensleep.CardGlowLayout>
@@ -526,28 +548,39 @@
     </FrameLayout>
 
                 <LinearLayout
-    android:id="@+id/lockOverlayVento"
+    android:id="@+id/lockOverlayVento" 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A6000000" 
+    android:background="#A6000000"
     android:gravity="center"
     android:orientation="vertical"
     android:clickable="false" 
     android:focusable="false">
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_cadeado" 
-        app:tint="#FFD700" /> 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="6dp" 
+        android:text="PREMIUM"
+        android:textColor="#9D00FF" 
+        android:textSize="18sp" 
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:gravity="center"
-        android:text="PREMIUM\nAssista um anúncio\npara desbloquear"
+        android:text="Assista um anúncio\npara desbloquear"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="bold" />
+
 </LinearLayout>
 
 </com.zensleep.CardGlowLayout>
@@ -648,30 +681,41 @@
     </FrameLayout>
 
                 <LinearLayout
-    android:id="@+id/lockOverlayGrilos"
+    android:id="@+id/lockOverlayGrilos" 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A6000000" 
+    android:background="#A6000000"
     android:gravity="center"
     android:orientation="vertical"
     android:clickable="false" 
     android:focusable="false">
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_cadeado" 
-        app:tint="#FFD700" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="6dp" 
+        android:text="PREMIUM"
+        android:textColor="#9D00FF" 
+        android:textSize="18sp" 
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:gravity="center"
-        android:text="PREMIUM\nAssista um anúncio\npara desbloquear"
+        android:text="Assista um anúncio\npara desbloquear"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="bold" />
-</LinearLayout>
 
+</LinearLayout>
+                
 </com.zensleep.CardGlowLayout>
 
             <!-- ✅ PÁSSAROS -->
@@ -770,28 +814,39 @@
     </FrameLayout>
 
                 <LinearLayout
-    android:id="@+id/lockOverlayPassaros"
+    android:id="@+id/lockOverlayPassaros" 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A6000000" 
+    android:background="#A6000000"
     android:gravity="center"
     android:orientation="vertical"
     android:clickable="false" 
     android:focusable="false">
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_cadeado" 
-        app:tint="#FFD700" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="6dp" 
+        android:text="PREMIUM"
+        android:textColor="#9D00FF" 
+        android:textSize="18sp" 
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:gravity="center"
-        android:text="PREMIUM\nAssista um anúncio\npara desbloquear"
+        android:text="Assista um anúncio\npara desbloquear"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="bold" />
+
 </LinearLayout>
 
 </com.zensleep.CardGlowLayout>
@@ -892,28 +947,39 @@
     </FrameLayout>
 
                 <LinearLayout
-    android:id="@+id/lockOverlayRiacho"
+    android:id="@+id/lockOverlayRiacho" 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A6000000" 
+    android:background="#A6000000"
     android:gravity="center"
     android:orientation="vertical"
     android:clickable="false" 
     android:focusable="false">
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_cadeado" 
-        app:tint="#FFD700" /> 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="6dp" 
+        android:text="PREMIUM"
+        android:textColor="#9D00FF" 
+        android:textSize="18sp" 
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:gravity="center"
-        android:text="PREMIUM\nAssista um anúncio\npara desbloquear"
+        android:text="Assista um anúncio\npara desbloquear"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="bold" />
+
 </LinearLayout>
 
 </com.zensleep.CardGlowLayout>
@@ -1014,28 +1080,39 @@
     </FrameLayout>
 
                 <LinearLayout
-    android:id="@+id/lockOverlayCafeteira"
+    android:id="@+id/lockOverlayCafeteira" 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A6000000" 
+    android:background="#A6000000"
     android:gravity="center"
     android:orientation="vertical"
     android:clickable="false" 
     android:focusable="false">
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_cadeado" 
-        app:tint="#FFD700" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="6dp" 
+        android:text="PREMIUM"
+        android:textColor="#9D00FF" 
+        android:textSize="18sp" 
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:gravity="center"
-        android:text="PREMIUM\nAssista um anúncio\npara desbloquear"
+        android:text="Assista um anúncio\npara desbloquear"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="bold" />
+
 </LinearLayout>
 
 </com.zensleep.CardGlowLayout>
