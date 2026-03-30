@@ -281,6 +281,31 @@
             android:progress="80"/>
     </FrameLayout>
 
+                <LinearLayout
+    android:id="@+id/lockOverlayFloresta"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A6000000"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:clickable="false" 
+    android:focusable="false">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" 
+        android:app:tint="#FFD700" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="PREMIUM\nAssista um anúncio\npara desbloquear"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+</LinearLayout>
+
 </com.zensleep.CardGlowLayout>
 
             <!-- ✅ LAREIRA -->
@@ -377,6 +402,31 @@
             android:max="100"
             android:progress="80"/>
     </FrameLayout>
+
+                <LinearLayout
+    android:id="@+id/lockOverlayLareira"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A6000000" 
+    android:gravity="center"
+    android:orientation="vertical"
+    android:clickable="false" 
+    android:focusable="false">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" 
+        android:app:tint="#FFD700" /> 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="PREMIUM\nAssista um anúncio\npara desbloquear"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+</LinearLayout>
 
 </com.zensleep.CardGlowLayout>
 
@@ -475,6 +525,31 @@
             android:progress="80"/>
     </FrameLayout>
 
+                <LinearLayout
+    android:id="@+id/lockOverlayVento"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A6000000" 
+    android:gravity="center"
+    android:orientation="vertical"
+    android:clickable="false" 
+    android:focusable="false">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" 
+        android:app:tint="#FFD700" /> 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="PREMIUM\nAssista um anúncio\npara desbloquear"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+</LinearLayout>
+
 </com.zensleep.CardGlowLayout>
             
             <!-- ✅ NOITE COM GRILOS -->
@@ -571,6 +646,31 @@
             android:max="100"
             android:progress="80"/>
     </FrameLayout>
+
+                <LinearLayout
+    android:id="@+id/lockOverlayGrilos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A6000000" 
+    android:gravity="center"
+    android:orientation="vertical"
+    android:clickable="false" 
+    android:focusable="false">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" 
+        android:app:tint="#FFD700" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="PREMIUM\nAssista um anúncio\npara desbloquear"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+</LinearLayout>
 
 </com.zensleep.CardGlowLayout>
 
@@ -669,6 +769,31 @@
             android:progress="80"/>
     </FrameLayout>
 
+                <LinearLayout
+    android:id="@+id/lockOverlayPassaros"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A6000000" 
+    android:gravity="center"
+    android:orientation="vertical"
+    android:clickable="false" 
+    android:focusable="false">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" 
+        android:app:tint="#FFD700" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="PREMIUM\nAssista um anúncio\npara desbloquear"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+</LinearLayout>
+
 </com.zensleep.CardGlowLayout>
 
             <!-- ✅ RIACHO -->
@@ -766,6 +891,31 @@
             android:progress="80"/>
     </FrameLayout>
 
+                <LinearLayout
+    android:id="@+id/lockOverlayRiacho"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A6000000" 
+    android:gravity="center"
+    android:orientation="vertical"
+    android:clickable="false" 
+    android:focusable="false">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" 
+        android:app:tint="#FFD700" /> 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="PREMIUM\nAssista um anúncio\npara desbloquear"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+</LinearLayout>
+
 </com.zensleep.CardGlowLayout>
 
             <!-- ✅ CAFETEIRA -->
@@ -862,6 +1012,31 @@
             android:max="100"
             android:progress="80"/>
     </FrameLayout>
+
+                <LinearLayout
+    android:id="@+id/lockOverlayCafeteira"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A6000000" 
+    android:gravity="center"
+    android:orientation="vertical"
+    android:clickable="false" 
+    android:focusable="false">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" 
+        android:app:tint="#FFD700" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="PREMIUM\nAssista um anúncio\npara desbloquear"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+</LinearLayout>
 
 </com.zensleep.CardGlowLayout>
             
