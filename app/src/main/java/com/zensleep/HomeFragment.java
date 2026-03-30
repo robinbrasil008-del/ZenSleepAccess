@@ -83,6 +83,10 @@ public class HomeFragment extends Fragment {
     
     private CardGlowLayout cardChuva, cardFloresta, cardLareira, cardVento, cardGrilos, cardPassaros, cardRiacho, cardCafeteira;
 
+    // Overlays de Bloqueio (Cadeado)
+    private View lockFloresta, lockLareira, lockVento, lockGrilos, lockPassaros, lockRiacho, lockCafeteira;
+
+
     private ImageView timerIcon;
 
     private TimerTextAnimator timerAnimator = new TimerTextAnimator();
@@ -116,6 +120,16 @@ public class HomeFragment extends Fragment {
 
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
+
+        // Mapeando os Overlays (Coloque logo após o mapeamento dos cards no onViewCreated)
+lockFloresta = view.findViewById(R.id.lockOverlayFloresta);
+lockLareira = view.findViewById(R.id.lockOverlayLareira);
+lockVento = view.findViewById(R.id.lockOverlayVento);
+lockGrilos = view.findViewById(R.id.lockOverlayGrilos);
+lockPassaros = view.findViewById(R.id.lockOverlayPassaros);
+lockRiacho = view.findViewById(R.id.lockOverlayRiacho);
+lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
+
 
         // ======= PLAY BUTTONS =======
         btnPlayChuva = view.findViewById(R.id.btnPlayChuva);
@@ -247,6 +261,38 @@ public class HomeFragment extends Fragment {
         });
         
     }
+
+    private void updateLocksVisibility() {
+    // Floresta
+    if (lockFloresta != null) {
+        lockFloresta.setVisibility(isCardUnlocked("floresta") ? View.GONE : View.VISIBLE);
+    }
+    // Lareira
+    if (lockLareira != null) {
+        lockLareira.setVisibility(isCardUnlocked("lareira") ? View.GONE : View.VISIBLE);
+    }
+    // Vento
+    if (lockVento != null) {
+        lockVento.setVisibility(isCardUnlocked("vento") ? View.GONE : View.VISIBLE);
+    }
+    // Grilos
+    if (lockGrilos != null) {
+        lockGrilos.setVisibility(isCardUnlocked("grilos") ? View.GONE : View.VISIBLE);
+    }
+    // Pássaros
+    if (lockPassaros != null) {
+        lockPassaros.setVisibility(isCardUnlocked("passaros") ? View.GONE : View.VISIBLE);
+    }
+    // Riacho
+    if (lockRiacho != null) {
+        lockRiacho.setVisibility(isCardUnlocked("riacho") ? View.GONE : View.VISIBLE);
+    }
+    // Cafeteira
+    if (lockCafeteira != null) {
+        lockCafeteira.setVisibility(isCardUnlocked("cafeteira") ? View.GONE : View.VISIBLE);
+    }
+}
+
 
     private CardGlowLayout getCardByKey(String key) {
     switch (key) {
@@ -392,6 +438,9 @@ private void unlockCard(String key) {
                         // O usuário assistiu! Desbloqueia o som:
                         unlockCard(key);
                         Toast.makeText(requireContext(), "Som desbloqueado com sucesso!", Toast.LENGTH_SHORT).show();
+
+                        updateLocksVisibility();
+                        
                     });
                 }
             }
@@ -442,6 +491,7 @@ private void unlockCard(String key) {
         applyMasterVolumeToAll();
         adAlreadyShown = false; // libera mostrar novamente
         showInterstitialIfReady();
+        updateLocksVisibility();
     }
 
     // ======= SETUP DO SOM (MIX) =======
