@@ -1,0 +1,20 @@
+name: Gerar Keystore
+on: workflow_dispatch
+
+jobs:
+  gerar-chave:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Criar a Keystore usando Java
+        run: |
+          keytool -genkey -v -keystore minha-chave.jks -keyalg RSA -keysize 2048 -validity 10000 -alias meu-app -dname "CN=Desenvolvedor, OU=App, O=Minha Empresa, L=Lisboa, ST=Lisboa, C=PT" -storepass 15349276 -keypass 15349276
+          
+      - name: Converter a Chave para Base64
+        run: base64 -w 0 minha-chave.jks > chave_base64.txt
+        
+      - name: Disponibilizar o ficheiro para Download
+        uses: actions/upload-artifact@v4
+        with:
+          name: chave-pronta
+          path: chave_base64.txt
+
