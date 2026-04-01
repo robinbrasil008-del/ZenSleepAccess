@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch: # Permite rodar o build manualmente no GitHub!
 
 jobs:
   build:
@@ -22,11 +23,24 @@ jobs:
       - name: Give permission to wrapper
         run: chmod +x gradlew
 
-      - name: Build using wrapper
-        run: ./gradlew clean assembleDebug --no-daemon
+      # Modificado para gerar a versão Release em vez de Debug
+      - name: Build using wrapper (Release)
+        run: ./gradlew clean assembleRelease --no-daemon
 
-      - name: Upload APK
+      # Novo passo que usa seus Segredos para assinar o arquivo
+      - name: Sign APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.KEYSTORE_BASE64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      # Modificado para pegar apenas o arquivo que já foi assinado
+      - name: Upload Signed APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: app-release-assinado
+          path: ${{steps.sign_app.outputs.signedReleaseFile}}
