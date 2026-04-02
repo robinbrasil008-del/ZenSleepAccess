@@ -18,10 +18,19 @@ android {
         buildConfig true
     }
 
-    packagingOptions {
-    resources {
-        excludes += ['META-INF/*']
+    // 👇 SEÇÃO QUE EU ADICIONEI PARA RESOLVER O ERRO 👇
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
+    // 👆 FIM DA SEÇÃO NOVA 👆
+
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/*']
+        }
     }
 }
 
