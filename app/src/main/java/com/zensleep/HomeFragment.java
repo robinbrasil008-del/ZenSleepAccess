@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
     private RewardedAd mRewardedAd;
 // ID de TESTE do Google para Anúncios Premiados. 
 // Troque pelo seu ID real apenas quando for publicar o app!
-    private final String REWARDED_AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
+    private final String REWARDED_AD_UNIT_ID = "ca-app-pub-8296610548842772/2582973528";
 
     private AlertDialog loadingDialog;
 
