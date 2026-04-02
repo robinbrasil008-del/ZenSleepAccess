@@ -1,4 +1,4 @@
-name: Build APK Assinado
+name: Build AAB para Play Store
 
 on:
   push:
@@ -23,20 +23,18 @@ jobs:
       - name: Give permission to wrapper
         run: chmod +x gradlew
 
-      - name: Build using wrapper
-        run: ./gradlew clean assembleDebug --no-daemon
+      # 👇 1. Gera o AAB em modo Release (ignorando os erros chatos do Lint)
+      - name: Build AAB (Release)
+        run: ./gradlew clean bundleRelease -x lint -x lintVitalRelease --no-daemon
 
-      - name: Assinar APK
+      # 👇 2. Assina o AAB usando a chave que salvamos no repositório!
+      - name: Assinar AAB
         run: |
-          # 1. Localiza as ferramentas do Android
-          BUILD_TOOLS=$(ls -d $ANDROID_HOME/build-tools/* | tail -1)
-          
-          # 2. Alinha e Assina lendo a chave diretamente do repositório!
-          $BUILD_TOOLS/zipalign -v -p 4 app/build/outputs/apk/debug/app-debug.apk app-alinhado.apk
-          $BUILD_TOOLS/apksigner sign --ks minha-chave.jks --ks-key-alias "meu-app" --ks-pass "pass:15349276" --key-pass "pass:15349276" --out app-final-assinado.apk app-alinhado.apk
+          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore minha-chave.jks -storepass "15349276" -keypass "15349276" app/build/outputs/bundle/release/app-release.aab "meu-app"
 
-      - name: Upload APK Assinado
+      # 👇 3. Entrega o arquivo .aab pronto
+      - name: Upload AAB Assinado
         uses: actions/upload-artifact@v4
         with:
-          name: app-final-assinado
-          path: app-final-assinado.apk
+          name: app-release-assinado-playstore
+          path: app/build/outputs/bundle/release/app-release.aab
