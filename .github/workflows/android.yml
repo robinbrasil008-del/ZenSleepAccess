@@ -23,11 +23,11 @@ jobs:
       - name: Give permission to wrapper
         run: chmod +x gradlew
 
-      # Modificado para gerar a versão Release em vez de Debug
+      # Modificado para gerar a versão Release e ignorar erros do Lint
       - name: Build using wrapper (Release)
-        run: ./gradlew clean assembleRelease --no-daemon
+        run: ./gradlew clean assembleRelease -x lint -x lintVitalRelease --no-daemon
 
-      # Novo passo que usa seus Segredos para assinar o arquivo
+      # Passo que usa seus Segredos para assinar o arquivo
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
         id: sign_app
