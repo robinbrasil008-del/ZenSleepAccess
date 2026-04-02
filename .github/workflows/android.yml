@@ -1,54 +1,29 @@
-name: Build APK
+name: Build APK Garantido
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  workflow_dispatch: # Botão manual de rodar
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Baixar Codigo
         uses: actions/checkout@v4
 
-      - name: Setup Java
+      - name: Configurar Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Give permission to wrapper
-        run: chmod +x gradlew
-
-      # 👇 Voltamos para o Debug, que é o modo "amigão" e compila sem dar textão de erro
-      - name: Build using wrapper (Debug)
-        run: ./gradlew clean assembleDebug --no-daemon
-
-      # 👇 Mas aqui nós carimbamos ele com a sua ASSINATURA DEFINITIVA
-      - name: Sign APK Manually
-        env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      - name: Gerar App (Sem Frescuras)
         run: |
-          # 1. Cria o arquivo da chave (agora com aspas para não quebrar o texto)
-          echo "$KEYSTORE_BASE64" | base64 -d > keystore.jks
-          
-          # 2. Pega a ferramenta mais recente
-          BUILD_TOOLS=$(ls -d $ANDROID_HOME/build-tools/* | tail -1)
-          
-          # 3. Alinha o app gerado pelo Debug
-          $BUILD_TOOLS/zipalign -v -p 4 app/build/outputs/apk/debug/app-debug.apk app-release-aligned.apk
-          
-          # 4. Assina o app de forma definitiva (substituindo a assinatura provisória)
-          $BUILD_TOOLS/apksigner sign --ks keystore.jks --ks-key-alias "$KEY_ALIAS" --ks-pass "pass:$KEYSTORE_PASSWORD" --key-pass "pass:$KEY_PASSWORD" --out app-final-assinado.apk app-release-aligned.apk
+          chmod +x gradlew
+          ./gradlew clean assembleDebug --no-daemon
 
-      - name: Upload Signed APK
+      - name: Entregar App
         uses: actions/upload-artifact@v4
         with:
-          name: app-final-assinado
-          path: app-final-assinado.apk
+          name: meu-app-pronto
+          path: app/build/outputs/apk/debug/app-debug.apk
