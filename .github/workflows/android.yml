@@ -26,9 +26,9 @@ jobs:
       - name: Build using wrapper (Release)
         run: ./gradlew clean assembleRelease -x lint -x lintVitalRelease --no-daemon
 
-      # 👇 PASSO NOVO: Instala a ferramenta exata que o plugin teimoso exige 👇
+      # 👇 PASSO CORRIGIDO: Instala a ferramenta usando o caminho completo do Android SDK 👇
       - name: Install old build-tools
-        run: sdkmanager "build-tools;29.0.3"
+        run: echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "build-tools;29.0.3"
 
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
