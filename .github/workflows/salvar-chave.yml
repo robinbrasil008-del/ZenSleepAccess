@@ -1,0 +1,25 @@
+name: Gerar e Salvar Chave
+on: workflow_dispatch
+
+jobs:
+  salvar-chave:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Permite que o bot salve o arquivo no seu repositório
+      
+    steps:
+      - name: Baixar Repositorio
+        uses: actions/checkout@v4
+        
+      - name: Criar a Keystore
+        run: |
+          keytool -genkey -v -keystore minha-chave.jks -keyalg RSA -keysize 2048 -validity 10000 -alias meu-app -dname "CN=Desenvolvedor, C=BR" -storepass 15349276 -keypass 15349276
+          
+      - name: Salvar o arquivo no GitHub automaticamente
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add minha-chave.jks
+          git commit -m "Adicionando chave definitiva ao projeto"
+          git push
+
