@@ -23,11 +23,9 @@ jobs:
       - name: Give permission to wrapper
         run: chmod +x gradlew
 
-      # Modificado para gerar a versão Release e ignorar erros do Lint
       - name: Build using wrapper (Release)
         run: ./gradlew clean assembleRelease -x lint -x lintVitalRelease --no-daemon
 
-      # Passo que usa seus Segredos para assinar o arquivo
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
         id: sign_app
@@ -37,8 +35,8 @@ jobs:
           alias: ${{ secrets.KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
+          buildToolsVersion: '34.0.0' # 🔥 ESSA É A LINHA MÁGICA QUE FALTAVA 🔥
 
-      # Modificado para pegar apenas o arquivo que já foi assinado
       - name: Upload Signed APK
         uses: actions/upload-artifact@v4
         with:
