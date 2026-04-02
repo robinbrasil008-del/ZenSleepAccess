@@ -1,9 +1,10 @@
-name: Build APK
+name: Build APK Assinado
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -25,8 +26,17 @@ jobs:
       - name: Build using wrapper
         run: ./gradlew clean assembleDebug --no-daemon
 
-      - name: Upload APK
+      - name: Assinar APK
+        run: |
+          # 1. Localiza as ferramentas do Android
+          BUILD_TOOLS=$(ls -d $ANDROID_HOME/build-tools/* | tail -1)
+          
+          # 2. Alinha e Assina lendo a chave diretamente do repositório!
+          $BUILD_TOOLS/zipalign -v -p 4 app/build/outputs/apk/debug/app-debug.apk app-alinhado.apk
+          $BUILD_TOOLS/apksigner sign --ks minha-chave.jks --ks-key-alias "meu-app" --ks-pass "pass:12345678" --key-pass "pass:12345678" --out app-final-assinado.apk app-alinhado.apk
+
+      - name: Upload APK Assinado
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: app-final-assinado
+          path: app-final-assinado.apk
