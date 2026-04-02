@@ -26,6 +26,10 @@ jobs:
       - name: Build using wrapper (Release)
         run: ./gradlew clean assembleRelease -x lint -x lintVitalRelease --no-daemon
 
+      # 👇 PASSO NOVO: Instala a ferramenta exata que o plugin teimoso exige 👇
+      - name: Install old build-tools
+        run: sdkmanager "build-tools;29.0.3"
+
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
         id: sign_app
@@ -35,7 +39,6 @@ jobs:
           alias: ${{ secrets.KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
-          buildToolsVersion: '34.0.0' # 🔥 ESSA É A LINHA MÁGICA QUE FALTAVA 🔥
 
       - name: Upload Signed APK
         uses: actions/upload-artifact@v4
