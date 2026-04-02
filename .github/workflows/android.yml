@@ -33,7 +33,7 @@ jobs:
           
           # 2. Alinha e Assina lendo a chave diretamente do repositório!
           $BUILD_TOOLS/zipalign -v -p 4 app/build/outputs/apk/debug/app-debug.apk app-alinhado.apk
-          $BUILD_TOOLS/apksigner sign --ks minha-chave.jks --ks-key-alias "meu-app" --ks-pass "pass:12345678" --key-pass "pass:12345678" --out app-final-assinado.apk app-alinhado.apk
+          $BUILD_TOOLS/apksigner sign --ks minha-chave.jks --ks-key-alias "meu-app" --ks-pass "pass:15349276" --key-pass "pass:15349276" --out app-final-assinado.apk app-alinhado.apk
 
       - name: Upload APK Assinado
         uses: actions/upload-artifact@v4
