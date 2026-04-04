@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
     private RewardedAd mRewardedAd;
 // ID de TESTE do Google para Anúncios Premiados. 
 // Troque pelo seu ID real apenas quando for publicar o app!
-    private final String REWARDED_AD_UNIT_ID = "ca-app-pub-8296610548842772/7420871817";
+    private final String REWARDED_AD_UNIT_ID = "ca-app-pub-8296610548842772/3076304256";
 
     private AlertDialog loadingDialog;
 
@@ -416,37 +416,59 @@ private void unlockCard(String key) {
 }
 
         private void showRewardedAdAndUnlock(String key, ImageView button) {
-        showLoadingDialog(); // ⏳ 1. Mostra o GIF de carregamento na tela
+    // 1. Criamos o AlertDialog de Confirmação
+    AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+    
+    // Inflamos um layout customizado (opcional) ou usamos o padrão para ser rápido:
+    builder.setTitle("Desbloquear Som");
+    builder.setMessage("Deseja assistir a um vídeo curto para desbloquear este som permanentemente?");
+    
+    builder.setPositiveButton("ASSISTIR", (dialog, which) -> {
+        // O usuário aceitou! Agora sim iniciamos o processo do anúncio
+        startRewardedAdProcess(key, button);
+    });
+    
+    builder.setNegativeButton("AGORA NÃO", (dialog, which) -> {
+        dialog.dismiss();
+    });
 
-        AdRequest adRequest = new AdRequest.Builder().build();
-        RewardedAd.load(requireContext(), REWARDED_AD_UNIT_ID, adRequest, new RewardedAdLoadCallback() {
-            
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                mRewardedAd = null;
-                hideLoadingDialog(); // ❌ 2. Esconde o GIF se der erro (ex: sem internet)
-                Toast.makeText(requireContext(), "Erro ao carregar. Tente novamente.", Toast.LENGTH_SHORT).show();
+    AlertDialog dialog = builder.create();
+    
+    // Deixando o diálogo com os cantos arredondados (se você tiver um drawable para isso)
+    // Ou apenas mostrando o padrão do sistema:
+    dialog.show();
+}
+
+// 2. Criamos este novo método auxiliar para organizar o código
+private void startRewardedAdProcess(String key, ImageView button) {
+    showLoadingDialog(); // ⏳ Mostra o seu GIF "Aguarde"
+
+    AdRequest adRequest = new AdRequest.Builder().build();
+    RewardedAd.load(requireContext(), REWARDED_AD_UNIT_ID, adRequest, new RewardedAdLoadCallback() {
+        
+        @Override
+        public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+            mRewardedAd = null;
+            hideLoadingDialog(); 
+            Toast.makeText(requireContext(), "Erro ao carregar vídeo. Verifique sua conexão.", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+            mRewardedAd = rewardedAd;
+            hideLoadingDialog(); 
+
+            if (isAdded() && getActivity() != null) {
+                mRewardedAd.show(getActivity(), rewardItem -> {
+                    // ✅ O usuário assistiu até o fim!
+                    unlockCard(key);
+                    Toast.makeText(requireContext(), "Som desbloqueado com sucesso!", Toast.LENGTH_SHORT).show();
+                    updateLocksVisibility();
+                });
             }
-
-            @Override
-            public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
-                mRewardedAd = rewardedAd;
-                hideLoadingDialog(); // ✅ 3. Esconde o GIF, pois o vídeo carregou!
-
-                if (isAdded() && getActivity() != null) {
-                    mRewardedAd.show(getActivity(), rewardItem -> {
-                        // O usuário assistiu! Desbloqueia o som:
-                        unlockCard(key);
-                        Toast.makeText(requireContext(), "Som desbloqueado com sucesso!", Toast.LENGTH_SHORT).show();
-
-                        updateLocksVisibility();
-                        
-                    });
-                }
-            }
-        });
-    }
-
+        }
+    });
+}
 
     // ======= VOLUME MASTER (CONFIG) =======
     private float getSavedVolume() {
