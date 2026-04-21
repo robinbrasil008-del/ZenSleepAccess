@@ -5,7 +5,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
+import androidx.media3.exoplayer.ExoPlayer;
+import androidx.media3.common.MediaItem;
+import androidx.media3.common.Player;
+import androidx.media3.common.PlaybackException;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -70,8 +73,8 @@ public class HomeFragment extends Fragment {
     private AdView adView;
 
     // ======= PLAYER (NOVO MIX / MULTI-SOM) =======
-    private final HashMap<String, MediaPlayer> players = new HashMap<>();
-
+    private final HashMap<String, ExoPlayer> players = new HashMap<>();
+    
     private CountDownTimer countDownTimer;
 
     private TextView txtTimer;
@@ -487,11 +490,11 @@ private void startRewardedAdProcess(String key, ImageView button) {
         return finalVol;
     }
 
-    private void applyVolumeForKey(String key, SeekBar seekBar) {
-        MediaPlayer mp = players.get(key);
-        if (mp != null) {
+        private void applyVolumeForKey(String key, SeekBar seekBar) {
+        ExoPlayer player = players.get(key);
+        if (player != null) {
             float v = computeFinalVolume(seekBar);
-            mp.setVolume(v, v);
+            player.setVolume(v); // ExoPlayer usa apenas 1 parâmetro de volume
         }
     }
 
@@ -517,7 +520,7 @@ private void startRewardedAdProcess(String key, ImageView button) {
     }
 
     // ======= SETUP DO SOM (MIX) =======
-    private void setupSound(String key, int rawRes, ImageView button, SeekBar seekBar) {
+        private void setupSound(String key, int rawRes, ImageView button, SeekBar seekBar) {
 
         // garante progress default
         if (seekBar != null && seekBar.getProgress() <= 0) {
@@ -527,27 +530,36 @@ private void startRewardedAdProcess(String key, ImageView button) {
         // clique play/pause individual
         button.setOnClickListener(v -> {
 
-            // 🔴 NOVA LÓGICA DE BLOQUEIO AQUI 🔴
-    if (!isCardUnlocked(key)) {
-        // Se estiver bloqueado, mostra um alerta ou vai direto pro anúncio
-        showRewardedAdAndUnlock(key, button);
-        return; // Para a execução aqui, não toca o som!
-    }
-            
+            // 🔴 LÓGICA DE BLOQUEIO 🔴
+            if (!isCardUnlocked(key)) {
+                showRewardedAdAndUnlock(key, button);
+                return;
+            }
+
             if (players.containsKey(key)) {
                 stopSingle(key, button);
                 return;
             }
 
-            MediaPlayer mp = MediaPlayer.create(requireContext(), rawRes);
-            mp.setLooping(true);
+            // ======= NOVA LÓGICA DO EXOPLAYER (LOOP PERFEITO) =======
+            ExoPlayer player = new ExoPlayer.Builder(requireContext()).build();
+            
+            // Converte o arquivo da pasta raw para uma URI que o ExoPlayer entenda
+            String uriString = "android.resource://" + requireContext().getPackageName() + "/" + rawRes;
+            MediaItem mediaItem = MediaItem.fromUri(Uri.parse(uriString));
 
-            players.put(key, mp);
+            player.setMediaItem(mediaItem);
+            player.setRepeatMode(Player.REPEAT_MODE_ONE); // ISSO GARANTE O LOOP SEM PAUSAS
+            player.prepare();
+
+            players.put(key, player);
 
             // aplica volume MASTER * CARD
             applyVolumeForKey(key, seekBar);
 
-            mp.start();
+            player.play(); // No ExoPlayer é play() em vez de start()
+            // =========================================================
+
             button.setImageResource(R.drawable.ic_media_pause);
 
             button.animate()
@@ -560,53 +572,48 @@ private void startRewardedAdProcess(String key, ImageView button) {
 
             CardGlowLayout card = getCardByKey(key);
             if (card != null) {
-            card.startGlow();
-           }
+                card.startGlow();
+            }
 
             View parent = (View) button.getParent();
             ImageView eq = parent.findViewById(R.id.equalizer);
 
             if (eq != null) {
-            eq.setVisibility(View.VISIBLE);
+                eq.setVisibility(View.VISIBLE);
+                Glide.with(requireContext())
+                 .asGif()
+                 .load(R.drawable.equalizer)
+                 .into(eq);
+            }
 
-             Glide.with(requireContext())
-             .asGif()
-             .load(R.drawable.equalizer) // seu gif
-             .into(eq);
-             }
-        
-            // se acabar por algum motivo, limpa estado
-            mp.setOnErrorListener((m, what, extra) -> {
-                stopSingle(key, button);
-                return true;
+            // se der erro, limpa estado
+            player.addListener(new Player.Listener() {
+                @Override
+                public void onPlayerError(PlaybackException error) {
+                    stopSingle(key, button);
+                }
             });
 
-        // volume por card
-        if (seekBar != null) {
-            
-            seekBar.setVisibility(View.VISIBLE);
-            
-            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar sb, int progress, boolean fromUser) {
-                    applyVolumeForKey(key, sb);
-                }
-
-                @Override public void onStartTrackingTouch(SeekBar sb) {}
-                @Override public void onStopTrackingTouch(SeekBar sb) {}
-                 });
-            
-              }
-            
-           });
-        
-        }
+            // volume por card
+            if (seekBar != null) {
+                seekBar.setVisibility(View.VISIBLE);
+                seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar sb, int progress, boolean fromUser) {
+                        applyVolumeForKey(key, sb);
+                    }
+                    @Override public void onStartTrackingTouch(SeekBar sb) {}
+                    @Override public void onStopTrackingTouch(SeekBar sb) {}
+                });
+            }
+        });
+    }
                                   
-        private void stopSingle(String key, ImageView button) {
-        MediaPlayer mp = players.get(key);
-        if (mp != null) {
-            try { mp.stop(); } catch (Exception ignored) {}
-            try { mp.release(); } catch (Exception ignored) {}
+            private void stopSingle(String key, ImageView button) {
+        ExoPlayer player = players.get(key);
+        if (player != null) {
+            try { player.stop(); } catch (Exception ignored) {}
+            try { player.release(); } catch (Exception ignored) {}
         }
         players.remove(key);
 
@@ -614,6 +621,7 @@ private void startRewardedAdProcess(String key, ImageView button) {
             button.setImageResource(R.drawable.ic_media_play);
         }
 
+        if (button != null) {
             button.animate()
            .translationY(0)
            .scaleX(1f)
@@ -621,24 +629,27 @@ private void startRewardedAdProcess(String key, ImageView button) {
            .setDuration(200)
            .setInterpolator(new android.view.animation.DecelerateInterpolator())
            .start();
+        }
 
-            CardGlowLayout card = getCardByKey(key);
-            if (card != null) {
+        CardGlowLayout card = getCardByKey(key);
+        if (card != null) {
             card.stopGlow();
-           }
+        }
 
+        if (button != null) {
             View parent = (View) button.getParent();
             ImageView eq = parent.findViewById(R.id.equalizer);
 
             if (eq != null) {
-            eq.setVisibility(View.GONE);
+                eq.setVisibility(View.GONE);
             }
+        }
 
-            SeekBar seekBar = getSeekBarByKey(key);
+        SeekBar seekBar = getSeekBarByKey(key);
         if (seekBar != null) {
             seekBar.setVisibility(View.GONE);
-          }
-      }
+        }
+    }
 
     private SeekBar getSeekBarByKey(String key) {
     switch (key) {
