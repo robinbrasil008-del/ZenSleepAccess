@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_privacidade"
+        android:title="Política de Privacidade" />
+    <item
+        android:id="@+id/nav_avaliar"
+        android:title="Avaliar Aplicativo" />
+    <item
+        android:id="@+id/nav_compartilhar"
+        android:title="Compartilhar" />
+</menu>
+
