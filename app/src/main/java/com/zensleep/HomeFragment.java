@@ -54,6 +54,10 @@ import androidx.fragment.app.Fragment;
 
 import java.util.HashMap;
 
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.core.view.GravityCompat;
+import com.google.android.material.navigation.NavigationView;
+
 public class HomeFragment extends Fragment {
 
     private RewardedAd mRewardedAd;
@@ -263,16 +267,37 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
             updateStars();
         });
 
-        // ======= MENU BUTTON =======
-ImageView btnMenu = view.findViewById(R.id.btnMenu);
-if (btnMenu != null) {
-    btnMenu.setOnClickListener(v -> {
-        // Por enquanto, apenas mostra um aviso.
-        Toast.makeText(requireContext(), "Menu clicado!", Toast.LENGTH_SHORT).show();
-        
-        // Aqui colocaremos a lógica para abrir a gaveta ou tela de configurações
-    });
-}
+                // ======= GAVETA LATERAL E BOTÃO MENU =======
+        DrawerLayout drawerLayout = view.findViewById(R.id.drawer_layout);
+        ImageView btnMenu = view.findViewById(R.id.btnMenu);
+        NavigationView navView = view.findViewById(R.id.nav_view);
+
+        if (btnMenu != null && drawerLayout != null) {
+            // Abre o menu lateral deslizando da esquerda quando clica no ícone
+            btnMenu.setOnClickListener(v -> {
+                drawerLayout.openDrawer(GravityCompat.START);
+            });
+        }
+
+        if (navView != null) {
+            // Configura os cliques dos itens dentro da gaveta lateral
+            navView.setNavigationItemSelectedListener(item -> {
+                int id = item.getItemId();
+                
+                if (id == R.id.nav_privacidade) {
+                    Toast.makeText(requireContext(), "Abrir Política", Toast.LENGTH_SHORT).show();
+                } else if (id == R.id.nav_avaliar) {
+                    Toast.makeText(requireContext(), "Abrir Play Store", Toast.LENGTH_SHORT).show();
+                } else if (id == R.id.nav_compartilhar) {
+                    Toast.makeText(requireContext(), "Compartilhar App", Toast.LENGTH_SHORT).show();
+                }
+
+                // Fecha a gaveta depois de clicar
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            });
+        }
+        // ===========================================
         
     }
 
