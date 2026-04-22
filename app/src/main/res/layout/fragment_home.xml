@@ -29,6 +29,20 @@
     android:layout_marginBottom="6dp"
     android:layout_gravity="center"
     android:adjustViewBounds="true"/>
+
+        <ImageView
+    android:id="@+id/btnMenu"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:layout_margin="16dp"
+    android:padding="12dp"
+    android:src="@drawable/ic_menu"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:clickable="true"
+    android:focusable="true" 
+    
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent" />
             
         <!-- 🔥 NOVO RELÓGIO ESTILIZADO -->
           <com.zensleep.AnimatedTimerCardLayout
