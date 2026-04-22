@@ -21,6 +21,13 @@ import com.ironsource.mediationsdk.IronSource;
 import androidx.annotation.NonNull;
 import android.widget.FrameLayout;
 
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.gms.tasks.Task;
+
 public class MainActivity extends AppCompatActivity {
 
     LinearLayout navHome, navFav, navSettings;
@@ -28,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<String> notificationPermissionLauncher;
 
     private static final String APP_KEY = "257178685";
+
+    private AppUpdateManager appUpdateManager;
+    private static final int MY_REQUEST_CODE = 100;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
             loadFragment(new SettingsFragment());
             selectMenu(navSettings);
         });
+
+            checkForAppUpdate();
+
     }
 
     private void checkNotificationPermission() {
@@ -109,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 notificationPermissionLauncher.launch(
                         Manifest.permission.POST_NOTIFICATIONS
                 );
+
             }
         }
     }
@@ -143,5 +157,47 @@ public class MainActivity extends AppCompatActivity {
 
         icon.setTextColor(0xFFFFFFFF);
         text.setTextColor(0xFFFFFFFF);
+    }
+
+        private void checkForAppUpdate() {
+        appUpdateManager = AppUpdateManagerFactory.create(this);
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                  && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                try {
+                    appUpdateManager.startUpdateFlowForResult(
+                        appUpdateInfo,
+                        AppUpdateType.IMMEDIATE,
+                        this,
+                        MY_REQUEST_CODE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    // Este método garante que se o usuário minimizar o app durante a atualização,
+    // o bloqueio continue quando ele voltar.
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (appUpdateManager != null) {
+            appUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                    try {
+                        appUpdateManager.startUpdateFlowForResult(
+                            appUpdateInfo,
+                            AppUpdateType.IMMEDIATE,
+                            this,
+                            MY_REQUEST_CODE);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
 }
