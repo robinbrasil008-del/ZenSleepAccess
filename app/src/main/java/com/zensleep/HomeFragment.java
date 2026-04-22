@@ -262,6 +262,17 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
             FavoritesManager.toggleFavorite(requireContext(), "cafeteira");
             updateStars();
         });
+
+        // ======= MENU BUTTON =======
+ImageView btnMenu = view.findViewById(R.id.btnMenu);
+if (btnMenu != null) {
+    btnMenu.setOnClickListener(v -> {
+        // Por enquanto, apenas mostra um aviso.
+        Toast.makeText(requireContext(), "Menu clicado!", Toast.LENGTH_SHORT).show();
+        
+        // Aqui colocaremos a lógica para abrir a gaveta ou tela de configurações
+    });
+}
         
     }
 
@@ -472,18 +483,6 @@ private void startRewardedAdProcess(String key, ImageView button) {
         }
     });
 }
-
-    // ======= MENU BUTTON =======
-ImageView btnMenu = view.findViewById(R.id.btnMenu);
-if (btnMenu != null) {
-    btnMenu.setOnClickListener(v -> {
-        // Por enquanto, apenas mostra um aviso.
-        Toast.makeText(requireContext(), "Menu clicado!", Toast.LENGTH_SHORT).show();
-        
-        // Aqui colocaremos a lógica para abrir a gaveta ou tela de configurações
-    });
-}
-
     // ======= VOLUME MASTER (CONFIG) =======
     private float getSavedVolume() {
         SharedPreferences prefs =
