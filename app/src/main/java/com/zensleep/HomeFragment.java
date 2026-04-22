@@ -279,25 +279,43 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
             });
         }
 
-        if (navView != null) {
-            // Configura os cliques dos itens dentro da gaveta lateral
+                if (navView != null) {
             navView.setNavigationItemSelectedListener(item -> {
                 int id = item.getItemId();
-                
+                String packageName = requireContext().getPackageName();
+
                 if (id == R.id.nav_privacidade) {
-                    Toast.makeText(requireContext(), "Abrir Política", Toast.LENGTH_SHORT).show();
+                    // 1. ABRIR POLÍTICA DE PRIVACIDADE (Troque o link pelo seu)
+                    String url = "https://suapagina.com/politica-privacidade"; 
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+
                 } else if (id == R.id.nav_avaliar) {
-                    Toast.makeText(requireContext(), "Abrir Play Store", Toast.LENGTH_SHORT).show();
+                    // 2. ABRIR PLAY STORE PARA AVALIAÇÃO
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW, 
+                            Uri.parse("market://details?id=" + packageName)));
+                    } catch (android.content.ActivityNotFoundException e) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, 
+                            Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)));
+                    }
+
                 } else if (id == R.id.nav_compartilhar) {
-                    Toast.makeText(requireContext(), "Compartilhar App", Toast.LENGTH_SHORT).show();
+                    // 3. COMPARTILHAR O APP COM AMIGOS
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    String shareMessage = "Confira o ZenSleep, o app que me ajuda a dormir melhor: " +
+                            "https://play.google.com/store/apps/details?id=" + packageName;
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "Compartilhar via"));
                 }
 
-                // Fecha a gaveta depois de clicar
+                // Fecha a gaveta lateral após o clique
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             });
         }
-        // ===========================================
         
     }
 
