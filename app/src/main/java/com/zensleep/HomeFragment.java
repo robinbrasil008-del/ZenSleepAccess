@@ -284,9 +284,9 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
                 int id = item.getItemId();
                 String packageName = requireContext().getPackageName();
 
-                if (id == R.id.nav_privacidade) {
-                    // 1. ABRIR POLÍTICA DE PRIVACIDADE (Troque o link pelo seu)
-                    String url = "https://suapagina.com/politica-privacidade"; 
+                                if (id == R.id.nav_privacidade) {
+                    // LINK CORRIGIDO AQUI:
+                    String url = "https://www.app-zensleep.site/privacy.html"; 
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     startActivity(i);
