@@ -45,6 +45,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        // 🔥 1. BLINDAGEM: Força a leitura do tema aqui de novo, antes da tela existir!
+        SharedPreferences prefs = getSharedPreferences("zen_settings", MODE_PRIVATE);
+        boolean isDarkMode = prefs.getBoolean("dark_mode", true); // 'true' = escuro na 1ª vez
+        
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         setTheme(R.style.Theme_ZenSleep);
 
         super.onCreate(savedInstanceState);
