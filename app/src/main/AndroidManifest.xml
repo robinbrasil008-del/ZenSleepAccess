@@ -39,6 +39,7 @@
     <!-- ================================================= -->
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:label="ZenSleep"
         android:theme="@style/Theme.ZenSleep"
