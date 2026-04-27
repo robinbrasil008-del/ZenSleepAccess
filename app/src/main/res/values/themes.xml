@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="Theme.ZenSleep"
-        parent="Theme.MaterialComponents.DayNight.NoActionBar">
-
-        <!-- 🔥 Apenas o fundo muda -->
+    <style name="Theme.ZenSleep" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/backgroundColor</item>
-
-        <!-- Status bar acompanha -->
         <item name="android:statusBarColor">@color/backgroundColor</item>
-
     </style>
 
+    <style name="Theme.App.Starting" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">#121212</item>
+        <item name="android:statusBarColor">#121212</item>
+    </style>
 </resources>
