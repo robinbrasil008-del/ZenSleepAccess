@@ -5,7 +5,7 @@
         <item name="android:statusBarColor">@color/backgroundColor</item>
     </style>
 
-    <style name="Theme.App.Starting" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.App.Starting" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowBackground">#121212</item>
         <item name="android:statusBarColor">#121212</item>
     </style>
