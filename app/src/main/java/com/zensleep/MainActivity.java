@@ -42,18 +42,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // ==========================
-        // 🌙 APLICA TEMA
-        // ==========================
-        SharedPreferences prefs = getSharedPreferences("zen_settings", MODE_PRIVATE);
-        boolean darkEnabled = prefs.getBoolean("dark_mode", true);
-
-        AppCompatDelegate.setDefaultNightMode(
-                darkEnabled
-                        ? AppCompatDelegate.MODE_NIGHT_YES
-                        : AppCompatDelegate.MODE_NIGHT_NO
-        );
-
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
