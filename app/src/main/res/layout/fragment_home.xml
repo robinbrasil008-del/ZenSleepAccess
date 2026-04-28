@@ -1146,7 +1146,7 @@
             android:clickable="true"
             android:focusable="true"/>
 
-                    <RelativeLayout
+                        <RelativeLayout
         android:id="@+id/tutorialOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -1154,44 +1154,47 @@
         android:visibility="gone"
         android:clickable="true"
         android:focusable="true"
-        android:elevation="15dp">
+        android:elevation="20dp">
 
         <View
             android:id="@+id/highlightFrame"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:visibility="gone"
             android:background="@android:color/transparent"
             android:foreground="@drawable/shape_highlight" />
 
         <LinearLayout
             android:id="@+id/tutorialBox"
-            android:layout_width="280dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#FFFFFF"
+            android:backgroundTint="#1A1A1A" 
+            android:background="@drawable/shape_card_background"
             android:padding="20dp"
-            android:elevation="5dp">
+            android:elevation="10dp">
 
             <TextView
                 android:id="@+id/tutorialText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bem-vindo!"
-                android:textColor="#333333"
-                android:textSize="16sp" />
+                android:text="Bem-vindo ao ZenSleep!"
+                android:textColor="#FFFFFF" 
+                android:textSize="17sp"
+                android:lineSpacingExtra="5dp" />
 
             <Button
                 android:id="@+id/btnProximo"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="end"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:backgroundTint="#9D00FF"
                 android:text="PRÓXIMO"
+                android:textSize="12sp"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
     </RelativeLayout>
-
 
     </RelativeLayout>
 
