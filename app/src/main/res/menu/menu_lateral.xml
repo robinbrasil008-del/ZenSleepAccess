@@ -36,7 +36,7 @@
         <menu>
             <item
                 android:id="@+id/nav_versao"
-                android:title="Versão 1.0.0"
+                android:title="Versão 2.0.0"
                 android:enabled="false" />
         </menu>
     </item>
