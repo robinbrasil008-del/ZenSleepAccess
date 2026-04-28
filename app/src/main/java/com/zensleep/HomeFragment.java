@@ -1089,17 +1089,6 @@ inputMinutes.addTextChangedListener(new android.text.TextWatcher() {
         }
     }
 
-        private void checkAndShowTutorial() {
-        SharedPreferences prefs = requireContext().getSharedPreferences("zen_prefs", Context.MODE_PRIVATE);
-        boolean jaVisto = prefs.getBoolean("tutorial_visto", false);
-        
-        if (!jaVisto && tutorialOverlay != null) {
-            tutorialOverlay.setAlpha(0f);
-            tutorialOverlay.setVisibility(View.VISIBLE);
-            tutorialOverlay.animate().alpha(1f).setDuration(600).start();
-        }
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
