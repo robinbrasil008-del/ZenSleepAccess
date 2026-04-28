@@ -424,8 +424,8 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
                                 @Override
                                 public void onAdDismissedFullScreenContent() {
                                     mInterstitialAd = null;
-                                    // É SÓ ISTO QUE FICA! O resto o Helper resolve.
-                                TutorialHelper tutorial = new TutorialHelper(requireContext(), getView());
+                                    // Chama o Helper e garante que a View é do tipo TutorialMaskView
+                                 TutorialHelper tutorial = new TutorialHelper(requireContext(), getView());
                                 tutorial.iniciarSeNecessario();
                                 }
 
@@ -433,8 +433,8 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
                                 public void onAdFailedToShowFullScreenContent(
                                         com.google.android.gms.ads.AdError adError) {
                                     mInterstitialAd = null;
-                                    // É SÓ ISTO QUE FICA! O resto o Helper resolve.
-                                TutorialHelper tutorial = new TutorialHelper(requireContext(), getView());
+                                    // Chama o Helper e garante que a View é do tipo TutorialMaskView
+                                   TutorialHelper tutorial = new TutorialHelper(requireContext(), getView());
                                 tutorial.iniciarSeNecessario();
                                 }
                             }
