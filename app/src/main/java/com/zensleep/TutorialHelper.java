@@ -64,7 +64,7 @@ public class TutorialHelper {
                     break;
                 case 1:
                     tutorialText.setText("Regule o volume aqui para criar o ambiente perfeito.");
-                    focar(rootView.findViewById(R.id.seekBarChuva)); 
+                    focar(rootView.findViewById(R.id.seekChuva)); 
                     break;
                 case 2:
                     tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir.");
@@ -73,7 +73,7 @@ public class TutorialHelper {
                     break;
                 case 3:
                     tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio e relaxe!");
-                    focar(rootView.findViewById(R.id.lockFloresta));
+                    focar(rootView.findViewById(R.id.lockOverlayFloresta));
                     break;
             }
             tutorialBox.animate().alpha(1f).setDuration(200);
