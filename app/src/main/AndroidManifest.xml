@@ -48,14 +48,20 @@
         android:supportsRtl="true">
 
         <!-- MAIN -->
-                <activity
-            android:name=".MainActivity"
+                        <activity
+            android:name=".SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.App.Starting"> <intent-filter>
+            android:theme="@style/Theme.App.Starting">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ZenSleep" />
 
         <!-- CONFIGURAR DESPERTADOR -->
         <activity
