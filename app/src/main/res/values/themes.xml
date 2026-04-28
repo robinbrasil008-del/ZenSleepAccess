@@ -8,8 +8,13 @@
         <item name="android:windowSplashScreenAnimatedIcon">@android:color/transparent</item>
     </style>
 
-    <style name="Theme.ZenSleep" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="Theme.ZenSleep.Escuro" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowBackground">#121212</item>
         <item name="android:statusBarColor">#121212</item>
+    </style>
+    
+    <style name="Theme.ZenSleep.Claro" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">#FFFFFF</item> 
+        <item name="android:statusBarColor">#FFFFFF</item>
     </style>
 </resources>
