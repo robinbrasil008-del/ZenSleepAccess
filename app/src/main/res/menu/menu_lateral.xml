@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group>
         <item
             android:id="@+id/nav_privacidade"
             android:icon="@android:drawable/ic_lock_lock"
@@ -28,7 +28,7 @@
             <item
                 android:id="@+id/nav_suporte"
                 android:icon="@android:drawable/ic_dialog_email"
-                android:title="Suporte e Contato" />
+                android:title="Fale Conosco" />
         </menu>
     </item>
 
