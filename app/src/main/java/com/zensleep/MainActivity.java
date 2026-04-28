@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         }, 5000);
 
             splashJaMostrada = true; // ⚠️ AQUI ESTÁ O SEGREDO: Marcamos que já mostramos uma vez!
+        }
         // ====================================================
 
                 // ======= MODO IMERSIVO (ESCONDE AS BARRAS DE STATUS E NAVEGAÇÃO) =======
