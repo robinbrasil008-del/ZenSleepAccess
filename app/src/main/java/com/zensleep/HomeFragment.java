@@ -114,9 +114,6 @@ public class HomeFragment extends Fragment {
 
     private Button btnTimer;
 
-    private RelativeLayout tutorialOverlay;
-    private Button btnEntendi;
-
     public HomeFragment() {
         super(R.layout.fragment_home);
     }
@@ -139,20 +136,6 @@ lockGrilos = view.findViewById(R.id.lockOverlayGrilos);
 lockPassaros = view.findViewById(R.id.lockOverlayPassaros);
 lockRiacho = view.findViewById(R.id.lockOverlayRiacho);
 lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
-
-                tutorialOverlay = view.findViewById(R.id.tutorialOverlay);
-        btnEntendi = view.findViewById(R.id.btnEntendi);
-
-        btnEntendi.setOnClickListener(v -> {
-            // Animação suave para desaparecer
-            tutorialOverlay.animate().alpha(0f).setDuration(400).withEndAction(() -> {
-                tutorialOverlay.setVisibility(View.GONE);
-            });
-            
-            // Grava na memória do telemóvel que o utilizador já viu!
-            SharedPreferences prefs = requireContext().getSharedPreferences("zen_prefs", Context.MODE_PRIVATE);
-            prefs.edit().putBoolean("tutorial_visto", true).apply();
-        });
 
         // ======= PLAY BUTTONS =======
         btnPlayChuva = view.findViewById(R.id.btnPlayChuva);
@@ -441,14 +424,18 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
                                 @Override
                                 public void onAdDismissedFullScreenContent() {
                                     mInterstitialAd = null;
-                                    checkAndShowTutorial();
+                                    // É SÓ ISTO QUE FICA! O resto o Helper resolve.
+                                TutorialHelper tutorial = new TutorialHelper(requireContext(), getView());
+                                tutorial.iniciarSeNecessario();
                                 }
 
                                 @Override
                                 public void onAdFailedToShowFullScreenContent(
                                         com.google.android.gms.ads.AdError adError) {
                                     mInterstitialAd = null;
-                                    checkAndShowTutorial();
+                                    // É SÓ ISTO QUE FICA! O resto o Helper resolve.
+                                TutorialHelper tutorial = new TutorialHelper(requireContext(), getView());
+                                tutorial.iniciarSeNecessario();
                                 }
                             }
                     );
@@ -1086,17 +1073,6 @@ inputMinutes.addTextChangedListener(new android.text.TextWatcher() {
     private void hideLoadingDialog() {
         if (loadingDialog != null && loadingDialog.isShowing()) {
             loadingDialog.dismiss();
-        }
-    }
-
-    private void checkAndShowTutorial() {
-        SharedPreferences prefs = requireContext().getSharedPreferences("zen_prefs", Context.MODE_PRIVATE);
-        boolean jaVisto = prefs.getBoolean("tutorial_visto", false);
-        
-        if (!jaVisto && tutorialOverlay != null) {
-            tutorialOverlay.setAlpha(0f);
-            tutorialOverlay.setVisibility(View.VISIBLE);
-            tutorialOverlay.animate().alpha(1f).setDuration(600).start();
         }
     }
 
