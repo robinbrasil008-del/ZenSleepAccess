@@ -80,22 +80,21 @@ public class TutorialHelper {
         });
     }
 
-    private void focar(View alvo) {
+        private void focar(View alvo) {
         if (alvo == null || highlightFrame == null) return;
         
         highlightFrame.setVisibility(View.VISIBLE);
         highlightFrame.setAlpha(0f);
-        highlightFrame.animate().alpha(1f).setDuration(300).start();
+        highlightFrame.animate().alpha(1f).setDuration(200).start();
 
         alvo.post(() -> {
             int[] posAlvo = new int[2];
             int[] posOverlay = new int[2];
             
-            // Usamos getLocationOnScreen para maior precisão em diferentes tamanhos de tela
             alvo.getLocationOnScreen(posAlvo);
             tutorialOverlay.getLocationOnScreen(posOverlay);
             
-            // Cálculo preciso descontando a posição do layout pai (overlay)
+            // Cálculo preciso para posicionar a moldura roxa (sem desvios)
             float finalX = posAlvo[0] - posOverlay[0] - 20; 
             float finalY = posAlvo[1] - posOverlay[1] - 20;
             
@@ -104,13 +103,23 @@ public class TutorialHelper {
                 .y(finalY)
                 .setDuration(500).start();
                 
-            // Ajusta o tamanho da moldura com um respiro de 40px
             ViewGroup.LayoutParams params = highlightFrame.getLayoutParams();
             params.width = alvo.getWidth() + 40;
             params.height = alvo.getHeight() + 40;
             highlightFrame.setLayoutParams(params);
 
-            // Move a caixa de texto para não cobrir o item focado
+            // 🔥 A MÁGICA DO FURO: Dizemos para a máscara criar o buraco!
+            // Passamos a posição exata e o tamanho para ele apagar o fundo
+            if (tutorialOverlay instanceof TutorialMaskView) {
+                ((TutorialMaskView) tutorialOverlay).setTarget(
+                    finalX, // Posição X dentro do overlay
+                    finalY, // Posição Y dentro do overlay
+                    alvo.getWidth() + 40, // Largura total com respiro
+                    alvo.getHeight() + 40 // Altura total com respiro
+                );
+            }
+
+            // Move a caixa de texto
             moverCaixaTexto(finalY < 1000); 
         });
     }
@@ -124,15 +133,17 @@ public class TutorialHelper {
         params.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         
         if (itemNoTopo) {
-            // Se o foco está no topo, a caixa vai para baixo
+            // Foco está no topo, caixa vai para baixo
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             params.addRule(RelativeLayout.CENTER_HORIZONTAL);
             params.bottomMargin = 250;
+            params.topMargin = 0;
         } else {
-            // Se o foco está embaixo, a caixa vai para cima
+            // Foco está embaixo, caixa vai para cima
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             params.addRule(RelativeLayout.CENTER_HORIZONTAL);
             params.topMargin = 250;
+            params.bottomMargin = 0;
         }
         tutorialBox.setLayoutParams(params);
     }
