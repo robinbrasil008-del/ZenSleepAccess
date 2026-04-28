@@ -1,17 +1,17 @@
 package com.zensleep;
 
+import android.app.Activity; // Mudámos aqui
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import androidx.appcompat.app.AppCompatActivity;
 
-public class SplashActivity extends AppCompatActivity {
-        @Override
+// Mudámos aqui também: "extends Activity" em vez de AppCompatActivity
+public class SplashActivity extends Activity { 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        // 🌟 AGORA ELE PUXA O ARQUIVO DE TELA SEGURO
         setContentView(R.layout.activity_splash);
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
@@ -20,4 +20,3 @@ public class SplashActivity extends AppCompatActivity {
         }, 2000); 
     }
 }
-
