@@ -1,13 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/nav_privacidade"
-        android:title="Política de Privacidade" />
-    <item
-        android:id="@+id/nav_avaliar"
-        android:title="Avaliar Aplicativo" />
-    <item
-        android:id="@+id/nav_compartilhar"
-        android:title="Compartilhar" />
-</menu>
 
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_privacidade"
+            android:icon="@android:drawable/ic_lock_lock"
+            android:title="Política de Privacidade" />
+            
+        <item
+            android:id="@+id/nav_termos"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="Termos de Uso" />
+    </group>
+
+    <item android:title="Comunidade">
+        <menu>
+            <item
+                android:id="@+id/nav_avaliar"
+                android:icon="@android:drawable/btn_star"
+                android:title="Avaliar Aplicativo" />
+                
+            <item
+                android:id="@+id/nav_compartilhar"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="Compartilhar" />
+                
+            <item
+                android:id="@+id/nav_suporte"
+                android:icon="@android:drawable/ic_dialog_email"
+                android:title="Suporte e Contato" />
+        </menu>
+    </item>
+
+    <item android:title="Sobre">
+        <menu>
+            <item
+                android:id="@+id/nav_versao"
+                android:title="Versão 1.0.0"
+                android:enabled="false" />
+        </menu>
+    </item>
+
+</menu>
