@@ -5,6 +5,7 @@
         <item name="android:windowSplashScreenBackground">#121212</item>
         <item name="android:statusBarColor">#121212</item>
         <item name="android:navigationBarColor">#121212</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@android:color/transparent</item>
     </style>
 
     <style name="Theme.ZenSleep" parent="Theme.MaterialComponents.NoActionBar">
