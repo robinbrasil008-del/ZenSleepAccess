@@ -328,7 +328,7 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
 
                     else if (id == R.id.nav_termos) {
             // Coloque aqui o link real dos seus termos de uso
-            String linkTermos = "https://seusite.com/termos-de-uso"; 
+            String linkTermos = "https://www.app-zensleep.site/terms.html"; 
             android.content.Intent termosIntent = new android.content.Intent(android.content.Intent.ACTION_VIEW);
             termosIntent.setData(android.net.Uri.parse(linkTermos));
             startActivity(termosIntent);
