@@ -45,16 +45,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // 🔥 1. BLINDAGEM: Força a leitura do tema aqui de novo, antes da tela existir!
-        SharedPreferences prefs = getSharedPreferences("zen_settings", MODE_PRIVATE);
-        boolean isDarkMode = prefs.getBoolean("dark_mode", true); // 'true' = escuro na 1ª vez
-        
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
         setTheme(R.style.Theme_ZenSleep);
 
         super.onCreate(savedInstanceState);
@@ -65,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         final android.widget.RelativeLayout splashCapa = new android.widget.RelativeLayout(this);
         
         // ⚠️ TESTE 1: Primeiro vamos testar com uma cor sólida para garantir que abre!
-        splashCapa.setBackgroundColor(android.graphics.Color.parseColor("#121212")); 
+        splashCapa.setBackgroundResource(R.drawable.fundo_zen); 
         
         // Cria o ícone e centraliza na capa
         android.widget.ImageView icone = new android.widget.ImageView(this);
