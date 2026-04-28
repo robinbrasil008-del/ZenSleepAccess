@@ -5,10 +5,14 @@
         <item name="android:statusBarColor">@color/backgroundColor</item>
     </style>
 
-        <style name="Theme.App.Starting" parent="Theme.MaterialComponents.NoActionBar">
+            <style name="Theme.App.Starting" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_background</item>
+        
+        <item name="android:windowDisablePreview">false</item>
+        <item name="android:windowIsTranslucent">false</item>
         
         <item name="android:statusBarColor">#121212</item>
         <item name="android:navigationBarColor">#121212</item>
     </style>
+    
 </resources>
