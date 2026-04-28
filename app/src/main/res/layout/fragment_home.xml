@@ -1146,59 +1146,52 @@
             android:clickable="true"
             android:focusable="true"/>
 
-                <RelativeLayout
-            android:id="@+id/tutorialOverlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#E6000000"
-            android:visibility="gone"
-            android:clickable="true"
-            android:focusable="true"
-            android:elevation="10dp">
+                    <RelativeLayout
+        android:id="@+id/tutorialOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="15dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+        <View
+            android:id="@+id/highlightFrame"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@android:color/transparent"
+            android:foreground="@drawable/shape_highlight" />
+
+        <LinearLayout
+            android:id="@+id/tutorialBox"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:padding="20dp"
+            android:elevation="5dp">
+
+            <TextView
+                android:id="@+id/tutorialText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="24dp">
+                android:text="Bem-vindo!"
+                android:textColor="#333333"
+                android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/logo_zensleep" 
-                    android:layout_marginBottom="16dp"/>
+            <Button
+                android:id="@+id/btnProximo"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="15dp"
+                android:backgroundTint="#9D00FF"
+                android:text="PRÓXIMO"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bem-vindo ao ZenSleep!"
-                    android:textColor="#9D00FF"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="16dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🔹 Toque nos cards (como o da Chuva) para misturar os sons.\n\n🔹 Os cards com a marca PREMIUM e o cadeado são desbloqueados ao assistir um anúncio.\n\n🔹 Ajuste o volume de cada som individualmente.\n\n🔹 Use o relógio no topo para programar o Tempo que os sons ficam ativos ate parar."
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:lineSpacingExtra="6dp"
-                    android:gravity="left"
-                    android:layout_marginBottom="24dp"/>
-
-                <Button
-                    android:id="@+id/btnEntendi"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="OK, ENTENDI!"
-                    android:backgroundTint="#9D00FF"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-        </RelativeLayout>
 
     </RelativeLayout>
 
