@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         // 1. O JAVA MUDA PARA O TEMA PRINCIPAL SILENCIOSAMENTE
-        setTheme(R.style.Theme_ZenSleep);
+        setTheme(R.style.Theme_ZenSleep_Escuro);
         
         // 2. LÊ O SEU BOTÃO
         android.content.SharedPreferences prefs = getSharedPreferences("zen_settings", MODE_PRIVATE);
