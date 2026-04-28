@@ -45,12 +45,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        setTheme(R.style.Theme_ZenSleep);
-
-        super.onCreate(savedInstanceState);
-        
-        setContentView(R.layout.activity_main);
-
         // ======= TELA DE ABERTURA (CAPA COM A IMAGEM) =======
         final android.widget.RelativeLayout splashCapa = new android.widget.RelativeLayout(this);
         
