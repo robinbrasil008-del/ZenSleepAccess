@@ -45,8 +45,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_ZenSleep);
 
+        super.onCreate(savedInstanceState);
+        
+        setContentView(R.layout.activity_main);
+        
         // ======= TELA DE ABERTURA (CAPA COM A IMAGEM) =======
         final android.widget.RelativeLayout splashCapa = new android.widget.RelativeLayout(this);
         
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             splashCapa.animate().alpha(0f).setDuration(600).withEndAction(() -> {
                 splashCapa.setVisibility(android.view.View.GONE);
             });
-        }, 1000);
+        }, 5000);
         // ====================================================
 
         setTheme(R.style.Theme_ZenSleep);
