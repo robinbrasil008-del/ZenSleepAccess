@@ -69,35 +69,57 @@ public class MainActivity extends AppCompatActivity {
         
         setContentView(R.layout.activity_main);
 
-        if (!splashJaMostrada) { // Só entra aqui se for a PRIMEIRA vez que o app abre
-        
-        // ======= TELA DE ABERTURA (CAPA COM A IMAGEM) =======
-        final android.widget.RelativeLayout splashCapa = new android.widget.RelativeLayout(this);
-        
-        // Colocamos a sua imagem aqui, pois o Java aguenta ler sem dar crash!
-        splashCapa.setBackgroundResource(R.drawable.fundo_zen); 
-        
-        // Cria o ícone no meio
-        android.widget.ImageView icone = new android.widget.ImageView(this);
-        icone.setImageResource(R.mipmap.ic_launcher);
-        android.widget.RelativeLayout.LayoutParams parametrosIcone = new android.widget.RelativeLayout.LayoutParams(350, 350);
-        parametrosIcone.addRule(android.widget.RelativeLayout.CENTER_IN_PARENT);
-        splashCapa.addView(icone, parametrosIcone);
+                if (!splashJaMostrada) { 
+            
+            final android.widget.RelativeLayout splashCapa = new android.widget.RelativeLayout(this);
+            splashCapa.setBackgroundResource(R.drawable.fundo_zen); 
+            
+            // 1. Criamos um "pacote" invisível para empilhar o ícone e o texto no centro
+            android.widget.LinearLayout pacoteCentral = new android.widget.LinearLayout(this);
+            pacoteCentral.setOrientation(android.widget.LinearLayout.VERTICAL);
+            pacoteCentral.setGravity(android.view.Gravity.CENTER);
+            
+            // 2. O ÍCONE (Aumentei de 350 para 450 para ficar com mais destaque!)
+            android.widget.ImageView icone = new android.widget.ImageView(this);
+            icone.setImageResource(R.mipmap.ic_launcher);
+            android.widget.LinearLayout.LayoutParams parametrosIcone = new android.widget.LinearLayout.LayoutParams(450, 450);
+            pacoteCentral.addView(icone, parametrosIcone);
 
-        // Adiciona a capa na tela
-        addContentView(splashCapa, new android.view.ViewGroup.LayoutParams(
-                android.view.ViewGroup.LayoutParams.MATCH_PARENT,
-                android.view.ViewGroup.LayoutParams.MATCH_PARENT));
+            // 3. O TEXTO "ZenSleep"
+            android.widget.TextView nomeApp = new android.widget.TextView(this);
+            nomeApp.setText("ZenSleep");
+            nomeApp.setTextColor(android.graphics.Color.WHITE); // Branco para ler bem por cima da imagem
+            nomeApp.setTextSize(34f); // Tamanho da letra
+            nomeApp.setTypeface(null, android.graphics.Typeface.BOLD); // Letra em negrito
+            
+            android.widget.LinearLayout.LayoutParams parametrosTexto = new android.widget.LinearLayout.LayoutParams(
+                    android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+                    android.widget.LinearLayout.LayoutParams.WRAP_CONTENT);
+            parametrosTexto.topMargin = 30; // Espaço de respiro entre o ícone e o texto
+            pacoteCentral.addView(nomeApp, parametrosTexto);
 
-        // Tira a capa depois de 2 segundos suavemente
-        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
-            splashCapa.animate().alpha(0f).setDuration(600).withEndAction(() -> {
-                splashCapa.setVisibility(android.view.View.GONE);
-            });
-        }, 5000);
+            // 4. Coloca o pacote inteiro bem no centro da Capa
+            android.widget.RelativeLayout.LayoutParams regraCentro = new android.widget.RelativeLayout.LayoutParams(
+                    android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT);
+            regraCentro.addRule(android.widget.RelativeLayout.CENTER_IN_PARENT);
+            splashCapa.addView(pacoteCentral, regraCentro);
 
-            splashJaMostrada = true; // ⚠️ AQUI ESTÁ O SEGREDO: Marcamos que já mostramos uma vez!
+            // Adiciona a capa na tela
+            addContentView(splashCapa, new android.view.ViewGroup.LayoutParams(
+                    android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                    android.view.ViewGroup.LayoutParams.MATCH_PARENT));
+
+            // Tira a capa suavemente após 2 segundos
+            new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+                splashCapa.animate().alpha(0f).setDuration(600).withEndAction(() -> {
+                    splashCapa.setVisibility(android.view.View.GONE);
+                });
+            }, 2000);
+
+            splashJaMostrada = true; 
         }
+
         // ====================================================
 
                 // ======= MODO IMERSIVO (ESCONDE AS BARRAS DE STATUS E NAVEGAÇÃO) =======
