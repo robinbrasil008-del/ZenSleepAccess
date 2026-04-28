@@ -113,6 +113,9 @@ public class HomeFragment extends Fragment {
 
     private Button btnTimer;
 
+    private RelativeLayout tutorialOverlay;
+    private Button btnEntendi;
+
     public HomeFragment() {
         super(R.layout.fragment_home);
     }
