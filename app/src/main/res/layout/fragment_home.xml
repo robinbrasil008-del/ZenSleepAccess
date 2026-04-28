@@ -1146,7 +1146,7 @@
             android:clickable="true"
             android:focusable="true"/>
 
-                        <RelativeLayout
+    <com.zensleep.TutorialMaskView
         android:id="@+id/tutorialOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -1194,7 +1194,7 @@
                 android:textSize="12sp"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
-    </RelativeLayout>
+    </com.zensleep.TutorialMaskView>
 
     </RelativeLayout>
 
