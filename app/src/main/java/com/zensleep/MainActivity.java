@@ -53,12 +53,16 @@ public class MainActivity extends AppCompatActivity {
         // 2. LÊ O SEU BOTÃO
         android.content.SharedPreferences prefs = getSharedPreferences("zen_settings", MODE_PRIVATE);
         boolean isDark = prefs.getBoolean("dark_mode", true);
+
+        // 2. APLICA O TEMA NA MARRA (Adeus decisão do Android)
         if (isDark) {
+            setTheme(R.style.Theme_ZenSleep_Escuro); // Puxa o tema escuro fixo
             androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
         } else {
+            setTheme(R.style.Theme_ZenSleep_Claro); // Puxa o tema claro fixo
             androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
         }
-
+        
         // 3. CONSTRÓI A TELA (A ordem inquebrável)
         super.onCreate(savedInstanceState);
         
