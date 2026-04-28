@@ -322,7 +322,7 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
             try {
                 startActivity(android.content.Intent.createChooser(emailIntent, "Enviar e-mail via:"));
             } catch (android.content.ActivityNotFoundException e) {
-                android.widget.Toast.makeText(this, "Nenhum aplicativo de e-mail instalado.", android.widget.Toast.LENGTH_SHORT).show();
+                android.widget.Toast.makeText(getContext(), "Nenhum aplicativo de e-mail instalado.", android.widget.Toast.LENGTH_SHORT).show();
             }
         }
 
