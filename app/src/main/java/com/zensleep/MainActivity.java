@@ -77,10 +77,6 @@ public class MainActivity extends AppCompatActivity {
         }, 5000);
         // ====================================================
 
-        setTheme(R.style.Theme_ZenSleep);
-        
-        setContentView(R.layout.activity_main);
-
                 // ======= MODO IMERSIVO (ESCONDE AS BARRAS DE STATUS E NAVEGAÇÃO) =======
         // Avisa o sistema que o app vai gerenciar a tela inteira
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
