@@ -45,8 +45,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        // 1. O JAVA MUDA PARA O TEMA PRINCIPAL SILENCIOSAMENTE
         setTheme(R.style.Theme_ZenSleep);
+        
+        // 2. LÊ O SEU BOTÃO
+        android.content.SharedPreferences prefs = getSharedPreferences("zen_settings", MODE_PRIVATE);
+        boolean isDark = prefs.getBoolean("dark_mode", true);
+        if (isDark) {
+            androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
+        // 3. CONSTRÓI A TELA (A ordem inquebrável)
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.activity_main);
