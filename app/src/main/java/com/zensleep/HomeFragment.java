@@ -656,12 +656,12 @@ private void startRewardedAdProcess(String key, ImageView button) {
 
             button.setImageResource(R.drawable.ic_media_pause);
 
-            button.animate()
-           .translationY(-60f)
-           .scaleX(1.05f)
-           .scaleY(1.05f)
-           .setDuration(250)
-           .setInterpolator(new android.view.animation.DecelerateInterpolator())
+            button.animate();
+           .translationY(-60f);
+           .scaleX(1.05f);
+           .scaleY(1.05f);
+           .setDuration(250);
+           .setInterpolator(new android.view.animation.DecelerateInterpolator());
            .start();
 
             CardGlowLayout card = getCardByKey(key);
@@ -699,9 +699,11 @@ private void startRewardedAdProcess(String key, ImageView button) {
                     @Override public void onStartTrackingTouch(SeekBar sb) {}
                     @Override public void onStopTrackingTouch(SeekBar sb) {}
                 });
+              }
+
+            });
+                                                   
             }
-        });
-    }
                                   
             private void stopSingle(String key, ImageView button) {
         ExoPlayer player = players.get(key);
@@ -1084,6 +1086,17 @@ inputMinutes.addTextChangedListener(new android.text.TextWatcher() {
     private void hideLoadingDialog() {
         if (loadingDialog != null && loadingDialog.isShowing()) {
             loadingDialog.dismiss();
+        }
+    }
+
+        private void checkAndShowTutorial() {
+        SharedPreferences prefs = requireContext().getSharedPreferences("zen_prefs", Context.MODE_PRIVATE);
+        boolean jaVisto = prefs.getBoolean("tutorial_visto", false);
+        
+        if (!jaVisto && tutorialOverlay != null) {
+            tutorialOverlay.setAlpha(0f);
+            tutorialOverlay.setVisibility(View.VISIBLE);
+            tutorialOverlay.animate().alpha(1f).setDuration(600).start();
         }
     }
 
