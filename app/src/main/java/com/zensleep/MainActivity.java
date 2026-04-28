@@ -58,8 +58,36 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.Theme_ZenSleep);
 
         super.onCreate(savedInstanceState);
-
+        
         setContentView(R.layout.activity_main);
+
+        // ======= TELA DE ABERTURA (CAPA POR CIMA DE TUDO) =======
+        final android.widget.RelativeLayout splashCapa = new android.widget.RelativeLayout(this);
+        
+        // ⚠️ TESTE 1: Primeiro vamos testar com uma cor sólida para garantir que abre!
+        splashCapa.setBackgroundColor(android.graphics.Color.parseColor("#121212")); 
+        
+        // Cria o ícone e centraliza na capa
+        android.widget.ImageView icone = new android.widget.ImageView(this);
+        icone.setImageResource(R.mipmap.ic_launcher);
+        android.widget.RelativeLayout.LayoutParams parametrosIcone = new android.widget.RelativeLayout.LayoutParams(
+                350, 350); // Tamanho do ícone
+        parametrosIcone.addRule(android.widget.RelativeLayout.CENTER_IN_PARENT);
+        splashCapa.addView(icone, parametrosIcone);
+
+        // Adiciona a capa por cima do seu aplicativo
+        addContentView(splashCapa, new android.view.ViewGroup.LayoutParams(
+                android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                android.view.ViewGroup.LayoutParams.MATCH_PARENT));
+
+        // Remove a capa depois de 2 segundos com um efeito suave
+        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+            splashCapa.animate().alpha(0f).setDuration(600).withEndAction(() -> {
+                splashCapa.setVisibility(android.view.View.GONE);
+            });
+        }, 2000);
+        // ========================================================
+
 
                 // ======= MODO IMERSIVO (ESCONDE AS BARRAS DE STATUS E NAVEGAÇÃO) =======
         // Avisa o sistema que o app vai gerenciar a tela inteira
