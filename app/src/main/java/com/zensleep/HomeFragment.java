@@ -93,10 +93,6 @@ public class HomeFragment extends Fragment {
     // Overlays de Bloqueio (Cadeado)
     private View lockFloresta, lockLareira, lockVento, lockGrilos, lockPassaros, lockRiacho, lockCafeteira;
 
-    private RelativeLayout tutorialOverlay;
-    private Button btnEntendi;
-
-
     private ImageView timerIcon;
 
     private TimerTextAnimator timerAnimator = new TimerTextAnimator();
@@ -139,20 +135,6 @@ lockGrilos = view.findViewById(R.id.lockOverlayGrilos);
 lockPassaros = view.findViewById(R.id.lockOverlayPassaros);
 lockRiacho = view.findViewById(R.id.lockOverlayRiacho);
 lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
-
-                tutorialOverlay = view.findViewById(R.id.tutorialOverlay);
-        btnEntendi = view.findViewById(R.id.btnEntendi);
-
-        btnEntendi.setOnClickListener(v -> {
-            // Animação suave para desaparecer
-            tutorialOverlay.animate().alpha(0f).setDuration(400).withEndAction(() -> {
-                tutorialOverlay.setVisibility(View.GONE);
-            });
-            
-            // Grava na memória do telemóvel que o utilizador já viu!
-            SharedPreferences prefs = requireContext().getSharedPreferences("zen_prefs", Context.MODE_PRIVATE);
-            prefs.edit().putBoolean("tutorial_visto", true).apply();
-        });
 
         // ======= PLAY BUTTONS =======
         btnPlayChuva = view.findViewById(R.id.btnPlayChuva);
@@ -441,14 +423,12 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
                                 @Override
                                 public void onAdDismissedFullScreenContent() {
                                     mInterstitialAd = null;
-                                    checkAndShowTutorial();
                                 }
 
                                 @Override
                                 public void onAdFailedToShowFullScreenContent(
                                         com.google.android.gms.ads.AdError adError) {
                                     mInterstitialAd = null;
-                                    checkAndShowTutorial();
                                 }
                             }
                     );
