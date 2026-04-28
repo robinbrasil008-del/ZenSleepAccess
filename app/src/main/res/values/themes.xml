@@ -2,9 +2,8 @@
 <resources>
     <style name="Theme.ZenSleep" parent="Theme.MaterialComponents.NoActionBar">
         
-        <item name="android:windowBackground">@drawable/splash_background</item>
-        
-        <item name="android:windowSplashScreenBackground">@drawable/splash_background</item> 
+        <item name="android:windowBackground">#121212</item>
+        <item name="android:windowSplashScreenBackground">#121212</item>
         
         <item name="android:statusBarColor">#121212</item>
         <item name="android:navigationBarColor">#121212</item>
