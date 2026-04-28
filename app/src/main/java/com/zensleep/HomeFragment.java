@@ -656,12 +656,12 @@ private void startRewardedAdProcess(String key, ImageView button) {
 
             button.setImageResource(R.drawable.ic_media_pause);
 
-            button.animate();
-           .translationY(-60f);
-           .scaleX(1.05f);
-           .scaleY(1.05f);
-           .setDuration(250);
-           .setInterpolator(new android.view.animation.DecelerateInterpolator());
+            button.animate()
+           .translationY(-60f)
+           .scaleX(1.05f)
+           .scaleY(1.05f)
+           .setDuration(250)
+           .setInterpolator(new android.view.animation.DecelerateInterpolator())
            .start();
 
             CardGlowLayout card = getCardByKey(key);
@@ -1116,5 +1116,4 @@ inputMinutes.addTextChangedListener(new android.text.TextWatcher() {
         }
     }
 }
-
-                        
+    
