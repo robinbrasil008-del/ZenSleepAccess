@@ -41,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
     private AppUpdateManager appUpdateManager;
     private static final int MY_REQUEST_CODE = 100;
-    
+
+    private static boolean splashJaMostrada = false; // Essa variável fica guardada na memória
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.activity_main);
+
+        if (!splashJaMostrada) { // Só entra aqui se for a PRIMEIRA vez que o app abre
         
         // ======= TELA DE ABERTURA (CAPA COM A IMAGEM) =======
         final android.widget.RelativeLayout splashCapa = new android.widget.RelativeLayout(this);
@@ -86,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
                 splashCapa.setVisibility(android.view.View.GONE);
             });
         }, 5000);
+
+            splashJaMostrada = true; // ⚠️ AQUI ESTÁ O SEGREDO: Marcamos que já mostramos uma vez!
         // ====================================================
 
                 // ======= MODO IMERSIVO (ESCONDE AS BARRAS DE STATUS E NAVEGAÇÃO) =======
