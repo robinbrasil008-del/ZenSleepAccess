@@ -7,18 +7,16 @@ import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
-    @Override
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        // Usa aquele desenho que você criou (imagem + ícone) como fundo
-        setContentView(new android.view.View(this));
-        getWindow().setBackgroundDrawableResource(R.drawable.splash_background);
+        // 🌟 AGORA ELE PUXA O ARQUIVO DE TELA SEGURO
+        setContentView(R.layout.activity_splash);
 
-        // Aguarda 2 segundos (2000ms) e abre a tela principal
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
-            finish(); // Fecha a tela de abertura para não voltar nela
+            finish();
         }, 2000); 
     }
 }
