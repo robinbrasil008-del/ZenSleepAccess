@@ -311,6 +311,29 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
                     startActivity(Intent.createChooser(shareIntent, "Compartilhar via"));
                 }
 
+                     else if (id == R.id.nav_suporte) {
+            // Cria a ação de enviar um e-mail direto para o aplicativo de e-mail do usuário
+            android.content.Intent emailIntent = new android.content.Intent(android.content.Intent.ACTION_SENDTO);
+            // Define o seu e-mail
+            emailIntent.setData(android.net.Uri.parse("mailto:Luxecharms1.0@gmail.com")); 
+            // Já deixa o assunto preenchido para facilitar
+            emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Suporte ZenSleep"); 
+            
+            try {
+                startActivity(android.content.Intent.createChooser(emailIntent, "Enviar e-mail via:"));
+            } catch (android.content.ActivityNotFoundException e) {
+                android.widget.Toast.makeText(this, "Nenhum aplicativo de e-mail instalado.", android.widget.Toast.LENGTH_SHORT).show();
+            }
+        }
+
+                    else if (id == R.id.nav_termos) {
+            // Coloque aqui o link real dos seus termos de uso
+            String linkTermos = "https://seusite.com/termos-de-uso"; 
+            android.content.Intent termosIntent = new android.content.Intent(android.content.Intent.ACTION_VIEW);
+            termosIntent.setData(android.net.Uri.parse(linkTermos));
+            startActivity(termosIntent);
+        }
+                
                 // Fecha a gaveta lateral após o clique
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
