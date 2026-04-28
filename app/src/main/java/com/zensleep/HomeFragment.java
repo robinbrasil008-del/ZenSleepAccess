@@ -41,6 +41,7 @@ import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import android.app.Activity;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
