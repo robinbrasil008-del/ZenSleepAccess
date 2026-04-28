@@ -2,9 +2,7 @@
 <resources>
     <style name="Theme.ZenSleep" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         
-        <item name="android:windowBackground">@drawable/fundo_zen</item>
-        
-        <item name="android:windowSplashScreenBackground">@drawable/fundo_zen</item>
+        <item name="android:windowBackground">#121212</item>
         
         <item name="android:statusBarColor">#121212</item>
         <item name="android:navigationBarColor">#121212</item>
