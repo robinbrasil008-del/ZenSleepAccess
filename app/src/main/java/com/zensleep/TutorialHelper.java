@@ -155,11 +155,17 @@ public class TutorialHelper {
         tutorialBox.setLayoutParams(params);
     }
 
-    private void finalizar() {
+        private void finalizar() {
         tutorialOverlay.animate().alpha(0f).setDuration(500).withEndAction(() -> {
             tutorialOverlay.setVisibility(View.GONE);
+            
+            // 🔄 VOLTA O CADEADO AO NORMAL (ESCURO)
+            View cadeado = rootView.findViewById(R.id.lockOverlayFloresta);
+            if (cadeado != null) cadeado.setAlpha(1.0f);
+
             context.getSharedPreferences("zen_prefs", Context.MODE_PRIVATE)
                     .edit().putBoolean("tutorial_visto", true).apply();
         });
     }
+
 }
