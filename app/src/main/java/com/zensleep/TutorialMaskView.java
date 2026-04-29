@@ -28,8 +28,11 @@ public class TutorialMaskView extends RelativeLayout {
         init();
     }
 
-    private void init() {
-        // Isso é crucial: sem esta linha, o furo não vai funcionar
+        private void init() {
+        // ESSA É A LINHA MÁGICA:
+        // Ela desativa a aceleração de hardware só nesta view para o "furo" funcionar.
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
         setWillNotDraw(false); 
         
         // Configura a cor de fundo semi-transparente
