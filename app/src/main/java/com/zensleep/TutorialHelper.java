@@ -62,7 +62,6 @@ public class TutorialHelper {
                 case 1:
                     tutorialText.setText("Regule o volume aqui para criar o ambiente perfeito.");
                     
-                    // 🔥 FORÇAR VISIBILIDADE: A barra de volume precisa aparecer para o tutorial focar nela
                     View vol = rootView.findViewById(R.id.seekChuva);
                     if (vol != null) {
                         vol.setVisibility(View.VISIBLE);
@@ -74,27 +73,29 @@ public class TutorialHelper {
                 case 2:
                     tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
                     
-                    // 🔄 VOLTAR AO NORMAL: Esconde a barra que forçamos a aparecer no passo anterior
+                    // Esconde a barra que forçamos a aparecer no passo anterior
                     View volAnterior = rootView.findViewById(R.id.seekChuva);
-                    if (volAnterior != null) {
-                        volAnterior.setVisibility(View.GONE);
-                    }
+                    if (volAnterior != null) volAnterior.setVisibility(View.GONE);
 
-                    if (highlightFrame != null) highlightFrame.setVisibility(View.GONE);
-                    if (tutorialOverlay instanceof TutorialMaskView) {
-                        ((TutorialMaskView) tutorialOverlay).setTarget(0, 0, 0, 0);
-                    }
-                    moverCaixaTexto(true);
+                    // 🔥 O TRUQUE: Esconde o cadeado da floresta para ela parecer "Desbloqueada" neste passo
+                    View lockFloresta = rootView.findViewById(R.id.lockOverlayFloresta);
+                    if (lockFloresta != null) lockFloresta.setVisibility(View.INVISIBLE);
+
+                    // Pega os dois cards
+                    View card1 = rootView.findViewById(R.id.cardChuva);
+                    View card2 = rootView.findViewById(R.id.cardFloresta);
+                    
+                    // 🔥 A MÁGICA: Mandamos o código focar nos DOIS cards ao mesmo tempo!
+                    focar(card1, card2);
                     break;
                     
                 case 3:
                     tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
                     
-                    // Pegamos o overlay do cadeado
                     View lock = rootView.findViewById(R.id.lockOverlayFloresta);
                     if (lock != null) {
-                        // Tiramos apenas o FUNDO escuro temporariamente
-                        lock.setBackgroundResource(0); 
+                        lock.setVisibility(View.VISIBLE); // Volta o cadeado
+                        lock.setBackgroundResource(0); // Mas mantém o fundo transparente para o brilho rolar
                     }
                     focar(lock);
                     break;
@@ -103,34 +104,58 @@ public class TutorialHelper {
         });
     }
 
-    private void focar(View alvo) {
-        if (alvo == null || highlightFrame == null) return;
+    // 🔥 NOVO MÉTODO FOCAR "INTELIGENTE": Agora ele aceita um ou VÁRIOS itens separados por vírgula
+    private void focar(View... alvos) {
+        if (alvos == null || alvos.length == 0 || highlightFrame == null) return;
         
-        // 🔥 A MÁGICA CONTRA A BOLINHA: Se a View acabou de ficar visível, 
-        // ela pode ter tamanho 0. Esperamos 50ms para o Android calcular a largura dela!
-        if (alvo.getWidth() <= 0) {
-            alvo.postDelayed(() -> focar(alvo), 50);
-            return;
+        // Espera todos os itens terminarem de renderizar na tela
+        for (View alvo : alvos) {
+            if (alvo != null && alvo.getWidth() <= 0) {
+                alvos[0].postDelayed(() -> focar(alvos), 50);
+                return;
+            }
         }
 
         highlightFrame.setVisibility(View.VISIBLE);
         highlightFrame.setAlpha(0f);
         highlightFrame.animate().alpha(1f).setDuration(200).start();
 
-        alvo.post(() -> {
-            int[] posAlvo = new int[2];
+        alvos[0].post(() -> {
             int[] posOverlay = new int[2];
-            
-            alvo.getLocationOnScreen(posAlvo);
             tutorialOverlay.getLocationOnScreen(posOverlay);
             
-            float finalX = posAlvo[0] - posOverlay[0] - 20; 
-            float finalY = posAlvo[1] - posOverlay[1] - 20;
-            
-            // Usamos a largura e altura REAIS capturadas
-            int larguraFinal = alvo.getWidth() + 40;
-            int alturaFinal = alvo.getHeight() + 40;
+            // Variáveis para encontrar a "Caixa Gigante" que abraça todos os itens
+            float minX = Float.MAX_VALUE;
+            float minY = Float.MAX_VALUE;
+            float maxX = Float.MIN_VALUE;
+            float maxY = Float.MIN_VALUE;
 
+            for (View alvo : alvos) {
+                if (alvo == null) continue;
+                int[] posAlvo = new int[2];
+                alvo.getLocationOnScreen(posAlvo);
+
+                // Calcula as pontas (com os 20px de respiro)
+                float startX = posAlvo[0] - posOverlay[0] - 20;
+                float startY = posAlvo[1] - posOverlay[1] - 20;
+                float endX = startX + alvo.getWidth() + 40;
+                float endY = startY + alvo.getHeight() + 40;
+
+                // Estica a caixa gigante se o item for mais para fora
+                if (startX < minX) minX = startX;
+                if (startY < minY) minY = startY;
+                if (endX > maxX) maxX = endX;
+                if (endY > maxY) maxY = endY;
+            }
+
+            if (minX == Float.MAX_VALUE) return; // Segurança caso os views venham nulos
+
+            float finalX = minX;
+            float finalY = minY;
+            int larguraFinal = (int) (maxX - minX);
+            int alturaFinal = (int) (maxY - minY);
+
+            // Anima o Glow Roxinho para a posição exata
             highlightFrame.animate().x(finalX).y(finalY).setDuration(500).start();
                 
             ViewGroup.LayoutParams params = highlightFrame.getLayoutParams();
@@ -138,6 +163,7 @@ public class TutorialHelper {
             params.height = alturaFinal;
             highlightFrame.setLayoutParams(params);
 
+            // Avisa a Máscara para furar esse tamanho todo!
             if (tutorialOverlay instanceof TutorialMaskView) {
                 ((TutorialMaskView) tutorialOverlay).setTarget(finalX, finalY, larguraFinal, alturaFinal);
             }
@@ -169,13 +195,13 @@ public class TutorialHelper {
         tutorialOverlay.animate().alpha(0f).setDuration(500).withEndAction(() -> {
             tutorialOverlay.setVisibility(View.GONE);
             
-            // 🔄 VOLTA O FUNDO ESCURO DO CADEADO (Para ele ficar bloqueado de novo)
+            // 🔄 VOLTA TUDO AO NORMAL AO FINALIZAR
             View lock = rootView.findViewById(R.id.lockOverlayFloresta);
             if (lock != null) {
+                lock.setVisibility(View.VISIBLE);
                 lock.setBackgroundColor(android.graphics.Color.parseColor("#CC000000"));
             }
             
-            // 🔄 GARANTIA FINAL: Se o app fechar ou pular o tutorial, esconde o SeekBar da Chuva
             View vol = rootView.findViewById(R.id.seekChuva);
             if (vol != null) {
                 vol.setVisibility(View.GONE);
