@@ -70,23 +70,21 @@ public class TutorialHelper {
                     }
                     moverCaixaTexto(true);
                     break;
-                case 3:
-                    tutorialText.setText("Os sons com o cadeado são PREMIUM. Assiste a um anúncio rápido e desbloqueia sons exclusivos!");
-                    
-                    // 🔥 AQUI ESTÁ O SEGREDO:
-                    // Pegamos o overlay escuro do cadeado
-                    View lock = rootView.findViewById(R.id.lockOverlayFloresta);
-                    // Pegamos o card que está por trás dele (o pai)
-                    View cardPai = (View) lock.getParent(); 
-                    
-                    if (lock != null) {
-                        // Escondemos a mancha preta temporariamente
-                        lock.setVisibility(View.INVISIBLE); 
-                    }
-                    
-                    // Focamos no CardPai (onde está a imagem clara)
-                    focar(cardPai);
-                    break;
+                    case 3:
+        tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
+        
+        // Pegamos o overlay do cadeado
+        View lock = rootView.findViewById(R.id.lockOverlayFloresta);
+        
+        if (lock != null) {
+            // 🔥 O SEGREDO: Tiramos apenas o FUNDO escuro, 
+            // mas o ícone do cadeado e o texto continuam lá!
+            lock.setBackgroundResource(0); 
+        }
+        
+        focar(lock);
+        break;
+
             }
             tutorialBox.animate().alpha(1f).setDuration(200);
         });
@@ -140,13 +138,16 @@ public class TutorialHelper {
         tutorialBox.setLayoutParams(params);
     }
 
-    private void finalizar() {
+        private void finalizar() {
         tutorialOverlay.animate().alpha(0f).setDuration(500).withEndAction(() -> {
             tutorialOverlay.setVisibility(View.GONE);
             
-            // 🔄 VOLTA O CADEADO AO NORMAL (VISÍVEL)
+            // 🔄 VOLTA O FUNDO ESCURO DO CADEADO (Para ele ficar bloqueado de novo)
             View lock = rootView.findViewById(R.id.lockOverlayFloresta);
-            if (lock != null) lock.setVisibility(View.VISIBLE);
+            if (lock != null) {
+                // Aqui usamos a cor padrão de bloqueio (Preto com transparência)
+                lock.setBackgroundColor(android.graphics.Color.parseColor("#CC000000"));
+            }
 
             context.getSharedPreferences("zen_prefs", Context.MODE_PRIVATE)
                     .edit().putBoolean("tutorial_visto", true).apply();
