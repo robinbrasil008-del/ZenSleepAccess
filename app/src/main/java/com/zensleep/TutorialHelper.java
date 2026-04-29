@@ -73,7 +73,7 @@ public class TutorialHelper {
                     break;
                 case 3:
                     tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie sons exclusivos!");
-                    focar(rootView.findViewById(R.id.lockOverlayFloresta));
+                    focar(rootView.findViewById(R.id.drawable/ic_cadeado));
                     break;
             }
             tutorialBox.animate().alpha(1f).setDuration(200);
