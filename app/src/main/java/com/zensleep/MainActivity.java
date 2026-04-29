@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 splashCapa.animate().alpha(0f).setDuration(600).withEndAction(() -> {
                     splashCapa.setVisibility(android.view.View.GONE);
                 });
-            }, 2000);
+            }, 5000);
 
             splashJaMostrada = true; 
         }
