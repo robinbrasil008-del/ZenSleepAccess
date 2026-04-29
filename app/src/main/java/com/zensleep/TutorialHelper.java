@@ -58,33 +58,46 @@ public class TutorialHelper {
                     tutorialText.setText("Toque em um card para dar o play no som da natureza.");
                     focar(rootView.findViewById(R.id.cardChuva)); 
                     break;
+                    
                 case 1:
                     tutorialText.setText("Regule o volume aqui para criar o ambiente perfeito.");
-                    focar(rootView.findViewById(R.id.seekChuva)); 
+                    
+                    // 🔥 FORÇAR VISIBILIDADE: A barra de volume precisa aparecer para o tutorial focar nela
+                    View vol = rootView.findViewById(R.id.seekChuva);
+                    if (vol != null) {
+                        vol.setVisibility(View.VISIBLE);
+                        vol.setAlpha(1f);
+                    }
+                    focar(vol);
                     break;
+                    
                 case 2:
-                    tutorialText.setText("Podes tocar vários sons ao mesmo tempo! Mistura como preferires para relaxar.");
+                    tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
+                    
+                    // 🔄 VOLTAR AO NORMAL: Esconde a barra que forçamos a aparecer no passo anterior
+                    View volAnterior = rootView.findViewById(R.id.seekChuva);
+                    if (volAnterior != null) {
+                        volAnterior.setVisibility(View.GONE);
+                    }
+
                     if (highlightFrame != null) highlightFrame.setVisibility(View.GONE);
                     if (tutorialOverlay instanceof TutorialMaskView) {
                         ((TutorialMaskView) tutorialOverlay).setTarget(0, 0, 0, 0);
                     }
                     moverCaixaTexto(true);
                     break;
-                    case 3:
-        tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
-        
-        // Pegamos o overlay do cadeado
-        View lock = rootView.findViewById(R.id.lockOverlayFloresta);
-        
-        if (lock != null) {
-            // 🔥 O SEGREDO: Tiramos apenas o FUNDO escuro, 
-            // mas o ícone do cadeado e o texto continuam lá!
-            lock.setBackgroundResource(0); 
-        }
-        
-        focar(lock);
-        break;
-
+                    
+                case 3:
+                    tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
+                    
+                    // Pegamos o overlay do cadeado
+                    View lock = rootView.findViewById(R.id.lockOverlayFloresta);
+                    if (lock != null) {
+                        // Tiramos apenas o FUNDO escuro temporariamente
+                        lock.setBackgroundResource(0); 
+                    }
+                    focar(lock);
+                    break;
             }
             tutorialBox.animate().alpha(1f).setDuration(200);
         });
@@ -93,7 +106,17 @@ public class TutorialHelper {
     private void focar(View alvo) {
         if (alvo == null || highlightFrame == null) return;
         
+        // 🔥 A MÁGICA CONTRA A BOLINHA: Se a View acabou de ficar visível, 
+        // ela pode ter tamanho 0. Esperamos 50ms para o Android calcular a largura dela!
+        if (alvo.getWidth() <= 0) {
+            alvo.postDelayed(() -> focar(alvo), 50);
+            return;
+        }
+
         highlightFrame.setVisibility(View.VISIBLE);
+        highlightFrame.setAlpha(0f);
+        highlightFrame.animate().alpha(1f).setDuration(200).start();
+
         alvo.post(() -> {
             int[] posAlvo = new int[2];
             int[] posOverlay = new int[2];
@@ -104,15 +127,19 @@ public class TutorialHelper {
             float finalX = posAlvo[0] - posOverlay[0] - 20; 
             float finalY = posAlvo[1] - posOverlay[1] - 20;
             
+            // Usamos a largura e altura REAIS capturadas
+            int larguraFinal = alvo.getWidth() + 40;
+            int alturaFinal = alvo.getHeight() + 40;
+
             highlightFrame.animate().x(finalX).y(finalY).setDuration(500).start();
                 
             ViewGroup.LayoutParams params = highlightFrame.getLayoutParams();
-            params.width = alvo.getWidth() + 40;
-            params.height = alvo.getHeight() + 40;
+            params.width = larguraFinal;
+            params.height = alturaFinal;
             highlightFrame.setLayoutParams(params);
 
             if (tutorialOverlay instanceof TutorialMaskView) {
-                ((TutorialMaskView) tutorialOverlay).setTarget(finalX, finalY, alvo.getWidth() + 40, alvo.getHeight() + 40);
+                ((TutorialMaskView) tutorialOverlay).setTarget(finalX, finalY, larguraFinal, alturaFinal);
             }
 
             moverCaixaTexto(finalY < 1000); 
@@ -138,15 +165,20 @@ public class TutorialHelper {
         tutorialBox.setLayoutParams(params);
     }
 
-        private void finalizar() {
+    private void finalizar() {
         tutorialOverlay.animate().alpha(0f).setDuration(500).withEndAction(() -> {
             tutorialOverlay.setVisibility(View.GONE);
             
             // 🔄 VOLTA O FUNDO ESCURO DO CADEADO (Para ele ficar bloqueado de novo)
             View lock = rootView.findViewById(R.id.lockOverlayFloresta);
             if (lock != null) {
-                // Aqui usamos a cor padrão de bloqueio (Preto com transparência)
                 lock.setBackgroundColor(android.graphics.Color.parseColor("#CC000000"));
+            }
+            
+            // 🔄 GARANTIA FINAL: Se o app fechar ou pular o tutorial, esconde o SeekBar da Chuva
+            View vol = rootView.findViewById(R.id.seekChuva);
+            if (vol != null) {
+                vol.setVisibility(View.GONE);
             }
 
             context.getSharedPreferences("zen_prefs", Context.MODE_PRIVATE)
