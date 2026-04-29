@@ -54,8 +54,7 @@ public class TutorialHelper {
         }
     }
 
-    private void configurarEtapa(int step) {
-        // Efeito de fade out no texto para a troca ser suave
+        private void configurarEtapa(int step) {
         tutorialBox.animate().alpha(0f).setDuration(200).withEndAction(() -> {
             switch (step) {
                 case 0:
@@ -69,11 +68,19 @@ public class TutorialHelper {
                 case 2:
                     tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
                     if (highlightFrame != null) highlightFrame.setVisibility(View.GONE);
-                    moverCaixaTexto(true); // Centraliza a caixa
+                    moverCaixaTexto(true);
                     break;
                 case 3:
-                    tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie sons exclusivos!");
-                    focar(rootView.findViewById(R.id.lockOverlayFloresta));
+                    tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
+                    
+                    // 🔥 O TRUQUE: Pegamos o cadeado e deixamos ele quase invisível 
+                    // para o "furo" do tutorial mostrar o card lá no fundo!
+                    View cadeado = rootView.findViewById(R.id.lockOverlayFloresta);
+                    if (cadeado != null) {
+                        cadeado.animate().alpha(0.2f).setDuration(500).start();
+                    }
+                    
+                    focar(cadeado);
                     break;
             }
             tutorialBox.animate().alpha(1f).setDuration(200);
