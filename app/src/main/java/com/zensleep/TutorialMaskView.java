@@ -4,8 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
+import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
@@ -14,9 +13,9 @@ import android.widget.RelativeLayout;
 public class TutorialMaskView extends RelativeLayout {
 
     private Paint backgroundPaint;
-    private Paint eraserPaint;
+    private Path maskPath;
     private RectF targetRect;
-    private float cornerRadius = 20f; // Arredondamento do furo
+    private float cornerRadius = 30f;
 
     public TutorialMaskView(Context context) {
         super(context);
@@ -28,52 +27,58 @@ public class TutorialMaskView extends RelativeLayout {
         init();
     }
 
-        private void init() {
-        // ESSA É A LINHA MÁGICA:
-        // Ela desativa a aceleração de hardware só nesta view para o "furo" funcionar.
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+    private void init() {
+        // Agora NÃO precisamos mais desativar a aceleração de hardware!
+        // O app vai rodar mais liso.
+        setWillNotDraw(false);
 
-        setWillNotDraw(false); 
-        
-        // Configura a cor de fundo semi-transparente
         backgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        backgroundPaint.setColor(Color.parseColor("#99000000")); // Preto 60%
+        // Cor do fundo (Preto com 65% de transparência para um visual elegante)
+        backgroundPaint.setColor(Color.parseColor("#A6000000"));
         backgroundPaint.setStyle(Paint.Style.FILL);
 
-        // Configura o comando de "apagar" para criar o furo
-        eraserPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        eraserPaint.setColor(Color.TRANSPARENT);
-        eraserPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-        
+        maskPath = new Path();
         targetRect = new RectF();
     }
 
     /**
-     * Este é o comando mágico. Primeiro ele pinta a tela toda com o fundo semi-transparente.
-     * Depois, ele desenha o furo com os cantos arredondados no local exato.
+     * Técnica de Desenho Inverso:
+     * Nós desenhamos um retângulo na tela toda e um "buraco" no meio.
+     * O modo EVEN_ODD diz ao Android para pintar apenas o que NÃO está sobreposto.
      */
     @Override
     protected void onDraw(Canvas canvas) {
-        // 1. Desenha o fundo semi-transparente sobre a tela inteira
-        canvas.drawColor(Color.TRANSPARENT); // Começa transparente
-        canvas.drawRect(0, 0, getWidth(), getHeight(), backgroundPaint);
-
-        // 2. Se houver um alvo definido, desenha o "furo" arredondado
-        if (targetRect != null && targetRect.width() > 0) {
-            canvas.drawRoundRect(targetRect, cornerRadius, cornerRadius, eraserPaint);
+        if (targetRect.width() > 0) {
+            maskPath.reset();
+            // 1. Define o modo de preenchimento inverso
+            maskPath.setFillType(Path.FillType.EVEN_ODD);
+            
+            // 2. Adiciona o retângulo da tela inteira
+            maskPath.addRect(0, 0, getWidth(), getHeight(), Path.Direction.CW);
+            
+            // 3. Adiciona o retângulo do furo (arredondado)
+            maskPath.addRoundRect(targetRect, cornerRadius, cornerRadius, Path.Direction.CW);
+            
+            // 4. Desenha o resultado (A tela escura com o furo perfeito)
+            canvas.drawPath(maskPath, backgroundPaint);
+        } else {
+            // Se não tiver alvo, pinta a tela toda normalmente
+            canvas.drawRect(0, 0, getWidth(), getHeight(), backgroundPaint);
         }
-        
+
         super.onDraw(canvas);
     }
 
     /**
-     * Atualiza as coordenadas do furo e força o redesenho da tela.
+     * Atualiza a posição do furo e redesenha a tela instantaneamente.
      */
     public void setTarget(float x, float y, float width, float height) {
-        // Adiciona um pequeno respiro para o furo não ficar colado
         targetRect.set(x, y, x + width, y + height);
-        cornerRadius = width / 6; // Ajuste automático do arredondamento
-        invalidate(); // Redesenha a tela agora!
+        
+        // Arredondamento inteligente: cantos mais suaves para itens maiores
+        cornerRadius = width / 5f; 
+        if (cornerRadius > 40) cornerRadius = 40; // Limite máximo de arredondamento
+        
+        invalidate(); // Força o Android a chamar o onDraw de novo
     }
 }
-
