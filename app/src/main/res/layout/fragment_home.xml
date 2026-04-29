@@ -1163,6 +1163,14 @@
             android:background="@android:color/transparent"
             android:foreground="@drawable/shape_highlight" />
 
+        <ImageView
+            android:id="@+id/tutorialArrow"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_seta_tutorial"
+            android:visibility="gone"
+            android:elevation="25dp" />
+
         <LinearLayout
             android:id="@+id/tutorialBox"
             android:layout_width="300dp"
