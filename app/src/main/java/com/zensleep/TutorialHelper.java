@@ -88,7 +88,7 @@ public class TutorialHelper {
                     break;
                     
                 case 2:
-                    esconderSeta(); // Seta some e a Caixa volta a fluir normal
+                    esconderSeta(); 
                     tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
                     
                     View volAnterior = rootView.findViewById(R.id.seekChuva);
@@ -118,7 +118,7 @@ public class TutorialHelper {
         });
     }
 
-    // 🔥 A MÁGICA: A seta acha o botão, e PUXA a caixa de texto pra base dela!
+    // 🔥 A MÁGICA: A seta acha o botão, vira para o lado certo e PUXA a caixa de texto pra ela!
     private void posicionarSeta(View alvoSeta) {
         if (tutorialArrow == null || alvoSeta == null) return;
         
@@ -133,12 +133,27 @@ public class TutorialHelper {
             alvoSeta.getLocationOnScreen(posAlvo);
             tutorialOverlay.getLocationOnScreen(posOverlay);
             
-            // Pega o centro EXATO do botão ou da barra de volume
+            // Pega o centro EXATO do alvo
             float alvoCentroX = posAlvo[0] - posOverlay[0] + (alvoSeta.getWidth() / 2f);
             float alvoCentroY = posAlvo[1] - posOverlay[1] + (alvoSeta.getHeight() / 2f);
             
-            // Posiciona a Seta para o bico apontar para o centro
-            float setaX = alvoCentroX - tutorialArrow.getWidth() + 40; 
+            float meioDaTela = tutorialOverlay.getWidth() / 2f;
+            float setaX;
+            
+            // 🔥 ESPELHAMENTO INTELIGENTE: Vira a seta dependendo do lado da tela!
+            if (alvoCentroX > meioDaTela) {
+                // Alvo na DIREITA da tela -> Seta aponta pra direita (Cima-Direita)
+                tutorialArrow.setScaleX(1f);
+                // Calcula para a ponta direita bater no centro do alvo
+                setaX = alvoCentroX - tutorialArrow.getWidth() + 40; 
+            } else {
+                // Alvo na ESQUERDA da tela -> Seta aponta pra esquerda (Cima-Esquerda)
+                tutorialArrow.setScaleX(-1f);
+                // Calcula para a ponta esquerda bater no centro do alvo
+                setaX = alvoCentroX - 40; 
+            }
+            
+            // Mantém a ponta logo abaixo do alvo
             float setaY = alvoCentroY + 10; 
             
             tutorialArrow.animate().x(setaX).translationY(setaY).alpha(1f).setDuration(400).start();
@@ -150,7 +165,6 @@ public class TutorialHelper {
                     return;
                 }
                 
-                // Limpa as posições velhas
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) tutorialBox.getLayoutParams();
                 params.removeRule(RelativeLayout.CENTER_IN_PARENT);
                 params.removeRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -158,11 +172,10 @@ public class TutorialHelper {
                 tutorialBox.setLayoutParams(params);
                 
                 // A caixa vai sentar exatamente embaixo da cauda da seta!
-                float caixaY = setaY + tutorialArrow.getHeight() - 30; 
+                float caixaY = setaY + tutorialArrow.getHeight() - 40; 
                 tutorialBox.animate().y(caixaY).setDuration(400).start();
             }
             
-            // Faz a seta flutuar (animar pra cima e pra baixo)
             if (arrowAnimator != null) arrowAnimator.cancel();
             arrowAnimator = ObjectAnimator.ofFloat(tutorialArrow, "translationY", setaY, setaY + 15f);
             arrowAnimator.setDuration(600);
@@ -236,14 +249,11 @@ public class TutorialHelper {
                 ((TutorialMaskView) tutorialOverlay).setTarget(finalX, finalY, larguraFinal, alturaFinal);
             }
 
-            // Chama a caixa dinâmica enviando a posição Y do brilho roxo
             moverCaixaTexto(finalY, alturaFinal); 
         });
     }
 
-    // 🔥 NOVA MATEMÁTICA DA CAIXA: Esquece rodapé ou topo. Ela fica SEMPRE vizinha do card!
     private void moverCaixaTexto(float alvoY, float alvoAltura) {
-        // Se a seta tá na tela mandando na caixa, essa função nem roda
         if (tutorialArrow != null && tutorialArrow.getVisibility() == View.VISIBLE) return;
         
         if (tutorialBox == null) return;
@@ -252,7 +262,6 @@ public class TutorialHelper {
             return;
         }
 
-        // Limpa tudo
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) tutorialBox.getLayoutParams();
         params.removeRule(RelativeLayout.CENTER_IN_PARENT);
         params.removeRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -261,12 +270,10 @@ public class TutorialHelper {
         
         float caixaY;
         if (alvoY < 1000) {
-            // Se o brilho roxo tá em cima, a caixa senta logo embaixo dele (só 50px de distância)
             caixaY = alvoY + alvoAltura + 50; 
         } else {
-            // Se o brilho tá lá embaixo, a caixa senta logo em cima dele
             caixaY = alvoY - tutorialBox.getHeight() - 50; 
-            if (caixaY < 50) caixaY = 50; // Segurança pra não engolir o topo da tela
+            if (caixaY < 50) caixaY = 50; 
         }
         
         tutorialBox.animate().y(caixaY).setDuration(400).start();
