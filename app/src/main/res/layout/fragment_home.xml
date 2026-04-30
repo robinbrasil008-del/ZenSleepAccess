@@ -1165,8 +1165,8 @@
 
                 <ImageView
             android:id="@+id/tutorialArrow"
-            android:layout_width="120dp" 
-            android:layout_height="120dp" 
+            android:layout_width="100dp" 
+            android:layout_height="100dp" 
             android:src="@drawable/ic_seta_diagonal" 
             android:visibility="gone"
             android:elevation="25dp" />
