@@ -22,7 +22,7 @@ public class TutorialHelper {
     private TextView tutorialText;
     private Button btnProximo;
     
-    // 🔥 Novas variáveis para a seta
+    // Variáveis para a seta
     private ImageView tutorialArrow;
     private ObjectAnimator arrowAnimator;
     
@@ -67,11 +67,14 @@ public class TutorialHelper {
             switch (step) {
                 case 0:
                     tutorialText.setText("Toque em um card para dar o play no som da natureza.");
+                    
+                    // O "furo" roxo continua pegando o card inteiro
                     View cardChuva = rootView.findViewById(R.id.cardChuva);
                     focar(cardChuva); 
                     
-                    // 🔥 CHAMA A SETA ANIMADA!
-                    posicionarSeta(cardChuva);
+                    // 🔥 AGORA SIM: A seta vai apontar DIRETAMENTE para o botão Play!
+                    View btnPlay = rootView.findViewById(R.id.btnPlayChuva);
+                    posicionarSeta(btnPlay);
                     break;
                     
                 case 1:
@@ -118,34 +121,40 @@ public class TutorialHelper {
         });
     }
 
-    // 🔥 NOVA FUNÇÃO: Posiciona e anima a seta apontando para o botão de Play
-    private void posicionarSeta(View card) {
-        if (tutorialArrow == null || card == null) return;
+    // 🔥 NOVA MATEMÁTICA: Posiciona no centro exato do botão!
+    private void posicionarSeta(View alvoSeta) {
+        if (tutorialArrow == null || alvoSeta == null) return;
+        
+        // Espera o botão de play carregar o tamanho na tela para não dar erro
+        if (alvoSeta.getWidth() <= 0) {
+            alvoSeta.postDelayed(() -> posicionarSeta(alvoSeta), 50);
+            return;
+        }
         
         tutorialArrow.setVisibility(View.VISIBLE);
         tutorialArrow.setAlpha(0f);
         
-        card.post(() -> {
-            int[] posCard = new int[2];
+        tutorialArrow.post(() -> {
+            int[] posAlvo = new int[2];
             int[] posOverlay = new int[2];
             
-            card.getLocationOnScreen(posCard);
+            alvoSeta.getLocationOnScreen(posAlvo);
             tutorialOverlay.getLocationOnScreen(posOverlay);
             
-            // Posiciona no lado direito do card (área do Play) e logo abaixo dele
-            // O valor "- 160" é para afastar um pouco da borda direita.
-            float setaX = posCard[0] - posOverlay[0] + card.getWidth() - 160; 
-            float setaY = posCard[1] - posOverlay[1] + card.getHeight() + 10; 
+            // X: Centro exato do botão de Play, descontando o tamanho da própria seta
+            float setaX = posAlvo[0] - posOverlay[0] + (alvoSeta.getWidth() / 2f) - (tutorialArrow.getWidth() / 2f); 
+            // Y: Exatamente embaixo do botão de Play (com um espacinho de 5px)
+            float setaY = posAlvo[1] - posOverlay[1] + alvoSeta.getHeight() + 5; 
             
             tutorialArrow.setX(setaX);
             tutorialArrow.setY(setaY + 40); // Nasce um pouco mais embaixo para o efeito de entrada
             
-            // Animação de entrada (surgindo)
+            // Animação de entrada (surgindo e subindo para o lugar certo)
             tutorialArrow.animate().alpha(1f).translationY(setaY).setDuration(500).start();
             
-            // Animação Premium: A seta flutuando para sempre (subindo e descendo)
+            // Animação da seta flutuando para sempre (subindo e descendo apontando para o play)
             if (arrowAnimator != null) arrowAnimator.cancel();
-            arrowAnimator = ObjectAnimator.ofFloat(tutorialArrow, "translationY", setaY, setaY + 25f);
+            arrowAnimator = ObjectAnimator.ofFloat(tutorialArrow, "translationY", setaY, setaY + 20f);
             arrowAnimator.setDuration(600);
             arrowAnimator.setRepeatMode(ValueAnimator.REVERSE);
             arrowAnimator.setRepeatCount(ValueAnimator.INFINITE);
