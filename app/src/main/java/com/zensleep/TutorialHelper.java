@@ -62,27 +62,27 @@ public class TutorialHelper {
         }
     }
 
-    // 🔥 FUNÇÃO CORRIGIDA: Pega o ID "ic_play" de dentro de cada card e troca a imagem
-    private void setCardPlayingState(View card, boolean isPlaying) {
+    // 🔥 FUNÇÃO BLINDADA: Pega o seu botão REAL (btnPlayChuva) e joga o drawable ic_media_pause dentro!
+    private void setCardPlayingState(View card, int idBotaoReal, boolean isPlaying) {
         if (card == null) return;
         
-        // Procura o componente pelo ID que está no seu layout
-        ImageView btnPlayImage = card.findViewById(R.id.ic_play);
+        // Pega o botão na tela pelo ID original que você sempre usou
+        View btnView = rootView.findViewById(idBotaoReal);
         
-        if (btnPlayImage != null) {
-            // Se estiver "tocando", coloca o desenho do PAUSE (ic_midia_pause)
-            // Se não, volta pro desenho do PLAY (ic_midia_play)
-            int imagemId = isPlaying ? R.drawable.ic_midia_pause : R.drawable.ic_midia_play;
-            btnPlayImage.setImageResource(imagemId);
+        if (btnView instanceof ImageView) {
+            ImageView btnPlayImage = (ImageView) btnView;
+            // ⚠️ ATENÇÃO: Se no seu projeto estiver escrito ic_midia_pause com "i", mude aqui embaixo!
+            int imagemDrawable = isPlaying ? R.drawable.ic_media_pause : R.drawable.ic_media_play;
+            btnPlayImage.setImageResource(imagemDrawable);
         }
         
-        // Liga ou desliga o equalizador
+        // O equalizador a gente procura dentro do card (porque o ID é só @+id/equalizer)
         View equalizer = card.findViewById(R.id.equalizer);
         if (equalizer != null) {
             if (isPlaying) {
                 equalizer.setVisibility(View.VISIBLE);
                 equalizer.setAlpha(1f);
-                equalizer.bringToFront();
+                equalizer.bringToFront(); 
             } else {
                 equalizer.setVisibility(View.GONE);
             }
@@ -95,12 +95,14 @@ public class TutorialHelper {
                 case 0:
                     tutorialText.setText("Toque em um card para dar o play no som da natureza.");
                     View cardChuva = rootView.findViewById(R.id.cardChuva);
-                    setCardPlayingState(cardChuva, false);
+                    
+                    // Garante que tá como PLAY no começo
+                    setCardPlayingState(cardChuva, R.id.btnPlayChuva, false);
                     focar(cardChuva);
                     
-                    if (cardChuva != null) {
-                        posicionarSeta(cardChuva.findViewById(R.id.ic_play));
-                    }
+                    // Aponta pro botão certo
+                    View btnPlayC = rootView.findViewById(R.id.btnPlayChuva);
+                    posicionarSeta(btnPlayC);
                     break;
                     
                 case 1:
@@ -110,9 +112,10 @@ public class TutorialHelper {
                         vol.setVisibility(View.VISIBLE);
                         vol.setAlpha(1f);
                     }
+                    if (tutorialArrow != null) tutorialArrow.setVisibility(View.VISIBLE);
                     
-                    // Coloca a Chuva pra "tocar" (mostra o pause e o equalizer)
-                    setCardPlayingState(rootView.findViewById(R.id.cardChuva), true);
+                    // 🔥 Chuva COMEÇA A TOCAR (Vira ic_media_pause e liga equalizador)
+                    setCardPlayingState(rootView.findViewById(R.id.cardChuva), R.id.btnPlayChuva, true);
                     
                     focar(vol);
                     posicionarSeta(vol);
@@ -122,14 +125,22 @@ public class TutorialHelper {
                     esconderSeta();
                     tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
                     
+                    View lockFloresta = rootView.findViewById(R.id.lockOverlayFloresta);
+                    if (lockFloresta != null) lockFloresta.setVisibility(View.INVISIBLE);
+
                     View card1 = rootView.findViewById(R.id.cardChuva);
                     View card2 = rootView.findViewById(R.id.cardFloresta);
-                    
-                    // Os dois cards tocando (Pause + Equalizer)
-                    setCardPlayingState(card1, true);
-                    setCardPlayingState(card2, true);
 
-                    // Sinal de "+" vertical entre os cards
+                    View seekC = rootView.findViewById(R.id.seekChuva);
+                    View seekF = rootView.findViewById(R.id.seekFloresta);
+                    if (seekC != null) { seekC.setVisibility(View.VISIBLE); seekC.setAlpha(1f); }
+                    if (seekF != null) { seekF.setVisibility(View.VISIBLE); seekF.setAlpha(1f); }
+
+                    // 🔥 LIGA TUDO: Os dois cards "tocando" com imagem de PAUSE e Equalizador!
+                    setCardPlayingState(card1, R.id.btnPlayChuva, true);
+                    setCardPlayingState(card2, R.id.btnPlayFloresta, true);
+
+                    // O SINAL DE "+"
                     if (sinalMais == null) {
                         sinalMais = new TextView(context);
                         sinalMais.setText("+");
@@ -165,11 +176,20 @@ public class TutorialHelper {
                 case 3:
                     if (sinalMais != null) sinalMais.setVisibility(View.GONE);
                     
-                    // Para a Floresta (volta pro play)
-                    setCardPlayingState(rootView.findViewById(R.id.cardFloresta), false);
+                    // 🔥 Para a Floresta (volta pro ic_media_play)
+                    setCardPlayingState(rootView.findViewById(R.id.cardFloresta), R.id.btnPlayFloresta, false);
+
+                    View seekF2 = rootView.findViewById(R.id.seekFloresta);
+                    if (seekF2 != null) seekF2.setVisibility(View.GONE);
                     
                     tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
                     View lock = rootView.findViewById(R.id.lockOverlayFloresta);
+                    if (lock != null) {
+                        lock.setVisibility(View.VISIBLE);
+                        lock.setBackgroundResource(0);
+                    }
+                    
+                    if (tutorialArrow != null) tutorialArrow.setVisibility(View.VISIBLE);
                     focar(lock);
                     posicionarSeta(lock);
                     break;
@@ -178,22 +198,35 @@ public class TutorialHelper {
         });
     }
 
-    // Métodos posicionarSeta, esconderSeta, focar, moverCaixaTexto e finalizar continuam iguais...
-    // (Abaixo apenas os métodos de suporte para garantir que o código rode)
-
     private void posicionarSeta(View alvoSeta) {
         if (tutorialArrow == null || alvoSeta == null) return;
-        tutorialArrow.post(() -> {
+        alvoSeta.postDelayed(() -> {
+            if (alvoSeta.getWidth() <= 0) {
+                posicionarSeta(alvoSeta);
+                return;
+            }
+            tutorialArrow.setVisibility(View.VISIBLE);
             int[] posAlvo = new int[2];
             int[] posOverlay = new int[2];
             alvoSeta.getLocationOnScreen(posAlvo);
             tutorialOverlay.getLocationOnScreen(posOverlay);
+            
             float alvoCentroX = posAlvo[0] - posOverlay[0] + (alvoSeta.getWidth() / 2f);
             float alvoCentroY = posAlvo[1] - posOverlay[1] + (alvoSeta.getHeight() / 2f);
-            float setaX = (alvoCentroX > tutorialOverlay.getWidth()/2f) ? alvoCentroX - tutorialArrow.getWidth() - 70 : alvoCentroX + 70;
+            
+            float recuoX = 70f;
+            float recuoY = 70f;
+            if (alvoSeta.getHeight() > 200) {
+                recuoX = alvoSeta.getWidth() / 2.0f;
+                recuoY = alvoSeta.getHeight() / 2.0f;
+            }
+
+            float setaX = (alvoCentroX > tutorialOverlay.getWidth()/2f) ? alvoCentroX - tutorialArrow.getWidth() - recuoX : alvoCentroX + recuoX;
             if (alvoCentroX <= tutorialOverlay.getWidth()/2f) tutorialArrow.setScaleX(-1f); else tutorialArrow.setScaleX(1f);
-            float setaY = alvoCentroY + (alvoSeta.getHeight() > 200 ? alvoSeta.getHeight()/2f : 70f);
+            
+            float setaY = alvoCentroY + recuoY;
             tutorialArrow.animate().x(setaX).y(setaY).alpha(1f).setDuration(400).start();
+            
             if (arrowAnimator != null) arrowAnimator.cancel();
             arrowAnimator = ObjectAnimator.ofFloat(tutorialArrow, "translationY", setaY, setaY + 15f);
             arrowAnimator.setDuration(600).setRepeatMode(ValueAnimator.REVERSE);
@@ -204,7 +237,7 @@ public class TutorialHelper {
                 float caixaY = setaY + tutorialArrow.getHeight() - 20;
                 tutorialBox.animate().y(caixaY).setDuration(400).start();
             }
-        });
+        }, 50);
     }
 
     private void esconderSeta() {
@@ -249,8 +282,22 @@ public class TutorialHelper {
         if (sinalMais != null) sinalMais.setVisibility(View.GONE);
         tutorialOverlay.animate().alpha(0f).setDuration(500).withEndAction(() -> {
             tutorialOverlay.setVisibility(View.GONE);
-            setCardPlayingState(rootView.findViewById(R.id.cardChuva), false);
-            setCardPlayingState(rootView.findViewById(R.id.cardFloresta), false);
+            
+            View lock = rootView.findViewById(R.id.lockOverlayFloresta);
+            if (lock != null) {
+                lock.setVisibility(View.VISIBLE);
+                lock.setBackgroundColor(android.graphics.Color.parseColor("#CC000000"));
+            }
+            
+            View volC = rootView.findViewById(R.id.seekChuva);
+            if (volC != null) volC.setVisibility(View.GONE);
+            View volF = rootView.findViewById(R.id.seekFloresta);
+            if (volF != null) volF.setVisibility(View.GONE);
+            
+            // 🔥 Volta pros play originais (ic_media_play) quando o tutorial acaba
+            setCardPlayingState(rootView.findViewById(R.id.cardChuva), R.id.btnPlayChuva, false);
+            setCardPlayingState(rootView.findViewById(R.id.cardFloresta), R.id.btnPlayFloresta, false);
+            
             context.getSharedPreferences("zen_prefs", Context.MODE_PRIVATE).edit().putBoolean("tutorial_visto", true).apply();
         });
     }
