@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.view.ViewGroup;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.graphics.Color;
+import android.graphics.Typeface;
 
 public class TutorialHelper {
 
@@ -24,6 +26,8 @@ public class TutorialHelper {
     
     private ImageView tutorialArrow;
     private ObjectAnimator arrowAnimator;
+    
+    private TextView sinalMais;
     
     private int tutorialStep = 0;
 
@@ -91,18 +95,75 @@ public class TutorialHelper {
                     esconderSeta(); 
                     tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
                     
-                    View volAnterior = rootView.findViewById(R.id.seekChuva);
-                    if (volAnterior != null) volAnterior.setVisibility(View.GONE);
-
                     View lockFloresta = rootView.findViewById(R.id.lockOverlayFloresta);
                     if (lockFloresta != null) lockFloresta.setVisibility(View.INVISIBLE);
 
                     View card1 = rootView.findViewById(R.id.cardChuva);
                     View card2 = rootView.findViewById(R.id.cardFloresta);
+
+                    // 🔥 LIGA AS BARRAS DE VOLUME
+                    View seekC = rootView.findViewById(R.id.seekChuva);
+                    View seekF = rootView.findViewById(R.id.seekFloresta);
+                    if (seekC != null) { seekC.setVisibility(View.VISIBLE); seekC.setAlpha(1f); }
+                    if (seekF != null) { seekF.setVisibility(View.VISIBLE); seekF.setAlpha(1f); }
+
+                    // 🔥 LIGA OS EQUALIZADORES COM O MESMO ID (PROCURANDO DENTRO DE CADA CARD)
+                    if (card1 != null) {
+                        View eqC = card1.findViewById(R.id.equalizer);
+                        if (eqC != null) eqC.setVisibility(View.VISIBLE);
+                    }
+                    if (card2 != null) {
+                        View eqF = card2.findViewById(R.id.equalizer);
+                        if (eqF != null) eqF.setVisibility(View.VISIBLE);
+                    }
+
+                    if (sinalMais == null) {
+                        sinalMais = new TextView(context);
+                        sinalMais.setText("+");
+                        sinalMais.setTextSize(60f); 
+                        sinalMais.setTextColor(Color.WHITE);
+                        sinalMais.setTypeface(null, Typeface.BOLD);
+                        sinalMais.setShadowLayer(15f, 0f, 0f, Color.parseColor("#CC000000"));
+                        sinalMais.setElevation(50f);
+                        tutorialOverlay.addView(sinalMais);
+                    }
+                    sinalMais.setVisibility(View.VISIBLE);
+                    sinalMais.setAlpha(0f);
+
+                    if (card1 != null) {
+                        card1.post(() -> {
+                            int[] pos1 = new int[2];
+                            int[] posOverlay = new int[2];
+                            card1.getLocationOnScreen(pos1);
+                            tutorialOverlay.getLocationOnScreen(posOverlay);
+                            
+                            float posX = pos1[0] - posOverlay[0] + (card1.getWidth() / 2f) - 35; 
+                            float posY = pos1[1] - posOverlay[1] + card1.getHeight() - 15; 
+                            
+                            sinalMais.setX(posX);
+                            sinalMais.setY(posY);
+                            sinalMais.animate().alpha(1f).setDuration(400).start();
+                        });
+                    }
+
                     focar(card1, card2);
                     break;
                     
                 case 3:
+                    if (sinalMais != null) {
+                        sinalMais.animate().alpha(0f).setDuration(200).withEndAction(() -> sinalMais.setVisibility(View.GONE));
+                    }
+                    
+                    View seekF2 = rootView.findViewById(R.id.seekFloresta);
+                    if (seekF2 != null) seekF2.setVisibility(View.GONE);
+                    
+                    // 🔥 DESLIGA O EQUALIZADOR DA FLORESTA (POIS AQUI ELA VOLTA A FICAR BLOQUEADA)
+                    View cardFloresta = rootView.findViewById(R.id.cardFloresta);
+                    if (cardFloresta != null) {
+                        View eqF2 = cardFloresta.findViewById(R.id.equalizer);
+                        if (eqF2 != null) eqF2.setVisibility(View.GONE);
+                    }
+
                     tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
                     
                     View lock = rootView.findViewById(R.id.lockOverlayFloresta);
@@ -120,7 +181,6 @@ public class TutorialHelper {
         });
     }
 
-    // 🔥 O ALGORITMO PROFISSIONAL: Afasta a seta para não cobrir o conteúdo!
     private void posicionarSeta(View alvoSeta) {
         if (tutorialArrow == null || alvoSeta == null) return;
         
@@ -135,17 +195,13 @@ public class TutorialHelper {
             alvoSeta.getLocationOnScreen(posAlvo);
             tutorialOverlay.getLocationOnScreen(posOverlay);
             
-            // 1. Acha o centro exato do item
             float alvoCentroX = posAlvo[0] - posOverlay[0] + (alvoSeta.getWidth() / 2f);
             float alvoCentroY = posAlvo[1] - posOverlay[1] + (alvoSeta.getHeight() / 2f);
             
-            // 2. Define o nível de RECUO (Afastamento da ponta da seta)
-            float recuoX = 70f; // Afasta 70px para itens pequenos (Play/Volume)
+            float recuoX = 70f; 
             float recuoY = 70f; 
             
-            // Se o item for GIGANTE (como o card de bloqueio todo)
             if (alvoSeta.getHeight() > 200) {
-                // Joga a ponta da seta exatamente para a borda do card, limpando o texto e o cadeado!
                 recuoX = alvoSeta.getWidth() / 2.0f;
                 recuoY = alvoSeta.getHeight() / 2.0f;
             }
@@ -153,21 +209,18 @@ public class TutorialHelper {
             float meioDoEcra = tutorialOverlay.getWidth() / 2f;
             float setaX;
             
-            // 3. Aplica o espelhamento e o recuo horizontal
             if (alvoCentroX > meioDoEcra) {
-                tutorialArrow.setScaleX(1f); // Seta apontando pra direita
+                tutorialArrow.setScaleX(1f);
                 setaX = alvoCentroX - tutorialArrow.getWidth() - recuoX; 
             } else {
-                tutorialArrow.setScaleX(-1f); // Seta apontando pra esquerda
+                tutorialArrow.setScaleX(-1f);
                 setaX = alvoCentroX + recuoX; 
             }
             
-            // 4. Aplica o recuo vertical (joga a seta pra baixo)
             float setaY = alvoCentroY + recuoY; 
             
             tutorialArrow.animate().x(setaX).translationY(setaY).alpha(1f).setDuration(400).start();
             
-            // 5. Gruda a caixa de texto sempre abaixo da seta
             if (tutorialBox != null) {
                 if (tutorialBox.getHeight() == 0) {
                     tutorialBox.post(() -> posicionarSeta(alvoSeta));
@@ -289,6 +342,9 @@ public class TutorialHelper {
 
     private void finalizar() {
         esconderSeta();
+        
+        if (sinalMais != null) sinalMais.setVisibility(View.GONE);
+
         tutorialOverlay.animate().alpha(0f).setDuration(500).withEndAction(() -> {
             tutorialOverlay.setVisibility(View.GONE);
             
@@ -298,9 +354,23 @@ public class TutorialHelper {
                 lock.setBackgroundColor(android.graphics.Color.parseColor("#CC000000"));
             }
             
-            View vol = rootView.findViewById(R.id.seekChuva);
-            if (vol != null) {
-                vol.setVisibility(View.GONE);
+            View volC = rootView.findViewById(R.id.seekChuva);
+            if (volC != null) volC.setVisibility(View.GONE);
+            
+            View volF = rootView.findViewById(R.id.seekFloresta);
+            if (volF != null) volF.setVisibility(View.GONE);
+            
+            // 🔥 DESLIGA OS EQUALIZADORES AO FINALIZAR (CASO O USUÁRIO PULE)
+            View cardC = rootView.findViewById(R.id.cardChuva);
+            if (cardC != null) {
+                View eqC = cardC.findViewById(R.id.equalizer);
+                if (eqC != null) eqC.setVisibility(View.GONE);
+            }
+            
+            View cardF = rootView.findViewById(R.id.cardFloresta);
+            if (cardF != null) {
+                View eqF = cardF.findViewById(R.id.equalizer);
+                if (eqF != null) eqF.setVisibility(View.GONE);
             }
 
             context.getSharedPreferences("zen_prefs", Context.MODE_PRIVATE)
