@@ -88,8 +88,8 @@ public class TutorialHelper {
                     break;
                     
                 case 2:
-                    esconderSeta(); // Aqui a seta esconde-se, pois estamos a focar em 2 cards grandes
-                    tutorialText.setText("Pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
+                    esconderSeta(); 
+                    tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
                     
                     View volAnterior = rootView.findViewById(R.id.seekChuva);
                     if (volAnterior != null) volAnterior.setVisibility(View.GONE);
@@ -103,8 +103,7 @@ public class TutorialHelper {
                     break;
                     
                 case 3:
-                    // 🔥 RETIRÁMOS O esconderSeta() DAQUI!
-                    tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista a um anúncio rápido e desbloqueie!");
+                    tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
                     
                     View lock = rootView.findViewById(R.id.lockOverlayFloresta);
                     if (lock != null) {
@@ -114,7 +113,6 @@ public class TutorialHelper {
                     
                     if (tutorialArrow != null) tutorialArrow.setVisibility(View.VISIBLE);
                     focar(lock);
-                    // 🔥 MAGIA: A seta agora voa e aponta para o cadeado!
                     posicionarSeta(lock);
                     break;
             }
@@ -122,6 +120,7 @@ public class TutorialHelper {
         });
     }
 
+    // 🔥 O ALGORITMO PROFISSIONAL: Afasta a seta para não cobrir o conteúdo!
     private void posicionarSeta(View alvoSeta) {
         if (tutorialArrow == null || alvoSeta == null) return;
         
@@ -136,24 +135,39 @@ public class TutorialHelper {
             alvoSeta.getLocationOnScreen(posAlvo);
             tutorialOverlay.getLocationOnScreen(posOverlay);
             
+            // 1. Acha o centro exato do item
             float alvoCentroX = posAlvo[0] - posOverlay[0] + (alvoSeta.getWidth() / 2f);
             float alvoCentroY = posAlvo[1] - posOverlay[1] + (alvoSeta.getHeight() / 2f);
             
+            // 2. Define o nível de RECUO (Afastamento da ponta da seta)
+            float recuoX = 70f; // Afasta 70px para itens pequenos (Play/Volume)
+            float recuoY = 70f; 
+            
+            // Se o item for GIGANTE (como o card de bloqueio todo)
+            if (alvoSeta.getHeight() > 200) {
+                // Joga a ponta da seta exatamente para a borda do card, limpando o texto e o cadeado!
+                recuoX = alvoSeta.getWidth() / 2.0f;
+                recuoY = alvoSeta.getHeight() / 2.0f;
+            }
+
             float meioDoEcra = tutorialOverlay.getWidth() / 2f;
             float setaX;
             
+            // 3. Aplica o espelhamento e o recuo horizontal
             if (alvoCentroX > meioDoEcra) {
-                tutorialArrow.setScaleX(1f);
-                setaX = alvoCentroX - tutorialArrow.getWidth() + 40; 
+                tutorialArrow.setScaleX(1f); // Seta apontando pra direita
+                setaX = alvoCentroX - tutorialArrow.getWidth() - recuoX; 
             } else {
-                tutorialArrow.setScaleX(-1f);
-                setaX = alvoCentroX - 40; 
+                tutorialArrow.setScaleX(-1f); // Seta apontando pra esquerda
+                setaX = alvoCentroX + recuoX; 
             }
             
-            float setaY = alvoCentroY + 10; 
+            // 4. Aplica o recuo vertical (joga a seta pra baixo)
+            float setaY = alvoCentroY + recuoY; 
             
             tutorialArrow.animate().x(setaX).translationY(setaY).alpha(1f).setDuration(400).start();
             
+            // 5. Gruda a caixa de texto sempre abaixo da seta
             if (tutorialBox != null) {
                 if (tutorialBox.getHeight() == 0) {
                     tutorialBox.post(() -> posicionarSeta(alvoSeta));
@@ -166,7 +180,7 @@ public class TutorialHelper {
                 params.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
                 tutorialBox.setLayoutParams(params);
                 
-                float caixaY = setaY + tutorialArrow.getHeight() - 40; 
+                float caixaY = setaY + tutorialArrow.getHeight() - 20; 
                 tutorialBox.animate().y(caixaY).setDuration(400).start();
             }
             
