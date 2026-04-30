@@ -107,20 +107,40 @@ public class TutorialHelper {
                     if (seekC != null) { seekC.setVisibility(View.VISIBLE); seekC.setAlpha(1f); }
                     if (seekF != null) { seekF.setVisibility(View.VISIBLE); seekF.setAlpha(1f); }
 
-                    // 🔥 LIGA OS EQUALIZADORES COM O MESMO ID (PROCURANDO DENTRO DE CADA CARD)
+                    // 🔥 ESCONDE O PLAY E MOSTRA O PAUSE
+                    View playC = rootView.findViewById(R.id.btnPlayChuva);
+                    View pauseC = rootView.findViewById(R.id.btnPauseChuva); // Verifique se este é o seu ID!
+                    if (playC != null) playC.setVisibility(View.GONE);
+                    if (pauseC != null) { pauseC.setVisibility(View.VISIBLE); pauseC.bringToFront(); }
+
+                    View playF = rootView.findViewById(R.id.btnPlayFloresta);
+                    View pauseF = rootView.findViewById(R.id.btnPauseFloresta); // Verifique se este é o seu ID!
+                    if (playF != null) playF.setVisibility(View.GONE);
+                    if (pauseF != null) { pauseF.setVisibility(View.VISIBLE); pauseF.bringToFront(); }
+
+                    // 🔥 LIGA OS EQUALIZADORES (FORÇANDO PARA A FRENTE)
                     if (card1 != null) {
                         View eqC = card1.findViewById(R.id.equalizer);
-                        if (eqC != null) eqC.setVisibility(View.VISIBLE);
+                        if (eqC != null) {
+                            eqC.setVisibility(View.VISIBLE);
+                            eqC.setAlpha(1f);
+                            eqC.bringToFront(); // Força a ficar na frente da imagem
+                        }
                     }
                     if (card2 != null) {
                         View eqF = card2.findViewById(R.id.equalizer);
-                        if (eqF != null) eqF.setVisibility(View.VISIBLE);
+                        if (eqF != null) {
+                            eqF.setVisibility(View.VISIBLE);
+                            eqF.setAlpha(1f);
+                            eqF.bringToFront();
+                        }
                     }
 
+                    // 🔥 O SINAL DE "+"
                     if (sinalMais == null) {
                         sinalMais = new TextView(context);
                         sinalMais.setText("+");
-                        sinalMais.setTextSize(60f); 
+                        sinalMais.setTextSize(65f); 
                         sinalMais.setTextColor(Color.WHITE);
                         sinalMais.setTypeface(null, Typeface.BOLD);
                         sinalMais.setShadowLayer(15f, 0f, 0f, Color.parseColor("#CC000000"));
@@ -130,15 +150,23 @@ public class TutorialHelper {
                     sinalMais.setVisibility(View.VISIBLE);
                     sinalMais.setAlpha(0f);
 
-                    if (card1 != null) {
+                    if (card1 != null && card2 != null) {
                         card1.post(() -> {
                             int[] pos1 = new int[2];
+                            int[] pos2 = new int[2];
                             int[] posOverlay = new int[2];
+                            
                             card1.getLocationOnScreen(pos1);
+                            card2.getLocationOnScreen(pos2);
                             tutorialOverlay.getLocationOnScreen(posOverlay);
                             
-                            float posX = pos1[0] - posOverlay[0] + (card1.getWidth() / 2f) - 35; 
-                            float posY = pos1[1] - posOverlay[1] + card1.getHeight() - 15; 
+                            // 🔥 NOVA MATEMÁTICA: O "+" FICA EXATAMENTE NO MEIO DOS DOIS CARDS
+                            float bordaDireitaChuva = pos1[0] - posOverlay[0] + card1.getWidth();
+                            float bordaEsquerdaFloresta = pos2[0] - posOverlay[0];
+                            
+                            // Calcula o centro do vão entre os cards
+                            float posX = bordaDireitaChuva + ((bordaEsquerdaFloresta - bordaDireitaChuva) / 2f) - 25; 
+                            float posY = pos1[1] - posOverlay[1] + (card1.getHeight() / 2f) - 40; 
                             
                             sinalMais.setX(posX);
                             sinalMais.setY(posY);
@@ -154,10 +182,15 @@ public class TutorialHelper {
                         sinalMais.animate().alpha(0f).setDuration(200).withEndAction(() -> sinalMais.setVisibility(View.GONE));
                     }
                     
+                    // 🔥 DESLIGA O PAUSE DA FLORESTA E VOLTA O PLAY
+                    View pF2 = rootView.findViewById(R.id.btnPlayFloresta);
+                    View paF2 = rootView.findViewById(R.id.btnPauseFloresta);
+                    if (pF2 != null) pF2.setVisibility(View.VISIBLE);
+                    if (paF2 != null) paF2.setVisibility(View.GONE);
+
                     View seekF2 = rootView.findViewById(R.id.seekFloresta);
                     if (seekF2 != null) seekF2.setVisibility(View.GONE);
                     
-                    // 🔥 DESLIGA O EQUALIZADOR DA FLORESTA (POIS AQUI ELA VOLTA A FICAR BLOQUEADA)
                     View cardFloresta = rootView.findViewById(R.id.cardFloresta);
                     if (cardFloresta != null) {
                         View eqF2 = cardFloresta.findViewById(R.id.equalizer);
@@ -348,19 +381,31 @@ public class TutorialHelper {
         tutorialOverlay.animate().alpha(0f).setDuration(500).withEndAction(() -> {
             tutorialOverlay.setVisibility(View.GONE);
             
+            // 🔄 VOLTA O CADEADO
             View lock = rootView.findViewById(R.id.lockOverlayFloresta);
             if (lock != null) {
                 lock.setVisibility(View.VISIBLE);
                 lock.setBackgroundColor(android.graphics.Color.parseColor("#CC000000"));
             }
             
+            // 🔄 ESCONDE AS BARRAS DE VOLUME
             View volC = rootView.findViewById(R.id.seekChuva);
             if (volC != null) volC.setVisibility(View.GONE);
-            
             View volF = rootView.findViewById(R.id.seekFloresta);
             if (volF != null) volF.setVisibility(View.GONE);
             
-            // 🔥 DESLIGA OS EQUALIZADORES AO FINALIZAR (CASO O USUÁRIO PULE)
+            // 🔄 VOLTA OS BOTÕES DE PLAY (DESLIGANDO O PAUSE)
+            View playC = rootView.findViewById(R.id.btnPlayChuva);
+            View pauseC = rootView.findViewById(R.id.btnPauseChuva);
+            if (playC != null) playC.setVisibility(View.VISIBLE);
+            if (pauseC != null) pauseC.setVisibility(View.GONE);
+
+            View playF = rootView.findViewById(R.id.btnPlayFloresta);
+            View pauseF = rootView.findViewById(R.id.btnPauseFloresta);
+            if (playF != null) playF.setVisibility(View.VISIBLE);
+            if (pauseF != null) pauseF.setVisibility(View.GONE);
+
+            // 🔄 DESLIGA OS EQUALIZADORES
             View cardC = rootView.findViewById(R.id.cardChuva);
             if (cardC != null) {
                 View eqC = cardC.findViewById(R.id.equalizer);
