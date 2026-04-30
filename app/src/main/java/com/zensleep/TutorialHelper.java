@@ -66,49 +66,41 @@ public class TutorialHelper {
             switch (step) {
                 case 0:
                     tutorialText.setText("Toque em um card para dar o play no som da natureza.");
-                    
                     View cardChuva = rootView.findViewById(R.id.cardChuva);
                     focar(cardChuva); 
                     
+                    // A seta agora aponta diretamente para o botão de Play
                     View btnPlay = rootView.findViewById(R.id.btnPlayChuva);
                     posicionarSeta(btnPlay);
                     break;
                     
                 case 1:
-                    // 🔥 REMOVI O ESCONDER SETA DAQUI PARA ELA CONTINUAR APARECENDO
                     tutorialText.setText("Regule o volume aqui para criar o ambiente perfeito.");
-                    
                     View vol = rootView.findViewById(R.id.seekChuva);
                     if (vol != null) {
                         vol.setVisibility(View.VISIBLE);
                         vol.setAlpha(1f);
                     }
                     focar(vol);
-                    
-                    // 🔥 APONTA A SETA PARA A BARRA DE VOLUME TAMBÉM!
+                    // A seta voa para a barra de volume
                     posicionarSeta(vol);
                     break;
                     
                 case 2:
                     esconderSeta(); // Some com a seta a partir da explicação do Premium
                     tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
-                    
                     View volAnterior = rootView.findViewById(R.id.seekChuva);
                     if (volAnterior != null) volAnterior.setVisibility(View.GONE);
-
                     View lockFloresta = rootView.findViewById(R.id.lockOverlayFloresta);
                     if (lockFloresta != null) lockFloresta.setVisibility(View.INVISIBLE);
-
                     View card1 = rootView.findViewById(R.id.cardChuva);
                     View card2 = rootView.findViewById(R.id.cardFloresta);
-                    
                     focar(card1, card2);
                     break;
                     
                 case 3:
                     esconderSeta();
                     tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
-                    
                     View lock = rootView.findViewById(R.id.lockOverlayFloresta);
                     if (lock != null) {
                         lock.setVisibility(View.VISIBLE);
@@ -121,6 +113,7 @@ public class TutorialHelper {
         });
     }
 
+    // 🔥 NOVA MATEMÁTICA: Posiciona a seta na diagonal vindo do rumo da caixa de texto!
     private void posicionarSeta(View alvoSeta) {
         if (tutorialArrow == null || alvoSeta == null) return;
         
@@ -130,23 +123,23 @@ public class TutorialHelper {
         }
         
         tutorialArrow.setVisibility(View.VISIBLE);
-        
         tutorialArrow.post(() -> {
             int[] posAlvo = new int[2];
             int[] posOverlay = new int[2];
-            
             alvoSeta.getLocationOnScreen(posAlvo);
             tutorialOverlay.getLocationOnScreen(posOverlay);
             
-            // X: Mantém no centro exato do item
-            float setaX = posAlvo[0] - posOverlay[0] + (alvoSeta.getWidth() / 2f) - (tutorialArrow.getWidth() / 2f); 
+            // 🔥 X CORRIGIDO: Coloca a seta para nascer mais à esquerda e abaixo, 
+            // de forma que o centro da seta fique alinhado com a caixa de texto
+            float setaX = posAlvo[0] - posOverlay[0] - (tutorialArrow.getWidth() / 2f); 
             
-            // 🔥 Y CORRIGIDO: Coloquei "- 15" para a ponta da seta colar/sobrepor a borda do botão ou da barra!
+            // 🔥 Y CORRIGIDO: Mantém a ponta da seta colada no botão ou na barra
             float setaY = posAlvo[1] - posOverlay[1] + alvoSeta.getHeight() - 15; 
             
-            // Animação suave movendo a seta do botão de play para a barra de volume
+            // Animação suave movendo a seta
             tutorialArrow.animate().x(setaX).translationY(setaY).alpha(1f).setDuration(400).start();
             
+            // Animação pulsante para cima e para baixo
             if (arrowAnimator != null) arrowAnimator.cancel();
             arrowAnimator = ObjectAnimator.ofFloat(tutorialArrow, "translationY", setaY, setaY + 15f);
             arrowAnimator.setDuration(600);
@@ -165,61 +158,48 @@ public class TutorialHelper {
 
     private void focar(View... alvos) {
         if (alvos == null || alvos.length == 0 || highlightFrame == null) return;
-        
         for (View alvo : alvos) {
             if (alvo != null && alvo.getWidth() <= 0) {
                 alvos[0].postDelayed(() -> focar(alvos), 50);
                 return;
             }
         }
-
         highlightFrame.setVisibility(View.VISIBLE);
         highlightFrame.setAlpha(0f);
         highlightFrame.animate().alpha(1f).setDuration(200).start();
-
         alvos[0].post(() -> {
             int[] posOverlay = new int[2];
             tutorialOverlay.getLocationOnScreen(posOverlay);
-            
             float minX = Float.MAX_VALUE;
             float minY = Float.MAX_VALUE;
             float maxX = Float.MIN_VALUE;
             float maxY = Float.MIN_VALUE;
-
             for (View alvo : alvos) {
                 if (alvo == null) continue;
                 int[] posAlvo = new int[2];
                 alvo.getLocationOnScreen(posAlvo);
-
                 float startX = posAlvo[0] - posOverlay[0] - 20;
                 float startY = posAlvo[1] - posOverlay[1] - 20;
                 float endX = startX + alvo.getWidth() + 40;
                 float endY = startY + alvo.getHeight() + 40;
-
                 if (startX < minX) minX = startX;
                 if (startY < minY) minY = startY;
                 if (endX > maxX) maxX = endX;
                 if (endY > maxY) maxY = endY;
             }
-
             if (minX == Float.MAX_VALUE) return;
-
             float finalX = minX;
             float finalY = minY;
             int larguraFinal = (int) (maxX - minX);
             int alturaFinal = (int) (maxY - minY);
-
             highlightFrame.animate().x(finalX).y(finalY).setDuration(500).start();
-                
             ViewGroup.LayoutParams params = highlightFrame.getLayoutParams();
             params.width = larguraFinal;
             params.height = alturaFinal;
             highlightFrame.setLayoutParams(params);
-
             if (tutorialOverlay instanceof TutorialMaskView) {
                 ((TutorialMaskView) tutorialOverlay).setTarget(finalX, finalY, larguraFinal, alturaFinal);
             }
-
             moverCaixaTexto(finalY < 1000); 
         });
     }
@@ -230,12 +210,11 @@ public class TutorialHelper {
         params.removeRule(RelativeLayout.CENTER_IN_PARENT);
         params.removeRule(RelativeLayout.ALIGN_PARENT_TOP);
         params.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        
         if (itemNoTopo) {
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            // 🔥 CAIXA MAIS PARA BAIXO: Mudei de 250 para 80!
-            params.bottomMargin = 80; 
+            // 🔥 CAIXA MAIS PARA BAIXO: Mudei para 20 pixels! Quase no rodapé.
+            params.bottomMargin = 20; 
         } else {
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             params.addRule(RelativeLayout.CENTER_HORIZONTAL);
@@ -246,21 +225,17 @@ public class TutorialHelper {
 
     private void finalizar() {
         esconderSeta();
-        
         tutorialOverlay.animate().alpha(0f).setDuration(500).withEndAction(() -> {
             tutorialOverlay.setVisibility(View.GONE);
-            
             View lock = rootView.findViewById(R.id.lockOverlayFloresta);
             if (lock != null) {
                 lock.setVisibility(View.VISIBLE);
                 lock.setBackgroundColor(android.graphics.Color.parseColor("#CC000000"));
             }
-            
             View vol = rootView.findViewById(R.id.seekChuva);
             if (vol != null) {
                 vol.setVisibility(View.GONE);
             }
-
             context.getSharedPreferences("zen_prefs", Context.MODE_PRIVATE)
                     .edit().putBoolean("tutorial_visto", true).apply();
         });
