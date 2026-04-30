@@ -37,7 +37,6 @@ public class TutorialHelper {
         this.tutorialText = rootView.findViewById(R.id.tutorialText);
         this.btnProximo = rootView.findViewById(R.id.btnProximo);
         
-        // Mapeia a seta do XML
         this.tutorialArrow = rootView.findViewById(R.id.tutorialArrow);
     }
 
@@ -68,17 +67,15 @@ public class TutorialHelper {
                 case 0:
                     tutorialText.setText("Toque em um card para dar o play no som da natureza.");
                     
-                    // O "furo" roxo continua pegando o card inteiro
                     View cardChuva = rootView.findViewById(R.id.cardChuva);
                     focar(cardChuva); 
                     
-                    // 🔥 AGORA SIM: A seta vai apontar DIRETAMENTE para o botão Play!
                     View btnPlay = rootView.findViewById(R.id.btnPlayChuva);
                     posicionarSeta(btnPlay);
                     break;
                     
                 case 1:
-                    esconderSeta(); // Some com a seta a partir daqui
+                    // 🔥 REMOVI O ESCONDER SETA DAQUI PARA ELA CONTINUAR APARECENDO
                     tutorialText.setText("Regule o volume aqui para criar o ambiente perfeito.");
                     
                     View vol = rootView.findViewById(R.id.seekChuva);
@@ -87,10 +84,13 @@ public class TutorialHelper {
                         vol.setAlpha(1f);
                     }
                     focar(vol);
+                    
+                    // 🔥 APONTA A SETA PARA A BARRA DE VOLUME TAMBÉM!
+                    posicionarSeta(vol);
                     break;
                     
                 case 2:
-                    esconderSeta();
+                    esconderSeta(); // Some com a seta a partir da explicação do Premium
                     tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
                     
                     View volAnterior = rootView.findViewById(R.id.seekChuva);
@@ -121,18 +121,15 @@ public class TutorialHelper {
         });
     }
 
-    // 🔥 NOVA MATEMÁTICA: Posiciona no centro exato do botão!
     private void posicionarSeta(View alvoSeta) {
         if (tutorialArrow == null || alvoSeta == null) return;
         
-        // Espera o botão de play carregar o tamanho na tela para não dar erro
         if (alvoSeta.getWidth() <= 0) {
             alvoSeta.postDelayed(() -> posicionarSeta(alvoSeta), 50);
             return;
         }
         
         tutorialArrow.setVisibility(View.VISIBLE);
-        tutorialArrow.setAlpha(0f);
         
         tutorialArrow.post(() -> {
             int[] posAlvo = new int[2];
@@ -141,20 +138,17 @@ public class TutorialHelper {
             alvoSeta.getLocationOnScreen(posAlvo);
             tutorialOverlay.getLocationOnScreen(posOverlay);
             
-            // X: Centro exato do botão de Play, descontando o tamanho da própria seta
+            // X: Mantém no centro exato do item
             float setaX = posAlvo[0] - posOverlay[0] + (alvoSeta.getWidth() / 2f) - (tutorialArrow.getWidth() / 2f); 
-            // Y: Exatamente embaixo do botão de Play (com um espacinho de 5px)
-            float setaY = posAlvo[1] - posOverlay[1] + alvoSeta.getHeight() + 5; 
             
-            tutorialArrow.setX(setaX);
-            tutorialArrow.setY(setaY + 40); // Nasce um pouco mais embaixo para o efeito de entrada
+            // 🔥 Y CORRIGIDO: Coloquei "- 15" para a ponta da seta colar/sobrepor a borda do botão ou da barra!
+            float setaY = posAlvo[1] - posOverlay[1] + alvoSeta.getHeight() - 15; 
             
-            // Animação de entrada (surgindo e subindo para o lugar certo)
-            tutorialArrow.animate().alpha(1f).translationY(setaY).setDuration(500).start();
+            // Animação suave movendo a seta do botão de play para a barra de volume
+            tutorialArrow.animate().x(setaX).translationY(setaY).alpha(1f).setDuration(400).start();
             
-            // Animação da seta flutuando para sempre (subindo e descendo apontando para o play)
             if (arrowAnimator != null) arrowAnimator.cancel();
-            arrowAnimator = ObjectAnimator.ofFloat(tutorialArrow, "translationY", setaY, setaY + 20f);
+            arrowAnimator = ObjectAnimator.ofFloat(tutorialArrow, "translationY", setaY, setaY + 15f);
             arrowAnimator.setDuration(600);
             arrowAnimator.setRepeatMode(ValueAnimator.REVERSE);
             arrowAnimator.setRepeatCount(ValueAnimator.INFINITE);
@@ -240,17 +234,18 @@ public class TutorialHelper {
         if (itemNoTopo) {
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            params.bottomMargin = 250;
+            // 🔥 CAIXA MAIS PARA BAIXO: Mudei de 250 para 80!
+            params.bottomMargin = 80; 
         } else {
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            params.topMargin = 250;
+            params.topMargin = 150;
         }
         tutorialBox.setLayoutParams(params);
     }
 
     private void finalizar() {
-        esconderSeta(); // Garante que a seta suma caso o usuário saia rápido
+        esconderSeta();
         
         tutorialOverlay.animate().alpha(0f).setDuration(500).withEndAction(() -> {
             tutorialOverlay.setVisibility(View.GONE);
