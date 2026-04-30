@@ -64,6 +64,29 @@ public class TutorialHelper {
         }
     }
 
+    // 🔥 CHAVE MESTRA: Esta função liga ou desliga o card (Pause/Play e Equalizador)!
+    private void setCardPlayingState(View card, boolean isPlaying) {
+        if (card == null) return;
+        
+        // Troca a imagem para ic_midia_pause se estiver tocando, ou ic_midia_play se parar
+        ImageView icPlay = card.findViewById(R.id.ic_play);
+        if (icPlay != null) {
+            icPlay.setImageResource(isPlaying ? R.drawable.ic_midia_pause : R.drawable.ic_midia_play);
+        }
+        
+        // Liga ou desliga o Equalizador e traz ele para a frente de tudo
+        View equalizer = card.findViewById(R.id.equalizer);
+        if (equalizer != null) {
+            if (isPlaying) {
+                equalizer.setVisibility(View.VISIBLE);
+                equalizer.setAlpha(1f);
+                equalizer.bringToFront(); 
+            } else {
+                equalizer.setVisibility(View.GONE);
+            }
+        }
+    }
+
     private void configurarEtapa(int step) {
         tutorialBox.animate().alpha(0f).setDuration(200).withEndAction(() -> {
             switch (step) {
@@ -72,10 +95,14 @@ public class TutorialHelper {
                     
                     if (tutorialArrow != null) tutorialArrow.setVisibility(View.VISIBLE);
                     View cardChuva = rootView.findViewById(R.id.cardChuva);
+                    
+                    // Garante que a Chuva mostra o botão de PLAY no começo
+                    setCardPlayingState(cardChuva, false);
                     focar(cardChuva); 
                     
-                    View btnPlay = rootView.findViewById(R.id.btnPlayChuva);
-                    posicionarSeta(btnPlay);
+                    // Seta aponta direto para a imagem ic_play dentro do card da Chuva
+                    View icPlayBtn = cardChuva != null ? cardChuva.findViewById(R.id.ic_play) : null;
+                    posicionarSeta(icPlayBtn);
                     break;
                     
                 case 1:
@@ -87,6 +114,11 @@ public class TutorialHelper {
                         vol.setAlpha(1f);
                     }
                     if (tutorialArrow != null) tutorialArrow.setVisibility(View.VISIBLE);
+                    
+                    // 🔥 AGORA SIM: A Chuva "começa a tocar" (mostra Pause e liga o Equalizador)
+                    View cardC1 = rootView.findViewById(R.id.cardChuva);
+                    setCardPlayingState(cardC1, true); 
+                    
                     focar(vol);
                     posicionarSeta(vol);
                     break;
@@ -101,44 +133,14 @@ public class TutorialHelper {
                     View card1 = rootView.findViewById(R.id.cardChuva);
                     View card2 = rootView.findViewById(R.id.cardFloresta);
 
-                    // LIGA AS BARRAS DE VOLUME
                     View seekC = rootView.findViewById(R.id.seekChuva);
                     View seekF = rootView.findViewById(R.id.seekFloresta);
                     if (seekC != null) { seekC.setVisibility(View.VISIBLE); seekC.setAlpha(1f); }
                     if (seekF != null) { seekF.setVisibility(View.VISIBLE); seekF.setAlpha(1f); }
 
-                    // 🔥 ESCONDE O PLAY E MOSTRA O PAUSE (USANDO O ID CORRETO DENTRO DE CADA CARD)
-                    if (card1 != null) {
-                        View playC = rootView.findViewById(R.id.btnPlayChuva);
-                        View pauseC = card1.findViewById(R.id.ic_midia_pause);
-                        if (playC != null) playC.setVisibility(View.GONE);
-                        if (pauseC != null) { pauseC.setVisibility(View.VISIBLE); pauseC.bringToFront(); }
-                    }
-
-                    if (card2 != null) {
-                        View playF = rootView.findViewById(R.id.btnPlayFloresta);
-                        View pauseF = card2.findViewById(R.id.ic_midia_pause);
-                        if (playF != null) playF.setVisibility(View.GONE);
-                        if (pauseF != null) { pauseF.setVisibility(View.VISIBLE); pauseF.bringToFront(); }
-                    }
-
-                    // LIGA OS EQUALIZADORES (FORÇANDO PARA A FRENTE)
-                    if (card1 != null) {
-                        View eqC = card1.findViewById(R.id.equalizer);
-                        if (eqC != null) {
-                            eqC.setVisibility(View.VISIBLE);
-                            eqC.setAlpha(1f);
-                            eqC.bringToFront(); 
-                        }
-                    }
-                    if (card2 != null) {
-                        View eqF = card2.findViewById(R.id.equalizer);
-                        if (eqF != null) {
-                            eqF.setVisibility(View.VISIBLE);
-                            eqF.setAlpha(1f);
-                            eqF.bringToFront();
-                        }
-                    }
+                    // 🔥 LIGA TUDO: Os dois cards "tocando" (Ambos com Pause e Equalizador ligados!)
+                    setCardPlayingState(card1, true);
+                    setCardPlayingState(card2, true);
 
                     // O SINAL DE "+"
                     if (sinalMais == null) {
@@ -164,12 +166,13 @@ public class TutorialHelper {
                             card2.getLocationOnScreen(pos2);
                             tutorialOverlay.getLocationOnScreen(posOverlay);
                             
-                            // O "+" FICA EXATAMENTE NO MEIO DOS DOIS CARDS
-                            float bordaDireitaChuva = pos1[0] - posOverlay[0] + card1.getWidth();
-                            float bordaEsquerdaFloresta = pos2[0] - posOverlay[0];
+                            // O "+" FICA NO VÃO VERTICAL ENTRE OS CARDS
+                            float centroX = pos1[0] - posOverlay[0] + (card1.getWidth() / 2f);
+                            float baseCardChuva = pos1[1] - posOverlay[1] + card1.getHeight();
+                            float topoCardFloresta = pos2[1] - posOverlay[1];
                             
-                            float posX = bordaDireitaChuva + ((bordaEsquerdaFloresta - bordaDireitaChuva) / 2f) - 25; 
-                            float posY = pos1[1] - posOverlay[1] + (card1.getHeight() / 2f) - 40; 
+                            float posY = baseCardChuva + ((topoCardFloresta - baseCardChuva) / 2f) - 45; 
+                            float posX = centroX - 25; 
                             
                             sinalMais.setX(posX);
                             sinalMais.setY(posY);
@@ -185,17 +188,9 @@ public class TutorialHelper {
                         sinalMais.animate().alpha(0f).setDuration(200).withEndAction(() -> sinalMais.setVisibility(View.GONE));
                     }
                     
-                    // 🔥 DESLIGA O PAUSE DA FLORESTA E VOLTA O PLAY
+                    // 🔥 FLORESTA DESLIGA (Volta para Play e esconde Equalizador)
                     View cardFloresta = rootView.findViewById(R.id.cardFloresta);
-                    if (cardFloresta != null) {
-                        View pF2 = rootView.findViewById(R.id.btnPlayFloresta);
-                        View paF2 = cardFloresta.findViewById(R.id.ic_midia_pause);
-                        if (pF2 != null) pF2.setVisibility(View.VISIBLE);
-                        if (paF2 != null) paF2.setVisibility(View.GONE);
-                        
-                        View eqF2 = cardFloresta.findViewById(R.id.equalizer);
-                        if (eqF2 != null) eqF2.setVisibility(View.GONE);
-                    }
+                    setCardPlayingState(cardFloresta, false);
 
                     View seekF2 = rootView.findViewById(R.id.seekFloresta);
                     if (seekF2 != null) seekF2.setVisibility(View.GONE);
@@ -346,7 +341,7 @@ public class TutorialHelper {
                 ((TutorialMaskView) tutorialOverlay).setTarget(finalX, finalY, larguraFinal, alturaFinal);
             }
 
-            moverCaixaTexto(finalY, alturaFinal); 
+            moverCaixaTexto(finalY, alturaAltura); // Corrigido para variável local
         });
     }
 
@@ -395,28 +390,12 @@ public class TutorialHelper {
             View volF = rootView.findViewById(R.id.seekFloresta);
             if (volF != null) volF.setVisibility(View.GONE);
             
-            // VOLTA OS BOTÕES DE PLAY (DESLIGANDO O PAUSE COM OS IDs CERTOS)
+            // 🔥 DESLIGA TUDO NO FINAL (Volta todos os ícones para Play e esconde Equalizadores)
             View cardC = rootView.findViewById(R.id.cardChuva);
-            if (cardC != null) {
-                View playC = rootView.findViewById(R.id.btnPlayChuva);
-                View pauseC = cardC.findViewById(R.id.ic_midia_pause);
-                if (playC != null) playC.setVisibility(View.VISIBLE);
-                if (pauseC != null) pauseC.setVisibility(View.GONE);
-                
-                View eqC = cardC.findViewById(R.id.equalizer);
-                if (eqC != null) eqC.setVisibility(View.GONE);
-            }
+            setCardPlayingState(cardC, false);
             
             View cardF = rootView.findViewById(R.id.cardFloresta);
-            if (cardF != null) {
-                View playF = rootView.findViewById(R.id.btnPlayFloresta);
-                View pauseF = cardF.findViewById(R.id.ic_midia_pause);
-                if (playF != null) playF.setVisibility(View.VISIBLE);
-                if (pauseF != null) pauseF.setVisibility(View.GONE);
-                
-                View eqF = cardF.findViewById(R.id.equalizer);
-                if (eqF != null) eqF.setVisibility(View.GONE);
-            }
+            setCardPlayingState(cardF, false);
 
             context.getSharedPreferences("zen_prefs", Context.MODE_PRIVATE)
                     .edit().putBoolean("tutorial_visto", true).apply();
