@@ -55,8 +55,8 @@ public class TutorialHelper {
 
     private void avancar() {
         tutorialStep++;
-        // 🔥 AUMENTAMOS DE 3 PARA 4 PASSOS!
-        if (tutorialStep > 4) {
+        // 🔥 AGORA SÃO 5 PASSOS (0 a 5)
+        if (tutorialStep > 5) {
             finalizar();
         } else {
             configurarEtapa(tutorialStep);
@@ -207,19 +207,32 @@ public class TutorialHelper {
                     focar(lock);
                     posicionarSeta(lock);
                     
-                    // Altera o botão para "Próximo" caso estivesse como "Concluir"
                     if (btnProximo != null) btnProximo.setText("Próximo");
                     break;
 
-                // 🔥 NOVA ETAPA 4: TIMER!
                 case 4:
+                    // 🔥 NOVA ETAPA: TEMPORIZADOR (timerCard)
+                    
                     // Devolve o fundo escuro pro Cadeado da etapa anterior
                     View lockVolta = rootView.findViewById(R.id.lockOverlayFloresta);
                     if (lockVolta != null) {
                         lockVolta.setBackgroundColor(Color.parseColor("#CC000000"));
                     }
 
-                    tutorialText.setText("Defina um tempo para a música desligar sozinha enquanto você dorme. Bons sonhos! 🌙");
+                    tutorialText.setText("Acompanhe aqui o tempo restante para a música desligar automaticamente.");
+                    
+                    View timerCard = rootView.findViewById(R.id.timerCard);
+                    
+                    if (tutorialArrow != null) tutorialArrow.setVisibility(View.VISIBLE);
+                    focar(timerCard);
+                    posicionarSeta(timerCard);
+                    
+                    if (btnProximo != null) btnProximo.setText("Próximo");
+                    break;
+
+                case 5:
+                    // 🔥 ÚLTIMA ETAPA: DEFINIR TIMER (btnTimer)
+                    tutorialText.setText("Defina um novo tempo para a música desligar sozinha enquanto você dorme. Bons sonhos! 🌙");
                     
                     View btnTimer = rootView.findViewById(R.id.btnTimer);
                     
@@ -227,7 +240,7 @@ public class TutorialHelper {
                     focar(btnTimer);
                     posicionarSeta(btnTimer);
                     
-                    // Muda o texto do botão para finalizar
+                    // Agora sim muda o texto para concluir!
                     if (btnProximo != null) btnProximo.setText("Concluir");
                     break;
             }
