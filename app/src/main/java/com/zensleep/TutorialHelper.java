@@ -435,8 +435,8 @@ public class TutorialHelper {
             
             View lock = rootView.findViewById(R.id.lockOverlayFloresta);
             if (lock != null) {
-                lock.setVisibility(View.VISIBLE);
-                lock.setBackgroundColor(android.graphics.Color.parseColor("#CC000000"));
+                lock.setVisibility(originalLockVisibility);
+                lock.setBackgroundColor(Color.parseColor("#CC000000"));
             }
             
             View volC = rootView.findViewById(R.id.seekChuva);
