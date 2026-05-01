@@ -55,14 +55,14 @@ public class TutorialHelper {
 
     private void avancar() {
         tutorialStep++;
-        if (tutorialStep > 3) {
+        // 🔥 AUMENTAMOS DE 3 PARA 4 PASSOS!
+        if (tutorialStep > 4) {
             finalizar();
         } else {
             configurarEtapa(tutorialStep);
         }
     }
 
-    // 🔥 FUNÇÃO RAIO-X: Varre o botão e acha a imagem do Play para trocar pelo Pause
     private void setCardPlayingState(View card, int idBotaoReal, boolean isPlaying) {
         if (card == null) return;
         
@@ -71,7 +71,6 @@ public class TutorialHelper {
             alterarImagemPlayPause(btnView, isPlaying);
         }
         
-        // Equalizador: Agora ele pula na tela com animação!
         View equalizer = card.findViewById(R.id.equalizer);
         if (equalizer != null) {
             if (isPlaying) {
@@ -87,9 +86,7 @@ public class TutorialHelper {
         }
     }
 
-    // Método recursivo e cego a erros: procura a ImageView em qualquer nível do botão
     private void alterarImagemPlayPause(View view, boolean isPlaying) {
-        // Ignora o equalizador se ele for uma ImageView
         if (view.getId() == R.id.equalizer) return;
         
         if (view instanceof ImageView) {
@@ -124,7 +121,6 @@ public class TutorialHelper {
                         vol.setAlpha(1f);
                     }
                     
-                    // 🔥 CHUVA COMEÇA A TOCAR: Muda pra Pause e aciona o Equalizador!
                     setCardPlayingState(rootView.findViewById(R.id.cardChuva), R.id.btnPlayChuva, true);
                     
                     focar(vol);
@@ -146,15 +142,13 @@ public class TutorialHelper {
                     if (seekC != null) { seekC.setVisibility(View.VISIBLE); seekC.setAlpha(1f); }
                     if (seekF != null) { seekF.setVisibility(View.VISIBLE); seekF.setAlpha(1f); }
 
-                    // 🔥 OS DOIS TOCANDO: Pause + Equalizador em ambos!
                     setCardPlayingState(card1, R.id.btnPlayChuva, true);
                     setCardPlayingState(card2, R.id.btnPlayFloresta, true);
 
-                    // SINAL DE "+" - Agora num tamanho decente
                     if (sinalMais == null) {
                         sinalMais = new TextView(context);
                         sinalMais.setText("+");
-                        sinalMais.setTextSize(45f); // Reduzido para não engolir a tela
+                        sinalMais.setTextSize(45f); 
                         sinalMais.setTextColor(Color.WHITE);
                         sinalMais.setTypeface(null, Typeface.BOLD);
                         sinalMais.setShadowLayer(10f, 0f, 0f, Color.parseColor("#CC000000"));
@@ -165,7 +159,6 @@ public class TutorialHelper {
 
                     if (card1 != null && card2 != null) {
                         card1.post(() -> {
-                            // Mede o tamanho real do "+" na tela
                             sinalMais.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                             float widthMais = sinalMais.getMeasuredWidth();
                             float heightMais = sinalMais.getMeasuredHeight();
@@ -177,14 +170,12 @@ public class TutorialHelper {
                             card2.getLocationOnScreen(pos2);
                             tutorialOverlay.getLocationOnScreen(posOverlay);
                             
-                            // Acha o centro exato do card 1 e do card 2
                             float centroX1 = pos1[0] - posOverlay[0] + (card1.getWidth() / 2f);
                             float centroY1 = pos1[1] - posOverlay[1] + (card1.getHeight() / 2f);
                             
                             float centroX2 = pos2[0] - posOverlay[0] + (card2.getWidth() / 2f);
                             float centroY2 = pos2[1] - posOverlay[1] + (card2.getHeight() / 2f);
                             
-                            // 🔥 MATEMÁTICA ABSOLUTA: O "+" fica EXATAMENTE no meio dos dois cards!
                             float meioX = (centroX1 + centroX2) / 2f;
                             float meioY = (centroY1 + centroY2) / 2f;
                             
@@ -200,7 +191,6 @@ public class TutorialHelper {
                 case 3:
                     if (sinalMais != null) sinalMais.setVisibility(View.GONE);
                     
-                    // 🔥 Desliga a Floresta (Volta o Play e some o Equalizador)
                     setCardPlayingState(rootView.findViewById(R.id.cardFloresta), R.id.btnPlayFloresta, false);
 
                     View seekF2 = rootView.findViewById(R.id.seekFloresta);
@@ -213,8 +203,32 @@ public class TutorialHelper {
                         lock.setBackgroundResource(0);
                     }
                     
+                    if (tutorialArrow != null) tutorialArrow.setVisibility(View.VISIBLE);
                     focar(lock);
                     posicionarSeta(lock);
+                    
+                    // Altera o botão para "Próximo" caso estivesse como "Concluir"
+                    if (btnProximo != null) btnProximo.setText("Próximo");
+                    break;
+
+                // 🔥 NOVA ETAPA 4: TIMER!
+                case 4:
+                    // Devolve o fundo escuro pro Cadeado da etapa anterior
+                    View lockVolta = rootView.findViewById(R.id.lockOverlayFloresta);
+                    if (lockVolta != null) {
+                        lockVolta.setBackgroundColor(Color.parseColor("#CC000000"));
+                    }
+
+                    tutorialText.setText("Defina um tempo para a música desligar sozinha enquanto você dorme. Bons sonhos! 🌙");
+                    
+                    View btnTimer = rootView.findViewById(R.id.btnTimer);
+                    
+                    if (tutorialArrow != null) tutorialArrow.setVisibility(View.VISIBLE);
+                    focar(btnTimer);
+                    posicionarSeta(btnTimer);
+                    
+                    // Muda o texto do botão para finalizar
+                    if (btnProximo != null) btnProximo.setText("Concluir");
                     break;
             }
             tutorialBox.animate().alpha(1f).setDuration(200);
@@ -240,10 +254,11 @@ public class TutorialHelper {
             float alvoCentroX = posAlvo[0] - posOverlay[0] + (alvoSeta.getWidth() / 2f);
             float alvoCentroY = posAlvo[1] - posOverlay[1] + (alvoSeta.getHeight() / 2f);
             
+            boolean alvoNoRodape = alvoCentroY > (tutorialOverlay.getHeight() * 0.65f);
+            
             float recuoX = 40f;
             float recuoY = 40f;
             
-            // Se o alvo for gigante (tipo o card ou cadeado), aponta mais para a borda
             if (alvoSeta.getHeight() > 200) {
                 recuoX = alvoSeta.getWidth() / 2.5f;
                 recuoY = alvoSeta.getHeight() / 2.5f;
@@ -258,7 +273,6 @@ public class TutorialHelper {
                 setaX = alvoCentroX + recuoX; 
             }
             
-            // Fixando o eixo Y para a seta não virar de ponta cabeça
             tutorialArrow.setScaleY(1f);
             float setaY = alvoCentroY + recuoY; 
             
@@ -274,7 +288,6 @@ public class TutorialHelper {
                 tutorialBox.post(() -> {
                     float caixaY = setaY + tutorialArrow.getHeight() + 20; 
                     
-                    // 🔥 TRAVAS DE SEGURANÇA MÁXIMA: A caixa de texto nunca mais vai sumir da tela!
                     if (caixaY < 50) caixaY = 50;
                     if (caixaY + tutorialBox.getHeight() > tutorialOverlay.getHeight() - 50) {
                         caixaY = tutorialOverlay.getHeight() - tutorialBox.getHeight() - 50;
@@ -325,7 +338,6 @@ public class TutorialHelper {
                 ((TutorialMaskView) tutorialOverlay).setTarget(minX, minY, p.width, p.height);
             }
             
-            // Se a seta NÃO estiver aparecendo (como no Passo 2 do Mix), o 'focar' posiciona a caixa
             if (tutorialArrow == null || tutorialArrow.getVisibility() == View.GONE) {
                 moverCaixaTexto(minY, p.height);
             }
@@ -366,7 +378,6 @@ public class TutorialHelper {
             View volF = rootView.findViewById(R.id.seekFloresta);
             if (volF != null) volF.setVisibility(View.GONE);
             
-            // 🔥 Tudo finalizado: Zera a simulação e volta pro Play!
             setCardPlayingState(rootView.findViewById(R.id.cardChuva), R.id.btnPlayChuva, false);
             setCardPlayingState(rootView.findViewById(R.id.cardFloresta), R.id.btnPlayFloresta, false);
             
