@@ -53,6 +53,26 @@ public class TutorialHelper {
         SharedPreferences prefs = context.getSharedPreferences("zen_prefs", Context.MODE_PRIVATE);
         if (prefs.getBoolean("tutorial_visto", false) || tutorialOverlay == null) return;
 
+        tutorialStep = 0; // Garante que começa do passo 0
+
+        tutorialOverlay.setVisibility(View.VISIBLE);
+        tutorialOverlay.setAlpha(0f);
+        tutorialOverlay.animate().alpha(1f).setDuration(500).start();
+
+        btnProximo.setOnClickListener(v -> avancar());
+        configurarEtapa(0);
+    }
+
+    // 🔥 NOVO MÉTODO: Chama pelo Menu para abrir na marra (mesmo que já tenha visto)
+    public void iniciarForcado() {
+        if (tutorialOverlay == null) return;
+        
+        tutorialStep = 0; // Reseta para o primeiro passo
+        
+        // Desliga os botões e os sons caso o usuário esteja usando o app no momento
+        setCardPlayingState(rootView.findViewById(R.id.cardChuva), R.id.btnPlayChuva, false);
+        setCardPlayingState(rootView.findViewById(R.id.cardFloresta), R.id.btnPlayFloresta, false);
+
         tutorialOverlay.setVisibility(View.VISIBLE);
         tutorialOverlay.setAlpha(0f);
         tutorialOverlay.animate().alpha(1f).setDuration(500).start();
@@ -107,12 +127,11 @@ public class TutorialHelper {
     }
 
     private void configurarEtapa(int step) {
-        // Troca a imagem da seta com base na etapa
         if (tutorialArrow != null) {
             if (step >= 4) {
-                tutorialArrow.setImageResource(R.drawable.ic_seta_tutorial); // Seta reta
+                tutorialArrow.setImageResource(R.drawable.ic_seta_tutorial); 
             } else if (setaDiagonalOriginal != null) {
-                tutorialArrow.setImageDrawable(setaDiagonalOriginal); // Seta diagonal
+                tutorialArrow.setImageDrawable(setaDiagonalOriginal); 
             }
         }
 
@@ -147,7 +166,6 @@ public class TutorialHelper {
                     esconderSeta();
                     tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
                     
-                    // 🔥 GONE: O Android é obrigado a esconder o cadeado completamente agora!
                     View lockFloresta = rootView.findViewById(R.id.lockOverlayFloresta);
                     if (lockFloresta != null) lockFloresta.setVisibility(View.GONE);
 
@@ -166,9 +184,9 @@ public class TutorialHelper {
                         sinalMais = new TextView(context);
                         sinalMais.setText("+");
                         sinalMais.setTextSize(45f); 
-                        sinalMais.setTextColor(Color.parseColor("#4CAF50")); // Verde estilo Material Design
+                        sinalMais.setTextColor(Color.parseColor("#4CAF50")); // Verde do Material Design
                         sinalMais.setTypeface(null, Typeface.BOLD);
-                        sinalMais.setShadowLayer(10f, 0f, 0f, Color.parseColor("#008000"));
+                        sinalMais.setShadowLayer(10f, 0f, 0f, Color.parseColor("#CC000000"));
                         tutorialOverlay.addView(sinalMais);
                     }
                     sinalMais.setVisibility(View.VISIBLE);
@@ -215,7 +233,6 @@ public class TutorialHelper {
                     
                     tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
                     
-                    // Volta o cadeado para essa etapa
                     View lock = rootView.findViewById(R.id.lockOverlayFloresta);
                     if (lock != null) {
                         lock.setVisibility(View.VISIBLE);
@@ -230,7 +247,6 @@ public class TutorialHelper {
                     break;
 
                 case 4:
-                    // Devolve o fundo escuro pro Cadeado da etapa anterior
                     View lockVolta = rootView.findViewById(R.id.lockOverlayFloresta);
                     if (lockVolta != null) {
                         lockVolta.setVisibility(View.VISIBLE);
@@ -295,13 +311,11 @@ public class TutorialHelper {
             float setaY;
 
             if (tutorialStep >= 4) {
-                // Seta Reta
                 tutorialArrow.setScaleX(1f);
                 tutorialArrow.setScaleY(1f);
                 setaX = alvoCentroX - (tutorialArrow.getWidth() / 2f);
                 setaY = alvoCentroY + (alvoSeta.getHeight() / 2f) + 15f; 
             } else {
-                // Seta Diagonal
                 if (alvoCentroX > tutorialOverlay.getWidth() / 2f) {
                     tutorialArrow.setScaleX(1f); 
                     setaX = alvoCentroX - tutorialArrow.getWidth() - recuoX; 
