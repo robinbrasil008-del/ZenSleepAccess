@@ -131,7 +131,7 @@ public class TutorialHelper {
             if (step >= 4) {
                 tutorialArrow.setImageResource(R.drawable.ic_seta_tutorial); 
             } else if (setaDiagonalOriginal != null) {
-                tutorialArrow.setImageDrawable(setaDiagonalOriginal); 
+                tutorialArrow.setImageDrawable(R.drawable.ic_seta_diagonal); 
             }
         }
 
