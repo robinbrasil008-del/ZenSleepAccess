@@ -276,28 +276,6 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
             btnMenu.setOnClickListener(v -> {
                 drawerLayout.openDrawer(GravityCompat.START);
             });
-
-            // Dentro de onde você intercepta os cliques do menu lateral...
-navigationView.setNavigationItemSelectedListener(item -> {
-    int id = item.getItemId();
-    
-    // ... os outros botões do menu ...
-
-    if (id == R.id.nav_tutorial) {
-        // Fecha o menu lateral quando o usuário clica
-        drawerLayout.closeDrawers(); 
-        
-        // Puxa a visualização da sua tela inicial (Home) e inicia o tutorial à força
-        View telaHome = findViewById(android.R.id.content); 
-        TutorialHelper tutorialHelper = new TutorialHelper(this, telaHome);
-        
-        // 🔥 Usa o novo gatilho!
-        tutorialHelper.iniciarForcado();
-    }
-
-    return true;
-});
-
         }
 
                 if (navView != null) {
