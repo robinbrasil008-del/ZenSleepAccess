@@ -62,27 +62,37 @@ public class TutorialHelper {
         }
     }
 
-    // 🔥 FUNÇÃO BLINDADA: Pega o seu botão REAL (btnPlayChuva) e joga o drawable ic_media_pause dentro!
+    // 🔥 RAIO-X: Acha a ImageView mesmo que ela esteja escondida dentro de um Layout!
     private void setCardPlayingState(View card, int idBotaoReal, boolean isPlaying) {
         if (card == null) return;
         
-        // Pega o botão na tela pelo ID original que você sempre usou
         View btnView = rootView.findViewById(idBotaoReal);
-        
-        if (btnView instanceof ImageView) {
-            ImageView btnPlayImage = (ImageView) btnView;
-            // ⚠️ ATENÇÃO: Se no seu projeto estiver escrito ic_midia_pause com "i", mude aqui embaixo!
+        if (btnView != null) {
             int imagemDrawable = isPlaying ? R.drawable.ic_media_pause : R.drawable.ic_media_play;
-            btnPlayImage.setImageResource(imagemDrawable);
+            
+            if (btnView instanceof ImageView) {
+                ((ImageView) btnView).setImageResource(imagemDrawable);
+            } else if (btnView instanceof ViewGroup) {
+                // Se o botão for um layout, ele caça a imagem dentro dele!
+                ViewGroup vg = (ViewGroup) btnView;
+                for (int i = 0; i < vg.getChildCount(); i++) {
+                    View child = vg.getChildAt(i);
+                    if (child instanceof ImageView) {
+                        ((ImageView) child).setImageResource(imagemDrawable);
+                        break;
+                    }
+                }
+            }
         }
         
-        // O equalizador a gente procura dentro do card (porque o ID é só @+id/equalizer)
+        // Equalizador blindado: Traz pra frente e dá elevação pra não sumir
         View equalizer = card.findViewById(R.id.equalizer);
         if (equalizer != null) {
             if (isPlaying) {
                 equalizer.setVisibility(View.VISIBLE);
                 equalizer.setAlpha(1f);
-                equalizer.bringToFront(); 
+                equalizer.bringToFront();
+                equalizer.setElevation(100f); 
             } else {
                 equalizer.setVisibility(View.GONE);
             }
@@ -96,11 +106,9 @@ public class TutorialHelper {
                     tutorialText.setText("Toque em um card para dar o play no som da natureza.");
                     View cardChuva = rootView.findViewById(R.id.cardChuva);
                     
-                    // Garante que tá como PLAY no começo
                     setCardPlayingState(cardChuva, R.id.btnPlayChuva, false);
                     focar(cardChuva);
                     
-                    // Aponta pro botão certo
                     View btnPlayC = rootView.findViewById(R.id.btnPlayChuva);
                     posicionarSeta(btnPlayC);
                     break;
@@ -114,7 +122,7 @@ public class TutorialHelper {
                     }
                     if (tutorialArrow != null) tutorialArrow.setVisibility(View.VISIBLE);
                     
-                    // 🔥 Chuva COMEÇA A TOCAR (Vira ic_media_pause e liga equalizador)
+                    // 🔥 AGORA VAI: Chuva COMEÇA A TOCAR (Mostra o PAUSE e o equalizer)
                     setCardPlayingState(rootView.findViewById(R.id.cardChuva), R.id.btnPlayChuva, true);
                     
                     focar(vol);
@@ -136,11 +144,11 @@ public class TutorialHelper {
                     if (seekC != null) { seekC.setVisibility(View.VISIBLE); seekC.setAlpha(1f); }
                     if (seekF != null) { seekF.setVisibility(View.VISIBLE); seekF.setAlpha(1f); }
 
-                    // 🔥 LIGA TUDO: Os dois cards "tocando" com imagem de PAUSE e Equalizador!
+                    // 🔥 LIGA TUDO: Os dois tocando (Pause + Equalizador)!
                     setCardPlayingState(card1, R.id.btnPlayChuva, true);
                     setCardPlayingState(card2, R.id.btnPlayFloresta, true);
 
-                    // O SINAL DE "+"
+                    // O SINAL DE "+" MATEMATICAMENTE PERFEITO
                     if (sinalMais == null) {
                         sinalMais = new TextView(context);
                         sinalMais.setText("+");
@@ -162,9 +170,23 @@ public class TutorialHelper {
                             card2.getLocationOnScreen(pos2);
                             tutorialOverlay.getLocationOnScreen(posOverlay);
                             
-                            float centroX = pos1[0] - posOverlay[0] + (card1.getWidth() / 2f);
-                            float posY = (pos1[1] - posOverlay[1] + card1.getHeight() + (pos2[1] - posOverlay[1])) / 2f - 45;
-                            sinalMais.setX(centroX - 25);
+                            // Calcula se os cards estão lado a lado ou um em cima do outro
+                            boolean ladoALado = Math.abs(pos1[1] - pos2[1]) < 100;
+                            float posX, posY;
+                            
+                            if (ladoALado) {
+                                float bordaDir1 = pos1[0] - posOverlay[0] + card1.getWidth();
+                                float bordaEsq2 = pos2[0] - posOverlay[0];
+                                posX = ((bordaDir1 + bordaEsq2) / 2f) - 25;
+                                posY = pos1[1] - posOverlay[1] + (card1.getHeight() / 2f) - 45;
+                            } else {
+                                posX = pos1[0] - posOverlay[0] + (card1.getWidth() / 2f) - 25;
+                                float fundoCard1 = pos1[1] - posOverlay[1] + card1.getHeight();
+                                float topoCard2 = pos2[1] - posOverlay[1];
+                                posY = ((fundoCard1 + topoCard2) / 2f) - 45;
+                            }
+                            
+                            sinalMais.setX(posX);
                             sinalMais.setY(posY);
                             sinalMais.animate().alpha(1f).setDuration(400).start();
                         });
@@ -176,7 +198,7 @@ public class TutorialHelper {
                 case 3:
                     if (sinalMais != null) sinalMais.setVisibility(View.GONE);
                     
-                    // 🔥 Para a Floresta (volta pro ic_media_play)
+                    // 🔥 Desliga Floresta (volta pro play original)
                     setCardPlayingState(rootView.findViewById(R.id.cardFloresta), R.id.btnPlayFloresta, false);
 
                     View seekF2 = rootView.findViewById(R.id.seekFloresta);
@@ -200,11 +222,13 @@ public class TutorialHelper {
 
     private void posicionarSeta(View alvoSeta) {
         if (tutorialArrow == null || alvoSeta == null) return;
-        alvoSeta.postDelayed(() -> {
-            if (alvoSeta.getWidth() <= 0) {
-                posicionarSeta(alvoSeta);
-                return;
-            }
+        
+        if (alvoSeta.getWidth() <= 0) {
+            alvoSeta.postDelayed(() -> posicionarSeta(alvoSeta), 50);
+            return;
+        }
+        
+        tutorialArrow.post(() -> {
             tutorialArrow.setVisibility(View.VISIBLE);
             int[] posAlvo = new int[2];
             int[] posOverlay = new int[2];
@@ -213,6 +237,9 @@ public class TutorialHelper {
             
             float alvoCentroX = posAlvo[0] - posOverlay[0] + (alvoSeta.getWidth() / 2f);
             float alvoCentroY = posAlvo[1] - posOverlay[1] + (alvoSeta.getHeight() / 2f);
+            
+            // Verifica se o alvo está muito no fundo da tela (ex: o cadeado)
+            boolean alvoNoRodape = alvoCentroY > (tutorialOverlay.getHeight() * 0.65f);
             
             float recuoX = 70f;
             float recuoY = 70f;
@@ -224,20 +251,39 @@ public class TutorialHelper {
             float setaX = (alvoCentroX > tutorialOverlay.getWidth()/2f) ? alvoCentroX - tutorialArrow.getWidth() - recuoX : alvoCentroX + recuoX;
             if (alvoCentroX <= tutorialOverlay.getWidth()/2f) tutorialArrow.setScaleX(-1f); else tutorialArrow.setScaleX(1f);
             
-            float setaY = alvoCentroY + recuoY;
+            float setaY;
+            if (alvoNoRodape) {
+                // 🔥 Seta ninja: Aponta DE CIMA PRA BAIXO se o item tá no rodapé!
+                setaY = alvoCentroY - recuoY - tutorialArrow.getHeight();
+                tutorialArrow.setScaleY(-1f); 
+            } else {
+                // Seta normal: Aponta DE BAIXO PRA CIMA
+                setaY = alvoCentroY + recuoY;
+                tutorialArrow.setScaleY(1f);
+            }
+            
+            // Usando .y() em vez de translationY pra animação não pular
             tutorialArrow.animate().x(setaX).y(setaY).alpha(1f).setDuration(400).start();
             
             if (arrowAnimator != null) arrowAnimator.cancel();
-            arrowAnimator = ObjectAnimator.ofFloat(tutorialArrow, "translationY", setaY, setaY + 15f);
+            float puloY = alvoNoRodape ? setaY - 15f : setaY + 15f;
+            arrowAnimator = ObjectAnimator.ofFloat(tutorialArrow, "y", setaY, puloY);
             arrowAnimator.setDuration(600).setRepeatMode(ValueAnimator.REVERSE);
             arrowAnimator.setRepeatCount(ValueAnimator.INFINITE);
             arrowAnimator.start();
             
             if (tutorialBox != null) {
-                float caixaY = setaY + tutorialArrow.getHeight() - 20;
+                float caixaY = alvoNoRodape ? setaY - tutorialBox.getHeight() - 20 : setaY + tutorialArrow.getHeight() - 20;
+                
+                // Trava de segurança para a caixa não sumir da tela
+                if (caixaY < 50) caixaY = 50;
+                if (caixaY + tutorialBox.getHeight() > tutorialOverlay.getHeight() - 50) {
+                    caixaY = tutorialOverlay.getHeight() - tutorialBox.getHeight() - 50;
+                }
+                
                 tutorialBox.animate().y(caixaY).setDuration(400).start();
             }
-        }, 50);
+        });
     }
 
     private void esconderSeta() {
@@ -267,12 +313,16 @@ public class TutorialHelper {
             p.width = (int)(maxX - minX); p.height = (int)(maxY - minY);
             highlightFrame.setLayoutParams(p);
             if (tutorialOverlay instanceof TutorialMaskView) ((TutorialMaskView) tutorialOverlay).setTarget(minX, minY, p.width, p.height);
-            moverCaixaTexto(minY, p.height);
+            
+            // Só move a caixa via 'focar' se não tiver seta agindo
+            if (tutorialArrow == null || tutorialArrow.getVisibility() != View.VISIBLE) {
+                moverCaixaTexto(minY, p.height);
+            }
         });
     }
 
     private void moverCaixaTexto(float alvoY, float alvoAltura) {
-        if (tutorialArrow != null && tutorialArrow.getVisibility() == View.VISIBLE) return;
+        if (tutorialBox == null) return;
         float caixaY = (alvoY < 1000) ? alvoY + alvoAltura + 50 : alvoY - tutorialBox.getHeight() - 50;
         tutorialBox.animate().y(caixaY).setDuration(400).start();
     }
@@ -294,7 +344,7 @@ public class TutorialHelper {
             View volF = rootView.findViewById(R.id.seekFloresta);
             if (volF != null) volF.setVisibility(View.GONE);
             
-            // 🔥 Volta pros play originais (ic_media_play) quando o tutorial acaba
+            // 🔥 Tudo finalizado: Zera a simulação e volta pro Play!
             setCardPlayingState(rootView.findViewById(R.id.cardChuva), R.id.btnPlayChuva, false);
             setCardPlayingState(rootView.findViewById(R.id.cardFloresta), R.id.btnPlayFloresta, false);
             
