@@ -13,6 +13,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 
 public class TutorialHelper {
 
@@ -28,6 +29,9 @@ public class TutorialHelper {
     private ObjectAnimator arrowAnimator;
     private TextView sinalMais;
     
+    // 🔥 Memória para guardar a sua seta diagonal original e não quebrar as primeiras etapas
+    private Drawable setaDiagonalOriginal;
+    
     private int tutorialStep = 0;
 
     public TutorialHelper(Context context, View rootView) {
@@ -38,7 +42,11 @@ public class TutorialHelper {
         this.tutorialBox = rootView.findViewById(R.id.tutorialBox);
         this.tutorialText = rootView.findViewById(R.id.tutorialText);
         this.btnProximo = rootView.findViewById(R.id.btnProximo);
+        
         this.tutorialArrow = rootView.findViewById(R.id.tutorialArrow);
+        if (this.tutorialArrow != null) {
+            this.setaDiagonalOriginal = this.tutorialArrow.getDrawable();
+        }
     }
 
     public void iniciarSeNecessario() {
@@ -55,7 +63,6 @@ public class TutorialHelper {
 
     private void avancar() {
         tutorialStep++;
-        // 🔥 AGORA SÃO 5 PASSOS (0 a 5)
         if (tutorialStep > 5) {
             finalizar();
         } else {
@@ -100,6 +107,15 @@ public class TutorialHelper {
     }
 
     private void configurarEtapa(int step) {
+        // 🔥 Troca a imagem da seta antes da animação com base na etapa
+        if (tutorialArrow != null) {
+            if (step >= 4) {
+                tutorialArrow.setImageResource(R.drawable.ic_seta_tutorial); // Seta reta
+            } else if (setaDiagonalOriginal != null) {
+                tutorialArrow.setImageDrawable(setaDiagonalOriginal); // Seta diagonal
+            }
+        }
+
         tutorialBox.animate().alpha(0f).setDuration(200).withEndAction(() -> {
             switch (step) {
                 case 0:
@@ -211,9 +227,6 @@ public class TutorialHelper {
                     break;
 
                 case 4:
-                    // 🔥 NOVA ETAPA: TEMPORIZADOR (timerCard)
-                    
-                    // Devolve o fundo escuro pro Cadeado da etapa anterior
                     View lockVolta = rootView.findViewById(R.id.lockOverlayFloresta);
                     if (lockVolta != null) {
                         lockVolta.setBackgroundColor(Color.parseColor("#CC000000"));
@@ -231,7 +244,6 @@ public class TutorialHelper {
                     break;
 
                 case 5:
-                    // 🔥 ÚLTIMA ETAPA: DEFINIR TIMER (btnTimer)
                     tutorialText.setText("Defina um novo tempo para a música desligar sozinha enquanto você dorme. Bons sonhos! 🌙");
                     
                     View btnTimer = rootView.findViewById(R.id.btnTimer);
@@ -240,7 +252,6 @@ public class TutorialHelper {
                     focar(btnTimer);
                     posicionarSeta(btnTimer);
                     
-                    // Agora sim muda o texto para concluir!
                     if (btnProximo != null) btnProximo.setText("Concluir");
                     break;
             }
@@ -267,8 +278,6 @@ public class TutorialHelper {
             float alvoCentroX = posAlvo[0] - posOverlay[0] + (alvoSeta.getWidth() / 2f);
             float alvoCentroY = posAlvo[1] - posOverlay[1] + (alvoSeta.getHeight() / 2f);
             
-            boolean alvoNoRodape = alvoCentroY > (tutorialOverlay.getHeight() * 0.65f);
-            
             float recuoX = 40f;
             float recuoY = 40f;
             
@@ -278,16 +287,27 @@ public class TutorialHelper {
             }
 
             float setaX;
-            if (alvoCentroX > tutorialOverlay.getWidth() / 2f) {
-                tutorialArrow.setScaleX(1f); 
-                setaX = alvoCentroX - tutorialArrow.getWidth() - recuoX; 
+            float setaY;
+
+            // 🔥 A MÁGICA DA POSIÇÃO SEPARADA (Reta vs Diagonal)
+            if (tutorialStep >= 4) {
+                // Seta Reta: Crava exatamente no centro do item e aponta debaixo para cima
+                tutorialArrow.setScaleX(1f);
+                tutorialArrow.setScaleY(1f);
+                setaX = alvoCentroX - (tutorialArrow.getWidth() / 2f);
+                setaY = alvoCentroY + (alvoSeta.getHeight() / 2f) + 15f; 
             } else {
-                tutorialArrow.setScaleX(-1f); 
-                setaX = alvoCentroX + recuoX; 
+                // Seta Diagonal: Fica de ladinho igual a gente tinha arrumado antes
+                if (alvoCentroX > tutorialOverlay.getWidth() / 2f) {
+                    tutorialArrow.setScaleX(1f); 
+                    setaX = alvoCentroX - tutorialArrow.getWidth() - recuoX; 
+                } else {
+                    tutorialArrow.setScaleX(-1f); 
+                    setaX = alvoCentroX + recuoX; 
+                }
+                tutorialArrow.setScaleY(1f);
+                setaY = alvoCentroY + recuoY; 
             }
-            
-            tutorialArrow.setScaleY(1f);
-            float setaY = alvoCentroY + recuoY; 
             
             tutorialArrow.animate().x(setaX).y(setaY).alpha(1f).setDuration(400).start();
             
