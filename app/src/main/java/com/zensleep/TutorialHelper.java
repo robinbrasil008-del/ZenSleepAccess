@@ -29,7 +29,7 @@ public class TutorialHelper {
     private ObjectAnimator arrowAnimator;
     private TextView sinalMais;
     
-    // 🔥 Memória para guardar a sua seta diagonal original e não quebrar as primeiras etapas
+    // Memória para guardar a sua seta diagonal original
     private Drawable setaDiagonalOriginal;
     
     private int tutorialStep = 0;
@@ -107,7 +107,7 @@ public class TutorialHelper {
     }
 
     private void configurarEtapa(int step) {
-        // 🔥 Troca a imagem da seta antes da animação com base na etapa
+        // Troca a imagem da seta com base na etapa
         if (tutorialArrow != null) {
             if (step >= 4) {
                 tutorialArrow.setImageResource(R.drawable.ic_seta_tutorial); // Seta reta
@@ -147,8 +147,9 @@ public class TutorialHelper {
                     esconderSeta();
                     tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
                     
+                    // 🔥 GONE: O Android é obrigado a esconder o cadeado completamente agora!
                     View lockFloresta = rootView.findViewById(R.id.lockOverlayFloresta);
-                    if (lockFloresta != null) lockFloresta.setVisibility(View.INVISIBLE);
+                    if (lockFloresta != null) lockFloresta.setVisibility(View.GONE);
 
                     View card1 = rootView.findViewById(R.id.cardChuva);
                     View card2 = rootView.findViewById(R.id.cardFloresta);
@@ -167,7 +168,7 @@ public class TutorialHelper {
                         sinalMais.setTextSize(45f); 
                         sinalMais.setTextColor(Color.WHITE);
                         sinalMais.setTypeface(null, Typeface.BOLD);
-                        sinalMais.setShadowLayer(10f, 0f, 0f, Color.parseColor("#3DDC84"));
+                        sinalMais.setShadowLayer(10f, 0f, 0f, Color.parseColor("#CC000000"));
                         tutorialOverlay.addView(sinalMais);
                     }
                     sinalMais.setVisibility(View.VISIBLE);
@@ -213,6 +214,8 @@ public class TutorialHelper {
                     if (seekF2 != null) seekF2.setVisibility(View.GONE);
                     
                     tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
+                    
+                    // Volta o cadeado para essa etapa
                     View lock = rootView.findViewById(R.id.lockOverlayFloresta);
                     if (lock != null) {
                         lock.setVisibility(View.VISIBLE);
@@ -227,8 +230,10 @@ public class TutorialHelper {
                     break;
 
                 case 4:
+                    // Devolve o fundo escuro pro Cadeado da etapa anterior
                     View lockVolta = rootView.findViewById(R.id.lockOverlayFloresta);
                     if (lockVolta != null) {
+                        lockVolta.setVisibility(View.VISIBLE);
                         lockVolta.setBackgroundColor(Color.parseColor("#CC000000"));
                     }
 
@@ -289,15 +294,14 @@ public class TutorialHelper {
             float setaX;
             float setaY;
 
-            // 🔥 A MÁGICA DA POSIÇÃO SEPARADA (Reta vs Diagonal)
             if (tutorialStep >= 4) {
-                // Seta Reta: Crava exatamente no centro do item e aponta debaixo para cima
+                // Seta Reta
                 tutorialArrow.setScaleX(1f);
                 tutorialArrow.setScaleY(1f);
                 setaX = alvoCentroX - (tutorialArrow.getWidth() / 2f);
                 setaY = alvoCentroY + (alvoSeta.getHeight() / 2f) + 15f; 
             } else {
-                // Seta Diagonal: Fica de ladinho igual a gente tinha arrumado antes
+                // Seta Diagonal
                 if (alvoCentroX > tutorialOverlay.getWidth() / 2f) {
                     tutorialArrow.setScaleX(1f); 
                     setaX = alvoCentroX - tutorialArrow.getWidth() - recuoX; 
