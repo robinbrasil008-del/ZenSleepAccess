@@ -167,7 +167,7 @@ public class TutorialHelper {
                         sinalMais.setTextSize(45f); 
                         sinalMais.setTextColor(Color.WHITE);
                         sinalMais.setTypeface(null, Typeface.BOLD);
-                        sinalMais.setShadowLayer(10f, 0f, 0f, Color.parseColor("#CC000000"));
+                        sinalMais.setShadowLayer(10f, 0f, 0f, Color.parseColor("#3DDC84"));
                         tutorialOverlay.addView(sinalMais);
                     }
                     sinalMais.setVisibility(View.VISIBLE);
