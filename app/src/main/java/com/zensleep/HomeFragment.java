@@ -325,27 +325,22 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
             }
         }
 
-                         // 👉 AQUI ENTRA O NOSSO BOTÃO DO TUTORIAL!
-              else  if (id == R.id.nav_tutorial) {
-        
-        // 1. Fecha o menu lateral para o tutorial não ficar por baixo dele
-        DrawerLayout drawer = findViewById(R.id.drawer_layout); // (Verifique se o ID do seu DrawerLayout é esse mesmo)
-        if (drawer != null) {
-            drawer.closeDrawers();
-        }
-        
-        // 2. Chama a nossa classe TutorialHelper usando a tela toda (android.R.id.content)
-        View telaInteira = findViewById(android.R.id.content);
-        
-        // ATENÇÃO: Se estiver dentro de um Fragment, troque "MainActivity.this" por "requireContext()" ou "getContext()"
-        TutorialHelper tutorial = new TutorialHelper(MainActivity.this, telaInteira);
-        
-        // 3. Força o tutorial a abrir do zero!
-        tutorial.iniciarForcado();
-        
-        return true;
-    }
+                         if (id == R.id.nav_tutorial) {
+            // 1. Fecha o menu lateral para não ficar na frente do tutorial
+            if (drawerLayout != null) {
+                drawerLayout.closeDrawers();
+            }
 
+            // 2. Pega a View principal do Fragment
+            View rootView = requireActivity().findViewById(android.R.id.content);
+
+            // 3. Instancia o Helper e chama o método que criamos
+            TutorialHelper tutorialHelper = new TutorialHelper(requireContext(), rootView);
+            tutorialHelper.iniciarForcado();
+
+            return true;
+                         }
+                         
                     else if (id == R.id.nav_termos) {
             // Coloque aqui o link real dos seus termos de uso
             String linkTermos = "https://www.app-zensleep.site/terms.html"; 
