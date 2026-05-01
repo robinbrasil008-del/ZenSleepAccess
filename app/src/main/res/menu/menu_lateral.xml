@@ -3,6 +3,11 @@
 
     <group>
         <item
+            android:id="@+id/nav_tutorial"
+            android:icon="@android:drawable/ic_menu_help"
+            android:title="Rever Tutorial" />
+            
+        <item
             android:id="@+id/nav_privacidade"
             android:icon="@android:drawable/ic_lock_lock"
             android:title="Política de Privacidade" />
