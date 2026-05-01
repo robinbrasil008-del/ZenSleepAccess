@@ -144,7 +144,7 @@ public class TutorialHelper {
         tutorialBox.animate().alpha(0f).setDuration(200).withEndAction(() -> {
             switch (step) {
                 case 0:
-                    tutorialText.setText("Toque em um card para dar o play no som da natureza.");
+                    tutorialText.setText("Toque no botão PLAY de um card para soltar o som referente a ele...");
                     View cardChuva = rootView.findViewById(R.id.cardChuva);
                     
                     setCardPlayingState(cardChuva, R.id.btnPlayChuva, false);
