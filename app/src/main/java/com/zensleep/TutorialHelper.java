@@ -166,7 +166,7 @@ public class TutorialHelper {
                         sinalMais = new TextView(context);
                         sinalMais.setText("+");
                         sinalMais.setTextSize(45f); 
-                        sinalMais.setTextColor(Color.WHITE);
+                        sinalMais.setTextColor(Color.parseColor("#4CAF50")); // Verde estilo Material Design
                         sinalMais.setTypeface(null, Typeface.BOLD);
                         sinalMais.setShadowLayer(10f, 0f, 0f, Color.parseColor("#008000"));
                         tutorialOverlay.addView(sinalMais);
