@@ -45,7 +45,7 @@ public class TutorialHelper {
         
         this.tutorialArrow = rootView.findViewById(R.id.tutorialArrow);
         if (this.tutorialArrow != null) {
-            this.setaDiagonalOriginal = this.tutorialArrow.getDrawable(R.drawable.ic_seta_diagonal);
+            this.setaDiagonalOriginal = this.tutorialArrow.getDrawable();
         }
     }
 
