@@ -58,6 +58,12 @@ public class TutorialHelper {
 
         tutorialStep = 0; // Garante que começa do passo 0
 
+                // 🎯 SALVA O ESTADO REAL: Antes de começar, vemos se a Floresta está trancada ou não
+        View lockOriginal = rootView.findViewById(R.id.lockOverlayFloresta);
+        if (lockOriginal != null) {
+            originalLockVisibility = lockOriginal.getVisibility();
+        }
+
         tutorialOverlay.setVisibility(View.VISIBLE);
         tutorialOverlay.setAlpha(0f);
         tutorialOverlay.animate().alpha(1f).setDuration(500).start();
