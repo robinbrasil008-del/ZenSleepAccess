@@ -127,13 +127,19 @@ public class TutorialHelper {
     }
 
     private void configurarEtapa(int step) {
-        if (tutorialArrow != null) {
-            if (step >= 4) {
-                tutorialArrow.setImageResource(R.drawable.ic_seta_tutorial); 
-            } else if (setaDiagonalOriginal != null) {
-                tutorialArrow.setImageResource(ic_seta_diagonal); 
-            }
+            // --- SUBSTITUA APENAS ESTA PARTE ---
+    if (tutorialArrow != null) {
+        if (step >= 4) {
+            // Etapas 4 e 5: SETA RETA (Corrigido para R.drawable)
+            tutorialArrow.setImageResource(R.drawable.ic_seta_tutorial); 
+        } else {
+            // Etapas 0, 1 e 3: SETA DIAGONAL 
+            // ⚠️ IMPORTANTE: Coloque aqui o nome REAL do seu arquivo de seta diagonal
+            // Exemplo: R.drawable.ic_seta_diagonal
+            tutorialArrow.setImageResource(R.drawable.ic_seta_diagonal); 
         }
+    }
+    // --- FIM DA SUBSTITUIÇÃO ---
 
         tutorialBox.animate().alpha(0f).setDuration(200).withEndAction(() -> {
             switch (step) {
