@@ -34,6 +34,9 @@ public class TutorialHelper {
     
     private int tutorialStep = 0;
 
+    // 🔥 Variável para salvar o estado real do seu app antes do tutorial mexer em tudo
+    private int originalLockVisibility = View.VISIBLE;
+
     public TutorialHelper(Context context, View rootView) {
         this.context = context;
         this.rootView = rootView;
@@ -68,6 +71,12 @@ public class TutorialHelper {
         if (tutorialOverlay == null) return;
         
         tutorialStep = 0; // Reseta para o primeiro passo
+
+                // 🎯 SALVA O ESTADO REAL: Antes de começar, vemos se a Floresta está trancada ou não
+        View lockOriginal = rootView.findViewById(R.id.lockOverlayFloresta);
+        if (lockOriginal != null) {
+            originalLockVisibility = lockOriginal.getVisibility();
+        }
         
         // Desliga os botões e os sons caso o usuário esteja usando o app no momento
         setCardPlayingState(rootView.findViewById(R.id.cardChuva), R.id.btnPlayChuva, false);
