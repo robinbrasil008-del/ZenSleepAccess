@@ -18,6 +18,15 @@
             android:layout_marginBottom="32dp"
             android:layout_marginTop="16dp">
 
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_seta_voltar"
+                android:contentDescription="Voltar"
+                android:clickable="true"
+                android:focusable="true"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
