@@ -35,6 +35,7 @@ public class AlarmConfigActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(PREFS, 0);
 
+        ImageView btnBack = findViewById(R.id.btnBack);
         LinearLayout cardAlarmSound = findViewById(R.id.cardAlarmSound);
         txtAlarmSound = findViewById(R.id.txtAlarmSound);
 
@@ -56,6 +57,7 @@ public class AlarmConfigActivity extends AppCompatActivity {
         switchVibrate.setChecked(vibrate);
         txtSnooze.setText(snooze + " minutos");
 
+        btnBack.setOnClickListener(v -> finish());
         cardAlarmSound.setOnClickListener(v -> openSoundDialog());
 
         seekVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
