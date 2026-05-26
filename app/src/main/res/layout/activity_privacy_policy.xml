@@ -12,7 +12,7 @@
                 android:src="@drawable/ic_seta_voltar"
                 android:contentDescription="Voltar"
                 android:clickable="true"
-                android:focusable="true"
+                android:focusable="true"/>
 
     <WebView
         android:id="@+id/webPolicy"
