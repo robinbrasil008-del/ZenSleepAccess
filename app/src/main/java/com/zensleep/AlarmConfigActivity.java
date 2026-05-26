@@ -35,7 +35,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(PREFS, 0);
 
-        ImageView btnBack = findViewById(R.id.btnBack);
         LinearLayout cardAlarmSound = findViewById(R.id.cardAlarmSound);
         txtAlarmSound = findViewById(R.id.txtAlarmSound);
 
