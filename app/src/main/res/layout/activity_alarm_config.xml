@@ -137,12 +137,12 @@
                 android:textColor="#94A3B8"
                 android:textSize="12sp"/>
 
-            <Switch
+         <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchVibrate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:thumbTint="#4AD3C6"
-                android:trackTint="#1E2A3B"/>
+                android:theme="@style/Theme.AppCompat.Light"/>
+
         </LinearLayout>
 
         <LinearLayout
