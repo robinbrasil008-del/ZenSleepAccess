@@ -18,12 +18,14 @@
             android:layout_marginBottom="32dp"
             android:layout_marginTop="16dp">
 
-          <ImageView
+            <ImageView
                 android:id="@+id/btnBack"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:src="@android:drawable/ic_menu_back"
-                android:tint="#7DD3FC"/>
+                android:src="@drawable/ic_seta_voltar"
+                android:contentDescription="Voltar"
+                android:clickable="true"
+                android:focusable="true"/>
 
             <TextView
                 android:layout_width="wrap_content"
