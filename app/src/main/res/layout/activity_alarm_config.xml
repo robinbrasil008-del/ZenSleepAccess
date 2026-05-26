@@ -21,7 +21,7 @@
                 android:id="@+id/btnBack"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_seta_voltar"
+                app:srcCompat="@drawable/ic_seta_voltar"
                 android:tint="#E2E8F0"/>
 
             <TextView
@@ -74,7 +74,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_seta_baixo"/>
+                    app:srcCompat="@drawable/ic_seta_baixo"/>
             </LinearLayout>
         </LinearLayout>
 
