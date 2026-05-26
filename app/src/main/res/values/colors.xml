@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- FUNDO CLARO -->
     <color name="backgroundColor">#F4F6F9</color>
 
-    <!-- CARDS (NÃO MUDAM) -->
     <color name="card_color">#1F2A3A</color>
     <color name="card_shadow">#101826</color>
 
-    <!-- BOTÕES -->
     <color name="stop_color">#1ABC9C</color>
 
-    <!-- PRIMARY -->
     <color name="primaryColor">#081224</color>
     <color name="primaryVariant">#081224</color>
     <color name="onPrimary">#FFFFFF</color>
     <color name="statusBarColor">#081224</color>
 
-    <!-- Botão gradiente claro -->
     <color name="buttonStart">#38BDF8</color>
     <color name="buttonEnd">#22D3EE</color>
     <color name="gradientStart">#F4F6F9</color>
     <color name="gradientEnd">#E6EBF2</color>
     <color name="cardBackground">#1F2A3A</color>
-
-</resources>
+    
+    <color name="text_primary">#F8FAFC</color> <color name="text_secondary">#94A3B8</color> <color name="text_muted">#475569</color> <color name="accent_cyan">#4AD3C6</color> <color name="switch_track_dark">#2A3A50</color> </resources>
