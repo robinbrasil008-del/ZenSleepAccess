@@ -9,7 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.Switch;
+// ALTERADO: Trocado android.widget.Switch por androidx.appcompat.widget.SwitchCompat
+import androidx.appcompat.widget.SwitchCompat; 
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,10 @@ public class AlarmConfigActivity extends AppCompatActivity {
 
         SeekBar seekVolume = findViewById(R.id.seekAlarmVolume);
         TextView txtVolume = findViewById(R.id.txtAlarmVolumeValue);
-        Switch switchVibrate = findViewById(R.id.switchVibrate);
+        
+        // ALTERADO: Tipo corrigido para SwitchCompat refletir o seu XML
+        SwitchCompat switchVibrate = findViewById(R.id.switchVibrate); 
+        
         TextView txtSnooze = findViewById(R.id.txtSnoozeValue);
         View btnSave = findViewById(R.id.btnSave);
 
@@ -175,3 +179,4 @@ public class AlarmConfigActivity extends AppCompatActivity {
         }
     }
 }
+
