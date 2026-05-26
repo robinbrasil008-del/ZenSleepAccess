@@ -15,25 +15,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="36dp"
             android:layout_marginTop="16dp">
 
             <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/ic_seta_voltar"
                 android:contentDescription="Voltar"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Configurar Despertador"
-                android:textSize="20sp"
-                android:textColor="#F8FAFC"
+                android:textSize="22sp"
+                android:textColor="@color/text_primary"
                 android:textStyle="bold"
+                android:letterSpacing="0.02"
                 android:layout_marginStart="16dp"/>
         </LinearLayout>
 
@@ -42,19 +44,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_card_glass"
-            android:padding="20dp"
+            android:padding="24dp"
             android:layout_marginBottom="16dp"
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?attr/selectableItemBackground">
+            android:foreground="?android:attr/selectableItemBackground">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SELECIONAR SOM"
-                android:textColor="#94A3B8"
-                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                android:letterSpacing="0.08"
                 android:textStyle="bold"/>
 
             <LinearLayout
@@ -62,22 +65,24 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="12dp">
 
                 <TextView
                     android:id="@+id/txtAlarmSound"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Som 1\nDuração: 30s"
-                    android:textColor="#F8FAFC"
-                    android:textSize="16sp"
+                    android:text="🎵 Som 1\nDuração: 30s"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:lineSpacingExtra="4dp"/>
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    app:srcCompat="@drawable/ic_seta_baixo"/>
+                    app:srcCompat="@drawable/ic_seta_baixo"
+                    app:tint="@color/text_secondary"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -85,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_card_glass"
-            android:padding="20dp"
+            android:padding="24dp"
             android:layout_marginBottom="16dp"
             android:orientation="vertical">
 
@@ -99,26 +104,28 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="VOLUME DO ALARME"
-                    android:textColor="#94A3B8"
-                    android:textStyle="bold"
-                    android:textSize="12sp"/>
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp"
+                    android:letterSpacing="0.08"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/txtAlarmVolumeValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="80%"
-                    android:textColor="#F8FAFC"
-                    android:textSize="14sp"/>
+                    android:textColor="@color/accent_cyan"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
             </LinearLayout>
 
             <SeekBar
                 android:id="@+id/seekAlarmVolume"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:progressTint="#4AD3C6"
-                android:thumbTint="#4AD3C6"
+                android:layout_marginTop="20dp"
+                android:progressTint="@color/accent_cyan"
+                android:thumbTint="@color/accent_cyan"
                 android:max="100"
                 android:progress="80"/>
         </LinearLayout>
@@ -127,7 +134,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_card_glass"
-            android:padding="20dp"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="18dp"
             android:layout_marginBottom="16dp"
             android:gravity="center_vertical">
 
@@ -135,16 +143,17 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ATIVAR VIBRAÇÃO"
-                android:textStyle="bold"
-                android:textColor="#94A3B8"
-                android:textSize="12sp"/>
+                android:text="📳 ATIVAR VIBRAÇÃO"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
 
-         <androidx.appcompat.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchVibrate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:theme="@style/Theme.AppCompat.Light"/>
+                app:thumbTint="@color/accent_cyan"
+                app:trackTint="@color/switch_track_dark"/>
 
         </LinearLayout>
 
@@ -152,7 +161,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_card_glass"
-            android:padding="20dp"
+            android:padding="24dp"
             android:layout_marginBottom="40dp"
             android:orientation="vertical"
             android:clickable="false"
@@ -161,25 +170,26 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MODO SONECA"
-                android:textStyle="bold"
-                android:textColor="#94A3B8"
-                android:textSize="12sp"/>
+                android:text="🌙 MODO SONECA"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                android:letterSpacing="0.08"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Disponível em breve"
-                android:textColor="#64748B"
+                android:textColor="@color/text_muted"
                 android:textSize="16sp"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="12dp"/>
 
             <TextView
                 android:id="@+id/txtSnoozeValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Intervalo: 5 minutos"
-                android:textColor="#64748B"
+                android:textColor="@color/text_muted"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
@@ -187,11 +197,11 @@
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="60dp"
             android:text="SALVAR"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:letterSpacing="0.05"
+            android:letterSpacing="0.1"
             android:textColor="#FFFFFF"
             android:background="@drawable/bg_button_gradient"/>
     </LinearLayout>
