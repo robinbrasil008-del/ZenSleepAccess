@@ -90,10 +90,10 @@ public class AlarmConfigActivity extends AppCompatActivity {
     private void openSoundDialog() {
 
         String[] options = {
-                "Som 1",
-                "Som 2",
-                "Som 3",
-                "Upload de áudio"
+                "Som Padrão 1",
+                "Som Padrão 2",
+                "Som Padrão 3",
+                "📁 Escolher Áudio Do Dispositivo"
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -137,22 +137,22 @@ public class AlarmConfigActivity extends AppCompatActivity {
     private void updateSoundText() {
 
         if (selectedSound == null) {
-            txtAlarmSound.setText("🎵 Padrão");
+            txtAlarmSound.setText("Padrão");
             return;
         }
 
         switch (selectedSound) {
             case "SOM_1":
-                txtAlarmSound.setText("🎵 Som 1");
+                txtAlarmSound.setText("Som Padrão 1");
                 break;
             case "SOM_2":
-                txtAlarmSound.setText("🎵 Som 2");
+                txtAlarmSound.setText("Som Padrão 2");
                 break;
             case "SOM_3":
-                txtAlarmSound.setText("🎵 Som 3");
+                txtAlarmSound.setText("Som Padrão 3");
                 break;
             default:
-                txtAlarmSound.setText("🎵 Áudio Personalizado");
+                txtAlarmSound.setText("Áudio Personalizado");
                 break;
         }
     }
