@@ -17,28 +17,28 @@
 
     <TextView
         android:id="@+id/optionSound1"
-        android:text="Som 1"
+        android:text="Som Padrão 1"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:padding="12dp"/>
 
     <TextView
         android:id="@+id/optionSound2"
-        android:text="Som 2"
+        android:text="Som Padrão 2"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:padding="12dp"/>
 
     <TextView
         android:id="@+id/optionSound3"
-        android:text="Som 3"
+        android:text="Som Padrão 3"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:padding="12dp"/>
 
     <TextView
         android:id="@+id/optionUpload"
-        android:text="📁 Upload de áudio"
+        android:text="📁 Escolher Audio do Dispositivo"
         android:textColor="#38BDF8"
         android:textSize="16sp"
         android:padding="12dp"/>
