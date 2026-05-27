@@ -3,29 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_screen_gradient">
+    android:background="@drawable/bg_screen_gradient"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:paddingHorizontal="24dp"
+        android:paddingTop="32dp"
+        android:paddingBottom="40dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:layout_marginBottom="36dp"
-            android:layout_marginTop="16dp">
+            android:layout_marginBottom="40dp">
 
             <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:src="@drawable/ic_seta_voltar"
                 android:contentDescription="Voltar"
                 android:clickable="true"
                 android:focusable="true"
+                android:padding="4dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
             <TextView
@@ -33,9 +36,8 @@
                 android:layout_height="wrap_content"
                 android:text="Configurar Despertador"
                 android:textSize="22sp"
-                android:textColor="@color/text_primary"
+                android:textColor="#F8FAFC"
                 android:textStyle="bold"
-                android:letterSpacing="0.02"
                 android:layout_marginStart="16dp"/>
         </LinearLayout>
 
@@ -55,8 +57,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SELECIONAR SOM"
-                android:textColor="@color/text_secondary"
-                android:textSize="11sp"
+                android:textColor="#94A3B8"
+                android:textSize="12sp"
                 android:letterSpacing="0.08"
                 android:textStyle="bold"/>
 
@@ -65,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginTop="12dp">
+                android:layout_marginTop="14dp">
 
                 <TextView
                     android:id="@+id/txtAlarmSound"
@@ -73,7 +75,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="🎵 Som 1\nDuração: 30s"
-                    android:textColor="@color/text_primary"
+                    android:textColor="#F8FAFC"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:lineSpacingExtra="4dp"/>
@@ -82,7 +84,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     app:srcCompat="@drawable/ic_seta_baixo"
-                    app:tint="@color/text_secondary"/>
+                    app:tint="#4AD3C6"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -104,8 +106,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="VOLUME DO ALARME"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="11sp"
+                    android:textColor="#94A3B8"
+                    android:textSize="12sp"
                     android:letterSpacing="0.08"
                     android:textStyle="bold"/>
 
@@ -114,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="80%"
-                    android:textColor="@color/accent_cyan"
+                    android:textColor="#4AD3C6"
                     android:textStyle="bold"
                     android:textSize="16sp"/>
             </LinearLayout>
@@ -124,8 +126,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:progressTint="@color/accent_cyan"
-                android:thumbTint="@color/accent_cyan"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:progressTint="#4AD3C6"
+                android:thumbTint="#4AD3C6"
                 android:max="100"
                 android:progress="80"/>
         </LinearLayout>
@@ -144,17 +148,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="📳 ATIVAR VIBRAÇÃO"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
+                android:textColor="#F8FAFC"
+                android:textSize="15sp"
                 android:textStyle="bold"/>
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchVibrate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:thumbTint="@color/accent_cyan"
-                app:trackTint="@color/switch_track_dark"/>
-
+                app:thumbTint="#4AD3C6"
+                app:trackTint="#1E293B"/>
         </LinearLayout>
 
         <LinearLayout
@@ -171,8 +174,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="🌙 MODO SONECA"
-                android:textColor="@color/text_secondary"
-                android:textSize="11sp"
+                android:textColor="#94A3B8"
+                android:textSize="12sp"
                 android:letterSpacing="0.08"
                 android:textStyle="bold"/>
 
@@ -180,8 +183,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Disponível em breve"
-                android:textColor="@color/text_muted"
+                android:textColor="#475569"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 android:layout_marginTop="12dp"/>
 
             <TextView
@@ -189,7 +193,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Intervalo: 5 minutos"
-                android:textColor="@color/text_muted"
+                android:textColor="#475569"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
