@@ -22,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
                 android:src="@drawable/ic_seta_voltar"
                 android:contentDescription="Voltar"
                 android:clickable="true"
@@ -79,7 +79,8 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Som 1\nDuração: 30s"
+                    android:text="Som Padrão 1\nDuração: 30s"
+                    android:fontFamily="@font/playfair"
                     android:textColor="#F8FAFC"
                     android:textSize="18sp"
                     android:lineSpacingExtra="4dp"/>
@@ -150,6 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="ATIVAR VIBRAÇÃO"
+                android:fontFamily="@font/playfair"
                 android:textColor="#E6DAB3"
                 android:textSize="15sp"
                 android:drawableStart="@drawable/ic_vibracao"
@@ -178,6 +180,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MODO SONECA"
+                android:fontFamily="@font/playfair"
                 android:textColor="#E6DAB3"
                 android:textSize="14sp"
                 android:drawableStart="@drawable/ic_lua"
