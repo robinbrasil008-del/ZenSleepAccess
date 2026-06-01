@@ -91,14 +91,12 @@ public class AlarmConfigActivity extends AppCompatActivity {
 
     private void openSoundDialog() {
         
-        // 1. Criamos um Dialog PURO e blindado contra o layout padrão do Android
-        Dialog dialog = new Dialog(this);
-        
-        // 2. Removemos a barra de título nativa que causa crashes de inflação
+        // Usamos o LayoutInflater da própria Activity
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_select_sound, null);
+
+        final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        
-        // 3. Injetamos apenas o seu XML limpo
-        dialog.setContentView(R.layout.dialog_select_sound);
+        dialog.setContentView(dialogView);
 
         // 4. Setamos o fundo transparente de forma segura, agora que não há conflito
         if (dialog.getWindow() != null) {
