@@ -1,6 +1,8 @@
 package com.zensleep;
 
-import android.app.AlertDialog;
+// 🔥 CORREÇÃO 1: Importação atualizada para a versão compatível com seu projeto (AndroidX)
+import androidx.appcompat.app.AlertDialog;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -62,6 +64,7 @@ public class AlarmConfigActivity extends AppCompatActivity {
         txtSnooze.setText(snooze + " minutos");
 
         btnBack.setOnClickListener(v -> finish());
+        
         cardAlarmSound.setOnClickListener(v -> openSoundDialog());
 
         seekVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -95,11 +98,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
 
-        // A CORREÇÃO ESTÁ AQUI: Usando ColorDrawable para evitar o crash
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-
         TextView option1 = dialogView.findViewById(R.id.optionSound1);
         TextView option2 = dialogView.findViewById(R.id.optionSound2);
         TextView option3 = dialogView.findViewById(R.id.optionSound3);
@@ -128,7 +126,13 @@ public class AlarmConfigActivity extends AppCompatActivity {
             dialog.dismiss();
         });
 
+        // 🔥 CORREÇÃO 2: Mostramos o dialog ANTES de tentar manipular o fundo dele
         dialog.show();
+
+        // Agora que a janela com certeza existe, deixamos transparente para o seu layout curvo aparecer
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
     }
 
     private void openAudioPicker() {
