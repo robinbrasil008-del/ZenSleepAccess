@@ -98,11 +98,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogView);
 
-        // 4. Setamos o fundo transparente de forma segura, agora que não há conflito
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-
         // 5. Puxamos os IDs diretamente da variável do dialog
         TextView option1 = dialog.findViewById(R.id.optionSound1);
         TextView option2 = dialog.findViewById(R.id.optionSound2);
