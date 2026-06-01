@@ -30,7 +30,7 @@
                 android:fontFamily="@font/playfair"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="#E6DAB3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -50,6 +50,7 @@
 
             <TextView
                 android:text="⏰ Configurar Despertador"
+                android:fontFamily="@font/playfair"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
@@ -67,6 +68,7 @@
 
             <TextView
                 android:text="🌙 Tema escuro"
+                android:fontFamily="@font/playfair"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:layout_weight="1"
@@ -97,6 +99,7 @@
                 <TextView
                     android:text="🔊 Volume geral"
                     android:textColor="#FFFFFF"
+                    android:fontFamily="@font/playfair"
                     android:textSize="16sp"
                     android:layout_weight="1"
                     android:layout_width="0dp"
@@ -134,6 +137,7 @@
 
             <TextView
                 android:text="🛡 Política de privacidade"
+                android:fontFamily="@font/playfair"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
@@ -150,6 +154,7 @@
 
             <TextView
                 android:text="ℹ Versão"
+                android:fontFamily="@font/playfair"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:layout_weight="1"
