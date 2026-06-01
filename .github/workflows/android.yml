@@ -23,28 +23,33 @@ jobs:
       - name: Give permission to wrapper
         run: chmod +x gradlew
 
-      # 👇 1. Gera o AAB e o APK em modo Release juntos na mesma execução (ignorando os erros chatos do Lint)
+      # 👇 1. Gera o AAB e o APK em modo Release juntos na mesma execução
       - name: Build AAB e APK (Release)
         run: ./gradlew clean bundleRelease assembleRelease -x lint -x lintVitalRelease --no-daemon
 
-      # 👇 2. Assina o AAB e o APK usando a chave que salvamos no repositório!
+      # 👇 2. Assina o AAB (via jarsigner) e o APK usando o apksigner oficial (V2/V3)
       - name: Assinar AAB e APK
         run: |
-          # Assinando o AAB
+          # Assinando o AAB (A Play Store aceita jarsigner perfeitamente para bundles)
           jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore minha-chave.jks -storepass "15349276" -keypass "15349276" app/build/outputs/bundle/release/app-release.aab "meu-app"
           
-          # Encontrando e assinando o APK gerado
+          # Encontrando o APK gerado pelo Gradle
           APK_PATH=$(find app/build/outputs/apk/release -name "*.apk" | head -n 1)
-          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore minha-chave.jks -storepass "15349276" -keypass "15349276" "$APK_PATH" "meu-app"
+          
+          # Localizando a pasta build-tools do Android SDK instalada no servidor do GitHub
+          BUILD_TOOLS_DIR=$(ls -d $ANDROID_HOME/build-tools/* | tail -n 1)
+          
+          # Assinando o APK com esquema V2/V3 (Obrigatório para instalação direta funcionar sem erro de pacote inválido)
+          $BUILD_TOOLS_DIR/apksigner sign --ks minha-chave.jks --ks-pass pass:"15349276" --key-pass pass:"15349276" "$APK_PATH"
 
-      # 👇 3. Entrega o arquivo .aab pronto
+      # 👇 3. Entrega o arquivo .aab pronto para subir no Console
       - name: Upload AAB Assinado
         uses: actions/upload-artifact@v4
         with:
           name: app-release-assinado-playstore
           path: app/build/outputs/bundle/release/app-release.aab
 
-      # 👇 4. Entrega o arquivo .apk pronto para instalar no celular
+      # 👇 4. Entrega o arquivo .apk pronto e corrigido para testar no celular
       - name: Upload APK Assinado
         uses: actions/upload-artifact@v4
         with:
