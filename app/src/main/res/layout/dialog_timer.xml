@@ -29,7 +29,8 @@
 
             <TextView
                 android:text="⏰ Despertador"
-                android:textColor="#FFFFFF"
+                android:fontFamily="@font/playfair"
+                android:textColor="#E6DAB3"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
@@ -53,7 +54,8 @@
     <!-- TÍTULO TIMER -->
     <TextView
         android:text="Definir tempo (minutos)"
-        android:textColor="#FFFFFF"
+        android:fontFamily="@font/playfair"
+        android:textColor="#E6DAB3"
         android:textSize="18sp"
         android:layout_gravity="center"
         android:layout_marginBottom="12dp"
@@ -93,6 +95,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnStartTimer"
         android:text="INICIAR TEMPO"
+        android:fontFamily="@font/playfair"
         android:textColor="#FFFFFF"
         android:background="@drawable/bg_button_gradient"
         android:backgroundTint="@null"
