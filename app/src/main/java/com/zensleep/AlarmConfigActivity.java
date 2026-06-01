@@ -147,28 +147,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
         startActivityForResult(intent, PICK_AUDIO_REQUEST);
     }
 
-    private void updateSoundText() {
-        if (selectedSound == null) {
-            txtAlarmSound.setText("Padrão");
-            return;
-        }
-
-        switch (selectedSound) {
-            case "SOM_1":
-                txtAlarmSound.setText("Som Padrão 1");
-                break;
-            case "SOM_2":
-                txtAlarmSound.setText("Som Padrão 2");
-                break;
-            case "SOM_3":
-                txtAlarmSound.setText("Som Padrão 3");
-                break;
-            default:
-                txtAlarmSound.setText("📁 Escolher Audio do Dispositivo");
-                break;
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
