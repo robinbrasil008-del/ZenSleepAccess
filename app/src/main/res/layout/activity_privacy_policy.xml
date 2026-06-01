@@ -7,13 +7,15 @@
 
     <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
                 android:src="@drawable/ic_seta_voltar"
                 android:contentDescription="Voltar"
                 android:clickable="true"
-                android:focusable="true"/>
-
+                android:focusable="true"
+                android:padding="4dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"/>
+    
     <WebView
         android:id="@+id/webPolicy"
         android:layout_width="match_parent"
