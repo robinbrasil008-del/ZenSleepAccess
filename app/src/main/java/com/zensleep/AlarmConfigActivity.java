@@ -3,6 +3,8 @@ package com.zensleep;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -85,29 +87,24 @@ public class AlarmConfigActivity extends AppCompatActivity {
         });
     }
 
-    // ALTERADO APENAS AQUI: Método reescrito para inflar seu layout customizado
     private void openSoundDialog() {
         
-        // Infla o seu layout XML
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_select_sound, null);
 
-        // Constrói o dialog usando a sua view
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
 
-        // Deixa o fundo transparente para o seu bg_screen_gradient aparecer corretamente sem bordas brancas quadradas
+        // A CORREÇÃO ESTÁ AQUI: Usando ColorDrawable para evitar o crash
         if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-        // Pega as referências dos TextViews que você criou no XML
         TextView option1 = dialogView.findViewById(R.id.optionSound1);
         TextView option2 = dialogView.findViewById(R.id.optionSound2);
         TextView option3 = dialogView.findViewById(R.id.optionSound3);
         TextView optionUpload = dialogView.findViewById(R.id.optionUpload);
 
-        // Aplica os cliques em cada opção
         option1.setOnClickListener(v -> {
             selectedSound = "SOM_1";
             updateSoundText();
@@ -177,8 +174,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
             Uri uri = data.getData();
 
             if (uri != null) {
-
-                // 🔥 Persistir permissão
                 getContentResolver().takePersistableUriPermission(
                         uri,
                         Intent.FLAG_GRANT_READ_URI_PERMISSION
