@@ -13,11 +13,12 @@
 
         <!-- TÍTULO -->
         <TextView
-            android:text="Sons ❤️ Favoritos"
+            android:text="Sons Favoritos ❤️"
+            android:fontFamily="@font/playfair"
             android:textSize="28sp"
             android:textStyle="bold"
             android:layout_gravity="center"
-            android:textColor="?android:textColorPrimary"
+            android:textColor="#E6DAB3"
             android:layout_marginBottom="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
