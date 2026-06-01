@@ -31,6 +31,8 @@ public class AlarmConfigActivity extends AppCompatActivity {
 
     private TextView txtAlarmSound;
     private String selectedSound = "SOM_1";
+    private String selectedSound = "SOM_2";
+    private String selectedSound = "SOM_3";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
