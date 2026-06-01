@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-// ALTERADO: Trocado android.widget.Switch por androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.SwitchCompat; 
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +42,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
         SeekBar seekVolume = findViewById(R.id.seekAlarmVolume);
         TextView txtVolume = findViewById(R.id.txtAlarmVolumeValue);
         
-        // ALTERADO: Tipo corrigido para SwitchCompat refletir o seu XML
         SwitchCompat switchVibrate = findViewById(R.id.switchVibrate); 
         
         TextView txtSnooze = findViewById(R.id.txtSnoozeValue);
@@ -87,40 +85,53 @@ public class AlarmConfigActivity extends AppCompatActivity {
         });
     }
 
+    // ALTERADO APENAS AQUI: Método reescrito para inflar seu layout customizado
     private void openSoundDialog() {
+        
+        // Infla o seu layout XML
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_select_sound, null);
 
-        String[] options = {
-                "Som Padrão 1",
-                "Som Padrão 2",
-                "Som Padrão 3",
-                "📁 Escolher Áudio Do Dispositivo"
-        };
-
+        // Constrói o dialog usando a sua view
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Escolher Som do Alarme");
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
 
-        builder.setItems(options, (dialog, which) -> {
+        // Deixa o fundo transparente para o seu bg_screen_gradient aparecer corretamente sem bordas brancas quadradas
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
 
-            switch (which) {
-                case 0:
-                    selectedSound = "SOM_1";
-                    updateSoundText();
-                    break;
-                case 1:
-                    selectedSound = "SOM_2";
-                    updateSoundText();
-                    break;
-                case 2:
-                    selectedSound = "SOM_3";
-                    updateSoundText();
-                    break;
-                case 3:
-                    openAudioPicker();
-                    break;
-            }
+        // Pega as referências dos TextViews que você criou no XML
+        TextView option1 = dialogView.findViewById(R.id.optionSound1);
+        TextView option2 = dialogView.findViewById(R.id.optionSound2);
+        TextView option3 = dialogView.findViewById(R.id.optionSound3);
+        TextView optionUpload = dialogView.findViewById(R.id.optionUpload);
+
+        // Aplica os cliques em cada opção
+        option1.setOnClickListener(v -> {
+            selectedSound = "SOM_1";
+            updateSoundText();
+            dialog.dismiss();
         });
 
-        builder.show();
+        option2.setOnClickListener(v -> {
+            selectedSound = "SOM_2";
+            updateSoundText();
+            dialog.dismiss();
+        });
+
+        option3.setOnClickListener(v -> {
+            selectedSound = "SOM_3";
+            updateSoundText();
+            dialog.dismiss();
+        });
+
+        optionUpload.setOnClickListener(v -> {
+            openAudioPicker();
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 
     private void openAudioPicker() {
@@ -179,4 +190,3 @@ public class AlarmConfigActivity extends AppCompatActivity {
         }
     }
 }
-
