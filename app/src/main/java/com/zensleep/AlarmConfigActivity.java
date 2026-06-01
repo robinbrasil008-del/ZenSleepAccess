@@ -160,7 +160,7 @@ public class AlarmConfigActivity extends AppCompatActivity {
                 txtAlarmSound.setText("Som Padrão 3");
                 break;
             default:
-                txtAlarmSound.setText("Áudio Personalizado");
+                txtAlarmSound.setText("📁 Escolher Audio do Dispositivo");
                 break;
         }
     }
