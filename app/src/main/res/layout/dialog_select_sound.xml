@@ -10,7 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Selecionar Som"
-        android:textColor="#FFFFFF"
+        android:fontFamily="@font/playfair"
+        android:textColor="#E6DAB3"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginBottom="20dp"/>
@@ -18,28 +19,32 @@
     <TextView
         android:id="@+id/optionSound1"
         android:text="Som Padrão 1"
-        android:textColor="#FFFFFF"
+        android:fontFamily="@font/playfair"
+        android:textColor="#F0EACF"
         android:textSize="16sp"
         android:padding="12dp"/>
 
     <TextView
         android:id="@+id/optionSound2"
         android:text="Som Padrão 2"
-        android:textColor="#FFFFFF"
+        android:fontFamily="@font/playfair"
+        android:textColor="#F0EACF"
         android:textSize="16sp"
         android:padding="12dp"/>
 
     <TextView
         android:id="@+id/optionSound3"
         android:text="Som Padrão 3"
-        android:textColor="#FFFFFF"
+        android:fontFamily="@font/playfair"
+        android:textColor="#F0EACF"
         android:textSize="16sp"
         android:padding="12dp"/>
 
     <TextView
         android:id="@+id/optionUpload"
         android:text="📁 Escolher Audio do Dispositivo"
-        android:textColor="#38BDF8"
+        android:fontFamily="@font/playfair"
+        android:textColor="#F0EACF"
         android:textSize="16sp"
         android:padding="12dp"/>
 </LinearLayout>
