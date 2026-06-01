@@ -1,8 +1,7 @@
 package com.zensleep;
 
-// 🔥 CORREÇÃO 1: Importação atualizada para a versão compatível com seu projeto (AndroidX)
-import androidx.appcompat.app.AlertDialog;
-
+// 🔥 CORREÇÕES NAS IMPORTAÇÕES: Trocamos o AlertDialog pelo Dialog puro
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -10,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -77,7 +77,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
         });
 
         btnSave.setOnClickListener(v -> {
-
             prefs.edit()
                     .putInt(KEY_ALARM_VOLUME, seekVolume.getProgress())
                     .putBoolean(KEY_ALARM_VIBRATE, switchVibrate.isChecked())
@@ -92,16 +91,25 @@ public class AlarmConfigActivity extends AppCompatActivity {
 
     private void openSoundDialog() {
         
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_select_sound, null);
+        // 1. Criamos um Dialog PURO e blindado contra o layout padrão do Android
+        Dialog dialog = new Dialog(this);
+        
+        // 2. Removemos a barra de título nativa que causa crashes de inflação
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        
+        // 3. Injetamos apenas o seu XML limpo
+        dialog.setContentView(R.layout.dialog_select_sound);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(dialogView);
-        AlertDialog dialog = builder.create();
+        // 4. Setamos o fundo transparente de forma segura, agora que não há conflito
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
 
-        TextView option1 = dialogView.findViewById(R.id.optionSound1);
-        TextView option2 = dialogView.findViewById(R.id.optionSound2);
-        TextView option3 = dialogView.findViewById(R.id.optionSound3);
-        TextView optionUpload = dialogView.findViewById(R.id.optionUpload);
+        // 5. Puxamos os IDs diretamente da variável do dialog
+        TextView option1 = dialog.findViewById(R.id.optionSound1);
+        TextView option2 = dialog.findViewById(R.id.optionSound2);
+        TextView option3 = dialog.findViewById(R.id.optionSound3);
+        TextView optionUpload = dialog.findViewById(R.id.optionUpload);
 
         option1.setOnClickListener(v -> {
             selectedSound = "SOM_1";
@@ -126,28 +134,20 @@ public class AlarmConfigActivity extends AppCompatActivity {
             dialog.dismiss();
         });
 
-        // 🔥 CORREÇÃO 2: Mostramos o dialog ANTES de tentar manipular o fundo dele
+        // 6. Mostramos o menu
         dialog.show();
-
-        // Agora que a janela com certeza existe, deixamos transparente para o seu layout curvo aparecer
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
     }
 
     private void openAudioPicker() {
-
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("audio/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-
         startActivityForResult(intent, PICK_AUDIO_REQUEST);
     }
 
     private void updateSoundText() {
-
         if (selectedSound == null) {
             txtAlarmSound.setText("Padrão");
             return;
@@ -174,9 +174,7 @@ public class AlarmConfigActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_AUDIO_REQUEST && resultCode == RESULT_OK && data != null) {
-
             Uri uri = data.getData();
-
             if (uri != null) {
                 getContentResolver().takePersistableUriPermission(
                         uri,
