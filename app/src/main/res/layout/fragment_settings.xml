@@ -27,6 +27,7 @@
 
             <TextView
                 android:text="Configurações"
+                android:fontFamily="@font/playfair"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
