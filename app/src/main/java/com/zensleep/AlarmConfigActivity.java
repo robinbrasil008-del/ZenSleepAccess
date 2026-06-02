@@ -95,7 +95,7 @@ public class AlarmConfigActivity extends AppCompatActivity {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_select_sound, null);
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setView(dialogView);
+        dialog.setContentView(dialogView);
 
         // 5. Puxamos os IDs diretamente da variável do dialog
         TextView option1 = dialog.findViewById(R.id.optionSound1);
