@@ -6,6 +6,8 @@
     android:padding="24dp"
     android:background="@drawable/bg_dialog_premium">
 
+    <LinearLayout
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,4 +49,5 @@
         android:textColor="#F0EACF"
         android:textSize="16sp"
         android:padding="12dp"/>
+</LinearLayout>
 </LinearLayout>
