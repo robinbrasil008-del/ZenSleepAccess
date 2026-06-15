@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="24dp"
@@ -14,38 +14,55 @@
         android:textColor="#E6DAB3"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"/>
 
     <TextView
         android:id="@+id/optionSound1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Som Padrão 1"
         android:fontFamily="@font/playfair"
         android:textColor="#F0EACF"
         android:textSize="16sp"
-        android:padding="12dp"/>
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="8dp"
+        android:background="?attr/selectableItemBackground"/>
 
     <TextView
         android:id="@+id/optionSound2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Som Padrão 2"
         android:fontFamily="@font/playfair"
         android:textColor="#F0EACF"
         android:textSize="16sp"
-        android:padding="12dp"/>
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="8dp"
+        android:background="?attr/selectableItemBackground"/>
 
     <TextView
         android:id="@+id/optionSound3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Som Padrão 3"
         android:fontFamily="@font/playfair"
         android:textColor="#F0EACF"
         android:textSize="16sp"
-        android:padding="12dp"/>
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="8dp"
+        android:background="?attr/selectableItemBackground"/>
 
     <TextView
         android:id="@+id/optionUpload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="📁 Escolher Audio do Dispositivo"
         android:fontFamily="@font/playfair"
         android:textColor="#F0EACF"
         android:textSize="16sp"
-        android:padding="12dp"/>
-</LinearLayout>
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="8dp"
+        android:background="?attr/selectableItemBackground"/>
 
+</LinearLayout>
