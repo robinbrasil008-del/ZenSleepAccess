@@ -1,14 +1,12 @@
 package com.zensleep;
 
-// 🔥 CORREÇÃO PRINCIPAL: Importação correta do AndroidX para total compatibilidade com AppCompatActivity
 import androidx.appcompat.app.AlertDialog;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -65,7 +63,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
 
         btnBack.setOnClickListener(v -> finish());
         
-        // Chama a função segura que abre o seu layout customizado
         cardAlarmSound.setOnClickListener(v -> openSoundDialog());
 
         seekVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -91,26 +88,24 @@ public class AlarmConfigActivity extends AppCompatActivity {
     }
 
     private void openSoundDialog() {
-        // 1. Criamos o Builder usando a biblioteca correta do AndroidX
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // 🔥 MESMA LÓGICA DO HOMEFRAGMENT: Infla a View direto com LayoutInflater.from
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_select_sound, null);
 
-        // 2. Inflamos o SEU layout personalizado (dialog_select_sound.xml)
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_select_sound, null);
-        builder.setView(dialogView);
-
-        // 3. Criamos o dialog a partir do builder
-        AlertDialog dialog = builder.create();
-
-        // 4. Remove o fundo padrão quadrado e cinza do sistema para dar lugar aos cantos arredondados do seu layout
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-
-        // 5. Mapeamos os cliques com segurança usando a view inflada do seu XML
+        // Mapeia os TextViews antes de criar o Dialog
         TextView option1 = dialogView.findViewById(R.id.optionSound1);
         TextView option2 = dialogView.findViewById(R.id.optionSound2);
         TextView option3 = dialogView.findViewById(R.id.optionSound3);
         TextView optionUpload = dialogView.findViewById(R.id.optionUpload);
+
+        // 🔥 MESMA LÓGICA DO HOMEFRAGMENT: Cria o AlertDialog passando a view encadeada
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create();
+
+        // 🔥 MESMA LÓGICA DO HOMEFRAGMENT: Aplica o fundo transparente usando Resource
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
 
         if (option1 != null) {
             option1.setOnClickListener(v -> {
@@ -143,7 +138,7 @@ public class AlarmConfigActivity extends AppCompatActivity {
             });
         }
 
-        // 6. Exibimos o layout pronto na tela
+        // Mostra o alerta
         dialog.show();
     }
 
