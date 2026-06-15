@@ -1,15 +1,18 @@
 package com.zensleep;
 
-import android.app.AlertDialog;
+// 🔥 CORREÇÃO PRINCIPAL: Importação correta do AndroidX para total compatibilidade com AppCompatActivity
+import androidx.appcompat.app.AlertDialog;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-// ALTERADO: Trocado android.widget.Switch por androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.SwitchCompat; 
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +46,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
         SeekBar seekVolume = findViewById(R.id.seekAlarmVolume);
         TextView txtVolume = findViewById(R.id.txtAlarmVolumeValue);
         
-        // ALTERADO: Tipo corrigido para SwitchCompat refletir o seu XML
         SwitchCompat switchVibrate = findViewById(R.id.switchVibrate); 
         
         TextView txtSnooze = findViewById(R.id.txtSnoozeValue);
@@ -62,6 +64,8 @@ public class AlarmConfigActivity extends AppCompatActivity {
         txtSnooze.setText(snooze + " minutos");
 
         btnBack.setOnClickListener(v -> finish());
+        
+        // Chama a função segura que abre o seu layout customizado
         cardAlarmSound.setOnClickListener(v -> openSoundDialog());
 
         seekVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -74,7 +78,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
         });
 
         btnSave.setOnClickListener(v -> {
-
             prefs.edit()
                     .putInt(KEY_ALARM_VOLUME, seekVolume.getProgress())
                     .putBoolean(KEY_ALARM_VIBRATE, switchVibrate.isChecked())
@@ -88,54 +91,72 @@ public class AlarmConfigActivity extends AppCompatActivity {
     }
 
     private void openSoundDialog() {
-
-        String[] options = {
-                "Som Padrão 1",
-                "Som Padrão 2",
-                "Som Padrão 3",
-                "📁 Escolher Áudio Do Dispositivo"
-        };
-
+        // 1. Criamos o Builder usando a biblioteca correta do AndroidX
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Escolher Som do Alarme");
 
-        builder.setItems(options, (dialog, which) -> {
+        // 2. Inflamos o SEU layout personalizado (dialog_select_sound.xml)
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_select_sound, null);
+        builder.setView(dialogView);
 
-            switch (which) {
-                case 0:
-                    selectedSound = "SOM_1";
-                    updateSoundText();
-                    break;
-                case 1:
-                    selectedSound = "SOM_2";
-                    updateSoundText();
-                    break;
-                case 2:
-                    selectedSound = "SOM_3";
-                    updateSoundText();
-                    break;
-                case 3:
-                    openAudioPicker();
-                    break;
-            }
-        });
+        // 3. Criamos o dialog a partir do builder
+        AlertDialog dialog = builder.create();
 
-        builder.show();
+        // 4. Remove o fundo padrão quadrado e cinza do sistema para dar lugar aos cantos arredondados do seu layout
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        // 5. Mapeamos os cliques com segurança usando a view inflada do seu XML
+        TextView option1 = dialogView.findViewById(R.id.optionSound1);
+        TextView option2 = dialogView.findViewById(R.id.optionSound2);
+        TextView option3 = dialogView.findViewById(R.id.optionSound3);
+        TextView optionUpload = dialogView.findViewById(R.id.optionUpload);
+
+        if (option1 != null) {
+            option1.setOnClickListener(v -> {
+                selectedSound = "SOM_1";
+                updateSoundText();
+                dialog.dismiss();
+            });
+        }
+
+        if (option2 != null) {
+            option2.setOnClickListener(v -> {
+                selectedSound = "SOM_2";
+                updateSoundText();
+                dialog.dismiss();
+            });
+        }
+
+        if (option3 != null) {
+            option3.setOnClickListener(v -> {
+                selectedSound = "SOM_3";
+                updateSoundText();
+                dialog.dismiss();
+            });
+        }
+
+        if (optionUpload != null) {
+            optionUpload.setOnClickListener(v -> {
+                openAudioPicker();
+                dialog.dismiss();
+            });
+        }
+
+        // 6. Exibimos o layout pronto na tela
+        dialog.show();
     }
 
     private void openAudioPicker() {
-
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("audio/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-
         startActivityForResult(intent, PICK_AUDIO_REQUEST);
     }
 
     private void updateSoundText() {
-
         if (selectedSound == null) {
             txtAlarmSound.setText("Padrão");
             return;
@@ -162,12 +183,8 @@ public class AlarmConfigActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_AUDIO_REQUEST && resultCode == RESULT_OK && data != null) {
-
             Uri uri = data.getData();
-
             if (uri != null) {
-
-                // 🔥 Persistir permissão
                 getContentResolver().takePersistableUriPermission(
                         uri,
                         Intent.FLAG_GRANT_READ_URI_PERMISSION
@@ -179,4 +196,3 @@ public class AlarmConfigActivity extends AppCompatActivity {
         }
     }
 }
-
