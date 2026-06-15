@@ -24,7 +24,7 @@
         android:fontFamily="@font/playfair"
         android:textColor="#F0EACF"
         android:textSize="16sp"
-        android:padding="12dp"/>
+        android:padding="12dp">
 
     <TextView
         android:id="@+id/optionSound2"
@@ -32,7 +32,7 @@
         android:fontFamily="@font/playfair"
         android:textColor="#F0EACF"
         android:textSize="16sp"
-        android:padding="12dp"/>
+        android:padding="12dp">
 
     <TextView
         android:id="@+id/optionSound3"
@@ -40,7 +40,7 @@
         android:fontFamily="@font/playfair"
         android:textColor="#F0EACF"
         android:textSize="16sp"
-        android:padding="12dp"/>
+        android:padding="12dp">
 
     <TextView
         android:id="@+id/optionUpload"
