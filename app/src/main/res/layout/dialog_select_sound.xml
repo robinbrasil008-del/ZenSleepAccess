@@ -16,7 +16,7 @@
         android:textColor="#E6DAB3"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp">
 
     <TextView
         android:id="@+id/optionSound1"
