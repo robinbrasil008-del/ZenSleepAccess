@@ -143,7 +143,8 @@
 
         <TextView
             android:text="Chuva"
-            android:textColor="@android:color/white"
+            android:textColor="#E6DAB3"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
@@ -241,7 +242,8 @@
 
         <TextView
             android:text="Floresta"
-            android:textColor="@android:color/white"
+            android:textColor="#E6DAB3"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
@@ -374,7 +376,8 @@
 
         <TextView
             android:text="Lareira"
-            android:textColor="@android:color/white"
+            android:textColor="#E6DAB3"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
@@ -507,7 +510,8 @@
 
         <TextView
             android:text="Vento Suave"
-            android:textColor="@android:color/white"
+            android:textColor="#E6DAB3"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
@@ -640,7 +644,8 @@
 
         <TextView
             android:text="Noite com Grilos"
-            android:textColor="@android:color/white"
+            android:textColor="#E6DAB3"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
@@ -773,7 +778,8 @@
 
         <TextView
             android:text="Pássaros"
-            android:textColor="@android:color/white"
+            android:textColor="#E6DAB3"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
@@ -906,7 +912,8 @@
 
         <TextView
             android:text="Riacho"
-            android:textColor="@android:color/white"
+            android:textColor="#E6DAB3"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
@@ -1039,7 +1046,8 @@
 
         <TextView
             android:text="Cafeteira"
-            android:textColor="@android:color/white"
+            android:textColor="#E6DAB3"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
