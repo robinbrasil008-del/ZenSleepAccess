@@ -52,6 +52,24 @@ public class AlarmConfigActivity extends AppCompatActivity {
         TextView txtSnooze = findViewById(R.id.txtSnoozeValue);
         View btnSave = findViewById(R.id.btnSave);
 
+        // ======= MODO IMERSIVO (ESCONDE AS BARRAS DE STATUS E NAVEGAÇÃO) =======
+        // Avisa o sistema que o app vai gerenciar a tela inteira
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
+        WindowInsetsControllerCompat controller = 
+            WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+
+        if (controller != null) {
+            // Esconde a barra de bateria/hora (topo) e a barra de botões (baixo)
+            controller.hide(WindowInsetsCompat.Type.systemBars());
+            
+            // Faz com que as barras apareçam rapidinho se o usuário deslizar o dedo da borda da tela,
+            // e sumam sozinhas depois de alguns segundos (comportamento padrão de tela cheia).
+            controller.setSystemBarsBehavior(
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            );
+        }
+
         // 🔥 AQUI ESTÃO AS VARIÁVEIS! Elas precisam existir antes de serem usadas abaixo.
         int savedVolume = prefs.getInt(KEY_ALARM_VOLUME, 80);
         boolean vibrate = prefs.getBoolean(KEY_ALARM_VIBRATE, true);
