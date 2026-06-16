@@ -87,6 +87,7 @@
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_marginTop="6dp"
+            android:fontFamily="@font/playfair"
             android:background="@android:color/transparent"/>
 
     </FrameLayout>
