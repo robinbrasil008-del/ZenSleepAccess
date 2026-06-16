@@ -39,8 +39,8 @@
 
         <ImageView
             android:id="@+id/btnPlaySound1"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:padding="12dp"
             android:src="@drawable/ic_media_play"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -70,8 +70,8 @@
 
         <ImageView
             android:id="@+id/btnPlaySound2"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:padding="12dp"
             android:src="@drawable/ic_media_play"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -101,8 +101,8 @@
 
         <ImageView
             android:id="@+id/btnPlaySound3"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:padding="12dp"
             android:src="@drawable/ic_media_play"
             android:background="?attr/selectableItemBackgroundBorderless"
