@@ -147,13 +147,13 @@ public class AlarmConfigActivity extends AppCompatActivity {
         // 🔥 Lógica de clique para tocar o áudio antes de escolher
         // Nota: Altere 'R.raw.som_1' para o nome exato do arquivo de áudio na sua pasta res/raw
         if (btnPlaySound1 != null) {
-            btnPlaySound1.setOnClickListener(v -> togglePlaySound("SOM_1", btnPlaySound1, R.raw.som_1));
+            btnPlaySound1.setOnClickListener(v -> togglePlaySound("SOM_1", btnPlaySound1, R.raw.som1));
         }
         if (btnPlaySound2 != null) {
-            btnPlaySound2.setOnClickListener(v -> togglePlaySound("SOM_2", btnPlaySound2, R.raw.som_2));
+            btnPlaySound2.setOnClickListener(v -> togglePlaySound("SOM_2", btnPlaySound2, R.raw.som2));
         }
         if (btnPlaySound3 != null) {
-            btnPlaySound3.setOnClickListener(v -> togglePlaySound("SOM_3", btnPlaySound3, R.raw.som_3));
+            btnPlaySound3.setOnClickListener(v -> togglePlaySound("SOM_3", btnPlaySound3, R.raw.som3));
         }
 
         // Garante que se o utilizador fechar tocando fora, a música para imediatamente
