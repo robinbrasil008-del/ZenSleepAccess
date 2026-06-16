@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -30,7 +29,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
     private TextView txtAlarmSound;
     private String selectedSound = "SOM_1";
 
-    // 🔥 Variáveis para controlo do MediaPlayer e estados dos botões
     private MediaPlayer mediaPlayer;
     private ImageView currentPlayingButton = null;
     private String currentPlayingSound = "";
@@ -46,43 +44,68 @@ public class AlarmConfigActivity extends AppCompatActivity {
         LinearLayout cardAlarmSound = findViewById(R.id.cardAlarmSound);
         txtAlarmSound = findViewById(R.id.txtAlarmSound);
 
-        SeekBar seekAlarmVolume = findViewById(R.id.seekAlarmVolume);
-        SwitchCompat switchVibrate = findViewById(R.id.switchVibrate);
-        Button btnSave = findViewById(R.id.btnSave);
+        SeekBar seekVolume = findViewById(R.id.seekAlarmVolume);
+        TextView txtVolume = findViewById(R.id.txtAlarmVolumeValue);
+        
+        SwitchCompat switchVibrate = findViewById(R.id.switchVibrate); 
+        
+        TextView txtSnooze = findViewById(R.id.txtSnoozeValue);
+        View btnSave = findViewById(R.id.btnSave);
 
-        // Carregar configurações guardadas
+        // 🔥 AQUI ESTÃO AS VARIÁVEIS! Elas precisam existir antes de serem usadas abaixo.
+        int savedVolume = prefs.getInt(KEY_ALARM_VOLUME, 80);
+        boolean vibrate = prefs.getBoolean(KEY_ALARM_VIBRATE, true);
+        int snooze = prefs.getInt(KEY_ALARM_SNOOZE, 5);
         selectedSound = prefs.getString(KEY_ALARM_SOUND, "SOM_1");
+
         updateSoundText();
 
-        if (seekAlarmVolume != null) {
-            seekAlarmVolume.setProgress(prefs.getInt(KEY_ALARM_VOLUME, 50));
+        if (seekVolume != null) {
+            seekVolume.setProgress(savedVolume);
+            seekVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    if (txtVolume != null) txtVolume.setText(progress + "%");
+                }
+                @Override public void onStartTrackingTouch(SeekBar seekBar) {}
+                @Override public void onStopTrackingTouch(SeekBar seekBar) {}
+            });
         }
+        
+        if (txtVolume != null) {
+            txtVolume.setText(savedVolume + "%");
+        }
+        
+        // Agora o Android Studio vai encontrar o "vibrate" sem problemas
         if (switchVibrate != null) {
             switchVibrate.setChecked(vibrate);
         }
-
-        // Cliques dos botões principais
-        if (btnBack != null) {
-            btnBack.setOnClickListener(v -> finish());
+        
+        if (txtSnooze != null) {
+            txtSnooze.setText(snooze + " minutos");
         }
 
-        if (cardAlarmSound != null) {
-            cardAlarmSound.setOnClickListener(v -> showSoundSelectionDialog());
-        }
+        if (btnBack != null) btnBack.setOnClickListener(v -> finish());
+        
+        if (cardAlarmSound != null) cardAlarmSound.setOnClickListener(v -> showSoundSelectionDialog());
 
         if (btnSave != null) {
             btnSave.setOnClickListener(v -> {
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString(KEY_ALARM_SOUND, selectedSound);
-                if (seekAlarmVolume != null) {
-                    editor.putInt(KEY_ALARM_VOLUME, seekAlarmVolume.getProgress());
+                
+                if (seekVolume != null) {
+                    editor.putInt(KEY_ALARM_VOLUME, seekVolume.getProgress());
                 }
+                
                 if (switchVibrate != null) {
                     editor.putBoolean(KEY_ALARM_VIBRATE, switchVibrate.isChecked());
                 }
+                
+                editor.putInt(KEY_ALARM_SNOOZE, snooze);
                 editor.apply();
 
-                Toast.makeText(this, "Configurações guardadas!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Configuração salva ✅", Toast.LENGTH_SHORT).show();
                 finish();
             });
         }
@@ -98,13 +121,11 @@ public class AlarmConfigActivity extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
 
-        // Mapeamento dos cliques de texto para selecionar e fechar
         TextView optionSound1 = dialogView.findViewById(R.id.optionSound1);
         TextView optionSound2 = dialogView.findViewById(R.id.optionSound2);
         TextView optionSound3 = dialogView.findViewById(R.id.optionSound3);
         TextView optionUpload = dialogView.findViewById(R.id.optionUpload);
 
-        // Mapeamento dos novos botões de Play/Pause independentes
         ImageView btnPlaySound1 = dialogView.findViewById(R.id.btnPlaySound1);
         ImageView btnPlaySound2 = dialogView.findViewById(R.id.btnPlaySound2);
         ImageView btnPlaySound3 = dialogView.findViewById(R.id.btnPlaySound3);
@@ -144,26 +165,21 @@ public class AlarmConfigActivity extends AppCompatActivity {
             });
         }
 
-        // 🔥 Lógica de clique para tocar o áudio antes de escolher
-        // Nota: Altere 'R.raw.som_1' para o nome exato do arquivo de áudio na sua pasta res/raw
         if (btnPlaySound1 != null) {
-            btnPlaySound1.setOnClickListener(v -> togglePlaySound("SOM_1", btnPlaySound1, R.raw.som1));
+            btnPlaySound1.setOnClickListener(v -> togglePlaySound("SOM_1", btnPlaySound1, R.raw.chuva));
         }
         if (btnPlaySound2 != null) {
-            btnPlaySound2.setOnClickListener(v -> togglePlaySound("SOM_2", btnPlaySound2, R.raw.som2));
+            btnPlaySound2.setOnClickListener(v -> togglePlaySound("SOM_2", btnPlaySound2, R.raw.floresta));
         }
         if (btnPlaySound3 != null) {
-            btnPlaySound3.setOnClickListener(v -> togglePlaySound("SOM_3", btnPlaySound3, R.raw.som3));
+            btnPlaySound3.setOnClickListener(v -> togglePlaySound("SOM_3", btnPlaySound3, R.raw.lareira));
         }
 
-        // Garante que se o utilizador fechar tocando fora, a música para imediatamente
         dialog.setOnDismissListener(dialogInterface -> stopAnyPlayback());
-
         dialog.show();
     }
 
     private void togglePlaySound(String soundKey, ImageView playButton, int audioResId) {
-        // 1. Caso o mesmo som já esteja ativo: alterna entre Pause e Play
         if (mediaPlayer != null && currentPlayingSound.equals(soundKey)) {
             if (mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
@@ -175,10 +191,8 @@ public class AlarmConfigActivity extends AppCompatActivity {
             return;
         }
 
-        // 2. Se clicou num som diferente, para o áudio anterior primeiro e reseta o ícone
         stopAnyPlayback();
 
-        // 3. Inicializa e começa a reprodução do novo som selecionado
         try {
             mediaPlayer = MediaPlayer.create(this, audioResId);
             if (mediaPlayer != null) {
@@ -188,11 +202,9 @@ public class AlarmConfigActivity extends AppCompatActivity {
                 mediaPlayer.start();
                 playButton.setImageResource(R.drawable.ic_media_pause);
 
-                // Quando o áudio chegar ao fim sozinho, reinicia o estado visual do botão para Play
                 mediaPlayer.setOnCompletionListener(mp -> stopAnyPlayback());
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Erro ao reproduzir áudio", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
@@ -210,7 +222,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
             mediaPlayer = null;
         }
 
-        // Restaura o ícone do botão que estava ativo de volta para PLAY
         if (currentPlayingButton != null) {
             currentPlayingButton.setImageResource(R.drawable.ic_media_play);
             currentPlayingButton = null;
@@ -270,7 +281,6 @@ public class AlarmConfigActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopAnyPlayback(); // Evita fugas de memória (Memory Leaks) caso a Activity seja destruída
+        stopAnyPlayback();
     }
 }
-
