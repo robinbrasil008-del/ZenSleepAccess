@@ -212,6 +212,7 @@
             android:layout_height="60dp"
             android:text="SALVAR"
             android:textSize="18sp"
+            android:textStyle="bold"
             android:fontFamily="@font/playfair"
             android:textColor="#00FF00"
             android:background="@drawable/bg_button_gradient"/>
