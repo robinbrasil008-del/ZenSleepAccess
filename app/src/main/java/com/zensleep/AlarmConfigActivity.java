@@ -47,7 +47,7 @@ public class AlarmConfigActivity extends AppCompatActivity {
         txtAlarmSound = findViewById(R.id.txtAlarmSound);
 
         SeekBar seekAlarmVolume = findViewById(R.id.seekAlarmVolume);
-        SwitchCompat switchAlarmVibrate = findViewById(R.id.switchAlarmVibrate);
+        SwitchCompat switchVibrate = findViewById(R.id.switchVibrate);
         Button btnSave = findViewById(R.id.btnSave);
 
         // Carregar configurações guardadas
