@@ -57,8 +57,8 @@ public class AlarmConfigActivity extends AppCompatActivity {
         if (seekAlarmVolume != null) {
             seekAlarmVolume.setProgress(prefs.getInt(KEY_ALARM_VOLUME, 50));
         }
-        if (switchAlarmVibrate != null) {
-            switchAlarmVibrate.setChecked(prefs.getBoolean(KEY_ALARM_VIBRATE, true));
+        if (switchVibrate != null) {
+            switchVibrate.setChecked(vibrate);
         }
 
         // Cliques dos botões principais
@@ -77,8 +77,8 @@ public class AlarmConfigActivity extends AppCompatActivity {
                 if (seekAlarmVolume != null) {
                     editor.putInt(KEY_ALARM_VOLUME, seekAlarmVolume.getProgress());
                 }
-                if (switchAlarmVibrate != null) {
-                    editor.putBoolean(KEY_ALARM_VIBRATE, switchAlarmVibrate.isChecked());
+                if (switchVibrate != null) {
+                    editor.putBoolean(KEY_ALARM_VIBRATE, switchVibrate.isChecked());
                 }
                 editor.apply();
 
