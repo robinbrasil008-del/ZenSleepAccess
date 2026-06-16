@@ -166,13 +166,13 @@ public class AlarmConfigActivity extends AppCompatActivity {
         }
 
         if (btnPlaySound1 != null) {
-            btnPlaySound1.setOnClickListener(v -> togglePlaySound("SOM_1", btnPlaySound1, R.raw.chuva));
+            btnPlaySound1.setOnClickListener(v -> togglePlaySound("SOM_1", btnPlaySound1, R.raw.som1));
         }
         if (btnPlaySound2 != null) {
-            btnPlaySound2.setOnClickListener(v -> togglePlaySound("SOM_2", btnPlaySound2, R.raw.floresta));
+            btnPlaySound2.setOnClickListener(v -> togglePlaySound("SOM_2", btnPlaySound2, R.raw.som2));
         }
         if (btnPlaySound3 != null) {
-            btnPlaySound3.setOnClickListener(v -> togglePlaySound("SOM_3", btnPlaySound3, R.raw.lareira));
+            btnPlaySound3.setOnClickListener(v -> togglePlaySound("SOM_3", btnPlaySound3, R.raw.som3));
         }
 
         dialog.setOnDismissListener(dialogInterface -> stopAnyPlayback());
