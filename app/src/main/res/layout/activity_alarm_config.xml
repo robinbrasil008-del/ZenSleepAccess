@@ -206,7 +206,7 @@
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSave"
             android:text="SALVAR"
             android:fontFamily="@font/playfair"
