@@ -214,7 +214,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:fontFamily="@font/playfair"
-            android:textColor="#00FF00"
+            android:textColor="#8A52FF"
             android:background="@drawable/bg_button_gradient"/>
     </LinearLayout>
 </ScrollView>
