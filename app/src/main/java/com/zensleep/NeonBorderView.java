@@ -225,8 +225,14 @@ textPaint.setFakeBoldText(true);
 
 // cor do texto
 textPaint.setColor(isRunning ? Color.BLACK : Color.BLACK);
-Typeface playfairFont = ResourcesCompat.getFont(this, R.font.playfair);
-textPaint.setTypeface(playfairFont, Typeface.BOLD);
+// 1. Puxa a fonte usando getContext() em vez de this
+Typeface playfairFont = ResourcesCompat.getFont(getContext(), R.font.playfair);
+
+// 2. Cria uma versão em NEGRITO (BOLD) dessa fonte
+Typeface playfairBold = Typeface.create(playfairFont, Typeface.BOLD);
+
+// 3. Aplica no textPaint passando apenas um parâmetro, como ele exige
+textPaint.setTypeface(playfairBold);
 
 // posição central
 float x = getWidth() / 2f;
