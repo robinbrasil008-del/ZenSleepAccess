@@ -123,7 +123,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#AA0B1220"/>
+        android:background="#66000000"/>
 
     <!-- ⭐ FAVORITO -->
     <ImageView
@@ -148,7 +148,7 @@
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
@@ -247,7 +247,7 @@
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
@@ -381,7 +381,7 @@
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
@@ -490,7 +490,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#55000000"/>
+        android:background="#66000000"/>
 
     <!-- ESTRELA -->
     <ImageView
@@ -515,7 +515,7 @@
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
@@ -624,7 +624,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#88000000"/>
+        android:background="#66000000"/>
 
     <!-- ESTRELA -->
     <ImageView
@@ -644,12 +644,12 @@
         android:padding="16dp">
 
         <TextView
-            android:text="Noite com Grilos"
+            android:text="Grilos"
             android:textColor="#FFFFFF"
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
@@ -758,7 +758,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#33000000"/>
+        android:background="#66000000"/>
 
     <!-- ESTRELA -->
     <ImageView
@@ -783,7 +783,7 @@
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
@@ -892,7 +892,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#44000000"/>
+        android:background="#66000000"/>
 
     <!-- ESTRELA -->
     <ImageView
@@ -917,7 +917,7 @@
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
@@ -1026,7 +1026,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#66330000"/>
+        android:background="#66000000"/>
 
     <!-- ESTRELA -->
     <ImageView
@@ -1051,7 +1051,7 @@
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
