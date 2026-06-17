@@ -208,14 +208,16 @@
 
         <Button
             android:id="@+id/btnSave"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
             android:text="SALVAR"
-            android:textSize="18sp"
-            android:textStyle="bold"
             android:fontFamily="@font/playfair"
             android:textColor="#000000"
-            android:background="#88e788"/>
+            android:background="@drawable/bg_button_gradient"
+            android:backgroundTint="@null"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:layout_width="180dp"
+            android:layout_gravity="center"
+            android:layout_height="48dp"/>
     </LinearLayout>
 </ScrollView>
 
