@@ -96,7 +96,7 @@
         android:id="@+id/btnStartTimer"
         android:text="INICIAR"
         android:fontFamily="@font/playfair"
-        android:textColor="#8A52FF"
+        android:textColor="#000000"
         android:background="@drawable/bg_button_gradient"
         android:backgroundTint="@null"
         android:layout_marginTop="16dp"
