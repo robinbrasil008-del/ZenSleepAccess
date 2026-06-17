@@ -6,6 +6,8 @@ import android.graphics.*;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import androidx.core.content.res.ResourcesCompat;
+import android.graphics.Typeface;
 
 public class NeonBorderView extends View {
 
@@ -223,6 +225,8 @@ textPaint.setFakeBoldText(true);
 
 // cor do texto
 textPaint.setColor(isRunning ? Color.BLACK : Color.BLACK);
+Typeface playfairFont = ResourcesCompat.getFont(this, R.font.playfair);
+textPaint.setTypeface(playfairFont, Typeface.BOLD);
 
 // posição central
 float x = getWidth() / 2f;
