@@ -144,7 +144,7 @@
 
         <TextView
             android:text="Chuva"
-            android:textColor="#E6DAB3"
+            android:textColor="#FFFFFF"
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -243,7 +243,7 @@
 
         <TextView
             android:text="Floresta"
-            android:textColor="#E6DAB3"
+            android:textColor="#FFFFFF"
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -377,7 +377,7 @@
 
         <TextView
             android:text="Lareira"
-            android:textColor="#E6DAB3"
+            android:textColor="#FFFFFF"
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -511,7 +511,7 @@
 
         <TextView
             android:text="Vento Suave"
-            android:textColor="#E6DAB3"
+            android:textColor="#FFFFFF"
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -645,7 +645,7 @@
 
         <TextView
             android:text="Noite com Grilos"
-            android:textColor="#E6DAB3"
+            android:textColor="#FFFFFF"
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -779,7 +779,7 @@
 
         <TextView
             android:text="Pássaros"
-            android:textColor="#E6DAB3"
+            android:textColor="#FFFFFF"
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -913,7 +913,7 @@
 
         <TextView
             android:text="Riacho"
-            android:textColor="#E6DAB3"
+            android:textColor="#FFFFFF"
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -1047,7 +1047,7 @@
 
         <TextView
             android:text="Cafeteira"
-            android:textColor="#E6DAB3"
+            android:textColor="#FFFFFF"
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
