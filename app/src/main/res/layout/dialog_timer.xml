@@ -94,7 +94,7 @@
     <!-- BOTÃO -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnStartTimer"
-        android:text="INICIAR TEMPO"
+        android:text="INICIAR"
         android:fontFamily="@font/playfair"
         android:textColor="#8A52FF"
         android:background="@drawable/bg_button_gradient"
