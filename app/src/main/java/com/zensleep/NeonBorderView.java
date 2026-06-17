@@ -228,7 +228,7 @@ textPaint.setColor(isRunning ? Color.BLACK : Color.BLACK);
 float x = getWidth() / 2f;
 float y = getHeight() / 2f - ((textPaint.descent() + textPaint.ascent()) / 2);
 
-String text = isRunning ? "⏱ STOP TIMER" : "⏱ DEFINIR TIMER";
+String text = isRunning ? "⏱ STOP TEMPO" : "⏱ DEFINIR TEMPO";
 canvas.drawText(text, x, y, textPaint);
     
     canvas.restore();
