@@ -213,7 +213,7 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
         
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
-        setupSound("trovoes", R.raw.chuva, btnPlayTrovoes, seekTrovoes);
+        setupSound("trovoes", R.raw.trovoes, btnPlayTrovoes, seekTrovoes);
         setupSound("floresta", R.raw.floresta, btnPlayFloresta, seekFloresta);
         setupSound("lareira", R.raw.lareira, btnPlayLareira, seekLareira);
         setupSound("vento", R.raw.vento_suave, btnPlayVento, seekVento);
