@@ -84,6 +84,7 @@
                     android:text="Som Padrão 1\nDuração: 30s"
                     android:fontFamily="@font/playfair"
                     android:textColor="#F8FAFC"
+                    android:textStyle="bold"
                     android:textSize="18sp"
                     android:lineSpacingExtra="4dp"/>
 
