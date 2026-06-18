@@ -92,7 +92,7 @@ public class HomeFragment extends Fragment {
     private CardGlowLayout cardChuva, cardTrovoes, cardFloresta, cardLareira, cardVento, cardGrilos, cardPassaros, cardRiacho, cardCafeteira;
 
     // Overlays de Bloqueio (Cadeado)
-    private View lockFloresta, lockLareira, lockVento, lockGrilos, lockPassaros, lockRiacho, lockCafeteira;
+    private View lockTrovoes, lockFloresta, lockLareira, lockVento, lockGrilos, lockPassaros, lockRiacho, lockCafeteira;
 
     private ImageView timerIcon;
 
@@ -127,6 +127,7 @@ public class HomeFragment extends Fragment {
         adView.loadAd(adRequest);
 
         // Mapeando os Overlays (Coloque logo após o mapeamento dos cards no onViewCreated)
+lockTrovoes = view.findViewById(R.id.lockOverlayTrovoes);
 lockFloresta = view.findViewById(R.id.lockOverlayFloresta);
 lockLareira = view.findViewById(R.id.lockOverlayLareira);
 lockVento = view.findViewById(R.id.lockOverlayVento);
@@ -362,6 +363,10 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
     }
 
     private void updateLocksVisibility() {
+     // Trovoes
+    if (lockTrovoes != null) {
+        lockTrovoes.setVisibility(isCardUnlocked("trovoes") ? View.GONE : View.VISIBLE);
+    }
     // Floresta
     if (lockFloresta != null) {
         lockFloresta.setVisibility(isCardUnlocked("floresta") ? View.GONE : View.VISIBLE);
@@ -1028,13 +1033,15 @@ inputMinutes.addTextChangedListener(new android.text.TextWatcher() {
             starChuva.setColorFilter(0xFFFFFFFF);
         }
 
-        if (trovoesFav) {
+       if (startTrovoes != null) {
+           if (trovoesFav) {
             starChuva.setImageResource(R.drawable.btn_star_big_on);
             starChuva.setColorFilter(0xFFFF1744);
         } else {
             starTrovoes.setImageResource(R.drawable.btn_star_big_off);
             starTrovoes.setColorFilter(0xFFFFFFFF);
-        }
+           }
+       }
 
         if (starFloresta != null) {
             if (florestaFav) {
