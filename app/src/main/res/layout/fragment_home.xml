@@ -296,6 +296,42 @@
 
          </FrameLayout>
 
+                <LinearLayout
+    android:id="@+id/lockOverlayTrovoes" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A6000000"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:clickable="false" 
+    android:focusable="false">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp" 
+        android:text="PREMIUM"
+        android:textColor="#9D00FF" 
+        android:textSize="18sp" 
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cadeado" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:text="Assista um anúncio\npara desbloquear"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
+
    </com.zensleep.CardGlowLayout>
 
             <!-- ✅ FLORESTA -->
