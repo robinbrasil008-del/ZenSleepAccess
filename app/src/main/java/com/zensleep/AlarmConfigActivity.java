@@ -52,6 +52,27 @@ public class AlarmConfigActivity extends AppCompatActivity {
         TextView txtVolume = findViewById(R.id.txtAlarmVolumeValue);
         
         SwitchCompat switchVibrate = findViewById(R.id.switchVibrate); 
+        TextView txtVibrateStatus = findViewById(R.id.txtVibrateStatus);
+
+// 2. Configura o estado inicial ao abrir a tela
+if (switchVibrate.isChecked()) {
+    txtVibrateStatus.setText("On");
+    txtVibrateStatus.setTextColor(android.graphics.Color.parseColor("#00FF00")); // Verde
+} else {
+    txtVibrateStatus.setText("Off");
+    txtVibrateStatus.setTextColor(android.graphics.Color.parseColor("#94A3B8")); // Cinza
+}
+
+// 3. Listener para mudar conforme o usuário interage
+switchVibrate.setOnCheckedChangeListener((buttonView, isChecked) -> {
+    if (isChecked) {
+        txtVibrateStatus.setText("On");
+        txtVibrateStatus.setTextColor(android.graphics.Color.parseColor("#00FF00"));
+    } else {
+        txtVibrateStatus.setText("Off");
+        txtVibrateStatus.setTextColor(android.graphics.Color.parseColor("#94A3B8"));
+    }
+});
         
         TextView txtSnooze = findViewById(R.id.txtSnoozeValue);
         View btnSave = findViewById(R.id.btnSave);
