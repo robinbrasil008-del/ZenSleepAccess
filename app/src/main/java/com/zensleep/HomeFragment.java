@@ -1033,7 +1033,7 @@ inputMinutes.addTextChangedListener(new android.text.TextWatcher() {
             starChuva.setColorFilter(0xFFFFFFFF);
         }
 
-       if (startTrovoes != null) {
+       if (starTrovoes != null) {
            if (trovoesFav) {
             starChuva.setImageResource(R.drawable.btn_star_big_on);
             starChuva.setColorFilter(0xFFFF1744);
