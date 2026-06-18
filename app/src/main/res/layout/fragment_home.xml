@@ -198,7 +198,7 @@
 
    </com.zensleep.CardGlowLayout>
 
-            <!----🌩Card Trovoes---->
+            <!--🌩Card Trovoes-->
             <com.zensleep.CardGlowLayout
     android:id="@+id/cardTrovoes"
     android:layout_width="0dp"
