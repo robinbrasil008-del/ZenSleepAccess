@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
     private ButtonGlowAnimator buttonAnimator;
     private AnimatedTimerCardLayout timerCard;
     
-    private CardGlowLayout cardChuva, cardFloresta, cardLareira, cardVento, cardGrilos, cardPassaros, cardRiacho, cardCafeteira;
+    private CardGlowLayout cardChuva, cardTrovoes, cardFloresta, cardLareira, cardVento, cardGrilos, cardPassaros, cardRiacho, cardCafeteira;
 
     // Overlays de Bloqueio (Cadeado)
     private View lockFloresta, lockLareira, lockVento, lockGrilos, lockPassaros, lockRiacho, lockCafeteira;
@@ -99,17 +99,15 @@ public class HomeFragment extends Fragment {
     private TimerTextAnimator timerAnimator = new TimerTextAnimator();
 
     // PLAY BUTTONS
-    private ImageView btnPlayChuva;
-    private ImageView btnPlayFloresta, btnPlayLareira, btnPlayVento,
+    private ImageView btnPlayChuva, btnPlayTrovoes, btnPlayFloresta, btnPlayLareira, btnPlayVento,
             btnPlayGrilos, btnPlayPassaros, btnPlayRiacho, btnPlayCafeteira;
 
     // SEEKBARS (VOLUME POR CARD)
-    private SeekBar seekChuva, seekFloresta, seekLareira,
+    private SeekBar seekChuva, seekTrovoes, seekFloresta, seekLareira,
             seekVento, seekGrilos, seekPassaros, seekRiacho, seekCafeteira;
 
     // FAVORITOS
-    private ImageView starChuva;
-    private ImageView starFloresta, starLareira, starVento,
+    private ImageView starChuva, starTrovoes, starFloresta, starLareira, starVento,
             starGrilos, starPassaros, starRiacho, starCafeteira;
 
     private Button btnTimer;
@@ -139,7 +137,7 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
 
         // ======= PLAY BUTTONS =======
         btnPlayChuva = view.findViewById(R.id.btnPlayChuva);
-
+        btnPlayTrovoes = view.findViewById(R.id.btnPlayTrovoes);
         btnPlayFloresta = view.findViewById(R.id.btnPlayFloresta);
         btnPlayLareira = view.findViewById(R.id.btnPlayLareira);
         btnPlayVento = view.findViewById(R.id.btnPlayVento);
@@ -149,6 +147,7 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
         btnPlayCafeteira = view.findViewById(R.id.btnPlayCafeteira);
 
         cardChuva = view.findViewById(R.id.cardChuva);
+        cardTrovoes = view.findViewById(R.id.cardTrovoes);
         cardFloresta = view.findViewById(R.id.cardFloresta);
         cardLareira = view.findViewById(R.id.cardLareira);
         cardVento = view.findViewById(R.id.cardVento);
@@ -159,7 +158,7 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
 
         // ======= SEEKBARS =======
         seekChuva = view.findViewById(R.id.seekChuva);
-
+        seekTrovoes = view.findViewById(R.id.seekTrovoes);
         seekFloresta = view.findViewById(R.id.seekFloresta);
         seekLareira = view.findViewById(R.id.seekLareira);
         seekVento = view.findViewById(R.id.seekVento);
@@ -170,7 +169,7 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
 
         // ======= FAVORITOS =======
         starChuva = view.findViewById(R.id.starChuva);
-
+        starTrovoes = view.findViewById(R.id.starTrovoes);
         starFloresta = view.findViewById(R.id.starFloresta);
         starLareira = view.findViewById(R.id.starLareira);
         starVento = view.findViewById(R.id.starVento);
@@ -214,7 +213,7 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
         
         // ======= SETUP MIX (MULTI-SOM) =======
         setupSound("chuva", R.raw.chuva, btnPlayChuva, seekChuva);
-
+        setupSound("trovoes", R.raw.chuva, btnPlayTrovoes, seekTrovoes);
         setupSound("floresta", R.raw.floresta, btnPlayFloresta, seekFloresta);
         setupSound("lareira", R.raw.lareira, btnPlayLareira, seekLareira);
         setupSound("vento", R.raw.vento_suave, btnPlayVento, seekVento);
@@ -228,6 +227,11 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
 
         starChuva.setOnClickListener(v -> {
             FavoritesManager.toggleFavorite(requireContext(), "chuva");
+            updateStars();
+        });
+
+        starTrovoes.setOnClickListener(v -> {
+            FavoritesManager.toggleFavorite(requireContext(), "trovoes");
             updateStars();
         });
 
@@ -392,6 +396,7 @@ lockCafeteira = view.findViewById(R.id.lockOverlayCafeteira);
     private CardGlowLayout getCardByKey(String key) {
     switch (key) {
         case "chuva": return cardChuva;
+        case "trovoes": return cardTrovoes;
         case "floresta": return cardFloresta;
         case "lareira": return cardLareira;
         case "vento": return cardVento;
@@ -598,6 +603,7 @@ private void startRewardedAdProcess(String key, ImageView button) {
     private void applyMasterVolumeToAll() {
         // Reaplica master*card em todo mundo (útil quando muda no settings)
         applyVolumeForKey("chuva", seekChuva);
+        applyVolumeForKey("trovoes", seekTrovoes);
         applyVolumeForKey("floresta", seekFloresta);
         applyVolumeForKey("lareira", seekLareira);
         applyVolumeForKey("vento", seekVento);
@@ -753,6 +759,7 @@ private void startRewardedAdProcess(String key, ImageView button) {
     private SeekBar getSeekBarByKey(String key) {
     switch (key) {
         case "chuva": return seekChuva;
+        case "trovoes": return seekTrovoes;
         case "floresta": return seekFloresta;
         case "lareira": return seekLareira;
         case "vento": return seekVento;
@@ -768,6 +775,7 @@ private void startRewardedAdProcess(String key, ImageView button) {
     private void stopSound() {
         // Para TODOS os sons (mantém nome stopSound pra não quebrar o resto)
         stopSingle("chuva", btnPlayChuva);
+        stopSingle("trovoes", btnPlayTrovoes);
         stopSingle("floresta", btnPlayFloresta);
         stopSingle("lareira", btnPlayLareira);
         stopSingle("vento", btnPlayVento);
@@ -995,6 +1003,8 @@ inputMinutes.addTextChangedListener(new android.text.TextWatcher() {
 
         boolean chuvaFav =
                 FavoritesManager.isFavorite(requireContext(), "chuva");
+        boolean trovoesFav =
+                FavoritesManager.isFavorite(requireContext(), "trovoes");
         boolean florestaFav =
                 FavoritesManager.isFavorite(requireContext(), "floresta");
         boolean lareiraFav =
@@ -1016,6 +1026,14 @@ inputMinutes.addTextChangedListener(new android.text.TextWatcher() {
         } else {
             starChuva.setImageResource(R.drawable.btn_star_big_off);
             starChuva.setColorFilter(0xFFFFFFFF);
+        }
+
+        if (trovoesFav) {
+            starChuva.setImageResource(R.drawable.btn_star_big_on);
+            starChuva.setColorFilter(0xFFFF1744);
+        } else {
+            starTrovoes.setImageResource(R.drawable.btn_star_big_off);
+            starTrovoes.setColorFilter(0xFFFFFFFF);
         }
 
         if (starFloresta != null) {
