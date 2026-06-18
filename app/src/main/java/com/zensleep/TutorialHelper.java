@@ -59,7 +59,7 @@ public class TutorialHelper {
         tutorialStep = 0; // Garante que começa do passo 0
 
                 // 🎯 SALVA O ESTADO REAL: Antes de começar, vemos se a Floresta está trancada ou não
-        View lockOriginal = rootView.findViewById(R.id.lockOverlayFloresta);
+        View lockOriginal = rootView.findViewById(R.id.lockOverlayTrovoes);
         if (lockOriginal != null) {
             originalLockVisibility = lockOriginal.getVisibility();
         }
@@ -79,14 +79,14 @@ public class TutorialHelper {
         tutorialStep = 0; // Reseta para o primeiro passo
 
                 // 🎯 SALVA O ESTADO REAL: Antes de começar, vemos se a Floresta está trancada ou não
-        View lockOriginal = rootView.findViewById(R.id.lockOverlayFloresta);
+        View lockOriginal = rootView.findViewById(R.id.lockOverlayTrovoes);
         if (lockOriginal != null) {
             originalLockVisibility = lockOriginal.getVisibility();
         }
         
         // Desliga os botões e os sons caso o usuário esteja usando o app no momento
         setCardPlayingState(rootView.findViewById(R.id.cardChuva), R.id.btnPlayChuva, false);
-        setCardPlayingState(rootView.findViewById(R.id.cardFloresta), R.id.btnPlayFloresta, false);
+        setCardPlayingState(rootView.findViewById(R.id.cardTrovoes), R.id.btnPlayTrovoes, false);
 
         tutorialOverlay.setVisibility(View.VISIBLE);
         tutorialOverlay.setAlpha(0f);
@@ -187,19 +187,19 @@ public class TutorialHelper {
                     esconderSeta();
                     tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
                     
-                    View lockFloresta = rootView.findViewById(R.id.lockOverlayFloresta);
-                    if (lockFloresta != null) lockFloresta.setVisibility(View.GONE);
+                    View lockTrovoes = rootView.findViewById(R.id.lockOverlayTrovoes);
+                    if (lockTrovoes != null) lockTrovoes.setVisibility(View.GONE);
 
                     View card1 = rootView.findViewById(R.id.cardChuva);
-                    View card2 = rootView.findViewById(R.id.cardFloresta);
+                    View card2 = rootView.findViewById(R.id.cardTrovoes);
 
                     View seekC = rootView.findViewById(R.id.seekChuva);
-                    View seekF = rootView.findViewById(R.id.seekFloresta);
+                    View seekT = rootView.findViewById(R.id.seekFloresta);
                     if (seekC != null) { seekC.setVisibility(View.VISIBLE); seekC.setAlpha(1f); }
-                    if (seekF != null) { seekF.setVisibility(View.VISIBLE); seekF.setAlpha(1f); }
+                    if (seekT != null) { seekT.setVisibility(View.VISIBLE); seekT.setAlpha(1f); }
 
                     setCardPlayingState(card1, R.id.btnPlayChuva, true);
-                    setCardPlayingState(card2, R.id.btnPlayFloresta, true);
+                    setCardPlayingState(card2, R.id.btnPlayTrovoes, true);
 
                     if (sinalMais == null) {
                         sinalMais = new TextView(context);
@@ -247,14 +247,14 @@ public class TutorialHelper {
                 case 3:
                     if (sinalMais != null) sinalMais.setVisibility(View.GONE);
                     
-                    setCardPlayingState(rootView.findViewById(R.id.cardFloresta), R.id.btnPlayFloresta, false);
+                    setCardPlayingState(rootView.findViewById(R.id.cardTrovoes), R.id.btnPlayTrovoes, false);
 
-                    View seekF2 = rootView.findViewById(R.id.seekFloresta);
-                    if (seekF2 != null) seekF2.setVisibility(View.GONE);
+                    View seekF2 = rootView.findViewById(R.id.seekTrovoes);
+                    if (seekT2 != null) seekT2.setVisibility(View.GONE);
                     
                     tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
                     
-                    View lock = rootView.findViewById(R.id.lockOverlayFloresta);
+                    View lock = rootView.findViewById(R.id.lockOverlayTrovoes);
                     if (lock != null) {
                         lock.setVisibility(View.VISIBLE);
                         lock.setBackgroundResource(0);
@@ -268,7 +268,7 @@ public class TutorialHelper {
                     break;
 
                 case 4:
-                    View lockVolta = rootView.findViewById(R.id.lockOverlayFloresta);
+                    View lockVolta = rootView.findViewById(R.id.lockOverlayTrovoes);
                     if (lockVolta != null) {
                         lockVolta.setVisibility(View.VISIBLE);
                         lockVolta.setBackgroundColor(Color.parseColor("#CC000000"));
@@ -439,7 +439,7 @@ public class TutorialHelper {
         tutorialOverlay.animate().alpha(0f).setDuration(500).withEndAction(() -> {
             tutorialOverlay.setVisibility(View.GONE);
             
-            View lock = rootView.findViewById(R.id.lockOverlayFloresta);
+            View lock = rootView.findViewById(R.id.lockOverlayTrovoes);
             if (lock != null) {
                 lock.setVisibility(originalLockVisibility);
                 lock.setBackgroundColor(Color.parseColor("#CC000000"));
@@ -447,11 +447,11 @@ public class TutorialHelper {
             
             View volC = rootView.findViewById(R.id.seekChuva);
             if (volC != null) volC.setVisibility(View.GONE);
-            View volF = rootView.findViewById(R.id.seekFloresta);
+            View volT = rootView.findViewById(R.id.seekTrovoes);
             if (volF != null) volF.setVisibility(View.GONE);
             
             setCardPlayingState(rootView.findViewById(R.id.cardChuva), R.id.btnPlayChuva, false);
-            setCardPlayingState(rootView.findViewById(R.id.cardFloresta), R.id.btnPlayFloresta, false);
+            setCardPlayingState(rootView.findViewById(R.id.cardTrovoes), R.id.btnPlayTrovoes, false);
             
             context.getSharedPreferences("zen_prefs", Context.MODE_PRIVATE).edit().putBoolean("tutorial_visto", true).apply();
         });
