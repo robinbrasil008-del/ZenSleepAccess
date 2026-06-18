@@ -243,7 +243,7 @@
         android:padding="16dp">
 
         <TextView
-            android:text="Trovões"
+            android:text="Trovoadas"
             android:textColor="#FFFFFF"
             android:fontFamily="@font/playfair"
             android:textSize="16sp"
