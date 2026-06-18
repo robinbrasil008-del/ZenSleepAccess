@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import androidx.appcompat.widget.SwitchCompat; 
+import android.widget.Switch; 
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,7 +51,7 @@ public class AlarmConfigActivity extends AppCompatActivity {
         SeekBar seekVolume = findViewById(R.id.seekAlarmVolume);
         TextView txtVolume = findViewById(R.id.txtAlarmVolumeValue);
         
-        SwitchCompat switchVibrate = findViewById(R.id.switchVibrate); 
+        Switch switchVibrate = findViewById(R.id.switchVibrate); 
         TextView txtVibrateStatus = findViewById(R.id.txtVibrateStatus);
 
 // 2. Configura o estado inicial ao abrir a tela
