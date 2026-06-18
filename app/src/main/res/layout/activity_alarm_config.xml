@@ -58,6 +58,8 @@
                 android:layout_height="wrap_content"
                 android:text="SELECIONAR SOM"
                 android:textColor="#E6DAB3"
+                android:fontFamily="@font/playfair"
+                android:textStyle="bold"
                 android:textSize="12sp"
                 android:letterSpacing="0.08"/>
 
@@ -112,6 +114,8 @@
                     android:layout_weight="1"
                     android:text="VOLUME DO ALARME"
                     android:textColor="#E6DAB3"
+                    android:fontFamily="@font/playfair"
+                    android:textStyle="bold"
                     android:textSize="12sp"
                     android:letterSpacing="0.08"/>
 
@@ -153,6 +157,7 @@
         android:text="ATIVAR VIBRAÇÃO"
         android:fontFamily="@font/playfair"
         android:textColor="#E6DAB3"
+        android:textStyle="bold"
         android:textSize="15sp"
         android:drawableStart="@drawable/ic_vibracao"
         android:drawablePadding="12dp"
@@ -200,6 +205,7 @@
                 android:text="MODO SONECA"
                 android:fontFamily="@font/playfair"
                 android:textColor="#E6DAB3"
+                android:textStyle="bold"
                 android:textSize="14sp"
                 android:drawableStart="@drawable/ic_lua"
                 android:drawablePadding="12dp"
