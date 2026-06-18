@@ -36,6 +36,9 @@ public class FavoritesFragment extends Fragment {
         setupSound(view, "chuva", R.raw.chuva,
                 R.id.btnPlayChuva, R.id.seekChuva);
 
+        setupSound(view, "trovoes", R.raw.trovoes,
+                R.id.btnPlayTrovoes, R.id.seekTrovoes);
+
         setupSound(view, "floresta", R.raw.floresta,
                 R.id.btnPlayFloresta, R.id.seekFloresta);
 
@@ -81,6 +84,7 @@ public class FavoritesFragment extends Fragment {
     java.util.Map<String, View> map = new java.util.HashMap<>();
 
     map.put("chuva", root.findViewById(R.id.cardChuva));
+    map.put("trovoes", root.findViewById(R.id.cardTrovoes));
     map.put("floresta", root.findViewById(R.id.cardFloresta));
     map.put("lareira", root.findViewById(R.id.cardLareira));
     map.put("vento", root.findViewById(R.id.cardVento));
@@ -131,6 +135,9 @@ public class FavoritesFragment extends Fragment {
 switch (key) {
     case "chuva":
         btnFav = root.findViewById(R.id.starChuva);
+        break;
+    case "trovoes":
+        btnFav = root.findViewById(R.id.starTrovoes);
         break;
     case "floresta":
         btnFav = root.findViewById(R.id.starFloresta);
