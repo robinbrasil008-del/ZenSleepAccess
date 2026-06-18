@@ -786,6 +786,30 @@ private void startRewardedAdProcess(String key, ImageView button) {
         EditText inputMinutes = dialogView.findViewById(R.id.inputMinutes);
         Button btnStartTimer = dialogView.findViewById(R.id.btnStartTimer);
         Switch switchTimerAlarm = dialogView.findViewById(R.id.switchTimerAlarm);
+        TextView txtAlarmStatus = dialogView.findViewById(R.id.txtAlarmStatus);
+
+if (switchTimerAlarm != null && txtAlarmStatus != null) {
+    
+    // Configuração inicial quando a tela carrega
+    if (switchTimerAlarm.isChecked()) {
+        txtAlarmStatus.setText("On");
+        txtAlarmStatus.setTextColor(android.graphics.Color.parseColor("#00FF00")); // Verde
+    } else {
+        txtAlarmStatus.setText("Off");
+        txtAlarmStatus.setTextColor(android.graphics.Color.parseColor("#94A3B8")); // Cinza
+    }
+
+    // A mágica acontece quando o usuário clica na chave
+    switchTimerAlarm.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        if (isChecked) {
+            txtAlarmStatus.setText("On");
+            txtAlarmStatus.setTextColor(android.graphics.Color.parseColor("#00FF00"));
+        } else {
+            txtAlarmStatus.setText("Off");
+            txtAlarmStatus.setTextColor(android.graphics.Color.parseColor("#94A3B8"));
+        }
+    });
+}
 
         // 🔥 EFEITO AO FOCAR
 inputMinutes.setOnFocusChangeListener((v, hasFocus) -> {
