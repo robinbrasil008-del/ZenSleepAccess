@@ -194,7 +194,7 @@ public class TutorialHelper {
                     View card2 = rootView.findViewById(R.id.cardTrovoes);
 
                     View seekC = rootView.findViewById(R.id.seekChuva);
-                    View seekT = rootView.findViewById(R.id.seekFloresta);
+                    View seekT = rootView.findViewById(R.id.seekTrovoes);
                     if (seekC != null) { seekC.setVisibility(View.VISIBLE); seekC.setAlpha(1f); }
                     if (seekT != null) { seekT.setVisibility(View.VISIBLE); seekT.setAlpha(1f); }
 
