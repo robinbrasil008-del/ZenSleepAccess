@@ -138,33 +138,51 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_card_glass"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="18dp"
+    android:layout_marginBottom="16dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="ATIVAR VIBRAÇÃO"
+        android:fontFamily="@font/playfair"
+        android:textColor="#E6DAB3"
+        android:textSize="15sp"
+        android:drawableStart="@drawable/ic_vibracao"
+        android:drawablePadding="12dp"
+        android:gravity="center_vertical"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchVibrate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_card_glass"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="18dp"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_vertical">
+            app:thumbTint="#4AD3C6"
+            app:trackTint="#1E293B"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="ATIVAR VIBRAÇÃO"
-                android:fontFamily="@font/playfair"
-                android:textColor="#E6DAB3"
-                android:textSize="15sp"
-                android:drawableStart="@drawable/ic_vibracao"
-                android:drawablePadding="12dp"
-                android:gravity="center_vertical"/>
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchVibrate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:thumbTint="#4AD3C6"
-                app:trackTint="#1E293B"/>
-        </LinearLayout>
+        <TextView
+            android:id="@+id/txtVibrateStatus"
+            android:text="Off"
+            android:textColor="#94A3B8"
+            android:textSize="11sp"
+            android:fontFamily="@font/playfair"
+            android:textStyle="bold"
+            android:layout_marginTop="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
