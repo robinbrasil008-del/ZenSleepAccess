@@ -1,8 +1,7 @@
 package com.zensleep;
 
 import android.os.Bundle;
-import android.webkit.WebView;
-
+import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PrivacyPolicyActivity extends AppCompatActivity {
@@ -12,8 +11,11 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy_policy);
 
-        WebView webView = findViewById(R.id.webPolicy);
-        webView.getSettings().setJavaScriptEnabled(false);
-        webView.loadUrl("file:///android_asset/privacy_policy.html");
+        // Agora o Java só precisa se preocupar com o botão de voltar
+        ImageView btnBack = findViewById(R.id.btnBack);
+        
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+        }
     }
 }
