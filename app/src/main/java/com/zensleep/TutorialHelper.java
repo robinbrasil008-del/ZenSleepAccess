@@ -249,7 +249,7 @@ public class TutorialHelper {
                     
                     setCardPlayingState(rootView.findViewById(R.id.cardTrovoes), R.id.btnPlayTrovoes, false);
 
-                    View seekF2 = rootView.findViewById(R.id.seekTrovoes);
+                    View seekT2 = rootView.findViewById(R.id.seekTrovoes);
                     if (seekT2 != null) seekT2.setVisibility(View.GONE);
                     
                     tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
@@ -448,7 +448,7 @@ public class TutorialHelper {
             View volC = rootView.findViewById(R.id.seekChuva);
             if (volC != null) volC.setVisibility(View.GONE);
             View volT = rootView.findViewById(R.id.seekTrovoes);
-            if (volF != null) volF.setVisibility(View.GONE);
+            if (volT != null) volT.setVisibility(View.GONE);
             
             setCardPlayingState(rootView.findViewById(R.id.cardChuva), R.id.btnPlayChuva, false);
             setCardPlayingState(rootView.findViewById(R.id.cardTrovoes), R.id.btnPlayTrovoes, false);
