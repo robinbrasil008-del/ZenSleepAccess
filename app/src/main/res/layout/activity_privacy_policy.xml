@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Privacy Policy"
+                android:text="Política de Privacidade"
                 android:textColor="#38bdf8"
                 android:textSize="28sp"
                 android:textStyle="bold"
@@ -43,7 +43,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ZenSleep Mobile Application\nLast updated: March 2026"
+                android:text="Aplicativo Mobile ZenSleep\nÚltima atualização: Março de 2026"
                 android:textColor="#94a3b8"
                 android:textSize="14sp"
                 android:gravity="center"
@@ -53,7 +53,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1. Introduction"
+                android:text="1. Introdução"
                 android:textColor="#38bdf8"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ZenSleep (&#34;we&#34;, &#34;our&#34;, or &#34;us&#34;) values your privacy. This Privacy Policy explains how information is handled when you use the ZenSleep mobile application (the &#34;App&#34;).\n\nBy using the App, you agree to the practices described in this Privacy Policy."
+                android:text="O ZenSleep (&#34;nós&#34; ou &#34;nosso&#34;) valoriza sua privacidade. Esta Política de Privacidade explica como as informações são tratadas quando você usa o aplicativo móvel ZenSleep (o &#34;App&#34;).\n\nAo usar o App, você concorda com as práticas descritas nesta Política de Privacidade."
                 android:textColor="#f1f5f9"
                 android:textSize="15sp"
                 android:lineSpacingExtra="6dp"
@@ -71,7 +71,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="2. Information We Collect"
+                android:text="2. Informações que Coletamos"
                 android:textColor="#38bdf8"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -80,7 +80,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ZenSleep does not directly collect personally identifiable information. However, certain data may be automatically collected through third-party services integrated within the App:\n\n• Device type and operating system\n• IP address\n• Advertising identifiers (such as Google Advertising ID)\n• App usage statistics\n• Crash reports and performance diagnostics\n\nThis information is used solely to improve user experience, maintain app functionality, and serve relevant advertisements."
+                android:text="O ZenSleep não coleta diretamente informações de identificação pessoal. No entanto, certos dados podem ser coletados automaticamente por meio de serviços de terceiros integrados ao App:\n\n• Tipo de dispositivo e sistema operacional\n• Endereço IP\n• Identificadores de publicidade (como o ID de Publicidade do Google)\n• Estatísticas de uso do App\n• Relatórios de falhas e diagnósticos de desempenho\n\nEssas informações são usadas exclusivamente para melhorar a experiência do usuário, manter a funcionalidade do aplicativo e veicular anúncios relevantes."
                 android:textColor="#f1f5f9"
                 android:textSize="15sp"
                 android:lineSpacingExtra="6dp"
@@ -89,7 +89,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="3. Advertising and Third-Party Services"
+                android:text="3. Publicidade e Serviços de Terceiros"
                 android:textColor="#38bdf8"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -98,7 +98,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ZenSleep uses Google AdMob to display advertisements. AdMob may collect and process data in accordance with its own privacy policies.\n\nFor more information, please review Google’s Privacy Policy:\nhttps://policies.google.com/privacy\n\nUsers located in the European Economic Area (EEA), United Kingdom, or California may be presented with consent options regarding personalized advertising in compliance with applicable laws (GDPR and CCPA)."
+                android:text="O ZenSleep usa o Google AdMob para exibir anúncios. O AdMob pode coletar e processar dados de acordo com suas próprias políticas de privacidade.\n\nPara mais informações, consulte a Política de Privacidade do Google:\nhttps://policies.google.com/privacy\n\nUsuários localizados no Espaço Econômico Europeu (EEE), Reino Unido ou Califórnia podem receber opções de consentimento em relação à publicidade personalizada em conformidade com as leis aplicáveis (GDPR e CCPA)."
                 android:textColor="#f1f5f9"
                 android:textSize="15sp"
                 android:lineSpacingExtra="6dp"
@@ -109,7 +109,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="4. Data Usage"
+                android:text="4. Uso de Dados"
                 android:textColor="#38bdf8"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -118,7 +118,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Any data collected through third-party services is used to:\n\n• Deliver advertisements\n• Analyze app performance\n• Improve stability and user experience\n• Detect and prevent fraud or abuse"
+                android:text="Qualquer dado coletado por meio de serviços de terceiros é usado para:\n\n• Exibir anúncios\n• Analisar o desempenho do aplicativo\n• Melhorar a estabilidade e a experiência do usuário\n• Detectar e prevenir fraudes ou abusos"
                 android:textColor="#f1f5f9"
                 android:textSize="15sp"
                 android:lineSpacingExtra="6dp"
@@ -127,7 +127,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="5. Data Security"
+                android:text="5. Segurança de Dados"
                 android:textColor="#38bdf8"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -136,7 +136,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="We implement commercially reasonable safeguards to protect information processed within the App. However, no method of electronic transmission or storage is 100% secure, and absolute security cannot be guaranteed."
+                android:text="Implementamos salvaguardas comercialmente razoáveis para proteger as informações processadas no App. No entanto, nenhum método de transmissão ou armazenamento eletrônico é 100% seguro, e a segurança absoluta não pode ser garantida."
                 android:textColor="#f1f5f9"
                 android:textSize="15sp"
                 android:lineSpacingExtra="6dp"
@@ -145,7 +145,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="6. Children's Privacy"
+                android:text="6. Privacidade das Crianças"
                 android:textColor="#38bdf8"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -154,7 +154,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ZenSleep is not intended for children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided information, please contact us so appropriate action can be taken."
+                android:text="O ZenSleep não é destinado a crianças menores de 13 anos. Não coletamos intencionalmente informações pessoais de crianças. Se você acredita que uma criança forneceu informações, entre em contato conosco para que as medidas adequadas possam ser tomadas."
                 android:textColor="#f1f5f9"
                 android:textSize="15sp"
                 android:lineSpacingExtra="6dp"
@@ -163,7 +163,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="7. Your Rights"
+                android:text="7. Seus Direitos"
                 android:textColor="#38bdf8"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -172,7 +172,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Depending on your location, you may have rights under applicable privacy laws, including the right to request access, correction, or deletion of certain personal data collected by third-party services. Please contact us for assistance."
+                android:text="Dependendo da sua localização, você pode ter direitos de acordo com as leis de privacidade aplicáveis, incluindo o direito de solicitar acesso, correção ou exclusão de certos dados pessoais coletados por serviços de terceiros. Entre em contato conosco para obter assistência."
                 android:textColor="#f1f5f9"
                 android:textSize="15sp"
                 android:lineSpacingExtra="6dp"
@@ -181,7 +181,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="8. Changes to This Policy"
+                android:text="8. Alterações a Esta Política"
                 android:textColor="#38bdf8"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -190,7 +190,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="We may update this Privacy Policy from time to time. Updates will be posted on this page with a revised &#34;Last updated&#34; date."
+                android:text="Podemos atualizar esta Política de Privacidade de tempos em tempos. As atualizações serão publicadas nesta página com uma data de &#34;Última atualização&#34; revisada."
                 android:textColor="#f1f5f9"
                 android:textSize="15sp"
                 android:lineSpacingExtra="6dp"
@@ -199,7 +199,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="9. Contact Information"
+                android:text="9. Informações de Contato"
                 android:textColor="#38bdf8"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -208,7 +208,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="If you have any questions regarding this Privacy Policy, you may contact us:\n\nEmail: luxecharms1.0@gmail.com\nWebsite: https://app-zensleep.site"
+                android:text="Se você tiver alguma dúvida sobre esta Política de Privacidade, pode nos contatar:\n\nE-mail: luxecharms1.0@gmail.com\nSite: https://app-zensleep.site"
                 android:textColor="#f1f5f9"
                 android:textSize="15sp"
                 android:lineSpacingExtra="6dp"
@@ -219,7 +219,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="© 2026 ZenSleep. All rights reserved."
+                android:text="© 2026 ZenSleep. Todos os direitos reservados."
                 android:textColor="#94a3b8"
                 android:textSize="13sp"
                 android:gravity="center"
