@@ -156,9 +156,13 @@ public class TutorialHelper {
     }
     // --- FIM DA SUBSTITUIÇÃO ---
 
+        tutorialBox.setBackgroundResource(R.drawable.bg_caixa_tutorial_neon);
+
+
         tutorialBox.animate().alpha(0f).setDuration(200).withEndAction(() -> {
             switch (step) {
                 case 0:
+
                     tutorialText.setText("Toque no botão PLAY de um card para soltar o som referente a ele...");
                     View cardChuva = rootView.findViewById(R.id.cardChuva);
                     
@@ -185,6 +189,7 @@ public class TutorialHelper {
                     
                 case 2:
                     esconderSeta();
+
                     tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
                     
                     View lockTrovoes = rootView.findViewById(R.id.lockOverlayTrovoes);
@@ -251,7 +256,7 @@ public class TutorialHelper {
 
                     View seekT2 = rootView.findViewById(R.id.seekTrovoes);
                     if (seekT2 != null) seekT2.setVisibility(View.GONE);
-                    
+
                     tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
                     
                     View lock = rootView.findViewById(R.id.lockOverlayTrovoes);
@@ -286,6 +291,7 @@ public class TutorialHelper {
                     break;
 
                 case 5:
+
                     tutorialText.setText("Defina um novo tempo para a música desligar sozinha enquanto você dorme. Bons sonhos! 🌙");
                     
                     View btnTimer = rootView.findViewById(R.id.btnTimer);
