@@ -1328,7 +1328,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:backgroundTint="#1A1A1A" 
-            android:background="@drawable/shape_background"
+            android:background="@drawable/bg_caixa_tutorial_neon"
             android:padding="20dp"
             android:elevation="10dp">
 
