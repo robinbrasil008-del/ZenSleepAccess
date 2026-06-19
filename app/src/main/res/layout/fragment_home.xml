@@ -9,8 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp" >
+        android:layout_height="match_parent" >
 
         <ScrollView
             android:background="@drawable/bg_screen_gradient"
@@ -19,6 +18,7 @@
 
     <LinearLayout
         android:padding="24dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
@@ -1273,8 +1273,8 @@
         <FrameLayout
             android:background="@drawable/bg_cabecalho_gradiente"
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="100dp"
+            android:layout_height="100dp">
 
         <ImageView
             android:id="@+id/btnMenu"
@@ -1283,7 +1283,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="20dp"
             android:padding="12dp"
             android:src="@drawable/ic_menu"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -1291,11 +1291,9 @@
             android:focusable="true"/>
 
             <ImageView
-    android:layout_width="120dp"
-    android:layout_height="90dp"
+    android:layout_width="90dp"
+    android:layout_height="70dp"
     android:src="@drawable/logo_zensleep"
-    android:layout_marginBottom="2dp"
-    android:layout_gravity="center"
     android:adjustViewBounds="true"/>
 
         </FrameLayout>
