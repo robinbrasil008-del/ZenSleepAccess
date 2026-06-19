@@ -1365,6 +1365,6 @@
         android:background="#121212"
         app:itemTextColor="#FFFFFF"
         app:itemIconTint="#FFFFFF"
-        app:menu="@menu/menu_lateral" >
+        app:menu="@menu/menu_lateral"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
