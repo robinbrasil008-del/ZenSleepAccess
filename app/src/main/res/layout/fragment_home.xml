@@ -18,7 +18,7 @@
 
     <LinearLayout
         android:padding="24dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="105dp"
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
@@ -1273,7 +1273,7 @@
         <FrameLayout
             android:background="@drawable/bg_cabecalho_gradiente"
             android:orientation="vertical"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="100dp">
 
         <ImageView
