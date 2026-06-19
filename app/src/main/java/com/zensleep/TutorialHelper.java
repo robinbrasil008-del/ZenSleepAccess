@@ -156,12 +156,10 @@ public class TutorialHelper {
     }
     // --- FIM DA SUBSTITUIÇÃO ---
 
-        tutorialBox.setBackgroundResource(R.drawable.bg_caixa_tutorial_neon);
-
-
         tutorialBox.animate().alpha(0f).setDuration(200).withEndAction(() -> {
             switch (step) {
                 case 0:
+                    tutorialBox.setBackgroundResource(R.drawable.bg_caixa_tutorial_neon);
 
                     tutorialText.setText("Toque no botão PLAY de um card para soltar o som referente a ele...");
                     View cardChuva = rootView.findViewById(R.id.cardChuva);
@@ -174,6 +172,8 @@ public class TutorialHelper {
                     break;
                     
                 case 1:
+                    tutorialBox.setBackgroundResource(R.drawable.bg_caixa_tutorial_neon);
+
                     tutorialText.setText("Regule o volume aqui para criar o ambiente perfeito.");
                     View vol = rootView.findViewById(R.id.seekChuva);
                     if (vol != null) {
@@ -189,6 +189,9 @@ public class TutorialHelper {
                     
                 case 2:
                     esconderSeta();
+
+                    tutorialBox.setBackgroundResource(R.drawable.bg_caixa_tutorial_neon);
+
 
                     tutorialText.setText("Você pode tocar vários sons ao mesmo tempo! Misture como preferir para relaxar.");
                     
@@ -257,6 +260,8 @@ public class TutorialHelper {
                     View seekT2 = rootView.findViewById(R.id.seekTrovoes);
                     if (seekT2 != null) seekT2.setVisibility(View.GONE);
 
+                    tutorialBox.setBackgroundResource(R.drawable.bg_caixa_tutorial_neon);
+
                     tutorialText.setText("Os sons com o cadeado são PREMIUM. Assista um anúncio rápido e desbloqueie!");
                     
                     View lock = rootView.findViewById(R.id.lockOverlayTrovoes);
@@ -279,6 +284,8 @@ public class TutorialHelper {
                         lockVolta.setBackgroundColor(Color.parseColor("#CC000000"));
                     }
 
+                    tutorialBox.setBackgroundResource(R.drawable.bg_caixa_tutorial_neon);
+
                     tutorialText.setText("Acompanhe aqui o tempo restante para a música desligar automaticamente.");
                     
                     View timerCard = rootView.findViewById(R.id.timerCard);
@@ -291,6 +298,7 @@ public class TutorialHelper {
                     break;
 
                 case 5:
+                    tutorialBox.setBackgroundResource(R.drawable.bg_caixa_tutorial_neon);
 
                     tutorialText.setText("Defina um novo tempo para a música desligar sozinha enquanto você dorme. Bons sonhos! 🌙");
                     
