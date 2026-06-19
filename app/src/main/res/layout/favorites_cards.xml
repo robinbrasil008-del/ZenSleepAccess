@@ -59,10 +59,11 @@
 
         <TextView
             android:text="Chuva"
-            android:textColor="@android:color/white"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="0dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
@@ -257,10 +258,11 @@
 
         <TextView
             android:text="Floresta"
-            android:textColor="@android:color/white"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="0dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
@@ -354,10 +356,11 @@
 
         <TextView
             android:text="Lareira"
-            android:textColor="@android:color/white"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="0dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
@@ -451,10 +454,11 @@
 
         <TextView
             android:text="Vento Suave"
-            android:textColor="@android:color/white"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="0dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
@@ -547,11 +551,12 @@
         android:padding="16dp">
 
         <TextView
-            android:text="Noite com Grilos"
-            android:textColor="@android:color/white"
+            android:text="Grilos"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="0dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
@@ -645,10 +650,11 @@
 
         <TextView
             android:text="Pássaros"
-            android:textColor="@android:color/white"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="0dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
@@ -742,10 +748,11 @@
 
         <TextView
             android:text="Riacho"
-            android:textColor="@android:color/white"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="0dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
@@ -839,10 +846,11 @@
 
         <TextView
             android:text="Cafeteira"
-            android:textColor="@android:color/white"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/playfair"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="0dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shadowColor="#80000000"
