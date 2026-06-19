@@ -31,15 +31,7 @@
     ads:adUnitId="ca-app-pub-8296610548842772/7784029047"/>
 
         <!-- TÍTULO -->
-        <ImageView
-    android:layout_width="310dp"
-    android:layout_height="160dp"
-    android:src="@drawable/logo_zensleep"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="6dp"
-    android:layout_gravity="center"
-    android:adjustViewBounds="true"/>
-
+        
         <!-- 🔥 NOVO RELÓGIO ESTILIZADO -->
           <com.zensleep.AnimatedTimerCardLayout
            android:id="@+id/timerCard"
@@ -1277,6 +1269,8 @@
                     </LinearLayout>
         </ScrollView>
 
+        <FrameLayout
+
         <ImageView
             android:id="@+id/btnMenu"
             android:layout_width="48dp"
@@ -1290,6 +1284,17 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"/>
+
+            <ImageView
+    android:layout_width="150dp"
+    android:layout_height="90dp"
+    android:src="@drawable/logo_zensleep"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="6dp"
+    android:layout_gravity="center"
+    android:adjustViewBounds="true"/>
+
+        </FrameLayout>
 
     <com.zensleep.TutorialMaskView
         android:id="@+id/tutorialOverlay"
