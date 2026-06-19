@@ -1350,6 +1350,11 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -1359,5 +1364,16 @@
         app:itemTextColor="#FFFFFF"
         app:itemIconTint="#FFFFFF"
         app:menu="@menu/menu_lateral" />
+
+        <ImageView
+    android:layout_width="310dp"
+    android:layout_height="160dp"
+    android:src="@drawable/logo_zensleep"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="6dp"
+    android:layout_gravity="center"
+    android:adjustViewBounds="true"/>
+
+    </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>
