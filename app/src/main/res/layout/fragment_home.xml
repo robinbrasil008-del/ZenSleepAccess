@@ -1291,7 +1291,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginStart="75dp"
+            android:layout_marginStart="77dp"
             android:src="@drawable/logo_zensleep"
             android:adjustViewBounds="true"/>
 
@@ -1326,7 +1326,7 @@
             android:id="@+id/tutorialBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="50dp"
             android:orientation="vertical" 
             android:background="@drawable/bg_caixa_tutorial_neon"
             android:padding="20dp"
