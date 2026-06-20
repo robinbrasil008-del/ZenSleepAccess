@@ -1326,6 +1326,7 @@
             android:id="@+id/tutorialBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:orientation="vertical" 
             android:background="@drawable/bg_caixa_tutorial_neon"
             android:padding="20dp"
