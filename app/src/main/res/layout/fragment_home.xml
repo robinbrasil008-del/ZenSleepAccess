@@ -1291,7 +1291,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginStart="70dp"
+            android:layout_marginStart="75dp"
             android:src="@drawable/logo_zensleep"
             android:adjustViewBounds="true"/>
 
