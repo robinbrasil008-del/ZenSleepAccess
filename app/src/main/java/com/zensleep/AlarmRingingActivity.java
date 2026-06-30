@@ -34,7 +34,7 @@ public class AlarmRingingActivity extends AppCompatActivity {
         String label = getIntent().getStringExtra("alarm_label");
 
         if (label != null && !label.isEmpty()) {
-            txtTitle.setText("⏰ " + label);
+            txtTitle.setText(" " + label);
         } else {
             txtTitle.setText("⏰ Alarme");
         }
