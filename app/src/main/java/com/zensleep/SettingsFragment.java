@@ -8,6 +8,10 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
@@ -142,5 +146,49 @@ public class SettingsFragment extends Fragment {
             Intent i = new Intent(requireContext(), PrivacyPolicyActivity.class);
             startActivity(i);
         });
+
+            // =========================
+    // 🔥 MÉTODOS DO MOTOR DE NOTIFICAÇÃO
+    // =========================
+    private void agendarLembrete(int hour, int minute) {
+        AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(requireContext(), ReminderReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                requireContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+
+        // Se o horário escolhido já passou hoje, agenda para disparar amanhã
+        if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
+        // Agenda um alarme que se repete todo dia nesse horário
+        if (alarmManager != null) {
+            alarmManager.setRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY,
+                    pendingIntent
+            );
+        }
+    }
+
+    private void cancelarLembrete() {
+        AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(requireContext(), ReminderReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                requireContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+        if (alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+        }
+    }
+
     }
 }
