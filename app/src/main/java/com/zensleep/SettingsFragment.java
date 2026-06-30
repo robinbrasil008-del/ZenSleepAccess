@@ -78,51 +78,56 @@ public class SettingsFragment extends Fragment {
             startActivity(i);
         });
 
-        // =========================
+                // =========================
         // 🌙 LEMBRETE DE DORMIR
         // =========================
         
-        // Abre o relógio ao clicar no Card inteiro
         cardSleepReminder.setOnClickListener(v -> {
             int currentHour = prefs.getInt(KEY_HOUR, 22);
             int currentMinute = prefs.getInt(KEY_MINUTE, 0);
 
             android.app.TimePickerDialog timePicker = new android.app.TimePickerDialog(requireContext(),
                 (viewPicker, hourOfDay, minuteOfHour) -> {
-                    // Salva o novo horário escolhido
                     prefs.edit()
                         .putInt(KEY_HOUR, hourOfDay)
                         .putInt(KEY_MINUTE, minuteOfHour)
                         .apply();
                     
-                    // Se estiver desativado, ativa automaticamente ao escolher a hora
                     if (!switchSleepReminder.isChecked()) {
+                        // Se tava desligado, liga a chave (ela já vai chamar o agendamento no Listener abaixo)
                         switchSleepReminder.setChecked(true);
                     } else {
-                        // Se já estava ativo, apenas atualiza o texto do horário
+                        // Se já estava ligado, atualiza o texto e reagenda para o novo horário
                         txtReminderTime.setText(String.format(java.util.Locale.getDefault(), "Notificar às %02d:%02d", hourOfDay, minuteOfHour));
+                        agendarLembrete(hourOfDay, minuteOfHour); 
                     }
-                }, currentHour, currentMinute, true); // 'true' força o formato 24 horas
+                }, currentHour, currentMinute, true);
             timePicker.show();
         });
 
-        // Controla a ativação/desativação pela chave
         switchSleepReminder.setOnCheckedChangeListener((buttonView, isChecked) -> {
             prefs.edit().putBoolean(KEY_REMINDER, isChecked).apply();
+
+            int h = prefs.getInt(KEY_HOUR, 22);
+            int m = prefs.getInt(KEY_MINUTE, 0);
 
             if (isChecked) {
                 txtReminderStatus.setText("On");
                 txtReminderStatus.setTextColor(android.graphics.Color.parseColor("#00FF00"));
-                
-                int h = prefs.getInt(KEY_HOUR, 22);
-                int m = prefs.getInt(KEY_MINUTE, 0);
                 txtReminderTime.setText(String.format(java.util.Locale.getDefault(), "Notificar às %02d:%02d", h, m));
+                
+                // LIGA A NOTIFICAÇÃO 🚀
+                agendarLembrete(h, m);
             } else {
                 txtReminderStatus.setText("Off");
                 txtReminderStatus.setTextColor(android.graphics.Color.parseColor("#94A3B8"));
                 txtReminderTime.setText("Notificar na hora de relaxar");
+                
+                // DESLIGA A NOTIFICAÇÃO 🛑
+                cancelarLembrete();
             }
         });
+
 
         // =========================
         // 🔊 VOLUME
