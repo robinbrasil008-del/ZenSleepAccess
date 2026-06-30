@@ -102,6 +102,11 @@
             android:name=".PrivacyPolicyActivity"
             android:exported="false"/>
 
+                <!-- RECEIVER DO LEMBRETE DE DORMIR -->
+        <receiver
+            android:name=".ReminderReceiver"
+            android:exported="false"/>
+
         <meta-data
     android:name="com.google.android.gms.ads.APPLICATION_ID"
     android:value="ca-app-pub-8296610548842772~8821134340"/>
