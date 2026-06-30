@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
-        <!-- TEMA ESCURO -->
+                <!-- LEMBRETE DE DORMIR -->
         <LinearLayout
             android:background="@drawable/bg_card_glass"
             android:padding="18dp"
@@ -67,20 +67,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:text="🌙 Tema escuro"
-                android:fontFamily="@font/playfair"
-                android:textColor="#F0EACF"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_weight="1"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
 
-            <Switch
-                android:id="@+id/switchDarkMode"
+                <TextView
+                    android:text="🌙 Lembrete de dormir"
+                    android:fontFamily="@font/playfair"
+                    android:textColor="#F0EACF"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="Notificar na hora de relaxar"
+                    android:textColor="#94A3B8"
+                    android:textSize="13sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp">
+
+                <Switch
+                    android:id="@+id/switchSleepReminder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/txtReminderStatus"
+                    android:text="Off"
+                    android:textColor="#94A3B8"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/playfair"
+                    android:textStyle="bold"
+                    android:layout_marginTop="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
         </LinearLayout>
 
         <!-- VOLUME -->
