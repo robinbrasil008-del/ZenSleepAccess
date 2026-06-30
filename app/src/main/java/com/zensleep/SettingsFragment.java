@@ -16,7 +16,8 @@ public class SettingsFragment extends Fragment {
 
     public static final String PREFS = "zen_settings";
 
-    public static final String KEY_DARK = "dark_mode";
+    public static final String KEY_REMINDER = "sleep_reminder";
+
     public static final String KEY_VOL = "volume";
 
     public SettingsFragment() {
@@ -32,7 +33,8 @@ public class SettingsFragment extends Fragment {
         LinearLayout cardAlarm = view.findViewById(R.id.cardAlarm);
 
         // OUTROS CONTROLES
-        Switch switchDarkMode = view.findViewById(R.id.switchDarkMode);
+        Switch switchSleepReminder = view.findViewById(R.id.switchSleepReminder);
+        TextView txtReminderStatus = view.findViewById(R.id.txtReminderStatus);
         SeekBar seekVolume = view.findViewById(R.id.seekVolume);
         TextView txtVolumeValue = view.findViewById(R.id.txtVolumeValue);
         LinearLayout btnPrivacy = view.findViewById(R.id.btnPrivacy);
@@ -40,10 +42,20 @@ public class SettingsFragment extends Fragment {
         // =========================
         // 🔥 CARREGA VALORES
         // =========================
-        boolean darkEnabled = prefs.getBoolean(KEY_DARK, true);
-        int volume = prefs.getInt(KEY_VOL, 80);
 
-        switchDarkMode.setChecked(darkEnabled);
+        int volume = prefs.getInt(KEY_VOL, 80);
+        boolean reminderEnabled = prefs.getBoolean(KEY_REMINDER, false); // Começa desligado por padrão
+switchSleepReminder.setChecked(reminderEnabled);
+
+// Ajusta a cor inicial do texto On/Off
+if (reminderEnabled) {
+    txtReminderStatus.setText("On");
+    txtReminderStatus.setTextColor(android.graphics.Color.parseColor("#00FF00"));
+} else {
+    txtReminderStatus.setText("Off");
+    txtReminderStatus.setTextColor(android.graphics.Color.parseColor("#94A3B8"));
+}
+
         seekVolume.setProgress(volume);
         txtVolumeValue.setText(volume + "%");
 
@@ -56,18 +68,21 @@ public class SettingsFragment extends Fragment {
         });
 
         // =========================
-        // 🌙 TEMA ESCURO
+        // 🌙 LEMBRETE DE DORMIR
         // =========================
-        switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+switchSleepReminder.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        // Salva a preferência na memória
+    prefs.edit().putBoolean(KEY_REMINDER, isChecked).apply();
 
-            prefs.edit().putBoolean(KEY_DARK, isChecked).apply();
-
-            AppCompatDelegate.setDefaultNightMode(
-                    isChecked
-                            ? AppCompatDelegate.MODE_NIGHT_YES
-                            : AppCompatDelegate.MODE_NIGHT_NO
-            );
-        });
+    // Muda a cor e o texto dinamicamente
+    if (isChecked) {
+        txtReminderStatus.setText("On");
+        txtReminderStatus.setTextColor(android.graphics.Color.parseColor("#00FF00"));
+    } else {
+        txtReminderStatus.setText("Off");
+        txtReminderStatus.setTextColor(android.graphics.Color.parseColor("#94A3B8"));
+    }
+});
 
         // =========================
         // 🔊 VOLUME
