@@ -151,8 +151,9 @@ public class SettingsFragment extends Fragment {
             Intent i = new Intent(requireContext(), PrivacyPolicyActivity.class);
             startActivity(i);
         });
+    }
 
-            // =========================
+        // =========================
     // 🔥 MÉTODOS DO MOTOR DE NOTIFICAÇÃO
     // =========================
     private void agendarLembrete(int hour, int minute) {
@@ -195,5 +196,4 @@ public class SettingsFragment extends Fragment {
         }
     }
 
-    }
 }
