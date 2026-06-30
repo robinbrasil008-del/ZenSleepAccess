@@ -12,6 +12,11 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import java.util.Calendar;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
@@ -105,7 +110,16 @@ public class SettingsFragment extends Fragment {
             timePicker.show();
         });
 
+                // Controla a ativação/desativação pela chave
         switchSleepReminder.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            
+            // 🔥 NOVIDADE: PEDE PERMISSÃO DE NOTIFICAÇÃO NA TELA (ANDROID 13+) 🔥
+            if (isChecked && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+                }
+            }
+
             prefs.edit().putBoolean(KEY_REMINDER, isChecked).apply();
 
             int h = prefs.getInt(KEY_HOUR, 22);
@@ -127,7 +141,6 @@ public class SettingsFragment extends Fragment {
                 cancelarLembrete();
             }
         });
-
 
         // =========================
         // 🔊 VOLUME
