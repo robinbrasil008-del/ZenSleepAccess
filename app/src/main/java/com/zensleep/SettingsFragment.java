@@ -98,12 +98,16 @@ public class SettingsFragment extends Fragment {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent); // Mantém o fundo de vidro transparente
             dialog.getWindow().setLayout(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 
-            // Puxa os botões do nosso layout customizado
+                        // Puxa os botões do nosso layout customizado
             android.widget.TimePicker timePicker = dialog.findViewById(R.id.customTimePicker);
             TextView btnCancel = dialog.findViewById(R.id.btnCancelTime);
             TextView btnSave = dialog.findViewById(R.id.btnSaveTime);
 
-            timePicker.setIs24HourView(true);
+            // 1. MUDE PARA FALSE PARA ATIVAR O FORMATO AM/PM
+            timePicker.setIs24HourView(false);
+            
+            // 2. ADICIONE ESTA LINHA PARA DEIXAR A SOMBRA DO FUNDO MAIS CLARA (Padrão é 0.6f)
+            dialog.getWindow().setDimAmount(0.3f); 
             
             // Define a hora que estava salva na roleta
             if (android.os.Build.VERSION.SDK_INT >= 23) {
