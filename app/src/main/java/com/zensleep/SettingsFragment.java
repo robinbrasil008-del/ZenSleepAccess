@@ -87,27 +87,67 @@ public class SettingsFragment extends Fragment {
         // 🌙 LEMBRETE DE DORMIR
         // =========================
         
+                // Abre a nossa caixa personalizada ao clicar no Card
         cardSleepReminder.setOnClickListener(v -> {
             int currentHour = prefs.getInt(KEY_HOUR, 22);
             int currentMinute = prefs.getInt(KEY_MINUTE, 0);
 
-            android.app.TimePickerDialog timePicker = new android.app.TimePickerDialog(requireContext(),
-                (viewPicker, hourOfDay, minuteOfHour) -> {
-                    prefs.edit()
-                        .putInt(KEY_HOUR, hourOfDay)
-                        .putInt(KEY_MINUTE, minuteOfHour)
-                        .apply();
-                    
-                    if (!switchSleepReminder.isChecked()) {
-                        // Se tava desligado, liga a chave (ela já vai chamar o agendamento no Listener abaixo)
-                        switchSleepReminder.setChecked(true);
-                    } else {
-                        // Se já estava ligado, atualiza o texto e reagenda para o novo horário
-                        txtReminderTime.setText(String.format(java.util.Locale.getDefault(), "Notificar às %02d:%02d", hourOfDay, minuteOfHour));
-                        agendarLembrete(hourOfDay, minuteOfHour); 
-                    }
-                }, currentHour, currentMinute, true);
-            timePicker.show();
+            // Monta a caixa flutuante (Dialog)
+            android.app.Dialog dialog = new android.app.Dialog(requireContext());
+            dialog.setContentView(R.layout.dialog_time_picker);
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent); // Mantém o fundo de vidro transparente
+            dialog.getWindow().setLayout(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            // Puxa os botões do nosso layout customizado
+            android.widget.TimePicker timePicker = dialog.findViewById(R.id.customTimePicker);
+            TextView btnCancel = dialog.findViewById(R.id.btnCancelTime);
+            TextView btnSave = dialog.findViewById(R.id.btnSaveTime);
+
+            timePicker.setIs24HourView(true);
+            
+            // Define a hora que estava salva na roleta
+            if (android.os.Build.VERSION.SDK_INT >= 23) {
+                timePicker.setHour(currentHour);
+                timePicker.setMinute(currentMinute);
+            } else {
+                timePicker.setCurrentHour(currentHour);
+                timePicker.setCurrentMinute(currentMinute);
+            }
+
+            // Ação do Cancelar
+            btnCancel.setOnClickListener(viewDialog -> dialog.dismiss());
+
+            // Ação do Salvar
+            btnSave.setOnClickListener(viewDialog -> {
+                int hourOfDay, minuteOfHour;
+                if (android.os.Build.VERSION.SDK_INT >= 23) {
+                    hourOfDay = timePicker.getHour();
+                    minuteOfHour = timePicker.getMinute();
+                } else {
+                    hourOfDay = timePicker.getCurrentHour();
+                    minuteOfHour = timePicker.getCurrentMinute();
+                }
+
+                // Salva a nova hora na memória
+                prefs.edit()
+                    .putInt(KEY_HOUR, hourOfDay)
+                    .putInt(KEY_MINUTE, minuteOfHour)
+                    .apply();
+                
+                if (!switchSleepReminder.isChecked()) {
+                    // Liga a chavinha automaticamente
+                    switchSleepReminder.setChecked(true);
+                } else {
+                    // Atualiza a tela e o alarme
+                    txtReminderTime.setText(String.format(java.util.Locale.getDefault(), "Notificar às %02d:%02d", hourOfDay, minuteOfHour));
+                    agendarLembrete(hourOfDay, minuteOfHour); 
+                }
+                
+                dialog.dismiss(); // Fecha a caixa
+            });
+
+            // Mostra o nosso layout na tela!
+            dialog.show();
         });
 
                 // Controla a ativação/desativação pela chave
